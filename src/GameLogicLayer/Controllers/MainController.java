@@ -1,7 +1,11 @@
-package TanksMain;
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package GameLogicLayer.Controllers;
 
-import TanksGameMap.ITankMap;
-import TanksGameMap.TanksDefaultMap;
+import GameViewLayer.Maps.ITankMap;
+import GameViewLayer.Maps.TanksDefaultMap;
 import com.jme3.app.SimpleApplication;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
@@ -9,17 +13,13 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Node;
 
 /**
- * test
- * @author normenhansen
+ *
+ * @author Daniel
  */
-public class Tanks extends SimpleApplication {
+public class MainController extends SimpleApplication {
     // Map related fields
     private Node mapNode = new Node("Map");
     private ITankMap map;
-
-    public static void main(String[] args) {
-        new Tanks().start();
-    }
 
     @Override
     public void simpleInitApp() {
@@ -50,3 +50,4 @@ public class Tanks extends SimpleApplication {
         rootNode.attachChild(mapNode);
     }
 }
+

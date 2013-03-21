@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package TanksDynamic;
+package GameLogicLayer.AppStates;
 
 /**
  *
  * @author Daniel
  */
-public class Tank {
+public class GameAppState {
     
 }
