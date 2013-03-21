@@ -5,7 +5,7 @@
 package GameLogicLayer.Vehicle;
 
 import GameLogicLayer.Vehicle.AVehicle;
-import GameViewLayer.Vehicle.ITankSpatial;
+import GameViewLayer.Vehicle.IVehicleSpatial;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -45,7 +45,7 @@ public class Tank extends AVehicle {
     
     
     
-    public Tank(InputManager inputManager, ITankSpatial tank, PhysicsSpace physicsSpace) {
+    public Tank(InputManager inputManager, IVehicleSpatial tank, PhysicsSpace physicsSpace) {
         super(inputManager);
         
         this.physicsSpace = physicsSpace;
@@ -77,19 +77,17 @@ public class Tank extends AVehicle {
         float yOff = 0.5f;
         float xOff = 1f;
         float zOff = 2f;
-
-        Cylinder wheelMesh = new Cylinder(16, 16, radius, radius * 0.6f, true);
         
-        vehicle.addWheel(tank.getLeftFrontWheel(), new Vector3f(-xOff, yOff, zOff),
+        vehicle.addWheel(null, new Vector3f(-xOff, yOff, zOff),
                 wheelDirection, wheelAxle, restLength, radius, true);
 
-        vehicle.addWheel(tank.getRightFrontWheel(), new Vector3f(xOff, yOff, zOff),
+        vehicle.addWheel(null, new Vector3f(xOff, yOff, zOff),
                 wheelDirection, wheelAxle, restLength, radius, true);
 
-        vehicle.addWheel(tank.getLeftBackWheel(), new Vector3f(-xOff, yOff, -zOff),
+        vehicle.addWheel(null, new Vector3f(-xOff, yOff, -zOff),
                 wheelDirection, wheelAxle, restLength, radius, false);
 
-        vehicle.addWheel(tank.getRightBackWheel(), new Vector3f(xOff, yOff, -zOff),
+        vehicle.addWheel(null, new Vector3f(xOff, yOff, -zOff),
                 wheelDirection, wheelAxle, restLength, radius, false);
 
 

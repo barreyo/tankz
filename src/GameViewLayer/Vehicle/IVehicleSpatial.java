@@ -11,12 +11,8 @@ import com.jme3.scene.Spatial;
  *
  * @author Daniel
  */
-public interface ITankSpatial {
+public interface IVehicleSpatial {
  
     Spatial getSpatial();
     Node getVehicleNode();
-    Node getRightFrontWheel();
-    Node getLeftFrontWheel();
-    Node getRightBackWheel();
-    Node getLeftBackWheel();
 }

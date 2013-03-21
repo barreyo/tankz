@@ -9,8 +9,8 @@ import GameLogicLayer.Vehicle.Tank;
 import GameViewLayer.Maps.ITankMap;
 import GameViewLayer.Maps.PhysicsTestHelper;
 import GameViewLayer.Maps.TanksDefaultMap;
-import GameViewLayer.Vehicle.DefaultTankView;
-import GameViewLayer.Vehicle.ITankSpatial;
+import GameViewLayer.Vehicle.DefaultTankSpatial;
+import GameViewLayer.Vehicle.IVehicleSpatial;
 import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
@@ -40,7 +40,7 @@ public class MainController extends SimpleApplication {
         PhysicsSpace physicsSpace = bulletAppState.getPhysicsSpace();
         PhysicsTestHelper.createPhysicsTestWorld(rootNode, assetManager, physicsSpace);
         
-        ITankSpatial tankView = new DefaultTankView(assetManager);
+        IVehicleSpatial tankView = new DefaultTankSpatial(assetManager);
         AVehicle vehicleController = new Tank(inputManager, tankView, physicsSpace);
         vehicleController.setAccelerationForce(4000.0f);
         vehicleController.setBrakeForce(100.0f);
