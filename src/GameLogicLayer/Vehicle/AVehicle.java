@@ -33,7 +33,7 @@ public abstract class AVehicle {
     
     
     protected enum VehicleState {
-        
+        MOVING, IDLE, DESTROYED;
         
     }
 }
