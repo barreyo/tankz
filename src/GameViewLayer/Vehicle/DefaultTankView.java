@@ -9,5 +9,5 @@ package GameViewLayer.Vehicle;
  * @author Daniel
  */
 public class DefaultTankView {
-    
+    ;
 }

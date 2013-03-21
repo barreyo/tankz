@@ -9,5 +9,5 @@ package GameLogicLayer.AppStates;
  * @author Daniel
  */
 public class GameAppState {
-    
+    ;
 }

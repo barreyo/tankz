@@ -9,5 +9,5 @@ package GameLogicLayer.Controllers;
  * @author Daniel
  */
 public class Player {
-    
+    ;
 }

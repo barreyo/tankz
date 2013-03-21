@@ -11,7 +11,7 @@ import com.jme3.math.Vector3f;
  * @author Daniel
  */
 public abstract class AVehicle {
-    
+    ;
     protected abstract int getHealth();
     protected abstract Vector3f getDirection();
     protected abstract Vector3f getPosition();

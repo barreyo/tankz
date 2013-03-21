@@ -12,7 +12,7 @@ import com.jme3.math.Vector3f;
  * @author Daniel
  */
 public class Tank extends AVehicle {
-
+    ;
     @Override
     protected int getHealth() {
         throw new UnsupportedOperationException("Not supported yet.");

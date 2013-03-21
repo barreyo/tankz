@@ -20,7 +20,7 @@ public class MainController extends SimpleApplication {
     // Map related fields
     private Node mapNode = new Node("Map");
     private ITankMap map;
-
+    ;
     @Override
     public void simpleInitApp() {
         // set temp speed of fly cam

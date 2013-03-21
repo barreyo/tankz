@@ -15,7 +15,7 @@ import com.jme3.scene.shape.Box;
 import com.jme3.terrain.geomipmap.TerrainQuad;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
-
+;
 /**
  *
  * @author Daniel
