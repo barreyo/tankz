@@ -1,7 +1,7 @@
 
 package GameLogicLayer.Controllers;
 
-import GameLogicLayer.Vehicle.AVehicle;
+import GameLogicLayer.Vehicle.AVehicleController;
 
 /**
  * A logical representation of a player.
@@ -11,7 +11,7 @@ import GameLogicLayer.Vehicle.AVehicle;
  */
 public class Player {
     private String name;
-    private AVehicle vehicle;
+    private AVehicleController vehicle;
     private int kills, deaths;
     
     /**
@@ -20,7 +20,7 @@ public class Player {
      * @param name sets the name of the player.
      * @param vehicle sets the vehicle of the player.
      */
-    public Player(String name, AVehicle vehicle) {
+    public Player(String name, AVehicleController vehicle) {
         this.name = name;
         this.vehicle = vehicle;
     }
@@ -39,7 +39,7 @@ public class Player {
      * 
      * @return vehicle.
      */
-    public AVehicle getVehicle() {
+    public AVehicleController getVehicle() {
         return vehicle;
     }
 

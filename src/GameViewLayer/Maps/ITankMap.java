@@ -9,5 +9,8 @@ package GameViewLayer.Maps;
  * @author Daniel
  */
 public interface ITankMap {
+    /**
+     *  
+     */
     void initMap();
 }

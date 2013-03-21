@@ -1,18 +1,20 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
 import GameLogicLayer.Controllers.MainController;
 
 /**
+ * Main class.
  *
  * @author Daniel
  */
 public class Main {
+    /**
+     * Main method.
+     * 
+     * @param args not used
+     */
     public static void main(String[] args) {
+        // Create app and start it
         new MainController().start();
     }
-    ;
 }

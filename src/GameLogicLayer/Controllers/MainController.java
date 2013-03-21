@@ -4,8 +4,8 @@
  */
 package GameLogicLayer.Controllers;
 
-import GameLogicLayer.Vehicle.AVehicle;
-import GameLogicLayer.Vehicle.Tank;
+import GameLogicLayer.Vehicle.AVehicleController;
+import GameLogicLayer.Vehicle.TankController;
 import GameViewLayer.Maps.ITankMap;
 import GameViewLayer.Maps.PhysicsTestHelper;
 import GameViewLayer.Maps.TanksDefaultMap;
@@ -22,16 +22,19 @@ import com.jme3.scene.Node;
 import com.jme3.scene.control.CameraControl;
 
 /**
+ * The main controller of the game Tanks.
  *
- * @author Daniel
+ * @author Daniel, Per, Johan, Albin
  */
 public class MainController extends SimpleApplication {
-    // Map related fields
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
     private ITankMap map;
     private BulletAppState bulletAppState;
     
+    /**
+     *  
+     */
     @Override
     public void simpleInitApp() {
         bulletAppState = new BulletAppState();
@@ -41,7 +44,7 @@ public class MainController extends SimpleApplication {
         PhysicsTestHelper.createPhysicsTestWorld(rootNode, assetManager, physicsSpace);
         
         IVehicleSpatial tankView = new DefaultTankSpatial(assetManager);
-        AVehicle vehicleController = new Tank(inputManager, tankView, physicsSpace);
+        AVehicleController vehicleController = new TankController(inputManager, tankView, physicsSpace);
         vehicleController.setAccelerationForce(4000.0f);
         vehicleController.setBrakeForce(100.0f);
         //buildPlayer();
@@ -68,11 +71,19 @@ public class MainController extends SimpleApplication {
         camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);
     }
 
+    /**
+     *
+     * @param tpf
+     */
     @Override
     public void simpleUpdate(float tpf) {
         //TODO: add update code
     }
 
+    /**
+     *
+     * @param rm
+     */
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code

@@ -12,9 +12,7 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
-import com.jme3.terrain.geomipmap.TerrainQuad;
-import com.jme3.texture.Texture;
-import com.jme3.texture.Texture.WrapMode;
+
 ;
 /**
  *
@@ -24,11 +22,19 @@ public class TanksDefaultMap implements ITankMap {
     private AssetManager assetManager;
     private Node mapNode;
     
+    /**
+     *
+     * @param manager
+     * @param map
+     */
     public TanksDefaultMap(AssetManager manager, Node map) {
         assetManager = manager;
         mapNode = map;
     }
     
+    /**
+     *
+     */
     @Override
     public void initMap() {
         mapNode.attachChild(makeFloor());

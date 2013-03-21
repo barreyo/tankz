@@ -69,7 +69,10 @@ public class PhysicsTestHelper {
      * @param assetManager
      * @param space
      */ /**Pick a Target Using Fixed Crosshairs.<ol><li>Map the "pick target" action to a MouseButtonTrigger. <li>flyCam.setEnabled(true); <li>inputManager.setCursorVisible(false); <li>Implement click action in AnalogListener (TODO).</ol>
- */
+      * @param rootNode 
+      * @param assetManager 
+      * @param space 
+      */
 
 
     public static void createPhysicsTestWorld(Node rootNode, AssetManager assetManager, PhysicsSpace space) {
@@ -114,6 +117,12 @@ public class PhysicsTestHelper {
 
     }
 
+    /**
+     *
+     * @param rootNode
+     * @param assetManager
+     * @param space
+     */
     public static void createPhysicsTestWorldSoccer(Node rootNode, AssetManager assetManager, PhysicsSpace space) {
         AmbientLight light = new AmbientLight();
         light.setColor(ColorRGBA.LightGray);
