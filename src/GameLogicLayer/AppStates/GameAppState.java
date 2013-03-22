@@ -4,10 +4,12 @@
  */
 package GameLogicLayer.AppStates;
 
+import com.jme3.app.state.AbstractAppState;
+
 /**
  *
  * @author Daniel
  */
-public class GameAppState {
-    ;
+public class GameAppState extends AbstractAppState {
+    
 }
