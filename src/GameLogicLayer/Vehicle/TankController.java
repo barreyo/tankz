@@ -18,7 +18,7 @@ import com.jme3.scene.Node;
  * @author Daniel
  */
 public class TankController extends AVehicleController {
-    //
+    
     private int health;
     
     private Vector3f direction;
@@ -94,6 +94,11 @@ public class TankController extends AVehicleController {
         getPhysicsSpace().add(vehicle);
     }
     
+    /**
+     * Returns physicsSpace.
+     * 
+     * @return physicsSpace.
+     */
     private PhysicsSpace getPhysicsSpace(){
         return physicsSpace;
     }
@@ -225,7 +230,15 @@ public class TankController extends AVehicleController {
     public void setAccelerationValue(float value) {
         this.accelerationValue = value;
     }
-
+    
+    /**
+     * Defines what should happen when a button is pressed.
+     * Allows for multiple-input.
+     * 
+     * @param name The name of the action.
+     * @param isPressed Boolean representing if the button is pressed already.
+     * @param tpf Times per frame, how "fast" the program is running.
+     */
     public void onAction(String name, boolean isPressed, float tpf) {
         if (name.equals("Lefts")) {
             if (isPressed) {
