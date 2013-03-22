@@ -1,11 +1,11 @@
 
 package GameViewLayer.Projectile;
 
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;
 
 /**
- * 
+ * A visual representation of a projectile with a collisonshape
  *
  * @author Daniel
  */
@@ -17,6 +17,11 @@ public interface IProjectileSpatial {
      */
     Spatial getProjectileSpatial();
     
-    SphereCollisionShape getProjectileCollisionShape();
+    /**
+     * Getter for the Collision shape of the projectile.
+     *
+     * @return The Collision shape of the projectile
+     */
+    CollisionShape getProjectileCollisionShape();
     
 }

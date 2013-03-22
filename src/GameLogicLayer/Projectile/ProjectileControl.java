@@ -39,17 +39,32 @@ public class ProjectileControl extends RigidBodyControl implements PhysicsCollis
     private float curTime = -1.0f;
     private float timer;
 
+    /**
+     *
+     * @param shape
+     * @param mass
+     */
     public ProjectileControl(CollisionShape shape, float mass) {
         super(shape, mass);
         createGhostObject();
     }
 
+    /**
+     *
+     * @param manager
+     * @param shape
+     * @param mass
+     */
     public ProjectileControl(AssetManager manager, CollisionShape shape, float mass) {
         super(shape, mass);
         createGhostObject();
         prepareEffect(manager);
     }
 
+    /**
+     *
+     * @param space
+     */
     public void setPhysicsSpace(PhysicsSpace space) {
         super.setPhysicsSpace(space);
         if (space != null) {
@@ -80,10 +95,17 @@ public class ProjectileControl extends RigidBodyControl implements PhysicsCollis
         effect.setMaterial(mat);
     }
 
+    /**
+     *
+     */
     protected void createGhostObject() {
         ghostObject = new PhysicsGhostObject(new SphereCollisionShape(explosionRadius));
     }
 
+    /**
+     *
+     * @param event
+     */
     public void collision(PhysicsCollisionEvent event) {
         if (space == null) {
             return;
@@ -103,10 +125,20 @@ public class ProjectileControl extends RigidBodyControl implements PhysicsCollis
         }
     }
    
+    /**
+     *
+     * @param space
+     * @param f
+     */
     public void prePhysicsTick(PhysicsSpace space, float f) {
         space.removeCollisionListener(this);
     }
 
+    /**
+     *
+     * @param space
+     * @param f
+     */
     public void physicsTick(PhysicsSpace space, float f) {
         //get all overlapping objects and apply impulse to them
         for (Iterator<PhysicsCollisionObject> it = ghostObject.getOverlappingObjects().iterator(); it.hasNext();) {            
@@ -164,20 +196,38 @@ public class ProjectileControl extends RigidBodyControl implements PhysicsCollis
         createGhostObject();
     }
 
+    /**
+     *
+     * @return
+     */
     public float getForceFactor() {
         return forceFactor;
     }
 
+    /**
+     *
+     * @param forceFactor
+     */
     public void setForceFactor(float forceFactor) {
         this.forceFactor = forceFactor;
     }
    
    
+    /**
+     *
+     * @param im
+     * @throws IOException
+     */
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Reading not supported.");
     }
 
+    /**
+     *
+     * @param ex
+     * @throws IOException
+     */
     @Override
     public void write(JmeExporter ex) throws IOException {
         throw new UnsupportedOperationException("Saving not supported.");

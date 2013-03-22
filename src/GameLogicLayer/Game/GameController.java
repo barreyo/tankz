@@ -138,6 +138,10 @@ public class GameController extends SimpleApplication {
         rootNode.attachChild(mapNode);
     }
     
+    /**
+     *
+     * @return
+     */
     public PhysicsSpace getPhysicsSpace() {
         return physics;
     }

@@ -1,27 +1,39 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameModelLayer.Weapon;
 
 import GameModelLayer.Projectile.IProjectileModel;
 
 /**
- *
+ * A model of a Tank Gun.
+ * 
  * @author Daniel
  */
-public class GunModel implements IProjectileWeaponModel{
+public class TankGunModel implements IProjectileWeaponModel{
     private IProjectileModel projectile;
 
-    public GunModel(IProjectileModel model) {
-        setProjectileModel(model);
+    /**
+     *
+     * @param model
+     */
+    public TankGunModel(IProjectileModel model) {
+        if (model == null) {
+            throw new NullPointerException("Model should not be null");
+        }
+        projectile = model;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public IProjectileModel getProjectileModel() {
         return projectile;
     }
 
+    /**
+     *
+     * @param model
+     */
     @Override
     public void setProjectileModel(IProjectileModel model) {
         if (model == null) {

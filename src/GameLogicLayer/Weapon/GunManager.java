@@ -20,7 +20,7 @@ import com.jme3.scene.Spatial;
  *
  * @author Daniel
  */
-public class GunController extends AWeaponController {
+public class GunManager extends AWeaponManager {
 
     private IWeaponSpatial weaponSpatial;
     private IWeaponModel weaponModel;
@@ -32,7 +32,15 @@ public class GunController extends AWeaponController {
     private Node rootNode;
     
 
-    public GunController(IWeaponSpatial weaponSpatial, IWeaponModel weaponModel,
+    /**
+     *
+     * @param weaponSpatial
+     * @param weaponModel
+     * @param projectileSpatial
+     * @param projectileModel
+     * @param app
+     */
+    public GunManager(IWeaponSpatial weaponSpatial, IWeaponModel weaponModel,
             IProjectileSpatial projectileSpatial, IProjectileModel projectileModel,
             GameController app) {
         super(app.getInputManager());

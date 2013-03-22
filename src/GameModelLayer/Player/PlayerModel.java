@@ -5,7 +5,7 @@ import GameLogicLayer.Vehicle.AVehicleController;
 import GameModelLayer.Vehicle.IVehicleModel;
 
 /**
- * A logical representation of a player.
+ * A representation of a player.
  * 
  * @author Albin
  * @author Daniel

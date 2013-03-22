@@ -31,11 +31,6 @@ public class TankModel implements IVehicleModel {
     public int getHealth() {
         return health;
     }
-
-     /*
-     * @inheritdoc
-     */
-    
     
      /*
      * @inheritdoc
@@ -128,6 +123,10 @@ public class TankModel implements IVehicleModel {
     /*
      * @inheritdoc
      */
+    /**
+     *
+     * @param force
+     */
     @Override
     public void incrementAccelerationValue(float force) {
         this.accelerationValue += force;
@@ -135,6 +134,10 @@ public class TankModel implements IVehicleModel {
 
     /*
      * @inheritdoc
+     */
+    /**
+     *
+     * @param force
      */
     @Override
     public void decrementAccelerationValue(float force) {
@@ -144,6 +147,10 @@ public class TankModel implements IVehicleModel {
     /*
      * @inheritdoc
      */
+    /**
+     *
+     * @param value
+     */
     @Override
     public void incrementSteeringValue(float value) {
         this.steeringValue += value;
@@ -152,20 +159,36 @@ public class TankModel implements IVehicleModel {
     /*
      * @inheritdoc
      */
+    /**
+     *
+     * @param value
+     */
     @Override
     public void decrementSteeringValue(float value) {
         this.steeringValue -= value;
     }
 
+    /*
+     * @inheritdoc
+     */
+    /**
+     *
+     * @param model
+     */
     @Override
     public void setWeaponModel(IWeaponModel model) {
         weaponModel = model;
     }
     
+    /*
+     * @inheritdoc
+     */
+    /**
+     *
+     * @return
+     */
     @Override
     public IWeaponModel getWeaponModel() {
         return weaponModel;
-    }
-    
-    
+    } 
 }

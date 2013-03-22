@@ -25,7 +25,8 @@ public class TankSpatial implements IVehicleSpatial{
     /**
      * Create a default tank spatial.
      *
-     * @param assetManager AssetManager used for loading assets
+     * @param tank 
+     * @param scale 
      */
     public TankSpatial(Spatial tank, float scale) {
         this.tank = tank;
@@ -49,6 +50,9 @@ public class TankSpatial implements IVehicleSpatial{
         return tank;
     }
 
+    /*
+     * @inheritdoc
+     */
     @Override
     public synchronized Vector3f getDirection() {
         return direction;
@@ -77,6 +81,4 @@ public class TankSpatial implements IVehicleSpatial{
     public synchronized void setPosition(Vector3f position) {
         this.position = position;
     }
-    
-    
 }

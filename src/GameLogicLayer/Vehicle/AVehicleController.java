@@ -45,5 +45,9 @@ public abstract class AVehicleController implements ActionListener {
         inputManager.addListener(this, "Reset");
     }
 
+    /**
+     *
+     * @param tpf
+     */
     public abstract void simpleUpdate(float tpf);
 }

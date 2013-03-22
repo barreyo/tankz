@@ -6,7 +6,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 /**
- * Interface describing a vehical spatial with a node connection
+ * Interface describing a vehical spatial with a node connection.
  *
  * @author Daniel, Per, Johan, Albin
  */
@@ -32,22 +32,23 @@ public interface IVehicleSpatial {
     Vector3f getDirection();
     
     /**
-     * Gets the position of the vehicle in the 3d room..
+     * Gets the position of the vehicle in the 3d room.
      * 
      * @return The position of the vehicle
      */
     Vector3f getPosition();
     
     /**
-     * 
+     * Sets the direction of the vehicle in the 3d room.
      *
-     * @param direction 
+     * @param direction The direction of the vehicle in the 3d room
      */
     void setDirection(Vector3f direction);
     
     /**
-     *
-     * @param position
+     * Sets the position of the vehicle in the 3d room.
+     * 
+     * @param position The position of the vehicle in the 3d room
      */
     void setPosition(Vector3f position);
 }

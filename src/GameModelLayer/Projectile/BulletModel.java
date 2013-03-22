@@ -1,28 +1,38 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameModelLayer.Projectile;
 
-import com.jme3.asset.AssetManager;
-import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
-import com.jme3.scene.shape.Sphere;
-
 /**
- *
+ * Models a basic projectile that can damage at impact.
+ * 
  * @author Daniel
  */
 public class BulletModel implements IProjectileModel {
     private int damage;
+    private float mass;
     
-    public BulletModel(int damage) {
+    /**
+     *
+     * @param damage
+     * @param mass
+     */
+    public BulletModel(int damage, float mass) {
         this.damage = damage;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getDamageOnImpact() {
         return damage;
     }
+
+    /**
+     *
+     * @return
+     */
+    public float getMass() {
+        return mass;
+    }
+    
+    
 }

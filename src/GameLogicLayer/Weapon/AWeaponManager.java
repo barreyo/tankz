@@ -10,10 +10,10 @@ import com.jme3.input.controls.KeyTrigger;
  *
  * @author Daniel
  */
-public abstract class AWeaponController implements ActionListener {
+public abstract class AWeaponManager implements ActionListener {
     private InputManager inputManager;
   
-    AWeaponController(InputManager inputManager) {
+    AWeaponManager(InputManager inputManager) {
         this.inputManager = inputManager;
         setupKeys();
     }

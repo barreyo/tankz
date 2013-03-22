@@ -9,6 +9,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 /**
+ * A visual representation of a weapon.
  *
  * @author Daniel
  */
@@ -18,7 +19,8 @@ public class GunSpatial implements IWeaponSpatial {
     /**
      * Create a default tank spatial.
      *
-     * @param assetManager AssetManager used for loading assets
+     * @param gun
+     * @param scale  
      */
     public GunSpatial(Spatial gun, float scale) {
         this.gun = gun;

@@ -97,16 +97,40 @@ public interface IVehicleModel {
      */
     void setAccelerationValue(float value);
     
+    /**
+     *
+     * @param force
+     */
     void incrementAccelerationValue(float force);
+    /**
+     *
+     * @param force
+     */
     void decrementAccelerationValue(float force);
+    /**
+     *
+     * @param value
+     */
     void incrementSteeringValue(float value);
+    /**
+     *
+     * @param value
+     */
     void decrementSteeringValue(float value);
 
     /*
      * 
      */
+    /**
+     *
+     * @param model
+     */
     void setWeaponModel(IWeaponModel model);
     
+    /**
+     *
+     * @return
+     */
     IWeaponModel getWeaponModel();
     
     /**

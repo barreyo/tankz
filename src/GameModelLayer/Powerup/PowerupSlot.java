@@ -6,19 +6,19 @@ package GameModelLayer.Powerup;
  * @author Daniel
  */
 public class PowerupSlot {
-    private IPowerupModel powerup;
+    private EPowerup powerup;
 
     /**
      * @return The powerup contained in this slot.
      */
-    public synchronized IPowerupModel getPowerup() {
+    public synchronized EPowerup getPowerup() {
         return powerup;
     }
 
     /**
      * @param powerup The powerup to set in this slot.
      */
-    public synchronized void setPowerup(IPowerupModel powerup) {
+    public synchronized void setPowerup(EPowerup powerup) {
         this.powerup = powerup;
     }
 }
