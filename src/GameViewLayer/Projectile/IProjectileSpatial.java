@@ -1,12 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameViewLayer.Projectile;
 
+import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.scene.Spatial;
 
 /**
+ * 
  *
  * @author Daniel
  */
@@ -17,4 +16,7 @@ public interface IProjectileSpatial {
      * @return Spatial of the projectile
      */
     Spatial getProjectileSpatial();
+    
+    SphereCollisionShape getProjectileCollisionShape();
+    
 }

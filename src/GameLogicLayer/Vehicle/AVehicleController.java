@@ -44,4 +44,6 @@ public abstract class AVehicleController implements ActionListener {
         //inputManager.addListener(this, "Space");
         inputManager.addListener(this, "Reset");
     }
+
+    public abstract void simpleUpdate(float tpf);
 }

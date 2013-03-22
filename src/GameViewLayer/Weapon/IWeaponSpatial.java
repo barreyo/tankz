@@ -1,13 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameViewLayer.Weapon;
 
+import com.jme3.math.Vector3f;
+import com.jme3.scene.Spatial;
+
 /**
+ * Spatial representation of a weapon.
  *
  * @author Daniel
  */
 public interface IWeaponSpatial {
-    
+    Spatial getWeaponSpatial();  
 }

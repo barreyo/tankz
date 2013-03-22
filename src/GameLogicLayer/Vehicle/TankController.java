@@ -1,17 +1,41 @@
 package GameLogicLayer.Vehicle;
 
+import GameLogicLayer.Game.GameController;
+import GameLogicLayer.Projectile.BulletControl;
+import GameLogicLayer.Weapon.AWeaponController;
+import GameLogicLayer.Weapon.GunController;
+import GameModelLayer.Projectile.BulletModel;
+import GameModelLayer.Projectile.IProjectileModel;
 import GameModelLayer.Vehicle.IVehicleModel;
+import GameModelLayer.Weapon.GunModel;
+import GameModelLayer.Weapon.IProjectileWeaponModel;
+import GameModelLayer.Weapon.IWeaponModel;
+import GameViewLayer.Projectile.BulletSpatial;
+import GameViewLayer.Projectile.IProjectileSpatial;
 import GameViewLayer.Vehicle.IVehicleSpatial;
+import GameViewLayer.Weapon.GunSpatial;
+import GameViewLayer.Weapon.IWeaponSpatial;
+import com.jme3.app.Application;
+import com.jme3.app.SimpleApplication;
+import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
+import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
+import com.jme3.material.Material;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import com.jme3.scene.shape.Box;
+import com.jme3.scene.shape.Sphere;
 
 /**
  *
@@ -20,8 +44,14 @@ import com.jme3.scene.Node;
  */
 public class TankController extends AVehicleController {
     private IVehicleModel vehicleModel;
+    private IVehicleSpatial vehicleSpatial;
     private VehicleControl vehicle;
-    private PhysicsSpace physicsSpace;
+    
+    private GameController app;
+    
+    private Node vehicleNode;
+    
+    
 
     /**
      * Creates a tank controller, connected to specified vehicle.
@@ -30,11 +60,14 @@ public class TankController extends AVehicleController {
      * @param tank The vehicle spatial representing the tank
      * @param physicsSpace The physicsSpace of the 3d room
      */
-    public TankController(IVehicleModel vehicleModel, IVehicleSpatial tank, InputManager inputManager, PhysicsSpace physicsSpace) {
-        super(inputManager);
+    public TankController(IVehicleModel vehicleModel, IVehicleSpatial tank, 
+                          GameController app) {
+        super(app.getInputManager());
+        
+        this.app = app;
 
         this.vehicleModel = vehicleModel;
-        this.physicsSpace = physicsSpace;
+        this.vehicleSpatial = tank;
 
         //create a compound shape and attach the BoxCollisionShape for the car body at 0,1,0
         //this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0
@@ -43,7 +76,7 @@ public class TankController extends AVehicleController {
         compoundShape.addChildShape(box, new Vector3f(0, 1, 0));
 
         // Create the actual vehicle control
-        Node vehicleNode = tank.getVehicleNode();
+        vehicleNode = tank.getVehicleNode();
         vehicle = new VehicleControl(compoundShape, 400);
         vehicleNode.addControl(vehicle);
         vehicleNode.setShadowMode(RenderQueue.ShadowMode.Cast);
@@ -76,18 +109,28 @@ public class TankController extends AVehicleController {
 
         vehicle.addWheel(null, new Vector3f(xOff, yOff, -zOff),
                 wheelDirection, wheelAxle, restLength, radius, false);
-
-
-        getPhysicsSpace().add(vehicle);
+        
+        // Add vehicle to phsyicsspace
+        PhysicsSpace.getPhysicsSpace().add(vehicle);
+        
+        createWeapon();
     }
-
-    /**
-     * Returns physicsSpace.
-     *
-     * @return physicsSpace.
-     */
-    private PhysicsSpace getPhysicsSpace() {
-        return physicsSpace;
+    
+    private void createWeapon() {
+        // 
+        IProjectileModel bulletModel = new BulletModel(10);
+        IProjectileSpatial bulletSpatial = new BulletSpatial(app.getAssetManager());
+        
+        IProjectileWeaponModel weaponModel = new GunModel(bulletModel);
+        
+        Spatial spat = new Geometry("Box", new Box(0,0,0));
+        spat.setMaterial(new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md"));
+        IWeaponSpatial weaponSpatial = new GunSpatial(spat, 1f);
+        
+        vehicleModel.setWeaponModel(weaponModel);
+        vehicleNode.attachChild(weaponSpatial.getWeaponSpatial());
+        AWeaponController weaponController = new GunController(weaponSpatial, weaponModel,
+            bulletSpatial, bulletModel, app);
     }
 
     /**
@@ -129,11 +172,7 @@ public class TankController extends AVehicleController {
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
             vehicle.accelerate(vehicleModel.getAccelerationValue());
-        } /*else if (name.equals("Space")) {
-         if (isPressed) {
-         vehicle.applyImpulse(jumpForce, Vector3f.ZERO);
-         }
-         }*/ else if (name.equals("Reset")) {
+        } else if (name.equals("Reset")) {
             if (isPressed) {
                 System.out.println("Reset");
                 vehicle.setPhysicsLocation(Vector3f.ZERO);
@@ -143,5 +182,11 @@ public class TankController extends AVehicleController {
                 vehicle.resetSuspension();
             }
         }
+    }
+
+    @Override
+    public void simpleUpdate(float tpf) {
+        vehicleSpatial.setPosition(vehicle.getPhysicsLocation());
+        vehicleSpatial.setDirection(vehicle.getForwardVector(Vector3f.ZERO));
     }
 }

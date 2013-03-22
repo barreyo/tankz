@@ -4,6 +4,7 @@
  */
 package GameModelLayer.Vehicle;
 
+import GameModelLayer.Weapon.IWeaponModel;
 import com.jme3.math.Vector3f;
 
 /**
@@ -15,16 +16,15 @@ public class TankModel implements IVehicleModel {
     private int health;
     private VehicleState vehicleState;
     
-    private Vector3f direction;
-    private Vector3f position;
-    
     private float accelerationForce;
     private float brakeForce;
     private float steeringValue;
     private float accelerationValue;
     
+    private IWeaponModel weaponModel;
 
-        /*
+
+    /*
      * @inheritdoc
      */
     @Override
@@ -35,19 +35,8 @@ public class TankModel implements IVehicleModel {
      /*
      * @inheritdoc
      */
-    @Override
-    public Vector3f getDirection() {
-        return direction;
-    }
-
-     /*
-     * @inheritdoc
-     */
-    @Override
-    public Vector3f getPosition() {
-        return position;
-    }
-
+    
+    
      /*
      * @inheritdoc
      */
@@ -94,22 +83,6 @@ public class TankModel implements IVehicleModel {
     @Override
     public void setHealth(int health) {
         this.health = health;
-    }
-
-     /*
-     * @inheritdoc
-     */
-    @Override
-    public void setDirection(Vector3f direction) {
-        this.direction = direction;
-    }
-
-     /*
-     * @inheritdoc
-     */
-    @Override
-    public void setPosition(Vector3f position) {
-        this.position = position;
     }
 
      /*
@@ -183,5 +156,16 @@ public class TankModel implements IVehicleModel {
     public void decrementSteeringValue(float value) {
         this.steeringValue -= value;
     }
+
+    @Override
+    public void setWeaponModel(IWeaponModel model) {
+        weaponModel = model;
+    }
+    
+    @Override
+    public IWeaponModel getWeaponModel() {
+        return weaponModel;
+    }
+    
     
 }

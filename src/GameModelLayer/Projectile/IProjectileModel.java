@@ -10,5 +10,4 @@ package GameModelLayer.Projectile;
  */
 public interface IProjectileModel {
     int getDamageOnImpact();
-    void setDamageOnImpact(int damage);
 }

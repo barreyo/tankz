@@ -33,14 +33,17 @@ public class GameController extends SimpleApplication {
     private CameraNode camNode;
     private ITankMap map;
     private BulletAppState bulletAppState;
+    private PhysicsSpace physics;
+    
+    private AVehicleController vehicleManager;
     
     /**
      *  Initiates the application.
      */
     @Override
     public void simpleInitApp() {
-        PhysicsSpace physics = this.createPhysics();
-        Node vehicleNode = this.createVehicle(physics);
+        physics = this.createPhysics();
+        Node vehicleNode = this.createVehicle();
         this.initLighting();
         this.initCam(vehicleNode);
     }
@@ -51,6 +54,7 @@ public class GameController extends SimpleApplication {
      */
     @Override
     public void simpleUpdate(float tpf) {
+       vehicleManager.simpleUpdate(tpf);
         //TODO: add update code
     }
 
@@ -81,6 +85,7 @@ public class GameController extends SimpleApplication {
         camNode.setLocalTranslation(new Vector3f(0, 2, -5));
         //Rotate the camNode to look at the target:
         camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);
+
     }
     
     /**
@@ -113,12 +118,12 @@ public class GameController extends SimpleApplication {
      * @param physicsSpace
      * @return vehicleNode.
      */
-    private Node createVehicle(PhysicsSpace physicsSpace) {
-        IVehicleSpatial tankView = new TankSpatial(assetManager, assetManager.loadModel("Models/tanken/tanken.j3o"), 3f);
+    private Node createVehicle() {
+        IVehicleSpatial tankView = new TankSpatial(assetManager.loadModel("Models/tanken/tanken.j3o"), 3f);
         IVehicleModel vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(4000.0f);
         vehicleModel.setBrakeForce(100.0f);
-        AVehicleController vehicleController = new TankController(vehicleModel, tankView, inputManager, physicsSpace);
+        vehicleManager = new TankController(vehicleModel, tankView, this);
         //buildPlayer();
         Node vehicleNode = tankView.getVehicleNode();
         rootNode.attachChild(vehicleNode);
@@ -131,6 +136,10 @@ public class GameController extends SimpleApplication {
     private void initMap() {
         map.initMap();
         rootNode.attachChild(mapNode);
+    }
+    
+    public PhysicsSpace getPhysicsSpace() {
+        return physics;
     }
 }
 

@@ -5,6 +5,7 @@
 package GameModelLayer.Vehicle;
 
 import GameLogicLayer.Vehicle.AVehicleController;
+import GameModelLayer.Weapon.IWeaponModel;
 import com.jme3.math.Vector3f;
 
 /**
@@ -18,20 +19,6 @@ public interface IVehicleModel {
      * @return The health of the vehicle
      */
     int getHealth();
-    
-    /**
-     * Gets the direction of the vehicle in the 3d room.
-     *
-     * @return The direction of the vehicle
-     */
-    Vector3f getDirection();
-    
-    /**
-     * Gets the position of the vehicle in the 3d room..
-     * 
-     * @return The position of the vehicle
-     */
-    Vector3f getPosition();
     
     /**
      * Gets the state of the vehicle.
@@ -76,19 +63,6 @@ public interface IVehicleModel {
     void setHealth(int health);
     
     /**
-     * 
-     *
-     * @param direction 
-     */
-    void setDirection(Vector3f direction);
-    
-    /**
-     *
-     * @param position
-     */
-    void setPosition(Vector3f position);
-    
-    /**
      * Sets the state of the vehicle.
      * 
      * @param state The state of the vehicle
@@ -127,6 +101,13 @@ public interface IVehicleModel {
     void decrementAccelerationValue(float force);
     void incrementSteeringValue(float value);
     void decrementSteeringValue(float value);
+
+    /*
+     * 
+     */
+    void setWeaponModel(IWeaponModel model);
+    
+    IWeaponModel getWeaponModel();
     
     /**
      * Enum representing different states of the vehicle.
