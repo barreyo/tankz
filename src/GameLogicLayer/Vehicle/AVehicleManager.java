@@ -35,13 +35,11 @@ public abstract class AVehicleManager implements ActionListener {
         inputManager.addMapping("Rights", new KeyTrigger(KeyInput.KEY_K));
         inputManager.addMapping("Ups", new KeyTrigger(KeyInput.KEY_U));
         inputManager.addMapping("Downs", new KeyTrigger(KeyInput.KEY_J));
-        //inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));
         inputManager.addMapping("Reset", new KeyTrigger(KeyInput.KEY_RETURN));
         inputManager.addListener(this, "Lefts");
         inputManager.addListener(this, "Rights");
         inputManager.addListener(this, "Ups");
         inputManager.addListener(this, "Downs");
-        //inputManager.addListener(this, "Space");
         inputManager.addListener(this, "Reset");
     }
 
