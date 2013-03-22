@@ -27,42 +27,49 @@ public abstract class AVehicleController implements ActionListener {
      * @return The health of the vehicle
      */
     public abstract int getHealth();
+    
     /**
      * Gets the direction of the vehicle in the 3d room.
      *
      * @return The direction of the vehicle
      */
     public abstract Vector3f getDirection();
+    
     /**
      * Gets the position of the vehicle in the 3d room..
      * 
      * @return The position of the vehicle
      */
     public abstract Vector3f getPosition();
+    
     /**
      * Gets the state of the vehicle.
      *
      * @return The state of the vehicle
      */
     public abstract VehicleState getVehicleState();
+    
     /**
      * Gets the accerlationforce use to accelerate the vehicle.
      *
      * @return The accelerationforce of the vehicle
      */
     public abstract float getAccelerationForce();
+    
     /**
      * Gets the brakeforce applied when braking.
      *
      * @return The brakeforce of the vehicle
      */
     public abstract float getBrakeForce();
+    
     /**
      * Gets the steering value used to steer.
      *
      * @return The brake force of the vehicle
      */
     public abstract float getSteeringValue();
+    
     /**
      * Gets the acceleration value used to accelerate.
      * 
@@ -76,41 +83,48 @@ public abstract class AVehicleController implements ActionListener {
      * @param health The health of the vehicle
      */
     public abstract void setHealth(int health);
+    
     /**
      * 
      *
      * @param direction 
      */
     public abstract void setDirection(Vector3f direction);
+    
     /**
      *
      * @param position
      */
     public abstract void setPosition(Vector3f position);
+    
     /**
      * Sets the state of the vehicle.
      * 
      * @param state The state of the vehicle
      */
     public abstract void setVehicleState(VehicleState state);
+    
     /**
      * Sets acceleration force of vehicle.
      *
      * @param force The acceleration force used to accelerate.
      */
     public abstract void setAccelerationForce(float force);
+    
     /**
      * Sets brake force value of vehicle.
      *
      * @param force The brake force used to brake
      */
     public abstract void setBrakeForce(float force);
+    
     /**
      * Sets steering value of vehicle.
      *
      * @param value The steeringvalue to be set
      */
     public abstract void setSteeringValue(float value);
+    
     /**
      * Sets accelerationvalue of vehicle.
      *  
@@ -118,6 +132,14 @@ public abstract class AVehicleController implements ActionListener {
      */
     public abstract void setAccelerationValue(float value);
     
+    /**
+     * Sets the keybindings for any vehicle.
+     * Rotate left = H
+     * Rotate right = K
+     * Accelerate forward = U
+     * Accelerate backwards = J
+     * Reset the program = Return
+     */
     private void setupKeys() {
         inputManager.addMapping("Lefts", new KeyTrigger(KeyInput.KEY_H));
         inputManager.addMapping("Rights", new KeyTrigger(KeyInput.KEY_K));
