@@ -13,7 +13,7 @@ import com.jme3.scene.Spatial;
  *
  * @author Daniel, Per, Johan, Albin
  */
-public class DefaultTankSpatial implements IVehicleSpatial{
+public class TankSpatial implements IVehicleSpatial{
     private Node vehicleNode;
     private Spatial tank;
 
@@ -22,9 +22,9 @@ public class DefaultTankSpatial implements IVehicleSpatial{
      *
      * @param assetManager AssetManager used for loading assets
      */
-    public DefaultTankSpatial(AssetManager assetManager) {
-        tank = assetManager.loadModel("Models/tanken/tanken.j3o");
-        tank.scale(3f);
+    public TankSpatial(AssetManager assetManager, Spatial tank, float scale) {
+        this.tank = tank;
+        tank.scale(scale);
         vehicleNode = (Node)tank;
     }
 

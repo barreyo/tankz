@@ -1,6 +1,6 @@
 package Main;
 
-import GameLogicLayer.Controllers.MainController;
+import GameLogicLayer.Game.GameController;
 
 /**
  * Main class.
@@ -15,6 +15,6 @@ public class Main {
      */
     public static void main(String[] args) {
         // Create app and start it
-        new MainController().start();
+        new GameController().start();
     }
 }

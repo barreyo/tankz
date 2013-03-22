@@ -2,12 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameLogicLayer.Controllers;
+package GameViewLayer.Map;
 
 /**
  *
  * @author Daniel
  */
-public class GUIController {
-    ;
+public interface ITankMap {
+    /**
+     *  
+     */
+    void initMap();
 }
