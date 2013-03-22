@@ -5,7 +5,7 @@ package GameModelLayer.Projectile;
  * 
  * @author Daniel
  */
-public class BulletModel implements IProjectileModel {
+public class ProjectileModel implements IProjectileModel {
     private int damage;
     private float mass;
     
@@ -14,8 +14,9 @@ public class BulletModel implements IProjectileModel {
      * @param damage
      * @param mass
      */
-    public BulletModel(int damage, float mass) {
+    public ProjectileModel(int damage, float mass) {
         this.damage = damage;
+        this.mass = mass;
     }
 
     /**
@@ -33,6 +34,4 @@ public class BulletModel implements IProjectileModel {
     public float getMass() {
         return mass;
     }
-    
-    
 }

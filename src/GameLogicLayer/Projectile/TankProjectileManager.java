@@ -4,7 +4,7 @@
  */
 package GameLogicLayer.Projectile;
 
-import GameModelLayer.Projectile.BulletModel;
+import GameModelLayer.Projectile.ProjectileModel;
 import GameModelLayer.Projectile.IProjectileModel;
 import GameViewLayer.Projectile.TankProjectileSpatial;
 import GameViewLayer.Projectile.IProjectileSpatial;
@@ -16,7 +16,7 @@ import com.jme3.bullet.collision.PhysicsCollisionListener;
  *
  * @author Daniel
  */
-public class BulletControl implements PhysicsCollisionListener{
+public class TankProjectileManager implements PhysicsCollisionListener{
     private IProjectileModel projectileModel;
     private IProjectileSpatial procetileSpatial;
     private PhysicsSpace phsyicsSpace;
@@ -27,7 +27,7 @@ public class BulletControl implements PhysicsCollisionListener{
      * @param projectileSpatial
      * @param physicsSpace
      */
-    public BulletControl(IProjectileModel projectileModel, 
+    public TankProjectileManager(IProjectileModel projectileModel, 
                          IProjectileSpatial projectileSpatial,
                          PhysicsSpace physicsSpace) {
         this.projectileModel = projectileModel;
@@ -40,6 +40,7 @@ public class BulletControl implements PhysicsCollisionListener{
      *
      * @param event
      */
+    @Override
     public void collision(PhysicsCollisionEvent event) {
         // TODO
     } 

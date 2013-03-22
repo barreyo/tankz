@@ -8,6 +8,6 @@ package GameLogicLayer.Animation;
  *
  * @author Daniel
  */
-public abstract class AAnimationController {
+public abstract class AAnimationManager {
     
 }

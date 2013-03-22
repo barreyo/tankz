@@ -7,7 +7,7 @@ package GameModelLayer.Powerup;
  */
 public class PowerupSlot {
     private EPowerup powerup;
-
+    
     /**
      * @return The powerup contained in this slot.
      */

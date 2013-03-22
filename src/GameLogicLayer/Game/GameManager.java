@@ -4,8 +4,8 @@
  */
 package GameLogicLayer.Game;
 
-import GameLogicLayer.Vehicle.AVehicleController;
-import GameLogicLayer.Vehicle.TankController;
+import GameLogicLayer.Vehicle.AVehicleManager;
+import GameLogicLayer.Vehicle.TankManager;
 import GameModelLayer.Vehicle.IVehicleModel;
 import GameModelLayer.Vehicle.TankModel;
 import GameViewLayer.Map.ITankMap;
@@ -28,14 +28,14 @@ import com.jme3.scene.control.CameraControl;
  *
  * @author Daniel, Per, Johan, Albin
  */
-public class GameController extends SimpleApplication {
+public class GameManager extends SimpleApplication {
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
     private ITankMap map;
     private BulletAppState bulletAppState;
     private PhysicsSpace physics;
     
-    private AVehicleController vehicleManager;
+    private AVehicleManager vehicleManager;
     
     /**
      *  Initiates the application.
@@ -123,7 +123,7 @@ public class GameController extends SimpleApplication {
         IVehicleModel vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(4000.0f);
         vehicleModel.setBrakeForce(100.0f);
-        vehicleManager = new TankController(vehicleModel, tankView, this);
+        vehicleManager = new TankManager(vehicleModel, tankView, this);
         //buildPlayer();
         Node vehicleNode = tankView.getVehicleNode();
         rootNode.attachChild(vehicleNode);

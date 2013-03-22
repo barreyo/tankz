@@ -20,12 +20,7 @@ public abstract class AWeaponManager implements ActionListener {
    
     
     /**
-     * Sets the keybindings for any vehicle.
-     * Rotate left = H
-     * Rotate right = K
-     * Accelerate forward = U
-     * Accelerate backwards = J
-     * Reset the program = Return
+     * Sets the keybindings for a weapon.
      */
     private void setupKeys() {
         inputManager.addMapping("Space", new KeyTrigger(KeyInput.KEY_SPACE));

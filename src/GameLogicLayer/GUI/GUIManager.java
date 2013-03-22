@@ -8,6 +8,6 @@ package GameLogicLayer.GUI;
  *
  * @author Daniel
  */
-public class GUIController {
+public class GUIManager {
 
 }

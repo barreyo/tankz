@@ -1,32 +1,23 @@
 package GameLogicLayer.Vehicle;
 
-import GameLogicLayer.Game.GameController;
-import GameLogicLayer.Projectile.BulletControl;
+import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Weapon.AWeaponManager;
-import GameLogicLayer.Weapon.GunManager;
-import GameModelLayer.Projectile.BulletModel;
+import GameLogicLayer.Weapon.TankGunManager;
+import GameModelLayer.Projectile.ProjectileModel;
 import GameModelLayer.Projectile.IProjectileModel;
 import GameModelLayer.Vehicle.IVehicleModel;
 import GameModelLayer.Weapon.TankGunModel;
 import GameModelLayer.Weapon.IProjectileWeaponModel;
-import GameModelLayer.Weapon.IWeaponModel;
 import GameViewLayer.Projectile.TankProjectileSpatial;
 import GameViewLayer.Projectile.IProjectileSpatial;
 import GameViewLayer.Vehicle.IVehicleSpatial;
 import GameViewLayer.Weapon.GunSpatial;
 import GameViewLayer.Weapon.IWeaponSpatial;
-import com.jme3.app.Application;
-import com.jme3.app.SimpleApplication;
-import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
-import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.control.VehicleControl;
-import com.jme3.input.InputManager;
 import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
@@ -35,23 +26,19 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
-import com.jme3.scene.shape.Sphere;
 
 /**
  *
  *
  * @author Daniel
  */
-public class TankController extends AVehicleController {
+public class TankManager extends AVehicleManager {
     private IVehicleModel vehicleModel;
     private IVehicleSpatial vehicleSpatial;
     private VehicleControl vehicle;
-    
-    private GameController app;
-    
     private Node vehicleNode;
     
-    
+    private GameManager app;
 
     /**
      * Creates a tank controller, connected to specified vehicle.
@@ -60,8 +47,7 @@ public class TankController extends AVehicleController {
      * @param tank The vehicle spatial representing the tank
      * @param app 
      */
-    public TankController(IVehicleModel vehicleModel, IVehicleSpatial tank, 
-                          GameController app) {
+    public TankManager(IVehicleModel vehicleModel, IVehicleSpatial tank, GameManager app) {
         super(app.getInputManager());
         
         this.app = app;
@@ -117,19 +103,24 @@ public class TankController extends AVehicleController {
     }
     
     private void createWeapon() {
-        IProjectileModel bulletModel = new BulletModel(10, 0.001f);
-        IProjectileSpatial bulletSpatial = new TankProjectileSpatial(app.getAssetManager(), 0.04f);
+        // Create projectile for weapon
+        IProjectileModel bulletModel = new ProjectileModel(10, 0.001f);
+        IProjectileSpatial bulletSpatial = new TankProjectileSpatial(app.getAssetManager(), 0.4f);
         
+        // Uses a temporary box Spatial as weapon that can fire projectiles
+        // Will likely be replaced
         IProjectileWeaponModel weaponModel = new TankGunModel(bulletModel);
-        
         Spatial spat = new Geometry("Box", new Box(0,0,0));
         spat.setMaterial(new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md"));
         IWeaponSpatial weaponSpatial = new GunSpatial(spat, 1f);
         
+        // Attaches weapon to vehicle
         vehicleModel.setWeaponModel(weaponModel);
         vehicleNode.attachChild(weaponSpatial.getWeaponSpatial());
-        AWeaponManager weaponController = new GunManager(weaponSpatial, weaponModel,
-            bulletSpatial, bulletModel, app);
+        
+        // Creates a controller for the weapon
+        AWeaponManager weaponController = new TankGunManager(weaponSpatial, weaponModel,
+                                               bulletSpatial, bulletModel, app);
     }
 
     /**

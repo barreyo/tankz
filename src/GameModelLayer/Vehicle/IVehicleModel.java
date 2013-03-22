@@ -4,7 +4,7 @@
  */
 package GameModelLayer.Vehicle;
 
-import GameLogicLayer.Vehicle.AVehicleController;
+import GameLogicLayer.Vehicle.AVehicleManager;
 import GameModelLayer.Weapon.IWeaponModel;
 import com.jme3.math.Vector3f;
 

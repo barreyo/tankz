@@ -12,11 +12,11 @@ import com.jme3.math.Vector3f;
  *
  * @author Daniel, Per, Johan, Albin
  */
-public abstract class AVehicleController implements ActionListener {
+public abstract class AVehicleManager implements ActionListener {
     
     private InputManager inputManager;
   
-    AVehicleController(InputManager inputManager) {
+    AVehicleManager(InputManager inputManager) {
         this.inputManager = inputManager;
         setupKeys();
     }

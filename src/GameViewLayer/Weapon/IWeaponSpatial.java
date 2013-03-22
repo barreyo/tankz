@@ -1,6 +1,7 @@
 
 package GameViewLayer.Weapon;
 
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 
 /**
