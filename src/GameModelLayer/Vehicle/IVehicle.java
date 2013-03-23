@@ -12,7 +12,7 @@ import com.jme3.math.Vector3f;
  *
  * @author Daniel
  */
-public interface IVehicleModel {
+public interface IVehicle {
     /**
      * Gets the current health of the vehicle.
      *
@@ -118,21 +118,6 @@ public interface IVehicleModel {
      */
     void decrementSteeringValue(float value);
 
-    /*
-     * 
-     */
-    /**
-     *
-     * @param model
-     */
-    void setWeaponModel(IWeaponModel model);
-    
-    /**
-     *
-     * @return
-     */
-    IWeaponModel getWeaponModel();
-    
     /**
      * Enum representing different states of the vehicle.
      */

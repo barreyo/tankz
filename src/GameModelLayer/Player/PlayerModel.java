@@ -3,7 +3,7 @@ package GameModelLayer.Player;
 
 import GameModelLayer.Powerup.EPowerup;
 import GameModelLayer.Powerup.PowerupSlot;
-import GameModelLayer.Vehicle.IVehicleModel;
+import GameModelLayer.Vehicle.IVehicle;
 
 /**
  * A representation of a player.
@@ -13,9 +13,8 @@ import GameModelLayer.Vehicle.IVehicleModel;
  */
 public class PlayerModel {
     private String name;
-    private IVehicleModel vehicle;
+    private IVehicle vehicle;
     private int kills, deaths;
-    private PowerupSlot powerupSlot;
     
     /**
      * Basic contructor for constructing a player
@@ -23,10 +22,9 @@ public class PlayerModel {
      * @param name sets the name of the player.
      * @param vehicle sets the vehicle of the player.
      */
-    public PlayerModel(String name, IVehicleModel vehicle, PowerupSlot slot) {
+    public PlayerModel(String name, IVehicle vehicle) {
         this.name = name;
         this.vehicle = vehicle;
-        this.powerupSlot = slot;
     }
 
     /**
@@ -43,7 +41,7 @@ public class PlayerModel {
      * 
      * @return vehicle.
      */
-    public IVehicleModel getVehicle() {
+    public IVehicle getVehicle() {
         return vehicle;
     }
 
@@ -86,23 +84,5 @@ public class PlayerModel {
     public void resetStats() {
         deaths = 0;
         kills = 0;
-    }
-    
-    /**
-     * Returns the powerup in powerupSlot.
-     * 
-     * @return The powerup contained in powerupSlot
-     */
-    public synchronized EPowerup getPowerup() {
-        return powerupSlot.getPowerup();
-    }
-
-    /**
-     * Sets the powerup in the powerupSlot.
-     * 
-     * @param powerup The powerup to add in powerupSlot
-     */
-    public synchronized void setPowerup(EPowerup powerup) {
-        powerupSlot.setPowerup(powerup);
     }
 }

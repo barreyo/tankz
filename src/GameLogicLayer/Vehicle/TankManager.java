@@ -5,7 +5,8 @@ import GameLogicLayer.Weapon.AWeaponManager;
 import GameLogicLayer.Weapon.TankGunManager;
 import GameModelLayer.Projectile.ProjectileModel;
 import GameModelLayer.Projectile.IProjectileModel;
-import GameModelLayer.Vehicle.IVehicleModel;
+import GameModelLayer.Vehicle.IArmedVehicle;
+import GameModelLayer.Vehicle.IVehicle;
 import GameModelLayer.Weapon.TankGunModel;
 import GameModelLayer.Weapon.IProjectileWeaponModel;
 import GameViewLayer.Projectile.TankProjectileSpatial;
@@ -33,7 +34,7 @@ import com.jme3.scene.shape.Box;
  * @author Daniel
  */
 public class TankManager extends AVehicleManager {
-    private IVehicleModel vehicleModel;
+    private IArmedVehicle vehicleModel;
     private IVehicleSpatial vehicleSpatial;
     private VehicleControl vehicle;
     private Node vehicleNode;
@@ -47,7 +48,7 @@ public class TankManager extends AVehicleManager {
      * @param tank The vehicle spatial representing the tank
      * @param app 
      */
-    public TankManager(IVehicleModel vehicleModel, IVehicleSpatial tank, GameManager app) {
+    public TankManager(IArmedVehicle vehicleModel, IVehicleSpatial tank, GameManager app) {
         super(app.getInputManager());
         
         this.app = app;

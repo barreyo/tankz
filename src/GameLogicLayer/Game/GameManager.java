@@ -6,7 +6,8 @@ package GameLogicLayer.Game;
 
 import GameLogicLayer.Vehicle.AVehicleManager;
 import GameLogicLayer.Vehicle.TankManager;
-import GameModelLayer.Vehicle.IVehicleModel;
+import GameModelLayer.Vehicle.IArmedVehicle;
+import GameModelLayer.Vehicle.IVehicle;
 import GameModelLayer.Vehicle.TankModel;
 import GameViewLayer.Map.ITankMap;
 import GameViewLayer.Map.PhysicsTestHelper;
@@ -120,7 +121,7 @@ public class GameManager extends SimpleApplication {
      */
     private Node createVehicle() {
         IVehicleSpatial tankView = new TankSpatial(assetManager.loadModel("Models/tanken/tanken.j3o"), 3f);
-        IVehicleModel vehicleModel = new TankModel();
+        IArmedVehicle vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(4000.0f);
         vehicleModel.setBrakeForce(100.0f);
         vehicleManager = new TankManager(vehicleModel, tankView, this);

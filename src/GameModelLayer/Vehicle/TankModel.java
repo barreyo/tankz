@@ -4,6 +4,8 @@
  */
 package GameModelLayer.Vehicle;
 
+import GameModelLayer.Powerup.EPowerup;
+import GameModelLayer.Powerup.PowerupSlot;
 import GameModelLayer.Weapon.IWeaponModel;
 import com.jme3.math.Vector3f;
 
@@ -11,7 +13,7 @@ import com.jme3.math.Vector3f;
  *
  * @author Daniel
  */
-public class TankModel implements IVehicleModel {
+public class TankModel implements IArmedVehicle {
     
     private int health;
     private VehicleState vehicleState;
@@ -20,6 +22,8 @@ public class TankModel implements IVehicleModel {
     private float brakeForce;
     private float steeringValue;
     private float accelerationValue;
+    
+    private PowerupSlot powerupSlot;
     
     private IWeaponModel weaponModel;
 
@@ -191,4 +195,24 @@ public class TankModel implements IVehicleModel {
     public IWeaponModel getWeaponModel() {
         return weaponModel;
     } 
+    
+     /**
+     * Returns the powerup in powerupSlot.
+     * 
+     * @return The powerup contained in powerupSlot
+     */
+    @Override
+    public synchronized EPowerup getPowerup() {
+        return powerupSlot.getPowerup();
+    }
+
+    /**
+     * Sets the powerup in the powerupSlot.
+     * 
+     * @param powerup The powerup to add in powerupSlot
+     */
+    @Override
+    public synchronized void setPowerup(EPowerup powerup) {
+        powerupSlot.setPowerup(powerup);
+    }
 }
