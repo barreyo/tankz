@@ -10,6 +10,6 @@ import com.jme3.app.state.AbstractAppState;
  *
  * @author Daniel
  */
-public class PauseAppState extends AbstractAppState {
+public class PauseMenuAppState extends AbstractAppState {
     
 }

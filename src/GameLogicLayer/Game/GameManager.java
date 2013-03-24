@@ -4,16 +4,17 @@
  */
 package GameLogicLayer.Game;
 
+import GameLogicLayer.AppStates.TanksAppStateManager;
 import GameLogicLayer.Vehicle.AVehicleManager;
 import GameLogicLayer.Vehicle.TankManager;
 import GameModelLayer.Vehicle.IArmedVehicle;
 import GameModelLayer.Vehicle.TankModel;
-import GameViewLayer.Map.ITankMap;
 import GameViewLayer.Map.PhysicsTestHelper;
 import GameViewLayer.Vehicle.IVehicleSpatial;
 import GameViewLayer.Vehicle.TankSpatial;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
+import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.light.DirectionalLight;
@@ -31,11 +32,12 @@ import com.jme3.scene.control.CameraControl;
  * @author Daniel, Per, Johan, Albin
  */
 public class GameManager extends SimpleApplication {
-    private static GameManager thisApp;
+    private static GameManager tanksApp;
 
+    private TanksAppStateManager tanksAppStateManager;
+    
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
-    private ITankMap map;
     private BulletAppState bulletAppState;
     private PhysicsSpace physics;
     private AVehicleManager vehicleManager;
@@ -45,7 +47,10 @@ public class GameManager extends SimpleApplication {
      */
     @Override
     public void simpleInitApp() {
-        thisApp = this;
+        tanksApp = this;
+        
+        tanksAppStateManager = new TanksAppStateManager();
+        
         
         physics = this.createPhysics();
         Node vehicleNode = this.createVehicle();
@@ -139,7 +144,6 @@ public class GameManager extends SimpleApplication {
      * Initiates the map.
      */
     private void initMap() {
-        map.initMap();
         rootNode.attachChild(mapNode);
     }
 
@@ -147,11 +151,22 @@ public class GameManager extends SimpleApplication {
      *
      * @return
      */
+    
     public PhysicsSpace getPhysicsSpace() {
         return physics;
     }
     
     public static GameManager getApp() {
-        return thisApp;
+        return tanksApp;
     }
+
+    public BulletAppState getBulletAppState() {
+        return bulletAppState;
+    }
+    
+    public TanksAppStateManager getTanksAppStateManager(){
+        return tanksAppStateManager;
+    }
+    
+    
 }

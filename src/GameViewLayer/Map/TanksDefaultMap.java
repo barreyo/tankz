@@ -4,6 +4,10 @@
  */
 package GameViewLayer.Map;
 
+import GameLogicLayer.Game.GameManager;
+import com.jme3.app.Application;
+import com.jme3.app.state.AbstractAppState;
+import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -18,34 +22,21 @@ import com.jme3.scene.shape.Box;
  *
  * @author Daniel
  */
-public class TanksDefaultMap implements ITankMap {
+public class TanksDefaultMap extends AbstractAppState {
     private AssetManager assetManager;
-    private Node mapNode;
     
-    /**
-     *
-     * @param manager
-     * @param map
-     */
-    public TanksDefaultMap(AssetManager manager, Node map) {
-        assetManager = manager;
-        mapNode = map;
-    }
+    private Node rootNode;
     
-    /**
-     *
-     */
+    private GameManager app;
+    private GameManager tanksApp;
+    
     @Override
-    public void initMap() {
-        mapNode.attachChild(makeFloor());
-    }
-    
-    private Spatial makeFloor() {
-        Box box = new Box(new Vector3f(0, -4, -5), 100, .2f, 100);
-        Geometry floor = new Geometry("the Floor", box);
-        Material mat1 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-        mat1.setColor("Color", ColorRGBA.Gray);
-        floor.setMaterial(mat1);
-        return floor;
-    }
+    public void initialize(AppStateManager stateManager, Application app) {
+      super.initialize(stateManager, app); 
+      this.tanksApp = (GameManager)app;       
+      rootNode = tanksApp.getRootNode();
+      assetManager = tanksApp.getAssetManager();
+      
+   }
+
 }
