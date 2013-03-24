@@ -63,13 +63,22 @@ public class TanksGame extends SimpleApplication {
     public void simpleInitApp() {
         tanksApp = this;
         
-        tanksAppStateManager = new TanksAppStateManager();
+        guiManager = new GUIManager();
+        controlManager = new ControlManager();
+        physicsManager = new PhysicsManager();
+        effectsManager = new EffectsManager();
+        soundManager = new SoundManager();
         
+        
+        tanksAppStateManager = new TanksAppStateManager();
+        bulletAppState = new BulletAppState();
+        stateManager.attach(bulletAppState);
         
         physics = this.createPhysics();
         Node vehicleNode = this.createVehicle();
         this.initLighting();
         this.initCam(vehicleNode);
+        
     }
 
     /**
@@ -207,5 +216,9 @@ public class TanksGame extends SimpleApplication {
     }
     public SoundManager getSoundManager(){
         return soundManager;
+    }
+    
+    public AAnimationManager getAnimManager(){
+        return animManager;
     }
 }
