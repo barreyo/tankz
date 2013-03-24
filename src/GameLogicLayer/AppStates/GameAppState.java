@@ -4,7 +4,8 @@
  */
 package GameLogicLayer.AppStates;
 
-import GameLogicLayer.Game.GameManager;
+import GameLogicLayer.GUI.GUIManager;
+import GameLogicLayer.Game.TanksGame;
 import GameModelLayer.Game.GameState;
 import GameViewLayer.Map.TanksDefaultMap;
 import com.jme3.app.Application;
@@ -15,22 +16,26 @@ import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
+import de.lessvoid.nifty.screen.Screen;
+import de.lessvoid.nifty.screen.ScreenController;
 
 /**
  *
  * @author Daniel
  */
-public class GameAppState extends AbstractAppState {
+public class GameAppState extends AbstractAppState implements ScreenController {
     
-    private GameManager app;
+    private TanksGame myApp;
     private InputManager inputManager;
+    private GUIManager guiManager = myApp.getGUIManager();
     
     private static final String PAUSE = "PAUSE";
 
     public GameAppState() {
-        app = GameManager.getApp();
-        inputManager = app.getInputManager();
+        myApp = TanksGame.getApp();
+        inputManager = myApp.getInputManager();
     }
     
     @Override
@@ -44,8 +49,8 @@ public class GameAppState extends AbstractAppState {
         GameState.setGameState(GameState.RUNNING);
         //showHud();
         
-        app.getStateManager().attach(app.getTanksAppStateManager().getAppState(TanksDefaultMap.class));
-        app.getBulletAppState().setEnabled(true);
+        myApp.getStateManager().attach(myApp.getTanksAppStateManager().getAppState(TanksDefaultMap.class));
+        myApp.getBulletAppState().setEnabled(true);
 
         loadDesktopInputs();
     }
@@ -55,19 +60,19 @@ public class GameAppState extends AbstractAppState {
         super.stateDetached(stateManager);
         removeDesktopInputs();
         // deatch all Level States
-        app.getStateManager().detach(app.getStateManager().getState(TanksDefaultMap.class));
-        app.getBulletAppState().setEnabled(false);
+        myApp.getStateManager().detach(myApp.getStateManager().getState(TanksDefaultMap.class));
+        myApp.getBulletAppState().setEnabled(false);
 
         // TODO: pause any playing music
-        app.getGuiNode().detachAllChildren();
+        myApp.getGuiNode().detachAllChildren();
     }
     
     @Override
     public void cleanup() {
       super.cleanup();
       // unregister all my listeners, detach all my nodes, etc...
-      this.app.getRootNode().detachAllChildren(); // modify scene graph...
-      //this.app.doSomethingElse();                 // call custom methods...
+      this.myApp.getRootNode().detachAllChildren(); // modify scene graph...
+      //this.myApp.doSomethingElse();                 // call custom methods...
     }
 
     @Override
@@ -85,7 +90,7 @@ public class GameAppState extends AbstractAppState {
     @Override
     public void update(float tpf) {
       // do the following while game is RUNNING
-      //this.app.getRootNode().getChild("blah").scale(tpf); // modify scene graph...
+      //this.myApp.getRootNode().getChild("blah").scale(tpf); // modify scene graph...
       //x.setUserData(...);                                 // call some methods...
     }
     
@@ -117,9 +122,19 @@ public class GameAppState extends AbstractAppState {
                 return;
             }
             if (name.equals(PAUSE) && !isPressed) {
-                app.getStateManager().detach(GameAppState.this);
-                app.getStateManager().attach(app.getTanksAppStateManager().getAppState(MenuAppState.class));
+                myApp.getStateManager().detach(GameAppState.this);
+                myApp.getStateManager().attach(myApp.getTanksAppStateManager().getAppState(MenuAppState.class));
             }
         }
     };
+
+    public void bind(Nifty nifty, Screen screen) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void onStartScreen() {
+    }
+
+    public void onEndScreen() {
+    }
 }

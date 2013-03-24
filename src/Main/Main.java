@@ -1,6 +1,6 @@
 package Main;
 
-import GameLogicLayer.Game.GameManager;
+import GameLogicLayer.Game.TanksGame;
 
 /**
  * Main class.
@@ -15,6 +15,6 @@ public class Main {
      */
     public static void main(String[] args) {
         // Create app and start it
-        new GameManager().start();
+        new TanksGame().start();
     }
 }

@@ -4,7 +4,7 @@
  */
 package GameViewLayer.Map;
 
-import GameLogicLayer.Game.GameManager;
+import GameLogicLayer.Game.TanksGame;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -27,13 +27,13 @@ public class TanksDefaultMap extends AbstractAppState {
     
     private Node rootNode;
     
-    private GameManager app;
-    private GameManager tanksApp;
+    private TanksGame app;
+    private TanksGame tanksApp;
     
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
       super.initialize(stateManager, app); 
-      this.tanksApp = (GameManager)app;       
+      this.tanksApp = (TanksGame)app;       
       rootNode = tanksApp.getRootNode();
       assetManager = tanksApp.getAssetManager();
       
