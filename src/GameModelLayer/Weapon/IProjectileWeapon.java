@@ -4,23 +4,23 @@
  */
 package GameModelLayer.Weapon;
 
-import GameModelLayer.Projectile.IProjectileModel;
+import GameModelLayer.Projectile.IProjectile;
 
 /**
  * 
  *
  * @author Daniel
  */
-public interface IProjectileWeaponModel extends IWeaponModel{
+public interface IProjectileWeapon extends IWeapon{
     
     /**
      *
      * @return
      */
-    IProjectileModel getProjectileModel();
+    IProjectile getProjectileModel();
     /**
      *
      * @param model
      */
-    void setProjectileModel(IProjectileModel model);
+    void setProjectileModel(IProjectile model);
 }

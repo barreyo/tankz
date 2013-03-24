@@ -8,7 +8,7 @@ package GameModelLayer.Projectile;
  *
  * @author Daniel
  */
-public interface IProjectileModel {
+public interface IProjectile {
         /**
      *
      * @return

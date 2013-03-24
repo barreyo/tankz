@@ -5,7 +5,7 @@ package GameModelLayer.Projectile;
  * 
  * @author Daniel
  */
-public class ProjectileModel implements IProjectileModel {
+public class ProjectileModel implements IProjectile {
     private int damage;
     private float mass;
     

@@ -3,7 +3,7 @@ package GameModelLayer.Player;
 
 import GameModelLayer.Powerup.EPowerup;
 import GameModelLayer.Powerup.PowerupSlot;
-import GameModelLayer.Vehicle.IVehicle;
+import GameModelLayer.Vehicle.IArmedVehicle;
 
 /**
  * A representation of a player.
@@ -13,7 +13,7 @@ import GameModelLayer.Vehicle.IVehicle;
  */
 public class PlayerModel {
     private String name;
-    private IVehicle vehicle;
+    private IArmedVehicle vehicle;
     private int kills, deaths;
     
     /**
@@ -22,7 +22,7 @@ public class PlayerModel {
      * @param name sets the name of the player.
      * @param vehicle sets the vehicle of the player.
      */
-    public PlayerModel(String name, IVehicle vehicle) {
+    public PlayerModel(String name, IArmedVehicle vehicle) {
         this.name = name;
         this.vehicle = vehicle;
     }
@@ -41,7 +41,7 @@ public class PlayerModel {
      * 
      * @return vehicle.
      */
-    public IVehicle getVehicle() {
+    public IArmedVehicle getVehicle() {
         return vehicle;
     }
 

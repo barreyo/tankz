@@ -5,6 +5,7 @@
 package GameViewLayer.Weapon;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
@@ -15,6 +16,8 @@ import com.jme3.scene.Spatial;
  */
 public class GunSpatial implements IWeaponSpatial {
     private Spatial gun;
+    private Vector3f direction;
+    private Vector3f position;
 
     /**
      * Create a default tank spatial.
@@ -33,5 +36,21 @@ public class GunSpatial implements IWeaponSpatial {
     @Override
     public Spatial getWeaponSpatial() {
         return gun;
+    }
+
+    public Vector3f getAttackDirection() {
+        return direction;
+    }
+
+    public Vector3f getPosition() {
+        return position;
+    }
+
+    public void setAttackDirection(Vector3f direction) {
+        this.direction = direction;
+    }
+
+    public void setPosition(Vector3f position) {
+        this.position = position;
     }
 }

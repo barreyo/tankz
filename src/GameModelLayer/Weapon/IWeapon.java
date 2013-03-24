@@ -8,6 +8,6 @@ package GameModelLayer.Weapon;
  *
  * @author Daniel
  */
-public interface IWeaponModel {
+public interface IWeapon {
     
 }

@@ -3,14 +3,13 @@ package GameLogicLayer.Vehicle;
 import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Weapon.AWeaponManager;
 import GameLogicLayer.Weapon.TankGunManager;
+import GameModelLayer.Projectile.IProjectile;
 import GameModelLayer.Projectile.ProjectileModel;
-import GameModelLayer.Projectile.IProjectileModel;
 import GameModelLayer.Vehicle.IArmedVehicle;
-import GameModelLayer.Vehicle.IVehicle;
+import GameModelLayer.Weapon.IProjectileWeapon;
 import GameModelLayer.Weapon.TankGunModel;
-import GameModelLayer.Weapon.IProjectileWeaponModel;
-import GameViewLayer.Projectile.TankProjectileSpatial;
 import GameViewLayer.Projectile.IProjectileSpatial;
+import GameViewLayer.Projectile.TankProjectileSpatial;
 import GameViewLayer.Vehicle.IVehicleSpatial;
 import GameViewLayer.Weapon.GunSpatial;
 import GameViewLayer.Weapon.IWeaponSpatial;
@@ -39,6 +38,8 @@ public class TankManager extends AVehicleManager {
     private VehicleControl vehicle;
     private Node vehicleNode;
     
+    private AWeaponManager weaponManager;
+    
     private GameManager app;
 
     /**
@@ -56,6 +57,7 @@ public class TankManager extends AVehicleManager {
         this.vehicleModel = vehicleModel;
         this.vehicleSpatial = tank;
 
+        // Maybe move to Tank spatial class?
         //create a compound shape and attach the BoxCollisionShape for the car body at 0,1,0
         //this shifts the effective center of mass of the BoxCollisionShape to 0,-1,0
         CompoundCollisionShape compoundShape = new CompoundCollisionShape();
@@ -105,14 +107,15 @@ public class TankManager extends AVehicleManager {
     
     private void createWeapon() {
         // Create projectile for weapon
-        IProjectileModel bulletModel = new ProjectileModel(10, 0.001f);
+        IProjectile bulletModel = new ProjectileModel(10, 0.001f);
         IProjectileSpatial bulletSpatial = new TankProjectileSpatial(app.getAssetManager(), 0.4f);
         
         // Uses a temporary box Spatial as weapon that can fire projectiles
         // Will likely be replaced
-        IProjectileWeaponModel weaponModel = new TankGunModel(bulletModel);
+        IProjectileWeapon weaponModel = new TankGunModel(bulletModel);
         Spatial spat = new Geometry("Box", new Box(0,0,0));
         spat.setMaterial(new Material(app.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md"));
+        spat.setLocalTranslation(0, 1, 2);
         IWeaponSpatial weaponSpatial = new GunSpatial(spat, 1f);
         
         // Attaches weapon to vehicle
@@ -120,7 +123,7 @@ public class TankManager extends AVehicleManager {
         vehicleNode.attachChild(weaponSpatial.getWeaponSpatial());
         
         // Creates a controller for the weapon
-        AWeaponManager weaponController = new TankGunManager(weaponSpatial, weaponModel,
+        weaponManager = new TankGunManager(weaponSpatial, weaponModel,
                                                bulletSpatial, bulletModel, app);
     }
 
@@ -181,7 +184,9 @@ public class TankManager extends AVehicleManager {
      */
     @Override
     public void simpleUpdate(float tpf) {
+        Vector3f direction = vehicle.getForwardVector(Vector3f.ZERO);
         vehicleSpatial.setPosition(vehicle.getPhysicsLocation());
-        vehicleSpatial.setDirection(vehicle.getForwardVector(Vector3f.ZERO));
+        vehicleSpatial.setDirection(direction);
+        weaponManager.updateDirectionOfWeapon(direction);
     }
 }

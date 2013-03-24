@@ -2,15 +2,17 @@ package GameLogicLayer.Weapon;
 
 import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Projectile.TankProjectileManager;
-import GameModelLayer.Projectile.IProjectileModel;
-import GameModelLayer.Weapon.IWeaponModel;
+import GameModelLayer.Projectile.IProjectile;
+import GameModelLayer.Weapon.IWeapon;
 import GameViewLayer.Projectile.IProjectileSpatial;
 import GameViewLayer.Weapon.IWeaponSpatial;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+
 
 /**
  *
@@ -19,9 +21,9 @@ import com.jme3.scene.Spatial;
 public class TankGunManager extends AWeaponManager {
 
     private IWeaponSpatial weaponSpatial;
-    private IWeaponModel weaponModel;
+    private IWeapon weaponModel;
     private IProjectileSpatial projectileSpatial;
-    private IProjectileModel projectileModel;
+    private IProjectile projectileModel;
     
     private Camera cam;
     private PhysicsSpace physicsSpace;
@@ -36,8 +38,8 @@ public class TankGunManager extends AWeaponManager {
      * @param projectileModel
      * @param app
      */
-    public TankGunManager(IWeaponSpatial weaponSpatial, IWeaponModel weaponModel,
-            IProjectileSpatial projectileSpatial, IProjectileModel projectileModel,
+    public TankGunManager(IWeaponSpatial weaponSpatial, IWeapon weaponModel,
+            IProjectileSpatial projectileSpatial, IProjectile projectileModel,
             GameManager app) {
         super(app.getInputManager());
         this.weaponSpatial = weaponSpatial;
@@ -62,7 +64,7 @@ public class TankGunManager extends AWeaponManager {
                 projectileControl.setCcdMotionThreshold(0.1f);
                 
                 // TODO Solve direction of velocity, should be same as weapon direction
-                projectileControl.setLinearVelocity(cam.getDirection().mult(200));
+                projectileControl.setLinearVelocity(weaponSpatial.getAttackDirection().mult(200));
                 projectile.addControl(projectileControl);
                 
                 // Attach to world and phsysicsSpace
@@ -74,5 +76,10 @@ public class TankGunManager extends AWeaponManager {
                                                             projectileSpatial, physicsSpace);
             }
         }
+    }
+
+    @Override
+    public void updateDirectionOfWeapon(Vector3f direction) {
+        weaponSpatial.setAttackDirection(direction);
     }
 }

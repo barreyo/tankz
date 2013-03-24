@@ -6,7 +6,7 @@ package GameModelLayer.Vehicle;
 
 import GameModelLayer.Powerup.EPowerup;
 import GameModelLayer.Powerup.PowerupSlot;
-import GameModelLayer.Weapon.IWeaponModel;
+import GameModelLayer.Weapon.IWeapon;
 import com.jme3.math.Vector3f;
 
 /**
@@ -25,7 +25,7 @@ public class TankModel implements IArmedVehicle {
     
     private PowerupSlot powerupSlot;
     
-    private IWeaponModel weaponModel;
+    private IWeapon weaponModel;
 
 
     /*
@@ -180,7 +180,7 @@ public class TankModel implements IArmedVehicle {
      * @param model
      */
     @Override
-    public void setWeaponModel(IWeaponModel model) {
+    public void setWeaponModel(IWeapon model) {
         weaponModel = model;
     }
     
@@ -192,7 +192,7 @@ public class TankModel implements IArmedVehicle {
      * @return
      */
     @Override
-    public IWeaponModel getWeaponModel() {
+    public IWeapon getWeaponModel() {
         return weaponModel;
     } 
     

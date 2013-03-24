@@ -1,20 +1,20 @@
 package GameModelLayer.Weapon;
 
-import GameModelLayer.Projectile.IProjectileModel;
+import GameModelLayer.Projectile.IProjectile;
 
 /**
  * A model of a Tank Gun.
  * 
  * @author Daniel
  */
-public class TankGunModel implements IProjectileWeaponModel{
-    private IProjectileModel projectile;
+public class TankGunModel implements IProjectileWeapon{
+    private IProjectile projectile;
 
     /**
      *
      * @param model
      */
-    public TankGunModel(IProjectileModel model) {
+    public TankGunModel(IProjectile model) {
         if (model == null) {
             throw new NullPointerException("Model should not be null");
         }
@@ -26,7 +26,7 @@ public class TankGunModel implements IProjectileWeaponModel{
      * @return
      */
     @Override
-    public IProjectileModel getProjectileModel() {
+    public IProjectile getProjectileModel() {
         return projectile;
     }
 
@@ -35,7 +35,7 @@ public class TankGunModel implements IProjectileWeaponModel{
      * @param model
      */
     @Override
-    public void setProjectileModel(IProjectileModel model) {
+    public void setProjectileModel(IProjectile model) {
         if (model == null) {
             throw new NullPointerException("Model should not be null");
         }

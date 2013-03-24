@@ -7,14 +7,13 @@ package GameLogicLayer.Game;
 import GameLogicLayer.Vehicle.AVehicleManager;
 import GameLogicLayer.Vehicle.TankManager;
 import GameModelLayer.Vehicle.IArmedVehicle;
-import GameModelLayer.Vehicle.IVehicle;
 import GameModelLayer.Vehicle.TankModel;
 import GameViewLayer.Map.ITankMap;
 import GameViewLayer.Map.PhysicsTestHelper;
-import GameViewLayer.Map.TanksDefaultMap;
-import GameViewLayer.Vehicle.TankSpatial;
 import GameViewLayer.Vehicle.IVehicleSpatial;
+import GameViewLayer.Vehicle.TankSpatial;
 import com.jme3.app.SimpleApplication;
+import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.light.DirectionalLight;
@@ -24,25 +23,30 @@ import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.CameraControl;
 
+
+
 /**
  * The main controller of the game Tanks.
  *
  * @author Daniel, Per, Johan, Albin
  */
 public class GameManager extends SimpleApplication {
+    private static GameManager thisApp;
+
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
     private ITankMap map;
     private BulletAppState bulletAppState;
     private PhysicsSpace physics;
-    
     private AVehicleManager vehicleManager;
-    
+
     /**
      *  Initiates the application.
      */
     @Override
     public void simpleInitApp() {
+        thisApp = this;
+        
         physics = this.createPhysics();
         Node vehicleNode = this.createVehicle();
         this.initLighting();
@@ -55,7 +59,7 @@ public class GameManager extends SimpleApplication {
      */
     @Override
     public void simpleUpdate(float tpf) {
-       vehicleManager.simpleUpdate(tpf);
+        vehicleManager.simpleUpdate(tpf);
         //TODO: add update code
     }
 
@@ -67,11 +71,11 @@ public class GameManager extends SimpleApplication {
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
-    
+
     /**
      * Initiates the third person camera that follows the vehicle.
-     * 
-     * @param vehicleNode 
+     *
+     * @param vehicleNode
      */
     private void initCam(Node vehicleNode) {
         // Disable the default flyby cam
@@ -88,7 +92,7 @@ public class GameManager extends SimpleApplication {
         camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);
 
     }
-    
+
     /**
      * Initiates the lighting.
      */
@@ -97,11 +101,11 @@ public class GameManager extends SimpleApplication {
         sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         rootNode.addLight(sun);
     }
-    
+
     /**
-     * Assigns values to bulletAppState and stateManager.
-     * Creates a physicsSpace and a test-world to drive around in.
-     * 
+     * Assigns values to bulletAppState and stateManager. Creates a physicsSpace
+     * and a test-world to drive around in.
+     *
      * @return physicsSpace.
      */
     private PhysicsSpace createPhysics() {
@@ -112,10 +116,10 @@ public class GameManager extends SimpleApplication {
         PhysicsTestHelper.createPhysicsTestWorld(rootNode, assetManager, physicsSpace);
         return physicsSpace;
     }
-    
+
     /**
      * Creates a vehicle, adds physics and returns the according Node.
-     * 
+     *
      * @param physicsSpace
      * @return vehicleNode.
      */
@@ -130,7 +134,7 @@ public class GameManager extends SimpleApplication {
         rootNode.attachChild(vehicleNode);
         return vehicleNode;
     }
-    
+
     /**
      * Initiates the map.
      */
@@ -138,7 +142,7 @@ public class GameManager extends SimpleApplication {
         map.initMap();
         rootNode.attachChild(mapNode);
     }
-    
+
     /**
      *
      * @return
@@ -146,5 +150,8 @@ public class GameManager extends SimpleApplication {
     public PhysicsSpace getPhysicsSpace() {
         return physics;
     }
+    
+    public static GameManager getApp() {
+        return thisApp;
+    }
 }
-

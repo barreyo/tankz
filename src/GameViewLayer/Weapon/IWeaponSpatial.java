@@ -16,4 +16,32 @@ public interface IWeaponSpatial {
      * @return The weaponspatial
      */
     Spatial getWeaponSpatial();  
+    
+    /**
+     * Gets the direction of the weapon in the 3d room.
+     *
+     * @return The direction of the vehicle
+     */
+    Vector3f getAttackDirection();
+    
+    /**
+     * Gets the position of the weapon in the 3d room.
+     * 
+     * @return The position of the vehicle
+     */
+    Vector3f getPosition();
+    
+    /**
+     * Sets the direction of the weapon in the 3d room.
+     *
+     * @param direction The direction of the vehicle in the 3d room
+     */
+    void setAttackDirection(Vector3f direction);
+    
+    /**
+     * Sets the position of the weapon in the 3d room.
+     * 
+     * @param position The position of the vehicle in the 3d room
+     */
+    void setPosition(Vector3f position);
 }
