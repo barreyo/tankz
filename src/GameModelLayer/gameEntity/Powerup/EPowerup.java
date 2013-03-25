@@ -1,4 +1,4 @@
-package GameModelLayer.Powerup;
+package GameModelLayer.gameEntity.Powerup;
 
 /**
  * 

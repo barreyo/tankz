@@ -1,6 +1,6 @@
-package GameModelLayer.Weapon;
+package GameModelLayer.gameEntity.Weapon;
 
-import GameModelLayer.Projectile.IProjectile;
+import GameModelLayer.gameEntity.Projectile.IProjectile;
 
 /**
  * A model of a Tank Gun.

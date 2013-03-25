@@ -1,4 +1,4 @@
-package GameModelLayer.Projectile;
+package GameModelLayer.gameEntity.Projectile;
 
 /**
  * Models a basic projectile that can damage at impact.

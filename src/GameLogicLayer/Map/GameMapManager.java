@@ -10,7 +10,7 @@ import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
-import GameLogicLayer.Vehicle.MainTank;
+import GameViewLayer.gameEntity.Vehicle.MainTank;
 import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.util.Manager;
 import GameLogicLayer.util.PreloadManager;

@@ -4,8 +4,8 @@
  */
 package GameLogicLayer.Projectile;
 
-import GameModelLayer.Projectile.IProjectile;
-import GameViewLayer.Projectile.IProjectileSpatial;
+import GameModelLayer.gameEntity.Projectile.IProjectile;
+import GameViewLayer.gameEntity.Projectile.IProjectileSpatial;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;

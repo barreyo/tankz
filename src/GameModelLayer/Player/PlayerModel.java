@@ -1,9 +1,9 @@
 
 package GameModelLayer.Player;
 
-import GameModelLayer.Powerup.EPowerup;
-import GameModelLayer.Powerup.PowerupSlot;
-import GameModelLayer.Vehicle.IArmedVehicle;
+import GameModelLayer.gameEntity.Powerup.EPowerup;
+import GameModelLayer.gameEntity.Powerup.PowerupSlot;
+import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 
 /**
  * A representation of a player.

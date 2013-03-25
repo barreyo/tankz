@@ -1,5 +1,5 @@
 
-package GameViewLayer.Powerup;
+package GameViewLayer.gameEntity.Powerup;
 
 /**
  *

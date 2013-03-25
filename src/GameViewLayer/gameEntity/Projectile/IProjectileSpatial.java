@@ -1,5 +1,5 @@
 
-package GameViewLayer.Projectile;
+package GameViewLayer.gameEntity.Projectile;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;

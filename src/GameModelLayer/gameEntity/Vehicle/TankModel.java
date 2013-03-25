@@ -2,11 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameModelLayer.Vehicle;
+package GameModelLayer.gameEntity.Vehicle;
 
-import GameModelLayer.Powerup.EPowerup;
-import GameModelLayer.Powerup.PowerupSlot;
-import GameModelLayer.Weapon.IWeapon;
+import GameModelLayer.gameEntity.Powerup.EPowerup;
+import GameModelLayer.gameEntity.Powerup.PowerupSlot;
+import GameModelLayer.gameEntity.Weapon.IWeapon;
 import com.jme3.math.Vector3f;
 
 /**

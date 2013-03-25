@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameModelLayer.Vehicle;
+package GameModelLayer.gameEntity.Vehicle;
 
-import GameModelLayer.Powerup.EPowerup;
-import GameModelLayer.Weapon.IWeapon;
+import GameModelLayer.gameEntity.Powerup.EPowerup;
+import GameModelLayer.gameEntity.Weapon.IWeapon;
 
 
 /**
