@@ -37,7 +37,7 @@ public class Main {
         }
 
         // set the start image
-        appSettings.setSettingsDialogImage("Interface/splashscreen.jpeg");
+        appSettings.setSettingsDialogImage("Interface/splashscreen.jpg");
 
         // apply the settings
         app.setSettings(appSettings);

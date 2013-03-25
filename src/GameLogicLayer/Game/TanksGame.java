@@ -33,6 +33,8 @@ import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.CameraControl;
 import com.jme3.system.AppSettings;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -52,7 +54,8 @@ public class TanksGame extends SimpleApplication {
     private SoundManager soundManager;
     private GraphicManager graphicManager;
     private PreloadManager preloadManager;
-    
+    private AnimationManager animManager;
+
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
     private BulletAppState bulletAppState;
@@ -60,7 +63,6 @@ public class TanksGame extends SimpleApplication {
     
     private AVehicleManager vehicleManager;
     private AWeaponManager weaponManager;
-    private AnimationManager animManager;
 
     public TanksGame() {
         super(new StatsAppState());
@@ -87,14 +89,20 @@ public class TanksGame extends SimpleApplication {
         soundManager = new SoundManager();
         graphicManager = new GraphicManager();
         preloadManager = new PreloadManager();
+        animManager = new AnimationManager();
         
+        guiManager.showMainMenu();
+        inputManager.setCursorVisible(true);
+        stateManager.detach(stateManager.getState(StatsAppState.class));
         
-        
+        /*
         physics = this.createPhysics();
         Node vehicleNode = this.createVehicle();
         this.initLighting();
-        this.initCam(vehicleNode);
+        this.initCam(vehicleNode);*/
         
+        Logger.getLogger("de.lessvoid.nifty").setLevel(Level.SEVERE);
+        Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE);
     }
 
     /**
@@ -103,7 +111,7 @@ public class TanksGame extends SimpleApplication {
      */
     @Override
     public void simpleUpdate(float tpf) {
-        vehicleManager.simpleUpdate(tpf);
+        //vehicleManager.simpleUpdate(tpf);
         //TODO: add update code
     }
 
