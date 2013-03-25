@@ -4,16 +4,18 @@
  */
 package GameLogicLayer.Game;
 
-import GameLogicLayer.Animation.AAnimationManager;
+import GameLogicLayer.Animation.AnimationManager;
 import GameLogicLayer.AppStates.TanksAppStateManager;
 import GameLogicLayer.Effects.EffectsManager;
 import GameLogicLayer.GUI.GUIManager;
+import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Input.ControlManager;
 import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
 import GameLogicLayer.Vehicle.AVehicleManager;
 import GameLogicLayer.Vehicle.TankManager;
 import GameLogicLayer.Weapon.AWeaponManager;
+import GameLogicLayer.util.PreloadManager;
 import GameModelLayer.Vehicle.IArmedVehicle;
 import GameModelLayer.Vehicle.TankModel;
 import GameViewLayer.Map.PhysicsTestHelper;
@@ -43,19 +45,25 @@ public class TanksGame extends SimpleApplication {
     
     private TanksAppStateManager tanksAppStateManager;
     private GUIManager guiManager;
-    private AVehicleManager vehicleManager;
-    private AWeaponManager weaponManager;
-    private AAnimationManager animManager;
     private ControlManager controlManager;
     private PhysicsManager physicsManager;
     private EffectsManager effectsManager;
     private SoundManager soundManager;
+    private GraphicManager graphicManager;
+    private PreloadManager preloadManager;
     
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
     private BulletAppState bulletAppState;
     private PhysicsSpace physics;
+    
+    private AVehicleManager vehicleManager;
+    private AWeaponManager weaponManager;
+    private AnimationManager animManager;
 
+    public TanksGame() {
+        super(new StatsAppState());
+    }
     /**
      *  Initiates the application.
      */
@@ -63,16 +71,23 @@ public class TanksGame extends SimpleApplication {
     public void simpleInitApp() {
         tanksApp = this;
         
-        guiManager = new GUIManager();
-        controlManager = new ControlManager();
-        physicsManager = new PhysicsManager();
-        effectsManager = new EffectsManager();
-        soundManager = new SoundManager();
-        
-        
+        // Create a manager for different appstates
         tanksAppStateManager = new TanksAppStateManager();
+        
+        // Attaching a physics appstate
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
+        
+        // Creating different essential managers
+        physicsManager = new PhysicsManager();
+        guiManager = new GUIManager();
+        controlManager = new ControlManager();
+        effectsManager = new EffectsManager();
+        soundManager = new SoundManager();
+        graphicManager = new GraphicManager();
+        preloadManager = new PreloadManager();
+        
+        
         
         physics = this.createPhysics();
         Node vehicleNode = this.createVehicle();
@@ -218,7 +233,11 @@ public class TanksGame extends SimpleApplication {
         return soundManager;
     }
     
-    public AAnimationManager getAnimManager(){
+    public AnimationManager getAnimManager(){
         return animManager;
+    }
+
+    public PreloadManager getPreloadManager() {
+        return preloadManager;
     }
 }
