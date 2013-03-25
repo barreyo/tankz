@@ -27,7 +27,7 @@ public class Main {
         // load the application settings
         AppSettings appSettings = new AppSettings(true);
         appSettings.setVSync(true);
-        appSettings.setTitle("Time to Grow up!");
+        appSettings.setTitle("Tanks!");
         appSettings.setFullscreen(true);
 
         try {

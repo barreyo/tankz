@@ -2,7 +2,7 @@
 package GameModelLayer.Game;
 
 public enum GameState {
-    MAIN_MENU, PAUSED, RUNNING, LOADING, NONE;
+    MAIN_MENU, PAUSED, RUNNING, LOADING, NONE, MULTI_MENU;
     
     private static GameState currentGameState = GameState.NONE;
     private static GameState previousGameState = GameState.NONE;

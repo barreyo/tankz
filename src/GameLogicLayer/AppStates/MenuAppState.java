@@ -26,21 +26,24 @@ import de.lessvoid.nifty.tools.Color;
  * @author Daniel
  */
 public class MenuAppState extends AbstractAppState implements ScreenController {
-    private TanksGame app = TanksGame.getApp();
-    private GUIManager guiManager = app.getGUIManager();
-    private Nifty nifty = guiManager.getNifty();
+    private TanksGame app;
+    private GUIManager guiManager;
+    private Nifty nifty;
     private Element popupElement;
     private Element currentElement;
     private SoundHandle sound;
 
     public MenuAppState() {
+        app = TanksGame.getApp();
+        guiManager = app.getGUIManager();
+        nifty = guiManager.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreen());
-        //nifty.addXml("Interface/Nifty/OptionsMenu.xml");
+        //nifty.addXml("Interface/Nifty/MultiMenu.xml");
 
-        nifty.getSoundSystem().addSound("titleSound", "Sounds/click.ogg");
+        nifty.getSoundSystem().addSound("hooverSound", "Sounds/click.ogg");
 
-        sound = nifty.getSoundSystem().getSound("titleSound");
-        sound.setVolume(0.1f);
+        sound = nifty.getSoundSystem().getSound("hooverSound");
+        sound.setVolume(1.0f);
     }
 
     @Override
@@ -100,10 +103,6 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         popupElement = nifty.createPopup("popupExit");
     }
 
-    //public void showOptionsScreen() {
-      //  nifty.gotoScreen("options");
-    //}
-
     public void closePopup() {
         nifty.closePopup(popupElement.getId());
     }
@@ -119,8 +118,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     public void exit() {
         app.stop();
     }
-
-    public void showLoadingScreen() {
-        guiManager.showLoadingScreen();
+    
+    public void goToMultiplayerScreen() {
+       nifty.gotoScreen("multi");
     }
 }

@@ -127,5 +127,4 @@ public class GUIManager implements Manager {
     public void cleanup() {
        app.getGuiNode();
     }
-
 }
