@@ -41,16 +41,16 @@
                     <onEndScreen name="move" mode="out" direction="bottom" length="300" startDelay="0" inherit="true" />
                 </effect>
                 <control id="main_1_player" name ="label"  style="main" text="1 PLAYER">
-                    <interact onClick="loadGame(1)" />
+                    <interact onClick="loadOnePlayerGame()" />
                 </control>
                 <control id="main_2_player" name ="label"  style="main" text="2 PLAYER">
-                    <interact onClick="loadGame(2)" />
+                    <interact onClick="loadTwoPlayerGame()" />
                 </control>
                 <control id="main_3_player" name ="label"  style="main" text="3 PLAYER">
-                    <interact onClick="loadGame(3)" />
+                    <interact onClick="loadThreePlayerGame()" />
                 </control>
                 <control id="main_4_player" name ="label"  style="main" text="4 PLAYER">
-                    <interact onClick="loadGame(4)" />
+                    <interact onClick="loadFourPlayerGame()" />
                 </control>
                 <control id="main_back" name ="label"  style="main" text="BACK">
                     <interact onClick="goToMainMenu()" />

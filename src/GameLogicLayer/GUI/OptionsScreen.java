@@ -28,6 +28,7 @@ public class OptionsScreen implements ScreenController {
         nifty.gotoScreen("start");
     }
 
+    // TODO Change this
     public String getPlayerName() {
         return "wes";
     }

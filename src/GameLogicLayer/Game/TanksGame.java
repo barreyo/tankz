@@ -9,12 +9,14 @@ import GameLogicLayer.AppStates.TanksAppStateManager;
 import GameLogicLayer.Effects.EffectsManager;
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.Graphics.GraphicManager;
-import GameLogicLayer.Input.ControlManager;
+import GameLogicLayer.Graphics.MaterialManager;
+import GameLogicLayer.Map.GameMapManager;
 import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
 import GameLogicLayer.Vehicle.AVehicleManager;
 import GameLogicLayer.Vehicle.TankManager;
 import GameLogicLayer.Weapon.AWeaponManager;
+import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.util.PreloadManager;
 import GameModelLayer.Vehicle.IArmedVehicle;
 import GameModelLayer.Vehicle.TankModel;
@@ -55,6 +57,8 @@ public class TanksGame extends SimpleApplication {
     private GraphicManager graphicManager;
     private PreloadManager preloadManager;
     private AnimationManager animManager;
+    private GameMapManager mapManager;
+    private MaterialManager materialManager;
 
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
@@ -90,6 +94,8 @@ public class TanksGame extends SimpleApplication {
         graphicManager = new GraphicManager();
         preloadManager = new PreloadManager();
         animManager = new AnimationManager();
+        mapManager = new GameMapManager();
+        materialManager = new MaterialManager();
         
         guiManager.showMainMenu();
         inputManager.setCursorVisible(true);
@@ -252,5 +258,17 @@ public class TanksGame extends SimpleApplication {
     
     public AppSettings getSettings() {
         return settings;
+    }
+
+    public GameMapManager getMapManager() {
+        return mapManager;
+    }
+
+    public MaterialManager getMaterialManager() {
+        return materialManager;
+    }
+
+    public GraphicManager getGraphicManager() {
+        return graphicManager;
     }
 }

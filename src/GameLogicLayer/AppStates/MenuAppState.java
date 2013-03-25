@@ -77,6 +77,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     public void goToMainMenu() {
         nifty.gotoScreen("start");
     }
+    
+    public void goToMultiplayerScreen() {
+       nifty.gotoScreen("multi");
+    }
 
     @NiftyEventSubscriber(pattern = "main.*")
     public void onHover(String id, NiftyMouseMovedEvent event) {
@@ -119,7 +123,20 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         app.stop();
     }
     
-    public void goToMultiplayerScreen() {
-       nifty.gotoScreen("multi");
+    // TODO implement method to call for number of players
+    public void loadOnePlayerGame() {
+        guiManager.showLoadingScreen();
+    }
+    
+    public void loadTwoPlayerGame() {
+        guiManager.showLoadingScreen();
+    }
+    
+    public void loadThreePlayerGame() {
+        guiManager.showLoadingScreen();
+    }
+    
+    public void loadFourPlayerGame() {
+        guiManager.showLoadingScreen();
     }
 }

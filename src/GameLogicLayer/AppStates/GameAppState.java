@@ -7,7 +7,7 @@ package GameLogicLayer.AppStates;
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.Game.TanksGame;
 import GameModelLayer.Game.GameState;
-import GameViewLayer.Map.TanksDefaultMap;
+import GameViewLayer.Map.GameMap1;
 import com.jme3.app.Application;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
@@ -49,7 +49,7 @@ public class GameAppState extends AbstractAppState implements ScreenController {
         GameState.setGameState(GameState.RUNNING);
         //showHud();
         
-        myApp.getStateManager().attach(myApp.getTanksAppStateManager().getAppState(TanksDefaultMap.class));
+        myApp.getStateManager().attach(myApp.getTanksAppStateManager().getAppState(GameMap1.class));
         myApp.getBulletAppState().setEnabled(true);
 
         loadDesktopInputs();
@@ -60,7 +60,7 @@ public class GameAppState extends AbstractAppState implements ScreenController {
         super.stateDetached(stateManager);
         removeDesktopInputs();
         // deatch all Level States
-        myApp.getStateManager().detach(myApp.getStateManager().getState(TanksDefaultMap.class));
+        myApp.getStateManager().detach(myApp.getStateManager().getState(GameMap1.class));
         myApp.getBulletAppState().setEnabled(false);
 
         // TODO: pause any playing music
