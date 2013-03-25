@@ -1,5 +1,6 @@
 package GameLogicLayer.Vehicle;
 
+import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Weapon.AWeaponManager;
 import GameLogicLayer.Weapon.TankGunManager;
@@ -40,7 +41,7 @@ public class TankManager extends AVehicleManager {
     
     private AWeaponManager weaponManager;
     
-    private TanksGame app;
+    private GameManager app;
 
     /**
      * Creates a tank controller, connected to specified vehicle.
@@ -49,7 +50,7 @@ public class TankManager extends AVehicleManager {
      * @param tank The vehicle spatial representing the tank
      * @param app 
      */
-    public TankManager(IArmedVehicle vehicleModel, IVehicleSpatial tank, TanksGame app) {
+    public TankManager(IArmedVehicle vehicleModel, IVehicleSpatial tank, GameManager app) {
         super(app.getInputManager());
         
         this.app = app;

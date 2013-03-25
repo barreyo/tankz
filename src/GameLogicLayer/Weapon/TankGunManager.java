@@ -1,5 +1,6 @@
 package GameLogicLayer.Weapon;
 
+import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Projectile.TankProjectileManager;
 import GameModelLayer.Projectile.IProjectile;
@@ -40,7 +41,7 @@ public class TankGunManager extends AWeaponManager {
      */
     public TankGunManager(IWeaponSpatial weaponSpatial, IWeapon weaponModel,
             IProjectileSpatial projectileSpatial, IProjectile projectileModel,
-            TanksGame app) {
+            GameManager app) {
         super(app.getInputManager());
         this.weaponSpatial = weaponSpatial;
         this.weaponModel = weaponModel;

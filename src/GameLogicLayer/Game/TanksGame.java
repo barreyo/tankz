@@ -32,6 +32,7 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.control.CameraControl;
+import com.jme3.system.AppSettings;
 
 
 
@@ -171,7 +172,7 @@ public class TanksGame extends SimpleApplication {
         IArmedVehicle vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(4000.0f);
         vehicleModel.setBrakeForce(100.0f);
-        vehicleManager = new TankManager(vehicleModel, tankView, this);
+        //vehicleManager = new TankManager(vehicleModel, tankView, this);
         //buildPlayer();
         Node vehicleNode = tankView.getVehicleNode();
         rootNode.attachChild(vehicleNode);
@@ -239,5 +240,9 @@ public class TanksGame extends SimpleApplication {
 
     public PreloadManager getPreloadManager() {
         return preloadManager;
+    }
+    
+    public AppSettings getSettings() {
+        return settings;
     }
 }
