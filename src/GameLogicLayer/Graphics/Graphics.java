@@ -2,7 +2,7 @@ package GameLogicLayer.Graphics;
 
 public enum Graphics {
 
-    Tank("Models/tanken/tanken.j3o"), TEST_PLATFORM("Models/testFloor.j3o");
+    TANK("Models/tanken/tanken.j3o"), TEST_PLATFORM("Models/testFloor.j3o");
     
     private String fileLocation;
 

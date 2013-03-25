@@ -25,33 +25,42 @@ import com.jme3.scene.Spatial;
  * @author Daniel
  */
 public abstract class GameEntity {
-    protected TanksGame app = TanksGame.getApp();
-    protected Node rootNode = app.getRootNode();
-    protected Node guiNode = app.getGuiNode();
-    protected BulletAppState bulletAppState = app.getBulletAppState();
-    protected AssetManager assetManager = app.getAssetManager();
-    protected PreloadManager preloadManager = app.getPreloadManager();
-    protected GraphicManager graphicManager = app.getGraphicManager();
-    protected AppStateManager stateManager = app.getStateManager();
-    protected ControlManager controlManger = app.getControlManager();
-    protected MaterialManager materialManager = app.getMaterialManager();
+    TanksGame app;
+    Node rootNode;
+    Node guiNode;
+    BulletAppState bulletAppState;
+    AssetManager assetManager;
+    PreloadManager preloadManager;
+    GraphicManager graphicManager;
+    AppStateManager stateManager;
+    ControlManager controlManager;
+    MaterialManager materialManager;
     
-    protected Spatial spatial;
+    Spatial spatial;
     //protected AnimComponent animComponent;
 
-    public GameEntity(Graphics graphic) {
+    GameEntity(Graphics graphic) {
         spatial = graphicManager.createSpatial(graphic);
     }
 
     public GameEntity() {
-    
+        app = TanksGame.getApp();
+        rootNode = app.getRootNode();
+        guiNode = app.getGuiNode();
+        bulletAppState = app.getBulletAppState();
+        assetManager = app.getAssetManager();
+        preloadManager = app.getPreloadManager();
+        graphicManager = app.getGraphicManager();
+        stateManager = app.getStateManager();
+        controlManager = app.getControlManager();
+        materialManager = app.getMaterialManager();
     }
 
     public abstract CollisionShape getCollisionShape();
 
-    protected abstract void addMaterial();
+    abstract void addMaterial();
 
-    protected abstract void addControl();
+    abstract void addControl();
 
     public abstract void cleanup();
 
@@ -62,7 +71,7 @@ public abstract class GameEntity {
         return animComponent;
     }*/
 
-    protected void addPhysicsControl() {
+    void addPhysicsControl() {
         RigidBodyControl rigidBodyControl = new RigidBodyControl(getCollisionShape(), 1);
         rigidBodyControl.setKinematic(true);
         spatial.addControl(rigidBodyControl);
@@ -73,19 +82,19 @@ public abstract class GameEntity {
         return spatial;
     }
 
-    protected CollisionShape createNewBoxCollisionShape() {
+    CollisionShape createNewBoxCollisionShape() {
         return new BoxCollisionShape(getExtents());
     }
 
-    protected CollisionShape createNewMeshCollisionShape() {
+    CollisionShape createNewMeshCollisionShape() {
         return CollisionShapeFactory.createMeshShape(spatial);
     }
 
-    protected CollisionShape createNewSphereCollisionShape() {
+    CollisionShape createNewSphereCollisionShape() {
         return new SphereCollisionShape(getExtents().x);
     }
 
-    protected Vector3f getExtents() {
+    Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
     }
 }

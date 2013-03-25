@@ -4,8 +4,6 @@
  */
 package GameViewLayer.gameEntity;
 
-import GameViewLayer.gameEntity.Vehicle.MainTank;
-
 /**
  *
  * @author Daniel
