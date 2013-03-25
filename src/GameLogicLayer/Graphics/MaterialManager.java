@@ -33,8 +33,9 @@ public class MaterialManager implements Manager {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    // remove all entries to the materialMap
     public void cleanup() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        materialMap.clear();
     }
     
 }
