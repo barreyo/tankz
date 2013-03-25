@@ -5,6 +5,7 @@
 package GameLogicLayer.Graphics;
 
 import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.Graphics.Materials;
 import GameLogicLayer.util.Manager;
 import GameLogicLayer.util.PreloadManager;
 import com.jme3.asset.AssetManager;
@@ -30,11 +31,30 @@ public class MaterialManager implements Manager {
     }
 
     public void load(int level) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        //create an instance of these materials and use them for each level
+        if(level == 1) {
+            loadMaterials(new Materials[]{Materials.NORMAL});
+        } else if (level == 2) {
+            // NOT IMPLEMENTED YET
+        }
     }
 
+    private void loadMaterials(Materials[] materials) {
+        for (Materials material : materials) {
+            Material m = assetManager.loadMaterial(material.getPathToMaterial());
+            materialMap.put(material, m);
+            preloadManager.preload(m);
+        }
+    }
+
+    public Material getMaterial(Materials material) {
+        return materialMap.get(material);
+    }
+
+    // remove all entries to the materialMap
     public void cleanup() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        materialMap.clear();
     }
     
 }

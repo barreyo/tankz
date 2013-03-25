@@ -15,5 +15,5 @@ public enum Materials {
 
     public String getPathToMaterial() {
         return pathToMaterial;
-    }  
+    }
 }
