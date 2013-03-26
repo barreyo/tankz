@@ -21,8 +21,11 @@ import GameViewLayer.Map.PhysicsTestHelper;
 import GameViewLayer.gameEntity.TanksEntity;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
@@ -110,16 +113,39 @@ public class GameMapManager extends AbstractAppState implements Manager {
         
         PhysicsTestHelper.createPhysicsTestWorld(rootNode, app.getAssetManager(), app.getBulletAppState().getPhysicsSpace());
 
-        //app.getBulletAppState().getPhysicsSpace().addAll(mapNode);   
+        //app.getBulletAppState().getPhysicsSpace().addAll(mapNode);
         
-        app.getCamera().setRotation(Quaternion.IDENTITY);
+        Camera cam1 = app.getCamera().clone();
+        cam1.setViewPort(0f, 1f, 0f, 0.5f);
+        
+        ViewPort view1 = app.getRenderManager().createMainView("Bottom Left", cam1);
+        view1.setClearFlags(true, true, true);
+        view1.attachScene(app.getRootNode());
+        
+        Camera cam2 = app.getCamera().clone();
+        cam2.setViewPort(0f, 1f, 0.5f, 1f);
+                
+        ViewPort view2 = app.getRenderManager().createMainView("Bottom Left", cam2);
+        view2.setClearFlags(true, true, true);
+        view2.attachScene(app.getRootNode());
+        
         mainTank = (MainTank) entityManager.create(TanksEntity.TANK);
         //mainTank.getSpatial().move(-130, 60, -60);
         rootNode.attachChild(mainTank.getSpatial());
         mainTank.finalise();
+        mainTank.getTanksVehicleControl().setCamera(cam1);
+ 
+        MainTank mainTank2 = (MainTank) entityManager.create(TanksEntity.TANK);
+        //mainTank.getSpatial().move(-130, 60, -60);
+        rootNode.attachChild(mainTank2.getSpatial());
+        mainTank2.finalise();
+        mainTank2.getTanksVehicleControl().setCamera(cam2);
+        
         app.getStateManager().detach(this);
         
-    
+        
+        
+       
         //mapNode.getChild("SpawningPoints").setCullHint(Spatial.CullHint.Always);
 
         /*

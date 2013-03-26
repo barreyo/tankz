@@ -58,16 +58,17 @@ public class CommonMapAppState extends AbstractAppState {
         mainScene.attachChild(sky);
         
         FilterPostProcessor fpp = app.getFpp();
-        
+        /* Disabled for performance atm
         BloomFilter bloom = new BloomFilter();
         
         bloom.setExposurePower(55);
         bloom.setBloomIntensity(1.0f);
         
         fpp.addFilter(bloom);
+        
         LightScatteringFilter lsf = new LightScatteringFilter(lightDir.mult(-300));
         lsf.setLightDensity(1.0f);
-        fpp.addFilter(lsf);
+        fpp.addFilter(lsf);*/
         
         DepthOfFieldFilter dof = new DepthOfFieldFilter();
         dof.setFocusDistance(0);

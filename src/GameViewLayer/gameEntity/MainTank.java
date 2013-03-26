@@ -7,6 +7,7 @@ package GameViewLayer.gameEntity;
 import GameViewLayer.graphics.EGraphics;
 import GameLogicLayer.Physics.ETanksCollisionShape;
 import GameLogicLayer.controls.TanksControl;
+import GameLogicLayer.controls.TanksVehicleControl;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -32,6 +33,7 @@ import java.io.IOException;
 public class MainTank extends GameEntity implements Savable {
 
     private VehicleControl vehicle;
+    private TanksVehicleControl tanksVehicleControl;
 
     /**
      *
@@ -109,6 +111,10 @@ public class MainTank extends GameEntity implements Savable {
     public VehicleControl getVehicleControl() {
         return vehicle;
     }
+    
+    public TanksVehicleControl getTanksVehicleControl() {
+        return tanksVehicleControl;
+    }
 
     /**
      *
@@ -122,7 +128,8 @@ public class MainTank extends GameEntity implements Savable {
      */
     @Override
     public void addControl() {
-        spatial.addControl(controlManager.getControl(TanksControl.VEHICLE_CONTROL));
+        tanksVehicleControl = (TanksVehicleControl)controlManager.getControl(TanksControl.VEHICLE_CONTROL);
+        spatial.addControl(tanksVehicleControl);
     }
 
     /**

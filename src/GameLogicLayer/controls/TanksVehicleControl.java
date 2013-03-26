@@ -8,13 +8,18 @@ import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.gameEntity.MainTank;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.VehicleControl;
+import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -55,14 +60,14 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     public TanksVehicleControl() {
         // Get needed managers
-        cam = app.getCamera();
+        //cam = app.getCamera();
+        
         inputManager = app.getInputManager();
         
         // Create a model for the vehicle
         vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(4000.0f);
         vehicleModel.setBrakeForce(100.0f);
-        
         // Register input mappings
         addInputMappings();
     }
@@ -72,9 +77,12 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     @Override
     void controlUpdate(float tpf) {
-        if (vehicle == null) {
+        if (vehicle == null || cam == null) {
             return;
         }
+        driveDirection = vehicle.getForwardVector(null);
+        cam.setLocation(vehicle.getPhysicsLocation().addLocal(driveDirection.multLocal(-5)).addLocal(0, 2, 0));
+        cam.lookAt(vehicle.getPhysicsLocation(), Vector3f.UNIT_Y);
         // TODO riktning
     }
 
@@ -157,6 +165,10 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //boolean isMoving = left || right || up || down;
         //GameState.setMoving(isMoving);
     }
+    
+    public void setCamera(Camera cam) {
+        this.cam = cam;
+    }
 
     private void addInputMappings() {
         for (EPlayerInputs player : EPlayerInputs.values()) {
@@ -208,7 +220,10 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      * @param spatial The spatial to be followed by the camera.
      */
     private void setUpCam(Spatial spatial) {
-        Node vehicleNode = (Node)spatial;
+       
+        /*Node vehicleNode = (Node)spatial;
+        
+        
         // Disable the default flyby cam
         //app.getFlyByCamera().setEnabled(false);
         //create the camera Node
@@ -220,6 +235,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //Move camNode, e.g. behind and above the target:
         camNode.setLocalTranslation(new Vector3f(0, 2, -5));
         //Rotate the camNode to look at the target:
-        camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);
+        camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);*/
     }
 }
