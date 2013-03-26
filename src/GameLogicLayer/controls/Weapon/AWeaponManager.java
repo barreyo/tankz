@@ -1,5 +1,5 @@
 
-package GameLogicLayer.Weapon;
+package GameLogicLayer.controls.Weapon;
 
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;

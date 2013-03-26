@@ -1,10 +1,10 @@
-package GameLogicLayer.Graphics;
+package GameViewLayer.graphics;
 
 /**
  *
  * @author Daniel
  */
-public enum Graphics {
+public enum EGraphics {
 
     /**
      *
@@ -13,11 +13,15 @@ public enum Graphics {
     /**
      *
      */
-    TEST_PLATFORM("Models/testFloor.j3o");
+    TEST_PLATFORM("Models/testFloor.j3o"),
+    /**
+     *
+     */
+    SHARK("Models/shark/shark.j3o");
     
     private String fileLocation;
 
-    Graphics(String fileLocation) {
+    EGraphics(String fileLocation) {
         this.fileLocation = fileLocation;
     }
 

@@ -104,6 +104,8 @@ public abstract class BaseControl implements Control {
     }
 
     /**
+     * @param rm 
+     * @param vp 
      * @inheritdoc
      */
     @Override
@@ -114,6 +116,8 @@ public abstract class BaseControl implements Control {
     }
 
     /**
+     * @param ex 
+     * @throws IOException 
      * @inheritdoc
      */
     @Override
@@ -124,6 +128,8 @@ public abstract class BaseControl implements Control {
     }
 
     /**
+     * @param im 
+     * @throws IOException 
      * @inheritdoc
      */
     @Override
@@ -135,6 +141,8 @@ public abstract class BaseControl implements Control {
 
     /**
      * NOT supported
+     * @param spatial 
+     * @return 
      */
     @Override
     public Control cloneForSpatial(Spatial spatial) {

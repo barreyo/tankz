@@ -25,6 +25,7 @@ import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
 
 /**
+ * An app state representing the pause menu.
  *
  * @author Daniel
  */
@@ -41,6 +42,9 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     
     private NiftyJmeDisplay niftyDisplay;
 
+    /**
+     *  Create a pause menu app state.
+     */
     public PauseMenuAppState() {
         app = TanksGame.getApp();
         inputManager = app.getInputManager();
@@ -56,12 +60,20 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
         sound = nifty.getSoundSystem().getSound("hooverSound");
     }
 
+    /**
+     *
+     * @param stateManager
+     */
     @Override
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
 
     }
 
+    /**
+     *
+     * @param stateManager
+     */
     @Override
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
@@ -69,6 +81,11 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
         app.getGuiViewPort().removeProcessor(niftyDisplay);
     }
 
+    /**
+     *
+     * @param stateManager
+     * @param app
+     */
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
@@ -98,6 +115,11 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     // ==== nifty ====
+    /**
+     *
+     * @param id
+     * @param event
+     */
     @NiftyEventSubscriber(pattern = "pause_.*")
     public void onHover(String id, NiftyMouseMovedEvent event) {
 
@@ -119,15 +141,29 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
         }
     }
 
+    /**
+     *
+     * @param nifty
+     * @param screen
+     */
     public void bind(Nifty nifty, Screen screen) {
     }
 
+    /**
+     *
+     */
     public void onStartScreen() {
     }
 
+    /**
+     *
+     */
     public void onEndScreen() {
     }
 
+    /**
+     *
+     */
     public void showPauseMenu() {
         // attach the nifty display to the gui view port as a processor
         app.getGuiViewPort().addProcessor(niftyDisplay);
@@ -137,25 +173,40 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
         //inputManager.setCursorVisible(true);
     }
 
+    /**
+     *
+     */
     public void resume() {
         GameState.setGameState(GameState.RUNNING);
         app.getStateManager().detach(this);
     }
 
+    /**
+     *
+     */
     public void restart() {
+        GameState.setGameState(GameState.RUNNING);
         app.getStateManager().detach(this);
-
         /* remove this later */
         app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
         //mapManager.restartLevel();
     }
 
+    /**
+     *
+     */
     public void showMainMenu() {
     }
 
+    /**
+     *
+     */
     public void showOptionsScreen() {
     }
 
+    /**
+     *
+     */
     public void exit() {
         app.stop();
     }

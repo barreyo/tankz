@@ -1,9 +1,9 @@
-package GameLogicLayer.Vehicle;
+package GameLogicLayer.controls.Vehicle;
 
 import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.Weapon.AWeaponManager;
-import GameLogicLayer.Weapon.TankGunManager;
+import GameLogicLayer.controls.Weapon.AWeaponManager;
+import GameLogicLayer.controls.Weapon.TankGunManager;
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;

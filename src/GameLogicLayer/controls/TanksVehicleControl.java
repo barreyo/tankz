@@ -1,6 +1,7 @@
 
 package GameLogicLayer.controls;
 
+import GameLogicLayer.util.EPlayerInputs;
 import GameModelLayer.Game.GameState;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
@@ -36,11 +37,14 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private Camera cam;
     
     // Input related commands
-    private final String TURN_LEFT = "TurnLeft";
-    private final String TURN_RIGHT = "TurnRight";
-    private final String ACCELERATE_FORWARD = "AccelerateForward";
-    private final String ACCELERATE_BACK = "AccelerateBack";
-    private final String RESET = "Reset";
+    private EPlayerInputs inputs;
+    private String TURN_LEFT;
+    private String TURN_RIGHT;
+    private String ACCELERATE_FORWARD;
+    private String ACCELERATE_BACK;
+    private String RESET;
+    
+    
     private InputManager inputManager;
     
     /*
@@ -155,12 +159,36 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     }
 
     private void addInputMappings() {
-        inputManager.addMapping(TURN_LEFT, new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping(TURN_RIGHT, new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping(ACCELERATE_FORWARD, new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping(ACCELERATE_BACK, new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping(RESET, new KeyTrigger(KeyInput.KEY_RETURN));
+        for (EPlayerInputs player : EPlayerInputs.values()) {
+            if (!player.isInUse()) {
+                inputs = player;
+                break;
+            }
+        }
+        if (inputs == null) {
+            return;
+        }
+        
+        int left = inputs.getLeftKey();
+        int right = inputs.getRightKey();
+        int up = inputs.getUpKey();
+        int down = inputs.getDownKey();
+        int reset = inputs.getResetKey();
+        
+        TURN_LEFT = "" + left;
+        TURN_RIGHT = "" + right;
+        ACCELERATE_FORWARD = "" + up;
+        ACCELERATE_BACK = "" + down;
+        RESET = "" + reset;
+        
+        inputManager.addMapping(TURN_LEFT, new KeyTrigger(left));
+        inputManager.addMapping(TURN_RIGHT, new KeyTrigger(right));
+        inputManager.addMapping(ACCELERATE_FORWARD, new KeyTrigger(up));
+        inputManager.addMapping(ACCELERATE_BACK, new KeyTrigger(down));
+        inputManager.addMapping(RESET, new KeyTrigger(reset));
         inputManager.addListener(this, TURN_LEFT, TURN_RIGHT, ACCELERATE_FORWARD, ACCELERATE_BACK, RESET);
+        
+        inputs.setInUse(true);
     }
 
     private void removeInputMappings() {
@@ -170,6 +198,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         inputManager.deleteMapping(ACCELERATE_BACK);
         inputManager.deleteMapping(RESET);
         inputManager.removeListener(this);
+        
+        inputs.setInUse(false);
     }
 
     /**

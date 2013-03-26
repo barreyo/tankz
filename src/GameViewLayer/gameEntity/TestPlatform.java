@@ -1,6 +1,6 @@
 package GameViewLayer.gameEntity;
 
-import GameLogicLayer.Graphics.Graphics;
+import GameViewLayer.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 
@@ -16,7 +16,7 @@ public class TestPlatform extends GameEntity {
      *
      */
     public TestPlatform () {
-        super(Graphics.TEST_PLATFORM);
+        super(EGraphics.TEST_PLATFORM);
         spatial.setName("test");
         spatial.scale(30, 1, 30);
     }

@@ -5,8 +5,8 @@
 package GameLogicLayer.Game;
 
 import GameLogicLayer.AppStates.TanksAppStateManager;
-import GameLogicLayer.Vehicle.AVehicleManager;
-import GameLogicLayer.Vehicle.TankManager;
+import GameLogicLayer.controls.Vehicle.AVehicleManager;
+import GameLogicLayer.controls.Vehicle.TankManager;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.Map.PhysicsTestHelper;

@@ -3,7 +3,7 @@ package GameViewLayer.gameEntity;
 
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Graphics.GraphicManager;
-import GameLogicLayer.Graphics.Graphics;
+import GameViewLayer.graphics.EGraphics;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.util.PreloadManager;
@@ -39,7 +39,7 @@ public abstract class GameEntity {
     Spatial spatial;
     //protected AnimComponent animComponent;
 
-    GameEntity(Graphics graphic) {
+    GameEntity(EGraphics graphic) {
         this();
         spatial = graphicManager.createSpatial(graphic);
     }

@@ -1,8 +1,8 @@
-package GameLogicLayer.Weapon;
+package GameLogicLayer.controls.Weapon;
 
 import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.Projectile.TankProjectileManager;
+import GameLogicLayer.controls.Projectile.TankProjectileManager;
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Weapon.IWeapon;
 import GameViewLayer.gameEntity.Projectile.IProjectileSpatial;

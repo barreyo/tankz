@@ -4,7 +4,7 @@
  */
 package GameViewLayer.gameEntity;
 
-import GameLogicLayer.Graphics.Graphics;
+import GameViewLayer.graphics.EGraphics;
 import GameLogicLayer.Physics.ETanksCollisionShape;
 import GameLogicLayer.controls.TanksControl;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
@@ -37,9 +37,7 @@ public class MainTank extends GameEntity implements Savable {
      *
      */
     public MainTank() {
-        super(Graphics.TANK);
-
-        spatial = (Node)spatial;
+        super(EGraphics.TANK);
         // Save this as user data for the spatial -> ie if you can access the spatial
         // you can access this.
         spatial.setUserData("entity", this);

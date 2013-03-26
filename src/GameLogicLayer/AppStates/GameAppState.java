@@ -135,6 +135,8 @@ public class GameAppState extends AbstractAppState implements ScreenController {
     private ActionListener actionListener = new ActionListener() {
 
         public void onAction(String name, boolean isPressed, float tpf) {
+           
+             System.out.println(GameState.getGameState().name());
             if (GameState.getGameState() != GameState.RUNNING) {
                 return;
             }

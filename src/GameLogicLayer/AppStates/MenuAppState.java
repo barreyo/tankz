@@ -22,7 +22,8 @@ import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
 
 /**
- *
+ * An app state representing the main menu.
+ * 
  * @author Daniel
  */
 public class MenuAppState extends AbstractAppState implements ScreenController {
@@ -34,7 +35,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private SoundHandle sound;
 
     /**
-     *
+     *  Create a new main menu app state.
      */
     public MenuAppState() {
         app = TanksGame.getApp();
@@ -50,7 +51,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
 
     /**
-     *
+     * 
      * @param stateManager
      */
     @Override

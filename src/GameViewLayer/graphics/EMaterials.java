@@ -1,18 +1,18 @@
 
-package GameLogicLayer.Graphics;
+package GameViewLayer.graphics;
 
 /**
  *
  * @author Daniel
  */
-public enum Materials {
+public enum EMaterials {
     /**
      *
      */
     NORMAL("Materials/Normal.j3m");
     private final String pathToMaterial;
 
-    Materials(String materialLocation) {
+    EMaterials(String materialLocation) {
         this.pathToMaterial = materialLocation;
     }
 

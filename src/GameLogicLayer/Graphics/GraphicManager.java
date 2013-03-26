@@ -1,5 +1,6 @@
 package GameLogicLayer.Graphics;
 
+import GameViewLayer.graphics.EGraphics;
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.util.Manager;
 import GameLogicLayer.util.PreloadManager;
@@ -15,7 +16,7 @@ public class GraphicManager implements Manager {
 
     private TanksGame app;
     private AssetManager assetManager;
-    private EnumMap<Graphics, Spatial> graphicMap = new EnumMap<Graphics, Spatial>(Graphics.class);;
+    private EnumMap<EGraphics, Spatial> graphicMap = new EnumMap<EGraphics, Spatial>(EGraphics.class);;
     private PreloadManager preloadManager;
     
     /**
@@ -35,14 +36,14 @@ public class GraphicManager implements Manager {
     public void load(int level) {
         //load all needed graphics
         if (level == 1) {
-            loadGraphics(new Graphics[]{Graphics.TEST_PLATFORM});
+            loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
         } else if (level == 2) {
-            loadGraphics(new Graphics[]{Graphics.TEST_PLATFORM});
+            loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
         }
     }
 
-    private void loadGraphics(Graphics[] graphics) {
-        for (Graphics graphic : graphics) {
+    private void loadGraphics(EGraphics[] graphics) {
+        for (EGraphics graphic : graphics) {
             Spatial s = createSpatial(graphic);
             preloadManager.preload(s);
             graphicMap.put(graphic, s);
@@ -54,7 +55,7 @@ public class GraphicManager implements Manager {
      * @param graphic
      * @return
      */
-    public Spatial createSpatial(Graphics graphic) {
+    public Spatial createSpatial(EGraphics graphic) {
         return assetManager.loadModel(graphic.getPath());
     }
 

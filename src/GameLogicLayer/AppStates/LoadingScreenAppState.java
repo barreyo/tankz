@@ -101,6 +101,7 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
             
             mapManager.load(mapManager.getCurrentIntMap());
             stateManager.attach(app.getTanksAppStateManager().getAppState(GameAppState.class));
+            GameState.setGameState(GameState.RUNNING);
         }
         frameCount++;
     }

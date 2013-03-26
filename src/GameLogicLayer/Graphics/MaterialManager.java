@@ -5,7 +5,7 @@
 package GameLogicLayer.Graphics;
 
 import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.Graphics.Materials;
+import GameViewLayer.graphics.EMaterials;
 import GameLogicLayer.util.Manager;
 import GameLogicLayer.util.PreloadManager;
 import com.jme3.asset.AssetManager;
@@ -18,7 +18,7 @@ import java.util.EnumMap;
  */
 public class MaterialManager implements Manager {
     
-    private EnumMap<Materials, Material> materialMap = new EnumMap<Materials, Material>(Materials.class);
+    private EnumMap<EMaterials, Material> materialMap = new EnumMap<EMaterials, Material>(EMaterials.class);
     private TanksGame app;
     private AssetManager assetManager;
     private PreloadManager preloadManager;
@@ -47,8 +47,8 @@ public class MaterialManager implements Manager {
         }
     }
 
-    private void loadMaterials(Materials[] materials) {
-        for (Materials material : materials) {
+    private void loadMaterials(EMaterials[] materials) {
+        for (EMaterials material : materials) {
             Material m = assetManager.loadMaterial(material.getPathToMaterial());
             materialMap.put(material, m);
             preloadManager.preload(m);
@@ -60,7 +60,7 @@ public class MaterialManager implements Manager {
      * @param material
      * @return
      */
-    public Material getMaterial(Materials material) {
+    public Material getMaterial(EMaterials material) {
         return materialMap.get(material);
     }
 

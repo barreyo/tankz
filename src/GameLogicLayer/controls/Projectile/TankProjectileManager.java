@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameLogicLayer.Projectile;
+package GameLogicLayer.controls.Projectile;
 
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameViewLayer.gameEntity.Projectile.IProjectileSpatial;
