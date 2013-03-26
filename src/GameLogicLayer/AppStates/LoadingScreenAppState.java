@@ -58,6 +58,7 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
     
     @Override
     public void stateDetached(AppStateManager stateManager) {
+        nifty.gotoScreen("end");
         isLoaded = true;
     }
     

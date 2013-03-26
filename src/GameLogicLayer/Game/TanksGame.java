@@ -17,7 +17,9 @@ import GameLogicLayer.Vehicle.AVehicleManager;
 import GameLogicLayer.Vehicle.TankManager;
 import GameLogicLayer.Weapon.AWeaponManager;
 import GameLogicLayer.controls.ControlManager;
+import GameLogicLayer.entity.EntityManager;
 import GameLogicLayer.util.PreloadManager;
+import GameLogicLayer.util.UserSettings;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.Map.PhysicsTestHelper;
@@ -30,6 +32,7 @@ import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
+import com.jme3.post.FilterPostProcessor;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
@@ -59,6 +62,8 @@ public class TanksGame extends SimpleApplication {
     private AnimationManager animManager;
     private GameMapManager mapManager;
     private MaterialManager materialManager;
+    private EntityManager entityManager;
+    private UserSettings userSettings;
 
     private Node mapNode = new Node("Map");
     private CameraNode camNode;
@@ -67,6 +72,8 @@ public class TanksGame extends SimpleApplication {
     
     private AVehicleManager vehicleManager;
     private AWeaponManager weaponManager;
+    private FilterPostProcessor fpp;
+ 
 
     public TanksGame() {
         super(new StatsAppState());
@@ -78,6 +85,8 @@ public class TanksGame extends SimpleApplication {
     public void simpleInitApp() {
         tanksApp = this;
         
+        fpp = new FilterPostProcessor(assetManager);
+        
         // Create a manager for different appstates
         tanksAppStateManager = new TanksAppStateManager();
         
@@ -86,17 +95,20 @@ public class TanksGame extends SimpleApplication {
         stateManager.attach(bulletAppState);
         
         // Creating different essential managers
-        physicsManager = new PhysicsManager();
         guiManager = new GUIManager();
-        controlManager = new ControlManager();
         effectsManager = new EffectsManager();
-        soundManager = new SoundManager();
-        graphicManager = new GraphicManager();
+        controlManager = new ControlManager();
         preloadManager = new PreloadManager();
+        graphicManager = new GraphicManager();
+        materialManager = new MaterialManager();
+        entityManager = new EntityManager();
+        userSettings = new UserSettings();
+        physicsManager = new PhysicsManager();
+        soundManager = new SoundManager();
         animManager = new AnimationManager();
         mapManager = new GameMapManager();
-        materialManager = new MaterialManager();
         
+        // Show the main menu
         guiManager.showMainMenu();
         inputManager.setCursorVisible(true);
         stateManager.detach(stateManager.getState(StatsAppState.class));
@@ -270,5 +282,17 @@ public class TanksGame extends SimpleApplication {
 
     public GraphicManager getGraphicManager() {
         return graphicManager;
+    }
+
+    public UserSettings getUserSettings() {
+        return userSettings;
+    }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public FilterPostProcessor getFpp() {
+        return fpp;
     }
 }

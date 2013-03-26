@@ -8,7 +8,7 @@ package GameLogicLayer.controls;
 public enum TanksControl {
     
     FIRE_WEAPON_CONTROL(FireWeaponControl.class),
-    VEHICLE_CONTROL(VehicleControl.class);
+    VEHICLE_CONTROL(TanksVehicleControl.class);
 
     private Class<? extends BaseControl> control;
 

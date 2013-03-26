@@ -12,10 +12,13 @@ import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
 import GameViewLayer.gameEntity.MainTank;
 import GameLogicLayer.controls.ControlManager;
+import GameLogicLayer.entity.EntityManager;
 import GameLogicLayer.util.Manager;
 import GameLogicLayer.util.PreloadManager;
 import GameViewLayer.Map.GameMap;
 import GameViewLayer.Map.GameMap1;
+import GameViewLayer.Map.PhysicsTestHelper;
+import GameViewLayer.gameEntity.TanksEntity;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.math.Quaternion;
@@ -32,7 +35,7 @@ public class GameMapManager extends AbstractAppState implements Manager {
     private TanksGame app;
     private Node rootNode;
     private ControlManager controlManager;
-    //private EntityManager entityManager;
+    private EntityManager entityManager;
     private MaterialManager materialManager;
     private PhysicsManager physicsManager;
     private SoundManager soundManager;
@@ -53,7 +56,7 @@ public class GameMapManager extends AbstractAppState implements Manager {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
         controlManager = app.getControlManager();
-        //entityManager = app.getEntityManager();
+        entityManager = app.getEntityManager();
         materialManager = app.getMaterialManager();
         physicsManager = app.getPhysicsManager();
         soundManager = app.getSoundManager();
@@ -84,10 +87,20 @@ public class GameMapManager extends AbstractAppState implements Manager {
         // Load LevelCommon
 
         // Load Island
-        mapNode = (Node) app.getAssetManager().loadModel("Models/testFloor.j3o");
-        rootNode.attachChild(mapNode);
+        //mapNode = (Node) app.getAssetManager().loadModel("Models/testFloor.j3o");
+        //rootNode.attachChild(mapNode);
+        
+        PhysicsTestHelper.createPhysicsTestWorld(rootNode, app.getAssetManager(), app.getBulletAppState().getPhysicsSpace());
 
-        app.getBulletAppState().getPhysicsSpace().addAll(mapNode);   
+        //app.getBulletAppState().getPhysicsSpace().addAll(mapNode);   
+        
+        app.getCamera().setRotation(Quaternion.IDENTITY);
+        mainTank = (MainTank) entityManager.create(TanksEntity.TANK);
+        //mainTank.getSpatial().move(-130, 60, -60);
+        rootNode.attachChild(mainTank.getSpatial());
+        mainTank.finalise();
+        app.getStateManager().detach(this);
+        
     
         //mapNode.getChild("SpawningPoints").setCullHint(Spatial.CullHint.Always);
 

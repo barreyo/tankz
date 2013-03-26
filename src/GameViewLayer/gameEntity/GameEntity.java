@@ -40,6 +40,7 @@ public abstract class GameEntity {
     //protected AnimComponent animComponent;
 
     GameEntity(Graphics graphic) {
+        this();
         spatial = graphicManager.createSpatial(graphic);
     }
 

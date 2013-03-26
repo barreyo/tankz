@@ -5,19 +5,19 @@
 package GameViewLayer.gameEntity;
 
 import GameLogicLayer.Graphics.Graphics;
+import GameLogicLayer.Physics.ETanksCollisionShape;
 import GameLogicLayer.controls.TanksControl;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
-import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
-import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
+import com.jme3.export.Savable;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
@@ -29,22 +29,23 @@ import java.io.IOException;
  * 
  * @author Daniel
  */
-public class MainTank extends GameEntity {
+public class MainTank extends GameEntity implements Savable {
 
     private VehicleControl vehicle;
+    
+    private Node vehicleNode;
 
     public MainTank() {
         super(Graphics.TANK);
-        spatial.setName("tank");
-        // ?
+
         spatial = (Node)spatial;
         // For saving?
-        //spatial.setUserData("entity", this);
+        spatial.setUserData("entity", this);
     }
 
     @Override
     public CollisionShape getCollisionShape() {
-        return new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
+        return ETanksCollisionShape.VEHICLE.createCollisionShape();
     }
 
     @Override
@@ -53,8 +54,10 @@ public class MainTank extends GameEntity {
         CompoundCollisionShape compoundShape = new CompoundCollisionShape();
         compoundShape.addChildShape(getCollisionShape(), new Vector3f(0, 1, 0));
 
+        vehicleNode = (Node)spatial;
         // Create the actual vehicle control
         vehicle = new VehicleControl(compoundShape, 400);
+        spatial.addControl(vehicle);
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
 
         float stiffness = 60.0f;//200=f1 car
@@ -91,12 +94,14 @@ public class MainTank extends GameEntity {
         vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
         vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02 | PhysicsCollisionObject.COLLISION_GROUP_04);
         bulletAppState.getPhysicsSpace().add(vehicle);
-
-        spatial.addControl(vehicle);
     }
 
-    public VehicleControl getCharacterControl() {
+    public VehicleControl getVehicleControl() {
         return vehicle;
+    }
+    
+    public Node getVehicleNode() {
+        return vehicleNode;
     }
 
     @Override
@@ -121,5 +126,17 @@ public class MainTank extends GameEntity {
     public void finalise() {
         addPhysicsControl();
         addControl();
+    }
+
+    @Override
+    public void write(JmeExporter e) throws IOException {
+        OutputCapsule capsule = e.getCapsule(this);
+        capsule.write(this.vehicle, "vehicle", null);
+    }
+
+    @Override
+    public void read(JmeImporter e) throws IOException {
+        InputCapsule capsule = e.getCapsule(this);
+        vehicle = (VehicleControl) capsule.readSavable("vehicle", null);
     }
 }

@@ -4,6 +4,7 @@
  */
 package GameViewLayer.Map;
 
+import GameViewLayer.gameEntity.GameEntity;
 import com.jme3.app.state.AbstractAppState;
 import java.util.LinkedList;
 
@@ -12,7 +13,7 @@ import java.util.LinkedList;
  *
  * @author Daniel
  */
-public class GameMap1 extends AbstractAppState implements GameMap {
+public class GameMap1 implements GameMap {
 
     public void load() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -21,11 +22,10 @@ public class GameMap1 extends AbstractAppState implements GameMap {
     public void cleanup() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    // TODO add entity support
-    /*public LinkedList<BaseEntity> getAllEntities() {
+    
+    public LinkedList<GameEntity> getAllEntities() {
         throw new UnsupportedOperationException("Not supported yet.");
-    }*/
+    }
 
 
 }

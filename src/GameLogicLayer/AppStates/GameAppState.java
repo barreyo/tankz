@@ -27,15 +27,16 @@ import de.lessvoid.nifty.screen.ScreenController;
  */
 public class GameAppState extends AbstractAppState implements ScreenController {
     
-    private TanksGame myApp;
+    private TanksGame app;
     private InputManager inputManager;
-    private GUIManager guiManager = myApp.getGUIManager();
+    private GUIManager guiManager;
     
     private static final String PAUSE = "PAUSE";
 
     public GameAppState() {
-        myApp = TanksGame.getApp();
-        inputManager = myApp.getInputManager();
+        app = TanksGame.getApp();
+        inputManager = app.getInputManager();
+        guiManager = app.getGUIManager();
     }
     
     @Override
@@ -49,8 +50,8 @@ public class GameAppState extends AbstractAppState implements ScreenController {
         GameState.setGameState(GameState.RUNNING);
         //showHud();
         
-        myApp.getStateManager().attach(myApp.getTanksAppStateManager().getAppState(GameMap1.class));
-        myApp.getBulletAppState().setEnabled(true);
+        app.getStateManager().attach(app.getTanksAppStateManager().getAppState(CommonMapAppState.class));
+        app.getBulletAppState().setEnabled(true);
 
         loadDesktopInputs();
     }
@@ -60,18 +61,18 @@ public class GameAppState extends AbstractAppState implements ScreenController {
         super.stateDetached(stateManager);
         removeDesktopInputs();
         // deatch all Level States
-        myApp.getStateManager().detach(myApp.getStateManager().getState(GameMap1.class));
-        myApp.getBulletAppState().setEnabled(false);
+        app.getStateManager().detach(app.getStateManager().getState(CommonMapAppState.class));
+        app.getBulletAppState().setEnabled(false);
 
         // TODO: pause any playing music
-        myApp.getGuiNode().detachAllChildren();
+        app.getGuiNode().detachAllChildren();
     }
     
     @Override
     public void cleanup() {
       super.cleanup();
       // unregister all my listeners, detach all my nodes, etc...
-      this.myApp.getRootNode().detachAllChildren(); // modify scene graph...
+      this.app.getRootNode().detachAllChildren(); // modify scene graph...
       //this.myApp.doSomethingElse();                 // call custom methods...
     }
 
@@ -122,8 +123,8 @@ public class GameAppState extends AbstractAppState implements ScreenController {
                 return;
             }
             if (name.equals(PAUSE) && !isPressed) {
-                myApp.getStateManager().detach(GameAppState.this);
-                myApp.getStateManager().attach(myApp.getTanksAppStateManager().getAppState(MenuAppState.class));
+                app.getStateManager().detach(GameAppState.this);
+                app.getStateManager().attach(app.getTanksAppStateManager().getAppState(MenuAppState.class));
             }
         }
     };

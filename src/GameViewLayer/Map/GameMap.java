@@ -4,6 +4,7 @@
  */
 package GameViewLayer.Map;
 
+import GameViewLayer.gameEntity.GameEntity;
 import java.util.LinkedList;
 
 /**
@@ -13,6 +14,5 @@ import java.util.LinkedList;
 public interface GameMap {
     public void load();
     public void cleanup();
-    // TODO add Entitys
-    //public LinkedList<BaseEntity> getAllEntities();
+    public LinkedList<GameEntity> getAllEntities();
 }

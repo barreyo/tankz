@@ -34,7 +34,7 @@ public class MaterialManager implements Manager {
 
         //create an instance of these materials and use them for each level
         if(level == 1) {
-            loadMaterials(new Materials[]{Materials.NORMAL});
+            //loadMaterials(new Materials[]{Materials.NORMAL});
         } else if (level == 2) {
             // NOT IMPLEMENTED YET
         }
