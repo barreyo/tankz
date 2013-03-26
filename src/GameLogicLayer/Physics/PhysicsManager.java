@@ -18,6 +18,10 @@ public class PhysicsManager implements Manager {
     
     private EnumMap<ETanksCollisionShape, CollisionShape> collisionShapeMap = new EnumMap<ETanksCollisionShape, CollisionShape>(ETanksCollisionShape.class);
 
+    /**
+     *
+     * @param level
+     */
     public void load(int level) {
         if (level == 1) {
             loadCollisionShapes(new ETanksCollisionShape[]{ETanksCollisionShape.VEHICLE});
@@ -30,16 +34,29 @@ public class PhysicsManager implements Manager {
         }
     }
 
+    /**
+     *
+     * @param tanksCollisionShape
+     * @return
+     */
     public PhysicsControl getPhysicsControl(ETanksCollisionShape tanksCollisionShape) {
         RigidBodyControl rigidBodyControl = new RigidBodyControl(collisionShapeMap.get(tanksCollisionShape), 1);
         rigidBodyControl.setKinematic(true);
         return rigidBodyControl;
     }
 
+    /**
+     *
+     * @param tanksCollisionShape
+     * @return
+     */
     public CollisionShape getCollisionShape(ETanksCollisionShape tanksCollisionShape) {
         return collisionShapeMap.get(tanksCollisionShape);
     }
 
+    /**
+     *
+     */
     public void cleanup() {
         collisionShapeMap.clear();
     }

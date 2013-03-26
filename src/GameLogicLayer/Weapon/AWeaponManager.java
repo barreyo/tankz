@@ -29,5 +29,9 @@ public abstract class AWeaponManager implements ActionListener {
         inputManager.addListener(this, "Space");
     }
 
+    /**
+     *
+     * @param direction
+     */
     public abstract void updateDirectionOfWeapon(Vector3f direction);
 }

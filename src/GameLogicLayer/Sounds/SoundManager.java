@@ -23,6 +23,9 @@ public class SoundManager implements Manager {
     private AudioRenderer audioRenderer;
     private AssetManager assetManager;
 
+    /**
+     *
+     */
     public SoundManager() {
         app = TanksGame.getApp();
         audioRenderer = app.getAudioRenderer();
@@ -31,6 +34,10 @@ public class SoundManager implements Manager {
         soundMap = new EnumMap<ETanksSound, AudioNode>(ETanksSound.class);
     }
 
+    /**
+     *
+     * @param map
+     */
     @Override
     public void load(int map) {
         if (map == 1) {
@@ -48,6 +55,10 @@ public class SoundManager implements Manager {
     }
 
     // load all music which will be streamed
+    /**
+     *
+     * @param music
+     */
     public void loadMusic(ETanksSound[] music) {
         for (ETanksSound s : music) {
             if (s != null) {
@@ -61,12 +72,19 @@ public class SoundManager implements Manager {
         }
     }
 
+    /**
+     *
+     * @param music
+     */
     public void removeMusic(ETanksSound[] music) {
         for (ETanksSound s : music) {
             soundMap.remove(s);
         }
     }
 
+    /**
+     *
+     */
     public void removeAllMusic() {
         ArrayList<ETanksSound> musicList = new ArrayList<ETanksSound>();
 
@@ -82,6 +100,10 @@ public class SoundManager implements Manager {
         }
     }
 
+    /**
+     *
+     * @param sound
+     */
     public void play(ETanksSound sound) {
         AudioNode audio = soundMap.get(sound);
 
@@ -102,6 +124,10 @@ public class SoundManager implements Manager {
     }
 
     // pause the music
+    /**
+     *
+     * @param sound
+     */
     public void pause(ETanksSound sound) {
         AudioNode audio = soundMap.get(sound);
 
@@ -111,6 +137,10 @@ public class SoundManager implements Manager {
     }
 
     // if paused it will play, if playing it will be paused
+    /**
+     *
+     * @param sound
+     */
     public void togglePlayPause(ETanksSound sound) {
         AudioNode toToggle = soundMap.get(sound);
 
@@ -130,6 +160,9 @@ public class SoundManager implements Manager {
         toStop.stop();
     }
 
+    /**
+     *
+     */
     @Override
     public void cleanup() {
         removeAllMusic();

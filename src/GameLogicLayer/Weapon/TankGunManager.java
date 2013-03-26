@@ -79,6 +79,10 @@ public class TankGunManager extends AWeaponManager {
         }
     }
 
+    /**
+     *
+     * @param direction
+     */
     @Override
     public void updateDirectionOfWeapon(Vector3f direction) {
         weaponSpatial.setAttackDirection(direction);

@@ -32,29 +32,37 @@ import java.io.IOException;
 public class MainTank extends GameEntity implements Savable {
 
     private VehicleControl vehicle;
-    
-    private Node vehicleNode;
 
+    /**
+     *
+     */
     public MainTank() {
         super(Graphics.TANK);
 
         spatial = (Node)spatial;
-        // For saving?
+        // Save this as user data for the spatial -> ie if you can access the spatial
+        // you can access this.
         spatial.setUserData("entity", this);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public CollisionShape getCollisionShape() {
         return ETanksCollisionShape.VEHICLE.createCollisionShape();
     }
 
+    /**
+     *
+     */
     @Override
     public void addPhysicsControl() {
         
         CompoundCollisionShape compoundShape = new CompoundCollisionShape();
         compoundShape.addChildShape(getCollisionShape(), new Vector3f(0, 1, 0));
 
-        vehicleNode = (Node)spatial;
         // Create the actual vehicle control
         vehicle = new VehicleControl(compoundShape, 400);
         spatial.addControl(vehicle);
@@ -96,23 +104,32 @@ public class MainTank extends GameEntity implements Savable {
         bulletAppState.getPhysicsSpace().add(vehicle);
     }
 
+    /**
+     *
+     * @return
+     */
     public VehicleControl getVehicleControl() {
         return vehicle;
     }
-    
-    public Node getVehicleNode() {
-        return vehicleNode;
-    }
 
+    /**
+     *
+     */
     @Override
     public void addMaterial() {
     }
 
+    /**
+     *
+     */
     @Override
     public void addControl() {
         spatial.addControl(controlManager.getControl(TanksControl.VEHICLE_CONTROL));
     }
 
+    /**
+     *
+     */
     @Override
     public void cleanup() {
         spatial.getControl(TanksControl.VEHICLE_CONTROL.getControl()).cleanup();
@@ -122,18 +139,31 @@ public class MainTank extends GameEntity implements Savable {
         vehicle = null;
     }
 
+    /**
+     *
+     */
     @Override
     public void finalise() {
         addPhysicsControl();
         addControl();
     }
 
+    /**
+     *
+     * @param e
+     * @throws IOException
+     */
     @Override
     public void write(JmeExporter e) throws IOException {
         OutputCapsule capsule = e.getCapsule(this);
         capsule.write(this.vehicle, "vehicle", null);
     }
 
+    /**
+     *
+     * @param e
+     * @throws IOException
+     */
     @Override
     public void read(JmeImporter e) throws IOException {
         InputCapsule capsule = e.getCapsule(this);

@@ -6,8 +6,26 @@ package GameModelLayer.gameEntity.Powerup;
  * @author Daniel
  */
 public enum EPowerup {
-    HEALTH_BOOST("Health"), SPEED_BOOST("Speed"), INVINSIBLE("Invincible"),
-    INVISIBLE("Invisable"), MISSILE("Missile");
+    /**
+     *
+     */
+    HEALTH_BOOST("Health"),
+    /**
+     *
+     */
+    SPEED_BOOST("Speed"),
+    /**
+     *
+     */
+    INVINSIBLE("Invincible"),
+    /**
+     *
+     */
+    INVISIBLE("Invisable"),
+    /**
+     *
+     */
+    MISSILE("Missile");
     
     private final String name;
     

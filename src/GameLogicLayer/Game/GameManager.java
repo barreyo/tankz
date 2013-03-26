@@ -156,14 +156,26 @@ public class GameManager extends SimpleApplication {
         return physics;
     }
     
+    /**
+     *
+     * @return
+     */
     public static GameManager getApp() {
         return tanksApp;
     }
 
+    /**
+     *
+     * @return
+     */
     public BulletAppState getBulletAppState() {
         return bulletAppState;
     }
     
+    /**
+     *
+     * @return
+     */
     public TanksAppStateManager getTanksAppStateManager(){
         return tanksAppStateManager;
     }

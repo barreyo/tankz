@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.sourceforge.net/nifty-1.3.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nifty-gui.sourceforge.net/nifty-1.3.xsd http://nifty-gui.sourceforge.net/nifty-1.3.xsd">
+
+    <useStyles filename="nifty-default-styles.xml" />
+    <useControls filename="nifty-default-controls.xml" />
+
+    <style id="pauseStyle">
+        <attributes
+        visibleToMouse="true"
+        font="Interface/Fonts/Forte.fnt"
+        align="center"
+        height="90px"
+        width="400px"/>
+    </style>
+
+    <screen id="pause" controller="GameLogicLayer.AppStates.PauseMenuAppState">
+        <layer id="layer" backgroundColor="#0000" childLayout="center">
+        </layer>
+        <layer id="menu_layer" childLayout="center" >
+            <panel childLayout="vertical">
+                <control id="pause_resume" name ="label"  style="pauseStyle" text="RESUME">
+                    <interact onClick="resume()" />
+                </control>
+                <control id="pause_restart" name ="label" style="pauseStyle" text="RESTART LEVEL">
+                    <interact onClick="restart()" />
+                </control>
+                <control id="pause_exit" name ="label" style="pauseStyle" text="LEAVE">
+                    <interact onClick="exit()"/>
+                </control>
+            </panel>
+        </layer>
+    </screen>
+    
+    <screen id="end" >
+    </screen>
+</nifty>

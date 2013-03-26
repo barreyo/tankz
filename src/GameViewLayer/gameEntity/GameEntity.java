@@ -44,6 +44,9 @@ public abstract class GameEntity {
         spatial = graphicManager.createSpatial(graphic);
     }
 
+    /**
+     *
+     */
     public GameEntity() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
@@ -57,14 +60,24 @@ public abstract class GameEntity {
         materialManager = app.getMaterialManager();
     }
 
+    /**
+     *
+     * @return
+     */
     public abstract CollisionShape getCollisionShape();
 
     abstract void addMaterial();
 
     abstract void addControl();
 
+    /**
+     *
+     */
     public abstract void cleanup();
 
+    /**
+     *
+     */
     public abstract void finalise();
 
     // TODO
@@ -79,6 +92,10 @@ public abstract class GameEntity {
         bulletAppState.getPhysicsSpace().add(rigidBodyControl);
     }
 
+    /**
+     *
+     * @return
+     */
     public Spatial getSpatial() {
         return spatial;
     }

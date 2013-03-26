@@ -23,6 +23,9 @@ public class MaterialManager implements Manager {
     private AssetManager assetManager;
     private PreloadManager preloadManager;
     
+    /**
+     *
+     */
     public MaterialManager() {
         app = TanksGame.getApp();
         assetManager = app.getAssetManager();
@@ -30,6 +33,10 @@ public class MaterialManager implements Manager {
         
     }
 
+    /**
+     *
+     * @param level
+     */
     public void load(int level) {
 
         //create an instance of these materials and use them for each level
@@ -48,11 +55,19 @@ public class MaterialManager implements Manager {
         }
     }
 
+    /**
+     *
+     * @param material
+     * @return
+     */
     public Material getMaterial(Materials material) {
         return materialMap.get(material);
     }
 
     // remove all entries to the materialMap
+    /**
+     *
+     */
     public void cleanup() {
         materialMap.clear();
     }

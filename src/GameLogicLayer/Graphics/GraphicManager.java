@@ -18,12 +18,19 @@ public class GraphicManager implements Manager {
     private EnumMap<Graphics, Spatial> graphicMap = new EnumMap<Graphics, Spatial>(Graphics.class);;
     private PreloadManager preloadManager;
     
+    /**
+     *
+     */
     public GraphicManager() {
         app = TanksGame.getApp();
         assetManager = app.getAssetManager();
         preloadManager = app.getPreloadManager();
     }
 
+    /**
+     *
+     * @param level
+     */
     @Override
     public void load(int level) {
         //load all needed graphics
@@ -42,10 +49,18 @@ public class GraphicManager implements Manager {
         }
     }
 
+    /**
+     *
+     * @param graphic
+     * @return
+     */
     public Spatial createSpatial(Graphics graphic) {
         return assetManager.loadModel(graphic.getPath());
     }
 
+    /**
+     *
+     */
     @Override
     public void cleanup() {
         graphicMap.clear();

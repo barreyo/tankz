@@ -14,8 +14,15 @@ import com.jme3.math.Vector3f;
  * @author Daniel
  */
 public enum ETanksCollisionShape {
+    /**
+     *
+     */
     VEHICLE;
 
+    /**
+     *
+     * @return
+     */
     public CollisionShape createCollisionShape() {
         CollisionShape collisionShape;
         switch(this) {

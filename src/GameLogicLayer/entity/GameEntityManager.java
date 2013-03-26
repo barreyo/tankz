@@ -9,10 +9,17 @@ import GameViewLayer.gameEntity.GameEntity;
 import GameViewLayer.gameEntity.TanksEntity;
 
 /**
- *
+ * Manages game entities.
+ * 
  * @author Daniel
  */
-public class EntityManager {
+public class GameEntityManager {
+    /**
+     * Creates a game entity.
+     *
+     * @param newEntity The entity to create.
+     * @return The created game entity
+     */
     public GameEntity create(TanksEntity newEntity) {
         GameEntity entity = newEntity.createEntity();
         return entity;

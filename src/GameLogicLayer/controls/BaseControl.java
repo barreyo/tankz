@@ -17,19 +17,31 @@ import com.jme3.scene.control.Control;
 import java.io.IOException;
 
 /**
+ * A Basic control used to hold common data and functinality of controls.
  *
  * @author Daniel
  */
 public abstract class BaseControl implements Control {
     
-    protected TanksGame app;
-    protected boolean enabled = true;
-    protected Spatial spatial;
+    TanksGame app;
     
-    protected BaseControl() {
+    boolean enabled = true;
+
+    Spatial spatial;
+
+    /**
+     * Creates a basecontrol. Only visible in same package.
+     */
+    BaseControl() {
         app = TanksGame.getApp();
     }
 
+    /**
+     * Registers a spatial to control.
+     * 
+     * @param spatial The spatial to control
+     * @throws IllegalStateException if controller already been added to a spatial
+     */
     @Override
     public void setSpatial(Spatial spatial) {
         if (this.spatial != null && spatial != null) {
@@ -38,27 +50,50 @@ public abstract class BaseControl implements Control {
         this.spatial = spatial;
     }
 
+    /**
+     * Returns the spatial under control.
+     * 
+     * @return spatial under control
+     */
     public Spatial getSpatial() {
         return spatial;
     }
 
+    /**
+     * Sets if the control is enabled or disabled.
+     * 
+     * @param enabled Toggles enabling of control.
+     */
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
+    /**
+     * Returns if the control is enabled.
+     * 
+     * @return if the control is enabled
+     */
     public boolean isEnabled() {
         return enabled;
     }
 
+    /**
+     * Used to release resources.
+     */
     public void cleanup() {
         spatial.removeControl(this);
     }
 
     /**
      * To be implemented in subclass.
+     * 
+     * @param tpf 
      */
-    protected abstract void controlUpdate(float tpf);
+    abstract void controlUpdate(float tpf);
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void update(float tpf) {
         if (!enabled || GameState.getGameState() != GameState.RUNNING) {
@@ -68,6 +103,9 @@ public abstract class BaseControl implements Control {
         controlUpdate(tpf);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void render(RenderManager rm, ViewPort vp) {
         if (!enabled) {
@@ -75,6 +113,9 @@ public abstract class BaseControl implements Control {
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void write(JmeExporter ex) throws IOException {
         OutputCapsule oc = ex.getCapsule(this);
@@ -82,6 +123,9 @@ public abstract class BaseControl implements Control {
         oc.write(spatial, "spatial", null);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void read(JmeImporter im) throws IOException {
         InputCapsule ic = im.getCapsule(this);
@@ -89,6 +133,9 @@ public abstract class BaseControl implements Control {
         spatial = (Spatial) ic.readSavable("spatial", null);
     }
 
+    /**
+     * NOT supported
+     */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
         throw new UnsupportedOperationException("Not supported yet.");

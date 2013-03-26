@@ -5,12 +5,27 @@
 package GameViewLayer.gameEntity;
 
 /**
- *
+ * Enum holding the games different game entitys.
+ * 
  * @author Daniel
  */
 public enum TanksEntity {
-    TEST_FLOOR, TANK;
+    /**
+     *
+     */
+    TEST_FLOOR,
+    /**
+     *
+     */
+    TANK;
 
+    /*
+     * 
+     */
+    /**
+     *
+     * @return
+     */
     public GameEntity createEntity() {
 
         GameEntity entity;

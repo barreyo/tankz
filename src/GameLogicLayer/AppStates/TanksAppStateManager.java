@@ -17,6 +17,12 @@ public class TanksAppStateManager implements Manager {
 
     private List<AbstractAppState> appStates = new ArrayList<AbstractAppState>(5);
 
+    /**
+     *
+     * @param <T>
+     * @param appStateClass
+     * @return
+     */
     public <T extends AbstractAppState> AbstractAppState getAppState(Class<T> appStateClass) {
         for (AbstractAppState state : appStates) {
             if (appStateClass.isAssignableFrom(state.getClass())) {
@@ -35,13 +41,24 @@ public class TanksAppStateManager implements Manager {
         return null;
     }
     
+    /**
+     *
+     * @return
+     */
     protected List<AbstractAppState> getStates() {
         return appStates;
     }
 
+    /**
+     *
+     * @param level
+     */
     public void load(int level) {
     }
 
+    /**
+     *
+     */
     public void cleanup() {
     }
 }

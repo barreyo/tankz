@@ -12,7 +12,7 @@ import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
 import GameViewLayer.gameEntity.MainTank;
 import GameLogicLayer.controls.ControlManager;
-import GameLogicLayer.entity.EntityManager;
+import GameLogicLayer.entity.GameEntityManager;
 import GameLogicLayer.util.Manager;
 import GameLogicLayer.util.PreloadManager;
 import GameViewLayer.Map.GameMap;
@@ -35,7 +35,7 @@ public class GameMapManager extends AbstractAppState implements Manager {
     private TanksGame app;
     private Node rootNode;
     private ControlManager controlManager;
-    private EntityManager entityManager;
+    private GameEntityManager entityManager;
     private MaterialManager materialManager;
     private PhysicsManager physicsManager;
     private SoundManager soundManager;
@@ -52,6 +52,9 @@ public class GameMapManager extends AbstractAppState implements Manager {
     //private CinematicComposition cc;
     private MainTank mainTank;
 
+    /**
+     *
+     */
     public GameMapManager() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
@@ -67,19 +70,34 @@ public class GameMapManager extends AbstractAppState implements Manager {
         currentIntGameMap = 1;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getCurrentIntMap() {
         return currentIntGameMap;
     }
 
+    /**
+     *
+     * @param gameMap
+     */
     public void setCurrentIntGameMap(int gameMap) {
         this.currentIntGameMap = gameMap;
     }
 
+    /**
+     *
+     * @return
+     */
     public GameMap getCurrentMap() {
         return currentGameMap;
     }
 
     // only call this once during the first ever level
+    /**
+     *
+     */
     public void initialiseGameStatesOnce() {
         app.getCamera().setLocation(new Vector3f(-231.00694f, 269.15887f, 319.6499f));
         app.getCamera().lookAt(new Vector3f(0f, 0f, 0f), Vector3f.UNIT_Y);
@@ -191,10 +209,18 @@ public class GameMapManager extends AbstractAppState implements Manager {
         }*/
     }
 
+    /**
+     *
+     * @return
+     */
     public Node getGameMap() {
         return mapNode;
     }
 
+    /**
+     *
+     * @param gameMap
+     */
     public void load(int gameMap) {
 
         if (!stateInitialised) {

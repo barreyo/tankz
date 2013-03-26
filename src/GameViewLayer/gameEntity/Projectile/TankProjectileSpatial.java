@@ -28,6 +28,7 @@ public class TankProjectileSpatial implements IProjectileSpatial{
      * Creates a tankprojectile.
      *
      * @param assetManager Used for managing assets
+     * @param radius  
      */
     public TankProjectileSpatial(AssetManager assetManager, float radius) {
         prepareTankProjectile(assetManager, radius);

@@ -12,7 +12,17 @@ import java.util.LinkedList;
  * @author Daniel
  */
 public interface GameMap {
+    /**
+     *
+     */
     public void load();
+    /**
+     *
+     */
     public void cleanup();
+    /**
+     *
+     * @return
+     */
     public LinkedList<GameEntity> getAllEntities();
 }

@@ -33,6 +33,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private Element currentElement;
     private SoundHandle sound;
 
+    /**
+     *
+     */
     public MenuAppState() {
         app = TanksGame.getApp();
         guiManager = app.getGUIManager();
@@ -46,16 +49,29 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         sound.setVolume(1.0f);
     }
 
+    /**
+     *
+     * @param stateManager
+     */
     @Override
     public void stateAttached(AppStateManager stateManager) {
         goToMainMenu();
         GameState.setGameState(GameState.MAIN_MENU);
     }
 
+    /**
+     *
+     * @param stateManager
+     */
     @Override
     public void stateDetached(AppStateManager stateManager) {
     }
 
+    /**
+     *
+     * @param stateManager
+     * @param app
+     */
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
@@ -66,22 +82,39 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         super.cleanup();
     }
 
+    /**
+     *
+     */
     public void onStartScreen() {
         System.out.println("onStartScreen");
     }
 
+    /**
+     *
+     */
     public void onEndScreen() {
         System.out.println("onEndScreen");
     }
 
+    /**
+     *
+     */
     public void goToMainMenu() {
         nifty.gotoScreen("start");
     }
     
+    /**
+     *
+     */
     public void goToMultiplayerScreen() {
        nifty.gotoScreen("multi");
     }
 
+    /**
+     *
+     * @param id
+     * @param event
+     */
     @NiftyEventSubscriber(pattern = "main.*")
     public void onHover(String id, NiftyMouseMovedEvent event) {
 
@@ -103,39 +136,68 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         }
     }
 
+    /**
+     *
+     * @param nifty
+     * @param screen
+     */
     public void bind(Nifty nifty, Screen screen) {
         popupElement = nifty.createPopup("popupExit");
     }
 
+    /**
+     *
+     */
     public void closePopup() {
         nifty.closePopup(popupElement.getId());
     }
 
+    /**
+     *
+     */
     public void quit() {
         nifty.gotoScreen("end");
     }
 
+    /**
+     *
+     */
     public void showExitDialog() {
         nifty.showPopup(nifty.getCurrentScreen(), popupElement.getId(), null);
     }
 
+    /**
+     *
+     */
     public void exit() {
         app.stop();
     }
     
     // TODO implement method to call for number of players
+    /**
+     *
+     */
     public void loadOnePlayerGame() {
         guiManager.showLoadingScreen();
     }
     
+    /**
+     *
+     */
     public void loadTwoPlayerGame() {
         guiManager.showLoadingScreen();
     }
     
+    /**
+     *
+     */
     public void loadThreePlayerGame() {
         guiManager.showLoadingScreen();
     }
     
+    /**
+     *
+     */
     public void loadFourPlayerGame() {
         guiManager.showLoadingScreen();
     }

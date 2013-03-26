@@ -21,84 +21,116 @@ import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.CameraControl;
 
 /**
- *
+ *  A control of a tank vehicle.
+ * 
  * @author Daniel
  */
 public class TanksVehicleControl extends BaseControl implements ActionListener {
-    private Vector3f walkDirection = new Vector3f();
-    private boolean left = false, right = false, up = false, down = false;
-    private VehicleControl vehicle;
-    private Camera cam = app.getCamera();
-    private InputManager inputManager = app.getInputManager();
-    private final String LEFT_MOVE = "LeftMove";
-    private final String RIGHT_MOVE = "RightMove";
-    private final String FORWARD_MOVE = "UpMove";
-    private final String BACKWARD_MOVE = "BackMove";
-    private final String RESET = "Reset";
+    private Vector3f driveDirection = new Vector3f();
     
+    // The model for the vehicle (holds the data)
     private IArmedVehicle vehicleModel;
-
+    private VehicleControl vehicle;
+    
+    // Cam to be set up behind Vehicle
+    private Camera cam;
+    
+    // Input related commands
+    private final String TURN_LEFT = "TurnLeft";
+    private final String TURN_RIGHT = "TurnRight";
+    private final String ACCELERATE_FORWARD = "AccelerateForward";
+    private final String ACCELERATE_BACK = "AccelerateBack";
+    private final String RESET = "Reset";
+    private InputManager inputManager;
+    
+    /*
+     * Creates a control for a tank vehicle.
+     */
+    /**
+     *
+     */
     public TanksVehicleControl() {
+        // Get needed managers
+        cam = app.getCamera();
+        inputManager = app.getInputManager();
+        
+        // Create a model for the vehicle
         vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(4000.0f);
         vehicleModel.setBrakeForce(100.0f);
-        addDesktopInputs();
+        
+        // Register input mappings
+        addInputMappings();
     }
 
+    /*
+     * @inheritdoc
+     */
     @Override
-    protected void controlUpdate(float tpf) {
+    void controlUpdate(float tpf) {
         if (vehicle == null) {
             return;
         }
+        // TODO riktning
     }
 
+    /*
+     * @inheritdoc
+     */
+    /**
+     *
+     * @param spatial
+     */
     @Override
     public void setSpatial(Spatial spatial) {
         super.setSpatial(spatial);
 
         if (spatial != null) {
-            MainTank tank = (MainTank) spatial.getUserData("entity");
+            // Get the visual representation of the tank and the applied vehicle control
+            MainTank tank = spatial.getUserData("entity");
             vehicle = tank.getVehicleControl();
-            setUpCam(tank.getVehicleNode());
+    
+            // Set up the cam behind vehicle
+            setUpCam(tank.getSpatial());
         }
     }
 
-    public void cleanUp() {
-        spatial.removeControl(this);
-        removeDesktopInput();
+    /*
+     * @inheritdoc
+     */
+    @Override
+    public void cleanup() {
+        // Remove this as a control and remove inputs
+        super.cleanup();
+        removeInputMappings();
 
         //GameState.setMoving(false);
     }
 
-    public void onAction(String binding, boolean isPressed, float tpf) {
-
-        if (binding.equals(LEFT_MOVE)) {
-            left = isPressed;
+    public void onAction(String name, boolean isPressed, float tpf) {
+        // Steering related
+        if (name.equals(TURN_LEFT)) {
             if (isPressed) {
                 vehicleModel.incrementSteeringValue(1f);
             } else {
                 vehicleModel.decrementSteeringValue(1f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
-        } else if (binding.equals(RIGHT_MOVE)) {
-            right = isPressed;
+        } else if (name.equals(TURN_RIGHT)) {
             if (isPressed) {
                 vehicleModel.decrementSteeringValue(1f);
             } else {
                 vehicleModel.incrementSteeringValue(1f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
-        } else if (binding.equals(FORWARD_MOVE)) {
-            up = isPressed;
+        } else if (name.equals(ACCELERATE_FORWARD)) {
             if (isPressed) {
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
             vehicle.accelerate(vehicleModel.getAccelerationValue());
-            System.out.println(vehicleModel.getAccelerationValue());
-        } else if (binding.equals(BACKWARD_MOVE)) {
-            down = isPressed;
+        } else if (name.equals(ACCELERATE_BACK)) {
             if (isPressed) {
                 vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
@@ -107,7 +139,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
             vehicle.accelerate(vehicleModel.getAccelerationValue());
-        } else if (binding.equals(RESET)) {
+        } else if (name.equals(RESET)) {
             if (isPressed) {
                 System.out.println("Reset");
                 vehicle.setPhysicsLocation(Vector3f.ZERO);
@@ -118,29 +150,35 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             }
         }
 
-        boolean isMoving = left || right || up || down;
+        //boolean isMoving = left || right || up || down;
         //GameState.setMoving(isMoving);
     }
 
-    private void addDesktopInputs() {
-        inputManager.addMapping(LEFT_MOVE, new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping(RIGHT_MOVE, new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping(FORWARD_MOVE, new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping(BACKWARD_MOVE, new KeyTrigger(KeyInput.KEY_S));
+    private void addInputMappings() {
+        inputManager.addMapping(TURN_LEFT, new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping(TURN_RIGHT, new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping(ACCELERATE_FORWARD, new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addMapping(ACCELERATE_BACK, new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping(RESET, new KeyTrigger(KeyInput.KEY_RETURN));
-        inputManager.addListener(this, LEFT_MOVE, RIGHT_MOVE, FORWARD_MOVE, BACKWARD_MOVE, RESET);
+        inputManager.addListener(this, TURN_LEFT, TURN_RIGHT, ACCELERATE_FORWARD, ACCELERATE_BACK, RESET);
     }
 
-    private void removeDesktopInput() {
-        inputManager.deleteMapping(LEFT_MOVE);
-        inputManager.deleteMapping(RIGHT_MOVE);
-        inputManager.deleteMapping(FORWARD_MOVE);
-        inputManager.deleteMapping(BACKWARD_MOVE);
+    private void removeInputMappings() {
+        inputManager.deleteMapping(TURN_LEFT);
+        inputManager.deleteMapping(TURN_RIGHT);
+        inputManager.deleteMapping(ACCELERATE_FORWARD);
+        inputManager.deleteMapping(ACCELERATE_BACK);
         inputManager.deleteMapping(RESET);
         inputManager.removeListener(this);
     }
 
-    private void setUpCam(Node vehicleNode) {
+    /**
+     * Initiates the third person camera that follows the vehicle.
+     *
+     * @param spatial The spatial to be followed by the camera.
+     */
+    private void setUpCam(Spatial spatial) {
+        Node vehicleNode = (Node)spatial;
         // Disable the default flyby cam
         //app.getFlyByCamera().setEnabled(false);
         //create the camera Node

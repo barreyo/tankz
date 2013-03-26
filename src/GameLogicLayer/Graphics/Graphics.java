@@ -1,8 +1,19 @@
 package GameLogicLayer.Graphics;
 
+/**
+ *
+ * @author Daniel
+ */
 public enum Graphics {
 
-    TANK("Models/tanken/tanken.j3o"), TEST_PLATFORM("Models/testFloor.j3o");
+    /**
+     *
+     */
+    TANK("Models/tanken/tanken.j3o"),
+    /**
+     *
+     */
+    TEST_PLATFORM("Models/testFloor.j3o");
     
     private String fileLocation;
 
@@ -10,6 +21,10 @@ public enum Graphics {
         this.fileLocation = fileLocation;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPath() {
         return fileLocation;
     }

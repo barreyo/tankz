@@ -1,15 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.Game.TanksGame;
 import GameModelLayer.Game.GameState;
-import GameViewLayer.Map.GameMap1;
 import com.jme3.app.Application;
-import com.jme3.app.SimpleApplication;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.InputManager;
@@ -22,7 +16,8 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 
 /**
- *
+ * A game app state holding functionality for the game.
+ * 
  * @author Daniel
  */
 public class GameAppState extends AbstractAppState implements ScreenController {
@@ -31,20 +26,34 @@ public class GameAppState extends AbstractAppState implements ScreenController {
     private InputManager inputManager;
     private GUIManager guiManager;
     
+    // Input mapping command
     private static final String PAUSE = "PAUSE";
 
+    /**
+     *  Creates a new game app state.
+     */
     public GameAppState() {
         app = TanksGame.getApp();
         inputManager = app.getInputManager();
         guiManager = app.getGUIManager();
     }
     
+    /**
+     *
+     * @param stateManager
+     * @param app
+     */
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
       super.initialize(stateManager, app); 
    }
     
-     @Override
+     /**
+     * Called when appstate is attached to statemanager.
+     * 
+     * @param stateManager The statemanager that this is attached to.
+     */
+    @Override
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
         GameState.setGameState(GameState.RUNNING);
@@ -56,7 +65,12 @@ public class GameAppState extends AbstractAppState implements ScreenController {
         loadDesktopInputs();
     }
      
-      @Override
+     /**
+     * Called when appstate is detached from statemanager.
+     * 
+     * @param stateManager
+     */
+    @Override
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
         removeDesktopInputs();
@@ -68,6 +82,9 @@ public class GameAppState extends AbstractAppState implements ScreenController {
         app.getGuiNode().detachAllChildren();
     }
     
+    /**
+     * 
+     */
     @Override
     public void cleanup() {
       super.cleanup();
@@ -118,24 +135,34 @@ public class GameAppState extends AbstractAppState implements ScreenController {
     private ActionListener actionListener = new ActionListener() {
 
         public void onAction(String name, boolean isPressed, float tpf) {
-
             if (GameState.getGameState() != GameState.RUNNING) {
                 return;
             }
             if (name.equals(PAUSE) && !isPressed) {
-                app.getStateManager().detach(GameAppState.this);
-                app.getStateManager().attach(app.getTanksAppStateManager().getAppState(MenuAppState.class));
+                //app.getStateManager().detach(GameAppState.this);
+                app.getStateManager().attach(app.getTanksAppStateManager().getAppState(PauseMenuAppState.class));
             }
         }
     };
 
+    /**
+     *
+     * @param nifty
+     * @param screen
+     */
     public void bind(Nifty nifty, Screen screen) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     */
     public void onStartScreen() {
     }
 
+    /**
+     *
+     */
     public void onEndScreen() {
     }
 }

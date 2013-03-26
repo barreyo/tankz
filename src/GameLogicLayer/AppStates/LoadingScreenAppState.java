@@ -33,6 +33,9 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
     
     private boolean isLoaded = false;
     
+    /**
+     *
+     */
     public LoadingScreenAppState() {
         // Get managers
         app = TanksGame.getApp();
@@ -45,10 +48,17 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
         nifty.addXml("Interface/Nifty/LoadingScreen.xml");
     }
     
+    /**
+     *
+     */
     public void showLoadingScreen() {
         nifty.gotoScreen("loadingScreen");
     }
     
+    /**
+     *
+     * @param stateManager
+     */
     @Override
     public void stateAttached(AppStateManager stateManager) {
         this.stateManager = stateManager;
@@ -56,12 +66,21 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
         frameCount = 0;
     }
     
+    /**
+     *
+     * @param stateManager
+     */
     @Override
     public void stateDetached(AppStateManager stateManager) {
         nifty.gotoScreen("end");
         isLoaded = true;
     }
     
+    /**
+     *
+     * @param stateManager
+     * @param app
+     */
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
@@ -86,16 +105,27 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
         frameCount++;
     }
     
+    /**
+     *
+     */
     @Override
     public void onStartScreen() {
         System.out.println("onStartScreen");
     }
 
+    /**
+     *
+     */
     @Override
     public void onEndScreen() {
         System.out.println("onEndScreen");
     }
 
+    /**
+     *
+     * @param nifty
+     * @param screen
+     */
     @Override
     public void bind(Nifty nifty, Screen screen) {
         System.out.println("bind( " + screen.getScreenId() + ")");

@@ -10,8 +10,14 @@ package GameLogicLayer.Sounds;
  */
 public enum ETanksSound {
     
-        TEST_MUSIC("click.ogg", true),
-        TEST_SOUND("click.ogg", false);
+        /**
+     *
+     */
+    TEST_MUSIC("click.ogg", true),
+        /**
+     *
+     */
+    TEST_SOUND("click.ogg", false);
         
 
         private final String path;
@@ -22,11 +28,19 @@ public enum ETanksSound {
             music = isMusic;
         }
 
-        public String path() {
+        /**
+     *
+     * @return
+     */
+    public String path() {
             return path;
         }
 
-        public boolean isMusic() {
+        /**
+     *
+     * @return
+     */
+    public boolean isMusic() {
             return music;
         }
 }

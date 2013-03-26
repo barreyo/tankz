@@ -27,6 +27,9 @@ public class GUIManager implements Manager {
     private final float GUI_WIDTH;
     private final Vector2f powerupSlotHUDPosition;
     
+    /**
+     *
+     */
     public GUIManager() {
         app = TanksGame.getApp();
         initialiseNifty();
@@ -45,18 +48,34 @@ public class GUIManager implements Manager {
         //nifty.setDebugOptionPanelColors(true);
     }
     
+    /**
+     *
+     */
     public void showMainMenu() {
         stateManager.attach(app.getTanksAppStateManager().getAppState(MenuAppState.class));
     }
 
+    /**
+     *
+     */
     public void showLoadingScreen() {
         stateManager.attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
     }
     
+    /**
+     *
+     * @return
+     */
     public Nifty getNifty() {
         return nifty;
     }
     
+    /**
+     *
+     * @param fileName
+     * @param color
+     * @param index
+     */
     public void addPowerupItem(String fileName, ColorRGBA color, int index) {
         /* TODO To be implemented
         Picture p = null;
@@ -91,6 +110,9 @@ public class GUIManager implements Manager {
         app.getGuiNode().attachChild(border);
     }
 
+    /**
+     *
+     */
     public void createUIProducts() {
 
        // String[] fileNames = {"appleImg.png", "appleImg.png", "appleImg.png"};
@@ -107,6 +129,11 @@ public class GUIManager implements Manager {
     }
 
     // between 0 and 2
+    /**
+     *
+     * @param image
+     * @param index
+     */
     public void setImageToIndex(Picture image, int index) {
 
         if (index < 0) {
@@ -120,10 +147,17 @@ public class GUIManager implements Manager {
     
     
 
+    /**
+     *
+     * @param level
+     */
     public void load(int level) {
         //load any nifty effects and uiImages on the screen
     }
 
+    /**
+     *
+     */
     public void cleanup() {
        app.getGuiNode();
     }
