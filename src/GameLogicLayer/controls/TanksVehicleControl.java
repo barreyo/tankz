@@ -1,12 +1,19 @@
 
 package GameLogicLayer.controls;
 
+import GameLogicLayer.controls.Projectile.TankProjectileManager;
 import GameLogicLayer.util.EPlayerInputs;
 import GameModelLayer.Game.GameState;
+import GameModelLayer.gameEntity.Projectile.IProjectile;
+import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.gameEntity.MainTank;
+import GameViewLayer.gameEntity.Projectile.IProjectileSpatial;
+import GameViewLayer.gameEntity.Projectile.TankProjectileSpatial;
+import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.CharacterControl;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;
@@ -38,6 +45,13 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private IArmedVehicle vehicleModel;
     private VehicleControl vehicle;
     
+    // Projectile stuff
+    IProjectile projectileModel = new ProjectileModel(10, 0.001f);
+    IProjectileSpatial projectileSpatial = new TankProjectileSpatial(app.getAssetManager(), 0.4f);
+    private PhysicsSpace physicsSpace = app.getBulletAppState().getPhysicsSpace();
+    private Node rootNode = app.getRootNode();
+    
+    
     // Cam to be set up behind Vehicle
     private Camera cam;
     
@@ -48,6 +62,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String ACCELERATE_FORWARD;
     private String ACCELERATE_BACK;
     private String RESET;
+    private String SHOOT;
     
     
     private InputManager inputManager;
@@ -160,6 +175,29 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 vehicle.setAngularVelocity(Vector3f.ZERO);
                 vehicle.resetSuspension();
             }
+        } else if (name.equals(SHOOT)) {
+            if (!isPressed) {
+                // Get a projectilespatial and translate it to weapon
+                Spatial projectile = projectileSpatial.getProjectileSpatial();
+//                projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
+                
+                // Create a RigidBodyControl over the projectile collision shape
+                RigidBodyControl projectileControl = new RigidBodyControl(
+                        projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
+                projectileControl.setCcdMotionThreshold(0.1f);
+                
+                // TODO Solve direction of velocity, should be same as weapon direction
+//                projectileControl.setLinearVelocity(weaponSpatial.getAttackDirection().mult(200));
+                projectile.addControl(projectileControl);
+                
+                // Attach to world and phsysicsSpace
+                rootNode.attachChild(projectile);
+                physicsSpace.add(projectileControl);
+                
+                // Create a manager of the projectile
+                TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
+                                                            projectileSpatial, physicsSpace);
+            }
         }
 
         //boolean isMoving = left || right || up || down;
@@ -186,19 +224,22 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         int up = inputs.getUpKey();
         int down = inputs.getDownKey();
         int reset = inputs.getResetKey();
+        int shoot = inputs.getShootKey();
         
         TURN_LEFT = "" + left;
         TURN_RIGHT = "" + right;
         ACCELERATE_FORWARD = "" + up;
         ACCELERATE_BACK = "" + down;
         RESET = "" + reset;
+        SHOOT = "" + shoot;
         
         inputManager.addMapping(TURN_LEFT, new KeyTrigger(left));
         inputManager.addMapping(TURN_RIGHT, new KeyTrigger(right));
         inputManager.addMapping(ACCELERATE_FORWARD, new KeyTrigger(up));
         inputManager.addMapping(ACCELERATE_BACK, new KeyTrigger(down));
         inputManager.addMapping(RESET, new KeyTrigger(reset));
-        inputManager.addListener(this, TURN_LEFT, TURN_RIGHT, ACCELERATE_FORWARD, ACCELERATE_BACK, RESET);
+        inputManager.addMapping(SHOOT, new KeyTrigger(shoot));
+        inputManager.addListener(this, TURN_LEFT, TURN_RIGHT, ACCELERATE_FORWARD, ACCELERATE_BACK, RESET, SHOOT);
         
         inputs.setInUse(true);
     }
@@ -209,6 +250,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         inputManager.deleteMapping(ACCELERATE_FORWARD);
         inputManager.deleteMapping(ACCELERATE_BACK);
         inputManager.deleteMapping(RESET);
+        inputManager.deleteMapping(SHOOT);
         inputManager.removeListener(this);
         
         inputs.setInUse(false);

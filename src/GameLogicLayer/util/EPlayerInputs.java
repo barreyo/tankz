@@ -8,19 +8,20 @@ import com.jme3.input.KeyInput;
  */
 public enum EPlayerInputs {
 
-    Player1(KeyInput.KEY_A, KeyInput.KEY_D, KeyInput.KEY_W, KeyInput.KEY_S, KeyInput.KEY_RETURN),
-    Player2(KeyInput.KEY_H, KeyInput.KEY_K, KeyInput.KEY_U, KeyInput.KEY_J, KeyInput.KEY_O);
+    Player1(KeyInput.KEY_A, KeyInput.KEY_D, KeyInput.KEY_W, KeyInput.KEY_S, KeyInput.KEY_RETURN, KeyInput.KEY_Q),
+    Player2(KeyInput.KEY_H, KeyInput.KEY_K, KeyInput.KEY_U, KeyInput.KEY_J, KeyInput.KEY_O, KeyInput.KEY_Y);
     //Player3, Player4;
-    private final int left, right, up, down, reset;
+    private final int left, right, up, down, reset, shoot;
     
     private boolean isInUse;
 
-    private EPlayerInputs(int l, int r, int u, int d, int re) {
+    private EPlayerInputs(int l, int r, int u, int d, int re, int sh) {
         left = l;
         right = r;
         up = u;
         down = d;
         reset = re;
+        shoot = sh;
     }
 
     public int getLeftKey() {
@@ -41,6 +42,10 @@ public enum EPlayerInputs {
 
     public int getResetKey() {
         return reset;
+    }
+    
+    public int getShootKey() {
+        return shoot;
     }
     
     public boolean isInUse() {
