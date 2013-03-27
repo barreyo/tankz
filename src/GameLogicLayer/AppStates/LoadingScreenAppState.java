@@ -5,27 +5,38 @@
 package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
+import GameLogicLayer.GUI.ProgressBar;
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Map.GameMapManager;
 import GameModelLayer.Game.GameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
+import de.lessvoid.nifty.controls.Controller;
+import de.lessvoid.nifty.elements.Element;
+import de.lessvoid.nifty.elements.render.TextRenderer;
+import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
+import de.lessvoid.nifty.tools.SizeValue;
+import de.lessvoid.xml.xpp3.Attributes;
+import java.util.Properties;
 
 /**
  *
  * @author Daniel
  */
-public class LoadingScreenAppState extends AbstractAppState implements ScreenController {
+public class LoadingScreenAppState extends AbstractAppState implements ScreenController, Controller {
 
     private AppStateManager stateManager;
     private TanksGame app;
     private GUIManager guiManager;
     private GameMapManager mapManager;
     private Nifty nifty;
+    private Element progressBarElement;
+    private TextRenderer textRenderer;
    
     private int frameCount;
     
@@ -42,8 +53,8 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
         guiManager = app.getGUIManager();
         mapManager = app.getMapManager();
         nifty = guiManager.getNifty();
-
-        // Register as a screen controller and add screen to Hud handler Nifty
+        
+        // Register as a screen controller and add scree n to Hud handler Nifty
         nifty.registerScreenController(this);
         nifty.addXml("Interface/Nifty/LoadingScreen.xml");
     }
@@ -103,6 +114,8 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
             stateManager.attach(app.getTanksAppStateManager().getAppState(GameAppState.class));
             GameState.setGameState(GameState.RUNNING);
         }
+        //this.setProgress((float)frameCount, "Tanks");
+        
         frameCount++;
     }
     
@@ -130,5 +143,46 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
     @Override
     public void bind(Nifty nifty, Screen screen) {
         System.out.println("bind( " + screen.getScreenId() + ")");
+        progressBarElement = nifty.getScreen("loadingScreen").findElementByName("progress");
+    }
+
+    public void bind(Nifty nifty, Screen screen, Element element, Properties parameter, Attributes controlDefinitionAttributes) {
+        progressBarElement = element.findElementByName("progress");
+    }
+
+    public void init(Properties parameter, Attributes controlDefinitionAttributes) {
+        // Not supported
+    }
+
+    public void onFocus(boolean getFocus) {
+        // Not supported
+    }
+
+    public boolean inputEvent(NiftyInputEvent inputEvent) {
+        return false; // Not supported
+    }
+    
+    /**
+     * Update the progressbar.
+     * 
+     * @param value 
+     * @param nowLoading 
+     */
+    public void setProgress(final float value, final String nowLoading) {
+        float progressTemp = value;
+        
+        if (progressTemp < 0.0f) {
+            progressTemp = 0.0f;
+        } else if (progressTemp > 1.0f) {
+            progressTemp = 1.0f;
+        }
+        // Updates the visual part of the progressbar
+        final int MIN_WIDTH = 14;
+        int pixelWidth = (int) (MIN_WIDTH + (progressBarElement.getParent().getWidth() - MIN_WIDTH) * progressTemp);
+        progressBarElement.setConstraintWidth(new SizeValue(pixelWidth + "px"));
+        progressBarElement.getParent().layoutElements();
+        
+        // Sets the text under the progressbar
+        textRenderer.setText("Loading " + nowLoading + "...");
     }
 }
