@@ -179,15 +179,17 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             if (!isPressed) {
                 // Get a projectilespatial and translate it to weapon
                 Spatial projectile = projectileSpatial.getProjectileSpatial();
-//                projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
+                projectile.setLocalTranslation(super.getSpatial().getWorldTranslation().getX(),
+                                               super.getSpatial().getWorldTranslation().getY(),
+                                               super.getSpatial().getWorldTranslation().getZ());
                 
                 // Create a RigidBodyControl over the projectile collision shape
                 RigidBodyControl projectileControl = new RigidBodyControl(
-                        projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
+                 projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
                 projectileControl.setCcdMotionThreshold(0.1f);
                 
                 // TODO Solve direction of velocity, should be same as weapon direction
-//                projectileControl.setLinearVelocity(weaponSpatial.getAttackDirection().mult(200));
+                projectileControl.setLinearVelocity(driveDirection);
                 projectile.addControl(projectileControl);
                 
                 // Attach to world and phsysicsSpace
