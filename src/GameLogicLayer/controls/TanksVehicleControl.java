@@ -46,10 +46,11 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private VehicleControl vehicle;
     
     // Projectile stuff
-    IProjectile projectileModel = new ProjectileModel(10, 0.001f);
-    IProjectileSpatial projectileSpatial = new TankProjectileSpatial(app.getAssetManager(), 0.4f);
-    private PhysicsSpace physicsSpace = app.getBulletAppState().getPhysicsSpace();
-    private Node rootNode = app.getRootNode();
+    // TODO should be entitys
+    private IProjectile projectileModel;
+    private IProjectileSpatial projectileSpatial;
+    private PhysicsSpace physicsSpace;
+    private Node rootNode;
     
     
     // Cam to be set up behind Vehicle
@@ -74,15 +75,21 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      *
      */
     public TanksVehicleControl() {
-        // Get needed managers
-        //cam = app.getCamera();
-        
+        // Get needed managers     
         inputManager = app.getInputManager();
+        
+        // TODO change this
+        physicsSpace = app.getBulletAppState().getPhysicsSpace();
+        rootNode = app.getRootNode();
+        projectileModel = new ProjectileModel(10, 0.001f);
+        projectileSpatial = new TankProjectileSpatial(app.getAssetManager(), 0.4f);
         
         // Create a model for the vehicle
         vehicleModel = new TankModel();
-        vehicleModel.setAccelerationForce(4000.0f);
-        vehicleModel.setBrakeForce(100.0f);
+        vehicleModel.setAccelerationForce(2000.0f);
+        vehicleModel.setForwardMaxSpeed(80f);
+        vehicleModel.setBackMaxSpeed(30f);
+        vehicleModel.setBrakeForce(10000.0f);
         // Register input mappings
         addInputMappings();
     }
@@ -96,9 +103,12 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             return;
         }
         driveDirection = vehicle.getForwardVector(null);
-        cam.setLocation(vehicle.getPhysicsLocation().addLocal(driveDirection.multLocal(-5)).addLocal(0, 2, 0));
-        cam.lookAt(vehicle.getPhysicsLocation(), Vector3f.UNIT_Y);
-        // TODO riktning
+        
+        float maxSpeed = (vehicleModel.getAccelerationValue() >= 0 ? 
+                          vehicleModel.getForwardMaxSpeed() :
+                          -vehicleModel.getBackMaxSpeed());
+        float speedFactor = (maxSpeed-vehicle.getCurrentVehicleSpeedKmHour())/maxSpeed;
+        vehicle.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
     }
 
     /*
@@ -116,9 +126,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             // Get the visual representation of the tank and the applied vehicle control
             MainTank tank = spatial.getUserData("entity");
             vehicle = tank.getVehicleControl();
-    
-            // Set up the cam behind vehicle
-            setUpCam(tank.getSpatial());
         }
     }
 
@@ -138,34 +145,33 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         // Steering related
         if (name.equals(TURN_LEFT)) {
             if (isPressed) {
-                vehicleModel.incrementSteeringValue(1f);
+                vehicleModel.incrementSteeringValue(.4f);
             } else {
-                vehicleModel.decrementSteeringValue(1f);
+                vehicleModel.decrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(TURN_RIGHT)) {
             if (isPressed) {
-                vehicleModel.decrementSteeringValue(1f);
+                vehicleModel.decrementSteeringValue(.4f);
             } else {
-                vehicleModel.incrementSteeringValue(1f);
+                vehicleModel.incrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(ACCELERATE_FORWARD)) {
             if (isPressed) {
-                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
+                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
-            vehicle.accelerate(vehicleModel.getAccelerationValue());
         } else if (name.equals(ACCELERATE_BACK)) {
             if (isPressed) {
-                vehicle.brake(vehicleModel.getBrakeForce());
+                // TODO ny input för bromsning?
+                //vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
-                vehicle.brake(0f);
+                //vehicle.brake(0f);
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
-            vehicle.accelerate(vehicleModel.getAccelerationValue());
         } else if (name.equals(RESET)) {
             if (isPressed) {
                 System.out.println("Reset");
@@ -179,7 +185,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             if (!isPressed) {
                 // Get a projectilespatial and translate it to weapon
                 Spatial projectile = projectileSpatial.getProjectileSpatial();
-//                projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
+                //projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
+                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0));
                 
                 // Create a RigidBodyControl over the projectile collision shape
                 RigidBodyControl projectileControl = new RigidBodyControl(
@@ -188,15 +195,17 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 
                 // TODO Solve direction of velocity, should be same as weapon direction
 //                projectileControl.setLinearVelocity(weaponSpatial.getAttackDirection().mult(200));
+                projectileControl.setLinearVelocity(driveDirection.multLocal(200));
                 projectile.addControl(projectileControl);
                 
+                
+                physicsSpace.add(projectileControl);
                 // Attach to world and phsysicsSpace
                 rootNode.attachChild(projectile);
-                physicsSpace.add(projectileControl);
                 
-                // Create a manager of the projectile
-                TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
-                                                            projectileSpatial, physicsSpace);
+                // Create a controller of the projectile
+                //TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
+                                                            //projectileSpatial, physicsSpace);
             }
         }
 
@@ -206,9 +215,11 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     
     public void setCamera(Camera cam) {
         this.cam = cam;
+        setUpCam();
     }
 
     private void addInputMappings() {
+        // Looks for unused input mappings
         for (EPlayerInputs player : EPlayerInputs.values()) {
             if (!player.isInUse()) {
                 inputs = player;
@@ -219,6 +230,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             return;
         }
         
+        // Gets input keycodes
         int left = inputs.getLeftKey();
         int right = inputs.getRightKey();
         int up = inputs.getUpKey();
@@ -226,6 +238,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         int reset = inputs.getResetKey();
         int shoot = inputs.getShootKey();
         
+        // Specifies mappingnames for input
         TURN_LEFT = "" + left;
         TURN_RIGHT = "" + right;
         ACCELERATE_FORWARD = "" + up;
@@ -233,14 +246,17 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         RESET = "" + reset;
         SHOOT = "" + shoot;
         
+        // Adds the mappings to inputmanager
         inputManager.addMapping(TURN_LEFT, new KeyTrigger(left));
         inputManager.addMapping(TURN_RIGHT, new KeyTrigger(right));
         inputManager.addMapping(ACCELERATE_FORWARD, new KeyTrigger(up));
         inputManager.addMapping(ACCELERATE_BACK, new KeyTrigger(down));
         inputManager.addMapping(RESET, new KeyTrigger(reset));
         inputManager.addMapping(SHOOT, new KeyTrigger(shoot));
+        // Registers this as an listener for the specified mappingnames
         inputManager.addListener(this, TURN_LEFT, TURN_RIGHT, ACCELERATE_FORWARD, ACCELERATE_BACK, RESET, SHOOT);
         
+        // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
     }
 
@@ -261,11 +277,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      *
      * @param spatial The spatial to be followed by the camera.
      */
-    private void setUpCam(Spatial spatial) {
-       
-        /*Node vehicleNode = (Node)spatial;
-        
-        
+    private void setUpCam() {
+        Node vehicleNode = (Node)spatial;
         // Disable the default flyby cam
         //app.getFlyByCamera().setEnabled(false);
         //create the camera Node
@@ -275,8 +288,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //Attach the camNode to the target:
         vehicleNode.attachChild(camNode);
         //Move camNode, e.g. behind and above the target:
-        camNode.setLocalTranslation(new Vector3f(0, 2, -5));
+        camNode.setLocalTranslation(new Vector3f(0, 3, -15));
         //Rotate the camNode to look at the target:
-        camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);*/
+        camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);
     }
 }

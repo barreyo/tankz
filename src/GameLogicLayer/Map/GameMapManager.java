@@ -108,12 +108,13 @@ public class GameMapManager extends AbstractAppState implements Manager {
         // Load LevelCommon
 
         // Load Island
-        //mapNode = (Node) app.getAssetManager().loadModel("Models/testFloor.j3o");
-        //rootNode.attachChild(mapNode);
+        mapNode = (Node) app.getAssetManager().loadModel("Scenes/Map1/Map3.j3o");
+        rootNode.attachChild(mapNode);
         
-        PhysicsTestHelper.createPhysicsTestWorld(rootNode, app.getAssetManager(), app.getBulletAppState().getPhysicsSpace());
-
-        //app.getBulletAppState().getPhysicsSpace().addAll(mapNode);
+        //PhysicsTestHelper.createPhysicsTestWorld(rootNode, app.getAssetManager(), app.getBulletAppState().getPhysicsSpace());
+        
+        app.getBulletAppState().getPhysicsSpace().addAll(mapNode);
+        //app.getBulletAppState().getPhysicsSpace().enableDebug(app.getAssetManager());
         
         Camera cam1 = app.getCamera().clone();
         cam1.setViewPort(0f, 1f, 0f, 0.5f);

@@ -27,7 +27,7 @@ public enum ETanksCollisionShape {
         CollisionShape collisionShape;
         switch(this) {
             case VEHICLE:
-                collisionShape = new BoxCollisionShape(new Vector3f(1.2f, 0.5f, 2.4f));
+                collisionShape = new BoxCollisionShape(new Vector3f(0.6f, 0.5f, 1.5f));
                 break;
             default:
                 collisionShape = new BoxCollisionShape(new Vector3f(1, 1, 1));

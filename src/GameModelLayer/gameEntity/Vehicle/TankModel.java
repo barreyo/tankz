@@ -14,29 +14,27 @@ import com.jme3.math.Vector3f;
  * @author Daniel
  */
 public class TankModel implements IArmedVehicle {
-    
+
     private int health;
     private VehicleState vehicleState;
-    
     private float accelerationForce;
     private float brakeForce;
     private float steeringValue;
     private float accelerationValue;
-    
+    private float maxForwardSpeed;
+    private float maxBackSpeed;
     private PowerupSlot powerupSlot;
-    
     private IWeapon weaponModel;
 
-
-    /*
+    /**
      * @inheritdoc
      */
     @Override
     public int getHealth() {
         return health;
     }
-    
-     /*
+
+    /**
      * @inheritdoc
      */
     @Override
@@ -44,7 +42,7 @@ public class TankModel implements IArmedVehicle {
         return vehicleState;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -52,7 +50,7 @@ public class TankModel implements IArmedVehicle {
         return accelerationForce;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -60,7 +58,7 @@ public class TankModel implements IArmedVehicle {
         return brakeForce;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -68,7 +66,7 @@ public class TankModel implements IArmedVehicle {
         return steeringValue;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -76,7 +74,7 @@ public class TankModel implements IArmedVehicle {
         return accelerationValue;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -84,7 +82,7 @@ public class TankModel implements IArmedVehicle {
         this.health = health;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -92,7 +90,7 @@ public class TankModel implements IArmedVehicle {
         this.vehicleState = state;
     }
 
-    /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -100,7 +98,7 @@ public class TankModel implements IArmedVehicle {
         this.accelerationForce = force;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -108,7 +106,7 @@ public class TankModel implements IArmedVehicle {
         this.brakeForce = force;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -116,7 +114,7 @@ public class TankModel implements IArmedVehicle {
         this.steeringValue = value;
     }
 
-     /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -124,95 +122,87 @@ public class TankModel implements IArmedVehicle {
         this.accelerationValue = value;
     }
 
-    /*
-     * @inheritdoc
-     */
     /**
-     *
-     * @param force
+     * @inheritdoc
      */
     @Override
     public void incrementAccelerationValue(float force) {
         this.accelerationValue += force;
     }
 
-    /*
-     * @inheritdoc
-     */
     /**
-     *
-     * @param force
+     * @inheritdoc
      */
     @Override
     public void decrementAccelerationValue(float force) {
         this.accelerationValue -= force;
     }
 
-    /*
-     * @inheritdoc
-     */
     /**
-     *
-     * @param value
+     * @inheritdoc
      */
     @Override
     public void incrementSteeringValue(float value) {
         this.steeringValue += value;
     }
 
-    /*
-     * @inheritdoc
-     */
     /**
-     *
-     * @param value
+     * @inheritdoc
      */
     @Override
     public void decrementSteeringValue(float value) {
         this.steeringValue -= value;
     }
 
-    /*
-     * @inheritdoc
-     */
     /**
-     *
-     * @param model
+     * @inheritdoc
      */
     @Override
     public void setWeaponModel(IWeapon model) {
         weaponModel = model;
     }
-    
-    /*
-     * @inheritdoc
-     */
+
     /**
-     *
-     * @return
+     * @inheritdoc
      */
     @Override
     public IWeapon getWeaponModel() {
         return weaponModel;
-    } 
-    
-     /**
-     * Returns the powerup in powerupSlot.
-     * 
-     * @return The powerup contained in powerupSlot
+    }
+
+    /**
+     * @inheritdoc
      */
     @Override
-    public synchronized EPowerup getPowerup() {
+    public EPowerup getPowerup() {
         return powerupSlot.getPowerup();
     }
 
     /**
-     * Sets the powerup in the powerupSlot.
-     * 
-     * @param powerup The powerup to add in powerupSlot
+     * @inheritdoc
      */
     @Override
-    public synchronized void setPowerup(EPowerup powerup) {
+    public void setPowerup(EPowerup powerup) {
         powerupSlot.setPowerup(powerup);
+    }
+
+    @Override
+    public void setForwardMaxSpeed(float max) {
+        this.maxForwardSpeed = max;
+    }
+
+    @Override
+    public float getForwardMaxSpeed() {
+        return maxForwardSpeed;
+    }
+
+    @Override
+    public float getBackMaxSpeed() {
+        return maxBackSpeed;
+    }
+
+    @Override
+    public void setBackMaxSpeed(float max) {
+        this.maxBackSpeed = max;
     }
 }

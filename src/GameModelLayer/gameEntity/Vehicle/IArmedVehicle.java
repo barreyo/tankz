@@ -144,6 +144,14 @@ public interface IArmedVehicle {
      */
     IWeapon getWeaponModel();
 
+    public void setForwardMaxSpeed(float f);
+
+    public float getForwardMaxSpeed();
+
+    public float getBackMaxSpeed();
+
+    public void setBackMaxSpeed(float f);
+
     /**
      * Enum representing different states of the vehicle.
      */

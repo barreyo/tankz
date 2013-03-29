@@ -1,0 +1,8 @@
+Material My Material : Common/MatDefs/Light/Lighting.j3md {
+     MaterialParameters {
+        DiffuseMap : Models/mesh_ropebridge/ropebridge_tex.png
+        NormalMap : Models/mesh_ropebridge/ropebridge_NM.png
+     }
+    AdditionalRenderState {
+    }
+}

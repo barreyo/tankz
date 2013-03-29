@@ -69,21 +69,21 @@ public class MainTank extends GameEntity implements Savable {
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
 
         float stiffness = 60.0f;//200=f1 car
-        float compValue = .3f; //(should be lower than damp)
-        float dampValue = .4f;
+        float compValue = 0.2f; //(should be lower than damp)
+        float dampValue = 0.201f;
         vehicle.setSuspensionCompression(compValue * 2.0f * FastMath.sqrt(stiffness));
         vehicle.setSuspensionDamping(dampValue * 2.0f * FastMath.sqrt(stiffness));
         vehicle.setSuspensionStiffness(stiffness);
-        vehicle.setMaxSuspensionForce(10000.0f);
+        vehicle.setMaxSuspensionForce(999000.0f);
 
         //Create four wheels and add them at their locations
         Vector3f wheelDirection = new Vector3f(0, -1, 0); // was 0, -1, 0
         Vector3f wheelAxle = new Vector3f(-1, 0, 0); // was -1, 0, 0
-        float radius = 0.3f;
-        float restLength = 0.3f;
-        float yOff = 0.5f;
-        float xOff = 1f;
-        float zOff = 2f;
+        float radius = 0.1f;
+        float restLength = 0.2f;
+        float yOff = 0.3f;
+        float xOff = 0.5f;
+        float zOff = 1.5f;
 
         vehicle.addWheel(null, new Vector3f(-xOff, yOff, zOff),
                 wheelDirection, wheelAxle, restLength, radius, true);
@@ -97,12 +97,13 @@ public class MainTank extends GameEntity implements Savable {
         vehicle.addWheel(null, new Vector3f(xOff, yOff, -zOff),
                 wheelDirection, wheelAxle, restLength, radius, false);
         
-        
+     
         //vehicle.setPhysicsLocation(new Vector3f(0, 10, 0));
         vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
         vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02 | PhysicsCollisionObject.COLLISION_GROUP_04);
         bulletAppState.getPhysicsSpace().add(vehicle);
     }
+    
 
     /**
      *
