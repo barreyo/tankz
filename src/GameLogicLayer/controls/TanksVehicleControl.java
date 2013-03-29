@@ -190,7 +190,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 
                 // Create a RigidBodyControl over the projectile collision shape
                 RigidBodyControl projectileControl = new RigidBodyControl(
-                        projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
+                 projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
                 projectileControl.setCcdMotionThreshold(0.1f);
                 
                 // TODO Solve direction of velocity, should be same as weapon direction
