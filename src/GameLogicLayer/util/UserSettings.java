@@ -1,26 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package GameLogicLayer.util;
 
-import GameLogicLayer.Game.TanksGame;
+package GameLogicLayer.util;
 
 /**
  *
  * @author Daniel
  */
 public class UserSettings {
-    private TanksGame app;
     private boolean muteSoundFX;
     private boolean muteMusic;
-
-    /**
-     *
-     */
-    public UserSettings() {
-        app = TanksGame.getApp();
-    }
 
     /**
      *

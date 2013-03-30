@@ -2,7 +2,6 @@
 package GameViewLayer.GUI;
 
 import GameModelLayer.Player.PlayerModel;
-import GameViewLayer.gameEntity.Vehicle.IVehicleSpatial;
 
 /**
  * A floating name tag above a player's tank.
@@ -12,9 +11,9 @@ import GameViewLayer.gameEntity.Vehicle.IVehicleSpatial;
 public class IngameFloatingName {
     
     
-    public IngameFloatingName(PlayerModel player, IVehicleSpatial spatial) {
+    //public IngameFloatingName(PlayerModel player, IVehicleSpatial spatial) {
         
-    }
+    //}
     
     
 }

@@ -1,7 +1,6 @@
 
 package GameLogicLayer.controls;
 
-import GameLogicLayer.controls.Projectile.TankProjectileManager;
 import GameLogicLayer.util.EPlayerInputs;
 import GameModelLayer.Game.GameState;
 import GameModelLayer.gameEntity.Projectile.IProjectile;

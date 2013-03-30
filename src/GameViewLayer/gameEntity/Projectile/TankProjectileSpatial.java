@@ -15,6 +15,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Sphere;
 
 /**
+ * WILL BE REMOVED
  * Visual representation of a tankprojectile in the 3d room.
  * 
  * @author Daniel, Per, Johan, Albin

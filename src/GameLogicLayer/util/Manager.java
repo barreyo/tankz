@@ -7,11 +7,11 @@ package GameLogicLayer.util;
 public interface Manager {
     /**
      *
-     * @param level
+     * @param map
      */
-    public void load(int level); //load everything relevant to that level
+    public void load(int map); //load everything relevant to that map
     /**
      *
      */
-    public void cleanup();       //cleanup everything relevant to that level
+    public void cleanup();       //cleanup everything relevant to that map
 }

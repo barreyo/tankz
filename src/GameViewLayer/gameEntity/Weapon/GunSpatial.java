@@ -9,7 +9,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
-/**
+/** WILL BE REMOVED
  * A visual representation of a weapon.
  *
  * @author Daniel

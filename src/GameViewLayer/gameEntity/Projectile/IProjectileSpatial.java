@@ -5,6 +5,7 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;
 
 /**
+ * WILL BE RemOVED
  * A visual representation of a projectile with a collisonshape
  *
  * @author Daniel

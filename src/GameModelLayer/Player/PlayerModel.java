@@ -6,6 +6,7 @@ import GameModelLayer.gameEntity.Powerup.PowerupSlot;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 
 /**
+ * WILL BE CHANGED
  * A representation of a player.
  * 
  * @author Albin
