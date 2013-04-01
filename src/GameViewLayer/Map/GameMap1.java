@@ -5,11 +5,11 @@ import GameLogicLayer.entity.GameEntityManager;
 import GameViewLayer.gameEntity.ETanksEntity;
 import GameViewLayer.gameEntity.GameEntity;
 import GameViewLayer.gameEntity.Tank;
-import com.jme3.app.state.AbstractAppState;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 ;
 /**
@@ -24,20 +24,22 @@ public class GameMap1 implements GameMap {
     private Node mapNode;
     private Node rootNode;
     
+    private List<GameEntity> allGameEntities;
+    
     public GameMap1() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
         entityManager = app.getEntityManager();
+        
+        allGameEntities = new ArrayList<GameEntity>();
     }
 
     /**
-     *
+     * @inheritdoc
      */
     public void load() {
         mapNode = (Node) app.getAssetManager().loadModel("Scenes/Map1/Map3.j3o");
         rootNode.attachChild(mapNode);
-        
-        //PhysicsTestHelper.createPhysicsTestWorld(rootNode, app.getAssetManager(), app.getBulletAppState().getPhysicsSpace());
         
         app.getBulletAppState().getPhysicsSpace().addAll(mapNode);
         //app.getBulletAppState().getPhysicsSpace().enableDebug(app.getAssetManager());
@@ -56,35 +58,40 @@ public class GameMap1 implements GameMap {
         view2.setClearFlags(true, true, true);
         view2.attachScene(app.getRootNode());
         
-        Tank mainTank = (Tank) entityManager.create(ETanksEntity.TANK);
-        mainTank.getSpatial().move(10, 2, 10);
-        rootNode.attachChild(mainTank.getSpatial());
-        mainTank.finalise();
-        mainTank.getTanksVehicleControl().setCamera(cam1);
- 
-        Tank mainTank2 = (Tank) entityManager.create(ETanksEntity.TANK);
-        mainTank2.getSpatial().move(10, 2, 10);
-        rootNode.attachChild(mainTank2.getSpatial());
-        mainTank2.finalise();
-        mainTank2.getTanksVehicleControl().setCamera(cam2);
+        Tank tank1 = (Tank) entityManager.create(ETanksEntity.TANK);
+        tank1.getSpatial().move(10, 2, 10);
+        rootNode.attachChild(tank1.getSpatial());
+        tank1.finalise();
+        tank1.getTanksVehicleControl().setCamera(cam1);
+        allGameEntities.add(tank1);
         
-        //app.getStateManager().detach(this);
+ 
+        Tank tank2 = (Tank) entityManager.create(ETanksEntity.TANK);
+        tank2.getSpatial().move(10, 2, 10);
+        rootNode.attachChild(tank2.getSpatial());
+        tank2.finalise();
+        tank2.getTanksVehicleControl().setCamera(cam2);
+        allGameEntities.add(tank2);
     }
 
     /**
-     *
+     * @inheritdoc
      */
     public void cleanup() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        rootNode.detachChild(mapNode);
+        for (GameEntity gameEntity : allGameEntities) {
+            gameEntity.cleanup(); // should remove all physics and controls
+            gameEntity.getSpatial().removeFromParent(); // remove from scene graph
+        }
+
+        allGameEntities.clear();
+        allGameEntities = null;
     }
     
     /**
-     *
-     * @return
+     * @inheritdoc
      */
-    public LinkedList<GameEntity> getAllEntities() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<GameEntity> getAllEntities() {
+        return allGameEntities;
     }
-
-
 }

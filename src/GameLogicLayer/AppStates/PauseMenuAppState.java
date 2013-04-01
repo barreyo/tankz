@@ -186,10 +186,11 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void restart() {
         GameState.setGameState(GameState.RUNNING);
+        System.out.println("vajs");
+        mapManager.restartMap();
         app.getStateManager().detach(this);
         /* remove this later */
-        app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
-        //mapManager.restartLevel();
+        //app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
     }
 
     /**
