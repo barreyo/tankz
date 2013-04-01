@@ -9,21 +9,24 @@ import java.util.logging.Logger;
  * 
  * @author Daniel
  */
-public enum TanksControl {
+public enum EControls {
     
     /**
      * A weapon control.
      */
     FIRE_WEAPON_CONTROL(FireWeaponControl.class),
     /**
-     * A vehicle control.
+     * A tank vehicle control.
      */
     VEHICLE_CONTROL(TanksVehicleControl.class),
+    /**
+     * A tank projectile control.
+     */
     PROJECTILE_CONTROL(TankProjectileControl.class);
 
     private Class<? extends BaseControl> control;
 
-    TanksControl(Class<? extends BaseControl> control) {
+    EControls(Class<? extends BaseControl> control) {
         this.control = control;
     }
 
@@ -36,9 +39,9 @@ public enum TanksControl {
         try {  
             return (BaseControl) control.newInstance();
         } catch (InstantiationException ex) {
-            Logger.getLogger(TanksControl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EControls.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            Logger.getLogger(TanksControl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EControls.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

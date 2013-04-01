@@ -2,7 +2,7 @@
 package GameViewLayer.graphics;
 
 /**
- *  TODO Maybe remove this class
+ *  TODO Maybe remove this class (kan applicera material innan i scenecomposor)
  * 
  * @author Daniel
  */

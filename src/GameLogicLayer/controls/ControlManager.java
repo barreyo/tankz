@@ -14,7 +14,7 @@ public class ControlManager {
      * @param tanksControl 
      * @return
      */
-    public Control getControl(TanksControl tanksControl) {
+    public Control getControl(EControls tanksControl) {
         if (tanksControl != null) {
             return tanksControl.createControl();
         }

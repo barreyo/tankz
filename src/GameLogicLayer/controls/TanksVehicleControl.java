@@ -9,7 +9,7 @@ import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.gameEntity.Tank;
 import GameViewLayer.gameEntity.MissileProjectile;
-import GameViewLayer.gameEntity.ETanksEntity;
+import GameViewLayer.gameEntity.EGameEntities;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -173,7 +173,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             }
         } else if (name.equals(shoot)) {
             if (!isPressed) {
-                MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(ETanksEntity.MISSILE_PROJECTILE);
+                MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
                 projectileEntity.setDirection(vehicle.getForwardVector(null));
                 projectileEntity.finalise();
                 Spatial projectile = projectileEntity.getSpatial();

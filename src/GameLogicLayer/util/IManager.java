@@ -4,7 +4,7 @@ package GameLogicLayer.util;
  *
  * @author Daniel
  */
-public interface Manager {
+public interface IManager {
     /**
      *
      * @param map

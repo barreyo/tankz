@@ -5,7 +5,7 @@
 package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
-import GameLogicLayer.GUI.OptionsScreen;
+import GameLogicLayer.GUI.OptionsScreenController;
 import GameLogicLayer.Game.TanksGame;
 import GameModelLayer.Game.GameState;
 import com.jme3.app.Application;
@@ -41,7 +41,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         app = TanksGame.getApp();
         guiManager = app.getGUIManager();
         nifty = guiManager.getNifty();
-        nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreen());
+        nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
 
         nifty.getSoundSystem().addSound("hooverSound", "Sounds/click.ogg");

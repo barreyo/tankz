@@ -7,7 +7,7 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
  *
  * @author Daniel
  */
-public class WeaponEntity extends GameEntity {
+public class WeaponEntity extends AGameEntity {
 
     @Override
     public CollisionShape getCollisionShape() {

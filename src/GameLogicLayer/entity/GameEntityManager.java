@@ -4,9 +4,9 @@
  */
 package GameLogicLayer.entity;
 
-import GameLogicLayer.util.Manager;
-import GameViewLayer.gameEntity.GameEntity;
-import GameViewLayer.gameEntity.ETanksEntity;
+import GameLogicLayer.util.IManager;
+import GameViewLayer.gameEntity.AGameEntity;
+import GameViewLayer.gameEntity.EGameEntities;
 
 /**
  * Manages game entities.
@@ -20,8 +20,8 @@ public class GameEntityManager {
      * @param newEntity The entity to create.
      * @return The created game entity
      */
-    public GameEntity create(ETanksEntity newEntity) {
-        GameEntity entity = newEntity.createEntity();
+    public AGameEntity create(EGameEntities newEntity) {
+        AGameEntity entity = newEntity.createEntity();
         return entity;
     }
 }

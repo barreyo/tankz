@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package GameLogicLayer.Physics;
+package GameViewLayer.physics;
 
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -10,20 +6,24 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.math.Vector3f;
 
 /**
- *
+ * Enum of the collision shapes used in Tanks.
+ * 
  * @author Daniel
  */
-public enum ETanksCollisionShape {
+public enum ECollisionShapes {
     /**
-     *
+     *  A vehicle collision shape.
      */
     VEHICLE,
-    
-    SHARK_PROJECTILE;
+    /**
+     *  A missile projectile collision shape.
+     */
+    MISSILE_PROJECTILE;
 
     /**
-     *
-     * @return
+     * Returns a new collision shape based on enum type.
+     * 
+     * @return A new collision shape based on enum type
      */
     public CollisionShape createCollisionShape() {
         CollisionShape collisionShape;
@@ -31,7 +31,7 @@ public enum ETanksCollisionShape {
             case VEHICLE:
                 collisionShape = new BoxCollisionShape(new Vector3f(0.6f, 0.5f, 1.5f));
                 break;
-            case SHARK_PROJECTILE:
+            case MISSILE_PROJECTILE:
                 collisionShape = new BoxCollisionShape(new Vector3f(0.5f, 0.5f, 0.5f));
                 break;
             default:

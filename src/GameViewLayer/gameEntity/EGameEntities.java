@@ -7,7 +7,7 @@ package GameViewLayer.gameEntity;
  * 
  * @author Daniel
  */
-public enum ETanksEntity {
+public enum EGameEntities {
     /**
      * The tank game entity.
      */
@@ -22,8 +22,8 @@ public enum ETanksEntity {
      * 
      * @return An instance of the apropriate game enitity.
      */
-    public GameEntity createEntity() {
-        GameEntity entity;
+    public AGameEntity createEntity() {
+        AGameEntity entity;
 
         switch (this) {
             case TANK:

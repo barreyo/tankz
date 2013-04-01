@@ -5,7 +5,7 @@
 package GameLogicLayer.Sounds;
 
 import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.util.Manager;
+import GameLogicLayer.util.IManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioRenderer;
@@ -16,9 +16,9 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public class SoundManager implements Manager {
+public class SoundManager implements IManager {
     
-    private EnumMap<ETanksSound, AudioNode> soundMap;
+    private EnumMap<ESounds, AudioNode> soundMap;
     private TanksGame app;
     private AudioRenderer audioRenderer;
     private AssetManager assetManager;
@@ -31,7 +31,7 @@ public class SoundManager implements Manager {
         audioRenderer = app.getAudioRenderer();
         assetManager = app.getAssetManager();
 
-        soundMap = new EnumMap<ETanksSound, AudioNode>(ETanksSound.class);
+        soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
     }
 
     /**
@@ -41,14 +41,14 @@ public class SoundManager implements Manager {
     @Override
     public void load(int map) {
         if (map == 1) {
-            loadSoundEffects(new ETanksSound[]{ETanksSound.TEST_SOUND});
-            loadMusic(new ETanksSound[]{ETanksSound.TEST_MUSIC});
+            loadSoundEffects(new ESounds[]{ESounds.TEST_SOUND});
+            loadMusic(new ESounds[]{ESounds.TEST_MUSIC});
         }
     }
 
     // loads all sound effects which will be needed for that map
-    private void loadSoundEffects(ETanksSound[] sounds) {
-        for (ETanksSound s : sounds) {
+    private void loadSoundEffects(ESounds[] sounds) {
+        for (ESounds s : sounds) {
             AudioNode soundNode = new AudioNode(assetManager, s.path());
             soundMap.put(s, soundNode);
         }
@@ -59,8 +59,8 @@ public class SoundManager implements Manager {
      *
      * @param music
      */
-    public void loadMusic(ETanksSound[] music) {
-        for (ETanksSound s : music) {
+    public void loadMusic(ESounds[] music) {
+        for (ESounds s : music) {
             if (s != null) {
                 AudioNode musicNode = new AudioNode(assetManager, s.path(), true);
                 musicNode.setLooping(true);
@@ -76,8 +76,8 @@ public class SoundManager implements Manager {
      *
      * @param music
      */
-    public void removeMusic(ETanksSound[] music) {
-        for (ETanksSound s : music) {
+    public void removeMusic(ESounds[] music) {
+        for (ESounds s : music) {
             soundMap.remove(s);
         }
     }
@@ -86,15 +86,15 @@ public class SoundManager implements Manager {
      *
      */
     public void removeAllMusic() {
-        ArrayList<ETanksSound> musicList = new ArrayList<ETanksSound>();
+        ArrayList<ESounds> musicList = new ArrayList<ESounds>();
 
-        for (ETanksSound s : soundMap.keySet()) {
+        for (ESounds s : soundMap.keySet()) {
             if (soundMap.get(s).isLooping()) {
                 musicList.add(s);
             }
         }
 
-        for (ETanksSound tanksSound : musicList) {
+        for (ESounds tanksSound : musicList) {
             soundMap.get(tanksSound).stop();
             soundMap.remove(tanksSound);
         }
@@ -104,7 +104,7 @@ public class SoundManager implements Manager {
      *
      * @param sound
      */
-    public void play(ETanksSound sound) {
+    public void play(ESounds sound) {
         AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
@@ -128,7 +128,7 @@ public class SoundManager implements Manager {
      *
      * @param sound
      */
-    public void pause(ETanksSound sound) {
+    public void pause(ESounds sound) {
         AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
@@ -141,7 +141,7 @@ public class SoundManager implements Manager {
      *
      * @param sound
      */
-    public void togglePlayPause(ETanksSound sound) {
+    public void togglePlayPause(ESounds sound) {
         AudioNode toToggle = soundMap.get(sound);
 
         if (toToggle != null) {
@@ -155,7 +155,7 @@ public class SoundManager implements Manager {
     }
 
     // tries to stop a sound, will probably only work for streaming music though
-    void stop(ETanksSound sound) {
+    void stop(ESounds sound) {
         AudioNode toStop = soundMap.get(sound);
         toStop.stop();
     }

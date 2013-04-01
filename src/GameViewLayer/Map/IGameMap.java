@@ -1,6 +1,6 @@
 package GameViewLayer.Map;
 
-import GameViewLayer.gameEntity.GameEntity;
+import GameViewLayer.gameEntity.AGameEntity;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Daniel
  */
-public interface GameMap {
+public interface IGameMap {
     
     /**
      * Loads the map.
@@ -26,5 +26,5 @@ public interface GameMap {
      *
      * @return a linked list of all game entities in the game map
      */
-    public List<GameEntity> getAllEntities();
+    public List<AGameEntity> getAllEntities();
 }

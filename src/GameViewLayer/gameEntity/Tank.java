@@ -1,8 +1,8 @@
 
 package GameViewLayer.gameEntity;
 
-import GameLogicLayer.Physics.ETanksCollisionShape;
-import GameLogicLayer.controls.TanksControl;
+import GameViewLayer.physics.ECollisionShapes;
+import GameLogicLayer.controls.EControls;
 import GameLogicLayer.controls.TanksVehicleControl;
 import GameViewLayer.graphics.EGraphics;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
@@ -25,7 +25,7 @@ import java.io.IOException;
  * 
  * @author Daniel
  */
-public class Tank extends GameEntity implements Savable {
+public class Tank extends AGameEntity implements Savable {
 
     // Controls attached to this tank.
     private VehicleControl vehicle;
@@ -132,7 +132,7 @@ public class Tank extends GameEntity implements Savable {
      */
     @Override
     void addControl() {
-        tanksVehicleControl = (TanksVehicleControl)controlManager.getControl(TanksControl.VEHICLE_CONTROL);
+        tanksVehicleControl = (TanksVehicleControl)controlManager.getControl(EControls.VEHICLE_CONTROL);
         spatial.addControl(tanksVehicleControl);
     }
 
@@ -141,7 +141,7 @@ public class Tank extends GameEntity implements Savable {
      */
     @Override
     public void cleanup() {
-        spatial.getControl(TanksControl.VEHICLE_CONTROL.getControl()).cleanup();
+        spatial.getControl(EControls.VEHICLE_CONTROL.getControl()).cleanup();
         bulletAppState.getPhysicsSpace().remove(vehicle);
         spatial.removeControl(vehicle);
         spatial.setUserData("entity", null);

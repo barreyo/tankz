@@ -2,7 +2,7 @@
 package GameViewLayer.gameEntity;
 
 import GameLogicLayer.controls.TankProjectileControl;
-import GameLogicLayer.controls.TanksControl;
+import GameLogicLayer.controls.EControls;
 import GameViewLayer.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -18,7 +18,7 @@ import java.io.IOException;
  *
  * @author Daniel
  */
-public class MissileProjectile extends GameEntity implements Savable {
+public class MissileProjectile extends AGameEntity implements Savable {
     
     private TankProjectileControl projectileControl;
     private Vector3f direction;
@@ -51,7 +51,7 @@ public class MissileProjectile extends GameEntity implements Savable {
      */
     @Override
     void addControl() {
-        this.projectileControl = (TankProjectileControl)controlManager.getControl(TanksControl.PROJECTILE_CONTROL);
+        this.projectileControl = (TankProjectileControl)controlManager.getControl(EControls.PROJECTILE_CONTROL);
         spatial.addControl(this.projectileControl);
     }
 

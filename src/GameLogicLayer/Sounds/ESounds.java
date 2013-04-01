@@ -8,7 +8,7 @@ package GameLogicLayer.Sounds;
  *
  * @author Daniel
  */
-public enum ETanksSound {
+public enum ESounds {
     
         /**
      *
@@ -23,7 +23,7 @@ public enum ETanksSound {
         private final String path;
         private final boolean music;
 
-        ETanksSound(String filename, boolean isMusic) {
+        ESounds(String filename, boolean isMusic) {
             path = "Sounds/" + filename;
             music = isMusic;
         }

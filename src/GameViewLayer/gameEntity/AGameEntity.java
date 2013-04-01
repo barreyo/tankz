@@ -21,7 +21,7 @@ import com.jme3.scene.Spatial;
  * 
  * @author Daniel
  */
-public abstract class GameEntity {
+public abstract class AGameEntity {
     TanksGame app;
     Node rootNode;
     Node guiNode;
@@ -41,7 +41,7 @@ public abstract class GameEntity {
      * 
      * @param graphic The graphical objekt to be loaded.
      */
-    GameEntity(EGraphics graphic) {
+    AGameEntity(EGraphics graphic) {
         this();
         spatial = graphicManager.createSpatial(graphic);
     }
@@ -49,7 +49,7 @@ public abstract class GameEntity {
     /**
      *  Creates a game entity with its needed managers.
      */
-    GameEntity() {
+    AGameEntity() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
         guiNode = app.getGuiNode();

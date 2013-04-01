@@ -8,7 +8,7 @@ import de.lessvoid.nifty.screen.ScreenController;
  *
  * @author Daniel
  */
-public class OptionsScreen implements ScreenController {
+public class OptionsScreenController implements ScreenController {
      private Nifty nifty;
 
     /**

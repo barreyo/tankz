@@ -2,7 +2,7 @@ package GameLogicLayer.Graphics;
 
 import GameViewLayer.graphics.EGraphics;
 import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.util.Manager;
+import GameLogicLayer.util.IManager;
 import GameLogicLayer.util.PreloadManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Spatial;
@@ -12,7 +12,7 @@ import java.util.EnumMap;
  *
  * @author Daniel
  */
-public class GraphicManager implements Manager {
+public class GraphicManager implements IManager {
 
     private TanksGame app;
     private AssetManager assetManager;

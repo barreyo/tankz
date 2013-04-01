@@ -2,8 +2,8 @@ package GameViewLayer.Map;
 
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.entity.GameEntityManager;
-import GameViewLayer.gameEntity.ETanksEntity;
-import GameViewLayer.gameEntity.GameEntity;
+import GameViewLayer.gameEntity.EGameEntities;
+import GameViewLayer.gameEntity.AGameEntity;
 import GameViewLayer.gameEntity.Tank;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
@@ -13,10 +13,11 @@ import java.util.List;
 
 ;
 /**
+ * First developed game map for tha game Tanks.
  *
  * @author Daniel
  */
-public class GameMap1 implements GameMap {
+public class GameMap1 implements IGameMap {
     
     private TanksGame app;
     private GameEntityManager entityManager;
@@ -24,14 +25,17 @@ public class GameMap1 implements GameMap {
     private Node mapNode;
     private Node rootNode;
     
-    private List<GameEntity> allGameEntities;
+    private List<AGameEntity> allGameEntities;
     
+    /**
+     * Creates a game map.
+     */
     public GameMap1() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
         entityManager = app.getEntityManager();
         
-        allGameEntities = new ArrayList<GameEntity>();
+        allGameEntities = new ArrayList<AGameEntity>();
     }
 
     /**
@@ -58,7 +62,7 @@ public class GameMap1 implements GameMap {
         view2.setClearFlags(true, true, true);
         view2.attachScene(app.getRootNode());
         
-        Tank tank1 = (Tank) entityManager.create(ETanksEntity.TANK);
+        Tank tank1 = (Tank) entityManager.create(EGameEntities.TANK);
         tank1.getSpatial().move(10, 2, 10);
         rootNode.attachChild(tank1.getSpatial());
         tank1.finalise();
@@ -66,7 +70,7 @@ public class GameMap1 implements GameMap {
         allGameEntities.add(tank1);
         
  
-        Tank tank2 = (Tank) entityManager.create(ETanksEntity.TANK);
+        Tank tank2 = (Tank) entityManager.create(EGameEntities.TANK);
         tank2.getSpatial().move(10, 2, 10);
         rootNode.attachChild(tank2.getSpatial());
         tank2.finalise();
@@ -79,7 +83,7 @@ public class GameMap1 implements GameMap {
      */
     public void cleanup() {
         rootNode.detachChild(mapNode);
-        for (GameEntity gameEntity : allGameEntities) {
+        for (AGameEntity gameEntity : allGameEntities) {
             gameEntity.cleanup(); // should remove all physics and controls
             gameEntity.getSpatial().removeFromParent(); // remove from scene graph
         }
@@ -91,7 +95,7 @@ public class GameMap1 implements GameMap {
     /**
      * @inheritdoc
      */
-    public List<GameEntity> getAllEntities() {
+    public List<AGameEntity> getAllEntities() {
         return allGameEntities;
     }
 }

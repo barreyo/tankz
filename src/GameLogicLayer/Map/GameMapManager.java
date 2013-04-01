@@ -6,8 +6,8 @@ import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
-import GameLogicLayer.util.Manager;
-import GameViewLayer.Map.GameMap;
+import GameLogicLayer.util.IManager;
+import GameViewLayer.Map.IGameMap;
 import GameViewLayer.Map.GameMap1;
 
 
@@ -16,7 +16,7 @@ import GameViewLayer.Map.GameMap1;
  *
  * @author Daniel
  */
-public class GameMapManager implements Manager {
+public class GameMapManager implements IManager {
 
     private TanksGame app;
     private MaterialManager materialManager;
@@ -24,7 +24,7 @@ public class GameMapManager implements Manager {
     private SoundManager soundManager;
     private GraphicManager graphicsManager;
     
-    private GameMap currentGameMap;
+    private IGameMap currentGameMap;
     private int currentIntGameMap;
     private static final int NUMBER_OF_MAPS = 1; 
             
@@ -62,7 +62,7 @@ public class GameMapManager implements Manager {
      *
      * @return
      */
-    public GameMap getCurrentMap() {
+    public IGameMap getCurrentMap() {
         return currentGameMap;
     }
 

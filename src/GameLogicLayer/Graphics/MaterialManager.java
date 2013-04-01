@@ -6,7 +6,7 @@ package GameLogicLayer.Graphics;
 
 import GameLogicLayer.Game.TanksGame;
 import GameViewLayer.graphics.EMaterials;
-import GameLogicLayer.util.Manager;
+import GameLogicLayer.util.IManager;
 import GameLogicLayer.util.PreloadManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
@@ -16,7 +16,7 @@ import java.util.EnumMap;
  *
  * @author Daniel
  */
-public class MaterialManager implements Manager {
+public class MaterialManager implements IManager {
     
     private EnumMap<EMaterials, Material> materialMap = new EnumMap<EMaterials, Material>(EMaterials.class);
     private TanksGame app;
