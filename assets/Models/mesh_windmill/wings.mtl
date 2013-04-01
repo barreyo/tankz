@@ -1,0 +1,12 @@
+# File created by luuv TSX
+# Created on: Sun May 30 10:31:11 2010 -1
+
+newmtl NoName,1
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.200000 0.200000 0.200000
+d 0.996078
+map_bump Caligari.tga 
+map_Kd wingswith.png 
+# End

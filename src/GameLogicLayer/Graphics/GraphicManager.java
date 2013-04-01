@@ -35,11 +35,11 @@ public class GraphicManager implements Manager {
     @Override
     public void load(int level) {
         //load all needed graphics
-        if (level == 1) {
+        /*if (level == 1) {
             loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
         } else if (level == 2) {
             loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
-        }
+        }*/
     }
 
     private void loadGraphics(EGraphics[] graphics) {

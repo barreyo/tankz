@@ -10,7 +10,7 @@ import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
-import GameViewLayer.gameEntity.MainTank;
+import GameViewLayer.gameEntity.Tank;
 import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.entity.GameEntityManager;
 import GameLogicLayer.util.Manager;
@@ -18,7 +18,7 @@ import GameLogicLayer.util.PreloadManager;
 import GameViewLayer.Map.GameMap;
 import GameViewLayer.Map.GameMap1;
 import GameViewLayer.Map.PhysicsTestHelper;
-import GameViewLayer.gameEntity.TanksEntity;
+import GameViewLayer.gameEntity.ETanksEntity;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.math.ColorRGBA;
@@ -53,7 +53,7 @@ public class GameMapManager extends AbstractAppState implements Manager {
             
     private Node mapNode;
     //private CinematicComposition cc;
-    private MainTank mainTank;
+    private Tank mainTank;
 
     /**
      *
@@ -130,14 +130,14 @@ public class GameMapManager extends AbstractAppState implements Manager {
         view2.setClearFlags(true, true, true);
         view2.attachScene(app.getRootNode());
         
-        mainTank = (MainTank) entityManager.create(TanksEntity.TANK);
-        //mainTank.getSpatial().move(-130, 60, -60);
+        mainTank = (Tank) entityManager.create(ETanksEntity.TANK);
+        mainTank.getSpatial().move(10, 2, 10);
         rootNode.attachChild(mainTank.getSpatial());
         mainTank.finalise();
         mainTank.getTanksVehicleControl().setCamera(cam1);
  
-        MainTank mainTank2 = (MainTank) entityManager.create(TanksEntity.TANK);
-        //mainTank.getSpatial().move(-130, 60, -60);
+        Tank mainTank2 = (Tank) entityManager.create(ETanksEntity.TANK);
+        mainTank2.getSpatial().move(10, 2, 10);
         rootNode.attachChild(mainTank2.getSpatial());
         mainTank2.finalise();
         mainTank2.getTanksVehicleControl().setCamera(cam2);

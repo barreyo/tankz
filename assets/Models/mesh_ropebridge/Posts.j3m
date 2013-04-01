@@ -1,7 +1,6 @@
-Material My Material : Common/MatDefs/Light/Lighting.j3md {
+Material My Material : Common/MatDefs/Misc/Unshaded.j3md {
      MaterialParameters {
-        DiffuseMap : Models/mesh_ropebridge/posts_tex.png
-        NormalMap : Models/mesh_ropebridge/posts_NM.png
+        ColorMap : Flip Repeat Models/mesh_ropebridge/posts_tex.png
      }
     AdditionalRenderState {
     }

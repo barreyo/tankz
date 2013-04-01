@@ -1,7 +1,7 @@
 
 package GameViewLayer.GUI;
 
-import GameModelLayer.Player.PlayerModel;
+import GameModelLayer.Player.Player;
 
 /**
  * A floating name tag above a player's tank.

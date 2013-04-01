@@ -18,7 +18,8 @@ public enum TanksControl {
     /**
      * A vehicle control.
      */
-    VEHICLE_CONTROL(TanksVehicleControl.class);
+    VEHICLE_CONTROL(TanksVehicleControl.class),
+    PROJECTILE_CONTROL(TankProjectileControl.class);
 
     private Class<? extends BaseControl> control;
 

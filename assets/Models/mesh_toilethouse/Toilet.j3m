@@ -1,0 +1,9 @@
+Material My Material : Common/MatDefs/Misc/Unshaded.j3md {
+     MaterialParameters {
+        SeparateTexCoord : false
+        ColorMap : Flip Repeat Models/mesh_toilethouse/toilethouse_tex.png
+     }
+    AdditionalRenderState {
+      Blend Off
+    }
+}

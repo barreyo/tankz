@@ -1,27 +1,23 @@
-
 package GameViewLayer.gameEntity;
 
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Graphics.GraphicManager;
-import GameViewLayer.graphics.EGraphics;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.util.PreloadManager;
+import GameViewLayer.graphics.EGraphics;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 /**
- *
+ * An abstract game entity.
+ * 
  * @author Daniel
  */
 public abstract class GameEntity {
@@ -39,15 +35,20 @@ public abstract class GameEntity {
     Spatial spatial;
     //protected AnimComponent animComponent;
 
+    /**
+     * Creates a game enity with a loaded spatial.
+     * 
+     * @param graphic The graphical objekt to be loaded.
+     */
     GameEntity(EGraphics graphic) {
         this();
         spatial = graphicManager.createSpatial(graphic);
     }
 
     /**
-     *
+     *  Gets all needed managers.
      */
-    public GameEntity() {
+    GameEntity() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
         guiNode = app.getGuiNode();
@@ -61,22 +62,29 @@ public abstract class GameEntity {
     }
 
     /**
+     * Returns a collisionshape of this game entity.
      *
-     * @return
+     * @return a collisionshape of this game entity
      */
     public abstract CollisionShape getCollisionShape();
 
+    /**
+     * Adds an material to the spatial.
+     */
     abstract void addMaterial();
 
+    /**
+     * Adds an appropriate control to the spatial.
+     */
     abstract void addControl();
 
     /**
-     *
+     * Releases all occupied resources of this instance.
      */
     public abstract void cleanup();
 
     /**
-     *
+     * Puts this instance in a controlled state.
      */
     public abstract void finalise();
 
@@ -85,33 +93,25 @@ public abstract class GameEntity {
         return animComponent;
     }*/
 
-    void addPhysicsControl() {
+    /*void addPhysicsControl() {
         RigidBodyControl rigidBodyControl = new RigidBodyControl(getCollisionShape(), 1);
         rigidBodyControl.setKinematic(true);
         spatial.addControl(rigidBodyControl);
         bulletAppState.getPhysicsSpace().add(rigidBodyControl);
-    }
+    }*/
 
     /**
-     *
-     * @return
+     * Returns the spatial of this game entity.
+     * 
+     * @return The spatial of this game entity.
      */
     public Spatial getSpatial() {
         return spatial;
     }
-
-    CollisionShape createNewBoxCollisionShape() {
-        return new BoxCollisionShape(getExtents());
-    }
-
-    CollisionShape createNewMeshCollisionShape() {
-        return CollisionShapeFactory.createMeshShape(spatial);
-    }
-
-    CollisionShape createNewSphereCollisionShape() {
-        return new SphereCollisionShape(getExtents().x);
-    }
-
+    
+    /**
+     * Internal help metohd used to get the boundingbox of the spatial.
+     */
     Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
     }

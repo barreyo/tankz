@@ -1,11 +1,14 @@
 
 package GameLogicLayer.controls;
 
-import GameModelLayer.gameEntity.Projectile.IProjectile;
-import GameViewLayer.gameEntity.Projectile.IProjectileSpatial;
+import GameLogicLayer.Game.TanksGame;
+import GameViewLayer.gameEntity.Tank;
+import GameViewLayer.gameEntity.MissileProjectile;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
+import com.jme3.math.Vector3f;
+import com.jme3.scene.Spatial;
 
 /**
  * WIll BE EDITED
@@ -13,23 +16,27 @@ import com.jme3.bullet.collision.PhysicsCollisionListener;
  * @author Daniel
  */
 public class TankProjectileControl extends BaseControl implements PhysicsCollisionListener{
-    private IProjectile projectileModel;
-    private IProjectileSpatial procetileSpatial;
-    private PhysicsSpace phsyicsSpace;
+    private PhysicsSpace physicsSpace;
+    private MissileProjectile projectile;
     
-    /**
-     *
-     * @param projectileModel
-     * @param projectileSpatial
-     * @param physicsSpace
-     */
-    public TankProjectileControl(IProjectile projectileModel, 
-                         IProjectileSpatial projectileSpatial,
-                         PhysicsSpace physicsSpace) {
-        this.projectileModel = projectileModel;
-        this.procetileSpatial = projectileSpatial;
-        this.phsyicsSpace = physicsSpace;
+    
+    public TankProjectileControl() {
+        TanksGame app = TanksGame.getApp();
+        PhysicsSpace physicsSpace = app.getBulletAppState().getPhysicsSpace();
         physicsSpace.addCollisionListener(this);
+    }
+    
+     /**
+     * @inheritdoc
+     */
+    @Override
+    public void setSpatial(Spatial spatial) {
+        super.setSpatial(spatial);
+
+        if (spatial != null) {
+            // Get the visual representation of the tank
+            projectile = spatial.getUserData("entity");
+        }
     }
 
     /**
@@ -38,11 +45,16 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
      */
     @Override
     public void collision(PhysicsCollisionEvent event) {
-        // TODO
-    } 
+        /*if (spatial != null) {
+            app.getRootNode().detachChild(spatial);
+            projectile.cleanup();
+        }*/
+    }
 
     @Override
     void controlUpdate(float tpf) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Vector3f oldLocation = spatial.getWorldTranslation();
+        Vector3f newLocation = oldLocation.addLocal(projectile.getDirection().multLocal(1.1f));
+        spatial.setLocalTranslation(newLocation);
     }
 }

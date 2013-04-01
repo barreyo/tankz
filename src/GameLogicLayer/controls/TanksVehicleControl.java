@@ -7,9 +7,9 @@ import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
-import GameViewLayer.gameEntity.MainTank;
-import GameViewLayer.gameEntity.Projectile.IProjectileSpatial;
-import GameViewLayer.gameEntity.Projectile.TankProjectileSpatial;
+import GameViewLayer.gameEntity.Tank;
+import GameViewLayer.gameEntity.MissileProjectile;
+import GameViewLayer.gameEntity.ETanksEntity;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -47,7 +47,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     // Projectile stuff
     // TODO should be entitys
     private IProjectile projectileModel;
-    private IProjectileSpatial projectileSpatial;
     private PhysicsSpace physicsSpace;
     private Node rootNode;
     
@@ -81,7 +80,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         physicsSpace = app.getBulletAppState().getPhysicsSpace();
         rootNode = app.getRootNode();
         projectileModel = new ProjectileModel(10, 0.001f);
-        projectileSpatial = new TankProjectileSpatial(app.getAssetManager(), 0.4f);
         
         // Create a model for the vehicle
         vehicleModel = new TankModel();
@@ -110,12 +108,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         vehicle.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
     }
 
-    /*
-     * @inheritdoc
-     */
     /**
-     *
-     * @param spatial
+     * @inheritdoc
      */
     @Override
     public void setSpatial(Spatial spatial) {
@@ -123,12 +117,12 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
 
         if (spatial != null) {
             // Get the visual representation of the tank and the applied vehicle control
-            MainTank tank = spatial.getUserData("entity");
+            Tank tank = spatial.getUserData("entity");
             vehicle = tank.getVehicleControl();
         }
     }
 
-    /*
+    /**
      * @inheritdoc
      */
     @Override
@@ -182,6 +176,25 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             }
         } else if (name.equals(SHOOT)) {
             if (!isPressed) {
+                MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(ETanksEntity.MISSILE_PROJECTILE);
+                projectileEntity.setDirection(driveDirection);
+                projectileEntity.finalise();
+                Spatial projectile = projectileEntity.getSpatial();
+                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0));
+                projectile.setLocalRotation(spatial.getWorldRotation());
+                
+                RigidBodyControl physicsControl = new RigidBodyControl(
+                                projectileEntity.getCollisionShape(), projectileModel.getMass());
+                physicsControl.setCcdMotionThreshold(0.1f);
+                physicsControl.setKinematic(true);
+     
+                projectile.addControl(physicsControl);
+                
+                physicsSpace.add(physicsControl);
+                // Attach to world and phsysicsSpace
+                rootNode.attachChild(projectile);
+                
+                /*
                 // Get a projectilespatial and translate it to weapon
                 Spatial projectile = projectileSpatial.getProjectileSpatial();
                 //projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
@@ -189,7 +202,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 
                 // Create a RigidBodyControl over the projectile collision shape
                 RigidBodyControl projectileControl = new RigidBodyControl(
-                 projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
+                projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
                 projectileControl.setCcdMotionThreshold(0.1f);
                 
                 // TODO Solve direction of velocity, should be same as weapon direction
@@ -204,7 +217,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 
                 // Create a controller of the projectile
                 //TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
-                                                            //projectileSpatial, physicsSpace);
+                                                            //projectileSpatial, physicsSpace);*/
             }
         }
 

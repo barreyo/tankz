@@ -1,7 +1,7 @@
 
 package GameModelLayer.Game;
 
-import GameModelLayer.Player.PlayerModel;
+import GameModelLayer.Player.Player;
 import java.util.List;
 
 /**
@@ -9,6 +9,6 @@ import java.util.List;
  * @author Daniel
  */
 public class GameModel {
-    private List<PlayerModel> players;
+    private List<Player> players;
     
 }

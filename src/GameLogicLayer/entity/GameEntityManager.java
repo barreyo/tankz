@@ -6,7 +6,7 @@ package GameLogicLayer.entity;
 
 import GameLogicLayer.util.Manager;
 import GameViewLayer.gameEntity.GameEntity;
-import GameViewLayer.gameEntity.TanksEntity;
+import GameViewLayer.gameEntity.ETanksEntity;
 
 /**
  * Manages game entities.
@@ -20,7 +20,7 @@ public class GameEntityManager {
      * @param newEntity The entity to create.
      * @return The created game entity
      */
-    public GameEntity create(TanksEntity newEntity) {
+    public GameEntity create(ETanksEntity newEntity) {
         GameEntity entity = newEntity.createEntity();
         return entity;
     }

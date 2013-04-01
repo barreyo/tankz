@@ -2,12 +2,13 @@
 package GameViewLayer.graphics;
 
 /**
- *
+ *  TODO Maybe remove this class
+ * 
  * @author Daniel
  */
 public enum EMaterials {
     /**
-     *
+     * 
      */
     NORMAL("Materials/Normal.j3m");
     private final String pathToMaterial;
