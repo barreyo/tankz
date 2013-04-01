@@ -61,13 +61,13 @@ public class Tank extends AGameEntity implements Savable {
         compoundShape.addChildShape(getCollisionShape(), new Vector3f(0, 1, 0));
 
         // Create the actual vehicle control
-        vehicle = new VehicleControl(compoundShape, 400);
+        vehicle = new VehicleControl(compoundShape, 600);
         spatial.addControl(vehicle);
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
 
-        float stiffness = 60.0f;//200=f1 car
+        float stiffness = 80.0f;//200=f1 car
         float compValue = 0.2f; //(should be lower than damp)
-        float dampValue = 0.201f;
+        float dampValue = 0.5f;
         vehicle.setSuspensionCompression(compValue * 2.0f * FastMath.sqrt(stiffness));
         vehicle.setSuspensionDamping(dampValue * 2.0f * FastMath.sqrt(stiffness));
         vehicle.setSuspensionStiffness(stiffness);
