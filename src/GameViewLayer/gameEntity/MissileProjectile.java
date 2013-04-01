@@ -14,6 +14,7 @@ import java.io.IOException;
 
 
 /**
+ * A missile projectile.
  *
  * @author Daniel
  */
@@ -25,25 +26,38 @@ public class MissileProjectile extends GameEntity implements Savable {
     public MissileProjectile() {
         super(EGraphics.SHARK);
         
+        // Add this instance as user data to the spatial
         spatial.setUserData("entity", this);
     }
     
+    /**
+     * @inheritdoc
+     */
     @Override
     public CollisionShape getCollisionShape() {
         return new BoxCollisionShape(getExtents());
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     void addMaterial() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     void addControl() {
         this.projectileControl = (TankProjectileControl)controlManager.getControl(TanksControl.PROJECTILE_CONTROL);
         spatial.addControl(this.projectileControl);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void cleanup() {
         projectileControl.cleanup();
@@ -53,16 +67,28 @@ public class MissileProjectile extends GameEntity implements Savable {
         projectileControl = null;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void finalise() {
         addControl();
     }
 
+    /**
+     * Returns the direction this missile is facing.
+     * 
+     * @return The direction this missile is facing
+     */
     public Vector3f getDirection() {
         return direction;
     }
     
-    
+    /**
+     * Sets the direction of the missile.
+     * 
+     * @param direction sets the direcetion this missile is facing
+     */
     public void setDirection(Vector3f direction) {
         this.direction = direction;
     }
@@ -74,6 +100,4 @@ public class MissileProjectile extends GameEntity implements Savable {
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
 }

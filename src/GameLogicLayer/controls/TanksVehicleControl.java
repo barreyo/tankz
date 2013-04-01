@@ -38,45 +38,39 @@ import com.jme3.scene.control.CameraControl;
  * @author Daniel
  */
 public class TanksVehicleControl extends BaseControl implements ActionListener {
-    private Vector3f driveDirection = new Vector3f();
     
     // The model for the vehicle (holds the data)
     private IArmedVehicle vehicleModel;
     private VehicleControl vehicle;
     
-    // Projectile stuff
-    // TODO should be entitys
+    // Variables needed to fire projectiles
     private IProjectile projectileModel;
     private PhysicsSpace physicsSpace;
     private Node rootNode;
-    
+ 
     
     // Cam to be set up behind Vehicle
     private Camera cam;
     
     // Input related commands
     private EPlayerInputs inputs;
-    private String TURN_LEFT;
-    private String TURN_RIGHT;
-    private String ACCELERATE_FORWARD;
-    private String ACCELERATE_BACK;
-    private String RESET;
-    private String SHOOT;
+    private String turnLeft;
+    private String turnRight;
+    private String accelerateForward;
+    private String accelerateBack;
+    private String reset;
+    private String shoot;
     
-    
+    // Needed to manage inputs
     private InputManager inputManager;
     
-    /*
-     * Creates a control for a tank vehicle.
-     */
     /**
-     *
+     * Creates a control for a tank vehicle.
      */
     public TanksVehicleControl() {
         // Get needed managers     
         inputManager = app.getInputManager();
         
-        // TODO change this
         physicsSpace = app.getBulletAppState().getPhysicsSpace();
         rootNode = app.getRootNode();
         projectileModel = new ProjectileModel(10, 0.001f);
@@ -99,8 +93,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         if (vehicle == null || cam == null) {
             return;
         }
-        driveDirection = vehicle.getForwardVector(null);
         
+        // Keep vehicle within max speeds
         float maxSpeed = (vehicleModel.getAccelerationValue() >= 0 ? 
                           vehicleModel.getForwardMaxSpeed() :
                           -vehicleModel.getBackMaxSpeed());
@@ -134,29 +128,32 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //GameState.setMoving(false);
     }
 
+    /**
+     * @inheritdoc
+     */
     public void onAction(String name, boolean isPressed, float tpf) {
         // Steering related
-        if (name.equals(TURN_LEFT)) {
+        if (name.equals(turnLeft)) {
             if (isPressed) {
                 vehicleModel.incrementSteeringValue(.4f);
             } else {
                 vehicleModel.decrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
-        } else if (name.equals(TURN_RIGHT)) {
+        } else if (name.equals(turnRight)) {
             if (isPressed) {
                 vehicleModel.decrementSteeringValue(.4f);
             } else {
                 vehicleModel.incrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
-        } else if (name.equals(ACCELERATE_FORWARD)) {
+        } else if (name.equals(accelerateForward)) {
             if (isPressed) {
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
-        } else if (name.equals(ACCELERATE_BACK)) {
+        } else if (name.equals(accelerateBack)) {
             if (isPressed) {
                 // TODO ny input för bromsning?
                 //vehicle.brake(vehicleModel.getBrakeForce());
@@ -165,7 +162,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 //vehicle.brake(0f);
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
-        } else if (name.equals(RESET)) {
+        } else if (name.equals(reset)) {
             if (isPressed) {
                 System.out.println("Reset");
                 vehicle.setPhysicsLocation(Vector3f.ZERO);
@@ -174,10 +171,10 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 vehicle.setAngularVelocity(Vector3f.ZERO);
                 vehicle.resetSuspension();
             }
-        } else if (name.equals(SHOOT)) {
+        } else if (name.equals(shoot)) {
             if (!isPressed) {
                 MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(ETanksEntity.MISSILE_PROJECTILE);
-                projectileEntity.setDirection(driveDirection);
+                projectileEntity.setDirection(vehicle.getForwardVector(null));
                 projectileEntity.finalise();
                 Spatial projectile = projectileEntity.getSpatial();
                 projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0));
@@ -225,6 +222,11 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //GameState.setMoving(isMoving);
     }
     
+    /**
+     * Sets the camera that will be used to follow the tank.
+     * 
+     * @param cam the camera that will follow the tank
+     */
     public void setCamera(Camera cam) {
         this.cam = cam;
         setUpCam();
@@ -247,38 +249,38 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         int right = inputs.getRightKey();
         int up = inputs.getUpKey();
         int down = inputs.getDownKey();
-        int reset = inputs.getResetKey();
-        int shoot = inputs.getShootKey();
+        int resetI = inputs.getResetKey();
+        int shootI = inputs.getShootKey();
         
         // Specifies mappingnames for input
-        TURN_LEFT = "" + left;
-        TURN_RIGHT = "" + right;
-        ACCELERATE_FORWARD = "" + up;
-        ACCELERATE_BACK = "" + down;
-        RESET = "" + reset;
-        SHOOT = "" + shoot;
+        turnLeft = "" + left;
+        turnRight = "" + right;
+        accelerateForward = "" + up;
+        accelerateBack = "" + down;
+        reset = "" + resetI;
+        shoot = "" + shootI;
         
         // Adds the mappings to inputmanager
-        inputManager.addMapping(TURN_LEFT, new KeyTrigger(left));
-        inputManager.addMapping(TURN_RIGHT, new KeyTrigger(right));
-        inputManager.addMapping(ACCELERATE_FORWARD, new KeyTrigger(up));
-        inputManager.addMapping(ACCELERATE_BACK, new KeyTrigger(down));
-        inputManager.addMapping(RESET, new KeyTrigger(reset));
-        inputManager.addMapping(SHOOT, new KeyTrigger(shoot));
+        inputManager.addMapping(turnLeft, new KeyTrigger(left));
+        inputManager.addMapping(turnRight, new KeyTrigger(right));
+        inputManager.addMapping(accelerateForward, new KeyTrigger(up));
+        inputManager.addMapping(accelerateBack, new KeyTrigger(down));
+        inputManager.addMapping(reset, new KeyTrigger(resetI));
+        inputManager.addMapping(shoot, new KeyTrigger(shootI));
         // Registers this as an listener for the specified mappingnames
-        inputManager.addListener(this, TURN_LEFT, TURN_RIGHT, ACCELERATE_FORWARD, ACCELERATE_BACK, RESET, SHOOT);
+        inputManager.addListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot);
         
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
     }
 
     private void removeInputMappings() {
-        inputManager.deleteMapping(TURN_LEFT);
-        inputManager.deleteMapping(TURN_RIGHT);
-        inputManager.deleteMapping(ACCELERATE_FORWARD);
-        inputManager.deleteMapping(ACCELERATE_BACK);
-        inputManager.deleteMapping(RESET);
-        inputManager.deleteMapping(SHOOT);
+        inputManager.deleteMapping(turnLeft);
+        inputManager.deleteMapping(turnRight);
+        inputManager.deleteMapping(accelerateForward);
+        inputManager.deleteMapping(accelerateBack);
+        inputManager.deleteMapping(reset);
+        inputManager.deleteMapping(shoot);
         inputManager.removeListener(this);
         
         inputs.setInUse(false);
@@ -291,8 +293,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     private void setUpCam() {
         Node vehicleNode = (Node)spatial;
-        // Disable the default flyby cam
-        //app.getFlyByCamera().setEnabled(false);
         //create the camera Node
         CameraNode camNode = new CameraNode("Camera Node", cam);
         //This mode means that camera copies the movements of the target:

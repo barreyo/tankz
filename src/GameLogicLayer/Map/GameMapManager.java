@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameLogicLayer.Map;
 
 import GameLogicLayer.Animation.AnimationManager;
@@ -10,24 +6,19 @@ import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
-import GameViewLayer.gameEntity.Tank;
 import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.entity.GameEntityManager;
 import GameLogicLayer.util.Manager;
 import GameLogicLayer.util.PreloadManager;
 import GameViewLayer.Map.GameMap;
 import GameViewLayer.Map.GameMap1;
-import GameViewLayer.Map.PhysicsTestHelper;
 import GameViewLayer.gameEntity.ETanksEntity;
+import GameViewLayer.gameEntity.Tank;
 import com.jme3.app.state.AbstractAppState;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 
 /**
  *
@@ -102,7 +93,7 @@ public class GameMapManager extends AbstractAppState implements Manager {
      *
      */
     public void initialiseGameStatesOnce() {
-        app.getCamera().setLocation(new Vector3f(-231.00694f, 269.15887f, 319.6499f));
+        /*app.getCamera().setLocation(new Vector3f(-231.00694f, 269.15887f, 319.6499f));
         app.getCamera().lookAt(new Vector3f(0f, 0f, 0f), Vector3f.UNIT_Y);
 
         // Load LevelCommon
@@ -142,7 +133,7 @@ public class GameMapManager extends AbstractAppState implements Manager {
         mainTank2.finalise();
         mainTank2.getTanksVehicleControl().setCamera(cam2);
         
-        app.getStateManager().detach(this);
+        app.getStateManager().detach(this);*/
         
         
         
@@ -264,6 +255,8 @@ public class GameMapManager extends AbstractAppState implements Manager {
                 currentGameMap = new GameMap1();
                 break;
         }
+        
+        currentGameMap.load();
 
         //initialiseEachLevel();
     }
@@ -310,5 +303,4 @@ public class GameMapManager extends AbstractAppState implements Manager {
         //currentLevel.cleanup();
         // animManager.cleanup();
     }
-    
 }

@@ -17,12 +17,14 @@ public class TankModel implements IArmedVehicle {
 
     private int health;
     private VehicleState vehicleState;
+    
     private float accelerationForce;
     private float brakeForce;
     private float steeringValue;
     private float accelerationValue;
     private float maxForwardSpeed;
     private float maxBackSpeed;
+    
     private PowerupSlot powerupSlot;
     private IWeapon weaponModel;
 

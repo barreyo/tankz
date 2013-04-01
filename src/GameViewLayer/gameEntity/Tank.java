@@ -30,9 +30,11 @@ public class Tank extends GameEntity implements Savable {
     // Controls attached to this tank.
     private VehicleControl vehicle;
     private TanksVehicleControl tanksVehicleControl;
+    
+    private Vector3f direction;
 
     /**
-     * Creates a tank.
+     * Creates a tank game entity.
      */
     public Tank() {
         super(EGraphics.TANK);
@@ -42,17 +44,18 @@ public class Tank extends GameEntity implements Savable {
     }
 
     /**
-     * Return a collisionshape of this tank
-     * 
-     * @return The collision shape of this tank.
+     *  @inheritdoc
      */
     @Override
     public CollisionShape getCollisionShape() {
         return new BoxCollisionShape(getExtents());
     }
 
-    
-    public void addPhysicsControl() {
+    /**
+     *  @inheritdoc
+     */
+    @Override
+    void addPhysicsControl() {
         
         CompoundCollisionShape compoundShape = new CompoundCollisionShape();
         compoundShape.addChildShape(getCollisionShape(), new Vector3f(0, 1, 0));
@@ -91,44 +94,50 @@ public class Tank extends GameEntity implements Savable {
         vehicle.addWheel(null, new Vector3f(xOff, yOff, -zOff),
                 wheelDirection, wheelAxle, restLength, radius, false);
         
-     
-        //vehicle.setPhysicsLocation(new Vector3f(0, 10, 0));
+        // Specify the groups to coolide with
         vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
         vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02 | PhysicsCollisionObject.COLLISION_GROUP_04);
+        // Add vehicle to physics space
         bulletAppState.getPhysicsSpace().add(vehicle);
     }
     
 
     /**
-     *
-     * @return the vehicle control of this class
+     * Returns the vehicle control of this tank.
+     * 
+     * @return the vehicle control of this tank
      */
     public VehicleControl getVehicleControl() {
         return vehicle;
     }
     
+    /**
+     * Returns the tank control of this tank.
+     * 
+     * @return The tank control of this tank
+     */
     public TanksVehicleControl getTanksVehicleControl() {
         return tanksVehicleControl;
     }
-
+    
     /**
-     *
+     *  @inheritdoc
      */
     @Override
     public void addMaterial() {
     }
 
     /**
-     *
+     *  @inheritdoc
      */
     @Override
-    public void addControl() {
+    void addControl() {
         tanksVehicleControl = (TanksVehicleControl)controlManager.getControl(TanksControl.VEHICLE_CONTROL);
         spatial.addControl(tanksVehicleControl);
     }
 
     /**
-     *
+     *  @inheritdoc
      */
     @Override
     public void cleanup() {
@@ -140,7 +149,7 @@ public class Tank extends GameEntity implements Savable {
     }
 
     /**
-     *
+     *  @inheritdoc
      */
     @Override
     public void finalise() {

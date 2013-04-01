@@ -11,6 +11,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
@@ -46,7 +47,7 @@ public abstract class GameEntity {
     }
 
     /**
-     *  Gets all needed managers.
+     *  Creates a game entity with its needed managers.
      */
     GameEntity() {
         app = TanksGame.getApp();
@@ -84,21 +85,19 @@ public abstract class GameEntity {
     public abstract void cleanup();
 
     /**
-     * Puts this instance in a controlled state.
+     * Puts this entity in a controlled state.
      */
     public abstract void finalise();
 
-    // TODO
-    /*public AnimComponent getAnimComponent() {
-        return animComponent;
-    }*/
-
-    /*void addPhysicsControl() {
+    /**
+     * Adds a physics control to the game entity.
+     */
+    void addPhysicsControl() {
         RigidBodyControl rigidBodyControl = new RigidBodyControl(getCollisionShape(), 1);
         rigidBodyControl.setKinematic(true);
         spatial.addControl(rigidBodyControl);
         bulletAppState.getPhysicsSpace().add(rigidBodyControl);
-    }*/
+    }
 
     /**
      * Returns the spatial of this game entity.
@@ -115,4 +114,9 @@ public abstract class GameEntity {
     Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
     }
+    
+    // TODO
+    /*public AnimComponent getAnimComponent() {
+        return animComponent;
+    }*/
 }
