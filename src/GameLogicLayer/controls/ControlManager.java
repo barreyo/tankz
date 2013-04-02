@@ -14,7 +14,7 @@ public class ControlManager {
      * @param tanksControl 
      * @return
      */
-    public Control getControl(EControls tanksControl) {
+    public synchronized Control getControl(EControls tanksControl) {
         if (tanksControl != null) {
             return tanksControl.createControl();
         }

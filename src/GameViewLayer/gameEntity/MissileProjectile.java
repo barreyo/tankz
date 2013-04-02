@@ -4,8 +4,11 @@ package GameViewLayer.gameEntity;
 import GameLogicLayer.controls.TankProjectileControl;
 import GameLogicLayer.controls.EControls;
 import GameViewLayer.graphics.EGraphics;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bullet.control.VehicleControl;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.export.Savable;
@@ -21,6 +24,8 @@ import java.io.IOException;
 public class MissileProjectile extends AGameEntity implements Savable {
     
     private TankProjectileControl projectileControl;
+    private RigidBodyControl physicsControl;
+    
     private Vector3f direction;
 
     public MissileProjectile() {
@@ -36,6 +41,31 @@ public class MissileProjectile extends AGameEntity implements Savable {
     @Override
     public CollisionShape getCollisionShape() {
         return new BoxCollisionShape(getExtents());
+    }
+    
+    @Override
+    void addPhysicsControl() {
+        //TODO change mass to model mass
+        physicsControl = new RigidBodyControl(getCollisionShape(), 
+                0.001f);
+        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setGravity(new Vector3f(0f, 0.01f, 0f));
+        physicsControl.setKinematic(true);
+        
+        //physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_02);
+        //physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01);
+
+        spatial.addControl(physicsControl);
+        bulletAppState.getPhysicsSpace().add(physicsControl);
+    }
+    
+    /**
+     * Returns the vehicle control of this tank.
+     * 
+     * @return the vehicle control of this tank
+     */
+    public RigidBodyControl getPhysicsControl() {
+        return physicsControl;
     }
 
     /**
@@ -73,6 +103,7 @@ public class MissileProjectile extends AGameEntity implements Savable {
     @Override
     public void finalise() {
         addControl();
+        addPhysicsControl();
     }
 
     /**

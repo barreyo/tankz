@@ -21,4 +21,11 @@ public class PowerupSlot {
     public synchronized void setPowerup(EPowerup powerup) {
         this.powerup = powerup;
     }
+    
+    /**
+     * Consumes the powerup in this slot.
+     */
+    public synchronized void consumePowerup() {
+        powerup = null;
+    }
 }

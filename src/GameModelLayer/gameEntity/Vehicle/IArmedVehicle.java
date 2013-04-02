@@ -98,23 +98,27 @@ public interface IArmedVehicle {
     void setAccelerationValue(float value);
     
     /**
-     *
-     * @param force
+     * Increments the acceleration value by specified force.
+     * 
+     * @param force that increments the acceleration value
      */
     void incrementAccelerationValue(float force);
     /**
-     *
-     * @param force
+     * Decrements the acceleration value by specified force.
+     * 
+     * @param force that decrements the acceleration value
      */
     void decrementAccelerationValue(float force);
     /**
+     * Increments the steering value by specified value.
      *
-     * @param value
+     * @param value that increments the steering value
      */
     void incrementSteeringValue(float value);
     /**
-     *
-     * @param value
+     * Decrements the steering value by specified value.
+     * 
+     * @param value that decrements the steering value
      */
     void decrementSteeringValue(float value);
     
@@ -123,14 +127,14 @@ public interface IArmedVehicle {
      * 
      * @return The powerup contained in powerupSlot
      */
-    public EPowerup getPowerup();
+    EPowerup getPowerup();
 
     /**
      * Sets the powerup in the powerupSlot.
      * 
      * @param powerup The powerup to add in powerupSlot
      */
-    public  void setPowerup(EPowerup powerup);
+    void setPowerup(EPowerup powerup);
     
     /**
      *
@@ -144,13 +148,31 @@ public interface IArmedVehicle {
      */
     IWeapon getWeaponModel();
 
-    public void setForwardMaxSpeed(float f);
+    /**
+     * 
+     * @param max 
+     */
+    void setForwardMaxSpeed(float max);
 
-    public float getForwardMaxSpeed();
+    /**
+     * Returns the forward max speed in km/h of the vehicle.
+     * 
+     * @return the forward max speed in km/h of the vehicle
+     */
+    float getForwardMaxSpeed();
 
-    public float getBackMaxSpeed();
-
-    public void setBackMaxSpeed(float f);
+    /**
+     * Returns the backwards max speed in km/h of the vehicle.
+     * 
+     * @return the backwards max speed in km/h of the vehicle
+     */
+    float getBackMaxSpeed();
+    
+    /**
+     * 
+     * @param max
+     */
+    void setBackMaxSpeed(float max);
 
     /**
      * Enum representing different states of the vehicle.

@@ -95,8 +95,8 @@ public class Tank extends AGameEntity implements Savable {
                 wheelDirection, wheelAxle, restLength, radius, false);
         
         // Specify the groups to coolide with
-        vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
-        vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02 | PhysicsCollisionObject.COLLISION_GROUP_04);
+        //vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
+        //vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02 | PhysicsCollisionObject.COLLISION_GROUP_04);
         // Add vehicle to physics space
         bulletAppState.getPhysicsSpace().add(vehicle);
     }

@@ -175,19 +175,10 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             if (!isPressed) {
                 MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
                 projectileEntity.setDirection(vehicle.getForwardVector(null));
-                projectileEntity.finalise();
                 Spatial projectile = projectileEntity.getSpatial();
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0));
+                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(2f)));
                 projectile.setLocalRotation(spatial.getWorldRotation());
-                
-                RigidBodyControl physicsControl = new RigidBodyControl(
-                                projectileEntity.getCollisionShape(), projectileModel.getMass());
-                physicsControl.setCcdMotionThreshold(0.1f);
-                physicsControl.setKinematic(true);
-     
-                projectile.addControl(physicsControl);
-                
-                physicsSpace.add(physicsControl);
+                projectileEntity.finalise();
                 // Attach to world and phsysicsSpace
                 rootNode.attachChild(projectile);
                 

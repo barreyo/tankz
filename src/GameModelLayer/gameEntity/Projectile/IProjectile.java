@@ -1,23 +1,22 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameModelLayer.gameEntity.Projectile;
 
 /**
- *
+ * Interface for a basic projectile.
+ * 
  * @author Daniel
  */
 public interface IProjectile {
-        /**
+    /**
+     * Returns the damage done on impact.
      *
-     * @return
+     * @return the damage done on impact
      */
     public int getDamageOnImpact();
 
     /**
+     * Returns the mass of the projcetile in kg.
      *
-     * @return
+     * @return the mass of the projectile in kg
      */
     public float getMass();
 }

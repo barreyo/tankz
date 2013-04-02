@@ -12,4 +12,5 @@ public class GameModel {
     private List<Player> players;
     
     
+    
 }

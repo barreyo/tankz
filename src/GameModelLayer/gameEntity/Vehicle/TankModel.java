@@ -1,16 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameModelLayer.gameEntity.Vehicle;
 
 import GameModelLayer.gameEntity.Powerup.EPowerup;
 import GameModelLayer.gameEntity.Powerup.PowerupSlot;
 import GameModelLayer.gameEntity.Weapon.IWeapon;
-import com.jme3.math.Vector3f;
 
 /**
- *
+ * Model for a tank vehicle.
+ * 
  * @author Daniel
  */
 public class TankModel implements IArmedVehicle {
@@ -188,21 +184,33 @@ public class TankModel implements IArmedVehicle {
         powerupSlot.setPowerup(powerup);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void setForwardMaxSpeed(float max) {
         this.maxForwardSpeed = max;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public float getForwardMaxSpeed() {
         return maxForwardSpeed;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public float getBackMaxSpeed() {
         return maxBackSpeed;
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void setBackMaxSpeed(float max) {
         this.maxBackSpeed = max;
