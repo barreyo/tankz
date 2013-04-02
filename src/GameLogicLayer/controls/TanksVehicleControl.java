@@ -293,13 +293,13 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private void setUpCam() {
         // Chasecam properties
         chaseCam = new VehicleCamera(cam, spatial, inputManager);
-        chaseCam.setMaxDistance(5);
+        chaseCam.setMaxDistance(20);
         chaseCam.setMinDistance(10);
-        chaseCam.setDefaultDistance(20);
-        chaseCam.setChasingSensitivity(20f);
+        chaseCam.setDefaultDistance(15);
+        chaseCam.setChasingSensitivity(5f);
         chaseCam.setSmoothMotion(true); //automatic following
-        chaseCam.setUpVector(new Vector3f(0, 1, 0));
+        chaseCam.setUpVector(Vector3f.UNIT_Y);
         chaseCam.setTrailingEnabled(true);
-        chaseCam.setDefaultVerticalRotation(0.2f);
+        chaseCam.setDefaultVerticalRotation(0.3f);
     }
 }

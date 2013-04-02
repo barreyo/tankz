@@ -60,7 +60,7 @@ public class VehicleCamera extends ChaseCamera {
     private Vector3f horLookAt;
     
     public void setHorizonalLookAt(Vector3f lo) {
-        horLookAt = lo;
+        horLookAt = lo.normalizeLocal();
     }
    
     
@@ -68,7 +68,7 @@ public class VehicleCamera extends ChaseCamera {
         if (horLookAt == null) 
             return;
         float hDistance = (distance) * FastMath.sin((FastMath.PI / 2) - vRotation);
-        pos.set(horLookAt.addLocal(0 , (distance) * FastMath.sin(vRotation), 0).multLocal(-hDistance, 1 , -hDistance));
+        pos.set(-hDistance * horLookAt.x, (distance) * FastMath.sin(vRotation), -hDistance * horLookAt.z);
         pos.addLocal(target.getWorldTranslation());
     }
 }
