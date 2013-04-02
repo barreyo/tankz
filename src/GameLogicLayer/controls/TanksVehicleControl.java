@@ -19,6 +19,7 @@ import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.Trigger;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
@@ -64,6 +65,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     // Needed to manage inputs
     private InputManager inputManager;
     
+    public static final Quaternion PITCH011_25 = new Quaternion().fromAngleAxis(FastMath.PI/16,   new Vector3f(1,0,0));
+ 
+    
     /**
      * Creates a control for a tank vehicle.
      */
@@ -90,7 +94,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     @Override
     void controlUpdate(float tpf) {
-        if (vehicle == null || cam == null) {
+        if (vehicle == null || chaseCam == null) {
             return;
         }
         
@@ -100,6 +104,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                           -vehicleModel.getBackMaxSpeed());
         float speedFactor = (maxSpeed-vehicle.getCurrentVehicleSpeedKmHour())/maxSpeed;
         vehicle.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
+  
+        chaseCam.setHorizonalLookAt(vehicle.getForwardVector(null).multLocal(new Vector3f(1,0,1)));
     }
 
     /**
@@ -114,6 +120,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             Tank tank = spatial.getUserData("entity");
             vehicle = tank.getVehicleControl();
         }
+        
     }
 
     /**
@@ -277,22 +284,22 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         inputs.setInUse(false);
     }
 
+    private VehicleCamera chaseCam;
     /**
      * Initiates the third person camera that follows the vehicle.
      *
      * @param spatial The spatial to be followed by the camera.
      */
     private void setUpCam() {
-        Node vehicleNode = (Node)spatial;
-        //create the camera Node
-        CameraNode camNode = new CameraNode("Camera Node", cam);
-        //This mode means that camera copies the movements of the target:
-        camNode.setControlDir(CameraControl.ControlDirection.SpatialToCamera);
-        //Attach the camNode to the target:
-        vehicleNode.attachChild(camNode);
-        //Move camNode, e.g. behind and above the target:
-        camNode.setLocalTranslation(new Vector3f(0, 3, -15));
-        //Rotate the camNode to look at the target:
-        camNode.lookAt(vehicleNode.getLocalTranslation(), Vector3f.UNIT_Y);
+        // Chasecam properties
+        chaseCam = new VehicleCamera(cam, spatial, inputManager);
+        chaseCam.setMaxDistance(5);
+        chaseCam.setMinDistance(10);
+        chaseCam.setDefaultDistance(20);
+        chaseCam.setChasingSensitivity(20f);
+        chaseCam.setSmoothMotion(true); //automatic following
+        chaseCam.setUpVector(new Vector3f(0, 1, 0));
+        chaseCam.setTrailingEnabled(true);
+        chaseCam.setDefaultVerticalRotation(0.2f);
     }
 }
