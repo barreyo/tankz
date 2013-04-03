@@ -10,6 +10,7 @@ import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.gameEntity.Tank;
 import GameViewLayer.gameEntity.MissileProjectile;
 import GameViewLayer.gameEntity.EGameEntities;
+import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
@@ -52,19 +53,21 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String accelerateBack;
     private String reset;
     private String shoot;
+    private boolean hasBeenPressed;
+//    private ShootingThread shootingThread;
     
     // Needed to manage inputs
     private InputManager inputManager;
     
     public static final Quaternion PITCH011_25 = new Quaternion().fromAngleAxis(FastMath.PI/16,   new Vector3f(1,0,0));
  
-    
     /**
      * Creates a control for a tank vehicle.
      */
     public TanksVehicleControl() {
+//        shootingThread = new ShootingThread(vehicle, this.getSpatial(), app, rootNode);
         // Get needed managers     
-        inputManager = app.getInputManager();
+        inputManager = app.getInputManager();        
         
         physicsSpace = app.getBulletAppState().getPhysicsSpace();
         rootNode = app.getRootNode();
@@ -133,32 +136,38 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         // Steering related
         if (name.equals(turnLeft)) {
             if (isPressed) {
-                vehicleModel.incrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(.4f);
             } else {
-                vehicleModel.decrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(0);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(turnRight)) {
             if (isPressed) {
-                vehicleModel.decrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(-.4f);
             } else {
-                vehicleModel.incrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(0);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(accelerateForward)) {
             if (isPressed) {
+                //vehicleModel.setAccelerationValue(vehicleModel.getAccelerationForce());
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
-                vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
+                vehicleModel.setAccelerationValue(0);
+                //vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {
             if (isPressed) {
+                //vehicleModel.setAccelerationValue(-vehicleModel.getAccelerationForce());
+                
                 // TODO ny input för bromsning?
                 //vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
+                vehicleModel.setAccelerationValue(0);
+                
                 //vehicle.brake(0f);
-                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
+                //vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(reset)) {
             if (isPressed) {
@@ -171,10 +180,11 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             }
         } else if (name.equals(shoot)) {
             if (!isPressed) {
+                
                 MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
                 projectileEntity.setDirection(vehicle.getForwardVector(null));
                 Spatial projectile = projectileEntity.getSpatial();
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(2f)));
+                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));
                 projectile.setLocalRotation(spatial.getWorldRotation());
                 projectileEntity.finalise();
                 // Attach to world and phsysicsSpace
@@ -204,9 +214,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 // Create a controller of the projectile
                 //TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
                                                             //projectileSpatial, physicsSpace);*/
+
             }
         }
-
         //boolean isMoving = left || right || up || down;
         //GameState.setMoving(isMoving);
     }
