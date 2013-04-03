@@ -92,6 +92,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
                     physicsSpace.remove(physicsControl);
                     spatial.removeFromParent();
                     projectile.cleanup();
+                    physicsSpace.removeCollisionListener(this);
                 }
             }
             if (effectPlaying) {
@@ -99,6 +100,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
                 if (effectTimer > EFFECT_END_TIME) {
                     effect.removeFromParent();
                     effect.removeControl(this);
+                    physicsSpace.removeCollisionListener(this);
                 }
             }
         }

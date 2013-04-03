@@ -129,45 +129,66 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //GameState.setMoving(false);
     }
 
-    private boolean isFirstKeyPressDone;
+    private boolean isFirstLeftKeyPressDone;
+    private boolean isFirstRightKeyPressDone;
+    private boolean isFirstUpKeyPressDone;
+    private boolean isFirstDownKeyPressDone;
     /**
      * @inheritdoc
      */
     public void onAction(String name, boolean isPressed, float tpf) {
-        if (isPressed && !isFirstKeyPressDone) {
-            isFirstKeyPressDone = true;
-        }
-        if (!isFirstKeyPressDone) {
-            return;
-        }
+       
         // Steering related
         if (name.equals(turnLeft)) {
             if (isPressed) {
+                if (!isFirstLeftKeyPressDone) {
+                    isFirstLeftKeyPressDone = true;
+                }
                 vehicleModel.incrementSteeringValue(.4f);
             } else {
+                if (!isFirstLeftKeyPressDone) {
+                    return;
+                }
                 vehicleModel.decrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(turnRight)) {
             if (isPressed) {
+                if (!isFirstRightKeyPressDone) {
+                    isFirstRightKeyPressDone = true;
+                }
                 vehicleModel.decrementSteeringValue(.4f);
             } else {
+                if (!isFirstRightKeyPressDone) {
+                    return;
+                }
                 vehicleModel.incrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(accelerateForward)) {
             if (isPressed) {
+                if (!isFirstUpKeyPressDone) {
+                    isFirstUpKeyPressDone = true;
+                }
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
+                if (!isFirstUpKeyPressDone) {
+                    return;
+                }
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {
             if (isPressed) {
-                
+                if (!isFirstDownKeyPressDone) {
+                    isFirstDownKeyPressDone = true;
+                }
                 // TODO ny input för bromsning?
                 //vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
+                if (!isFirstDownKeyPressDone) {
+                    return;
+                }
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce()); 
                 
                 //vehicle.brake(0f);
