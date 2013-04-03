@@ -3,6 +3,7 @@ package GameLogicLayer.controls;
 
 import GameLogicLayer.viewPort.VehicleCamera;
 import GameLogicLayer.util.EPlayerInputs;
+import GameModelLayer.Game.GameState;
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
@@ -113,8 +114,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             // Get the visual representation of the tank and the applied vehicle control
             Tank tank = spatial.getUserData("entity");
             vehicle = tank.getVehicleControl();
-        }
-        
+        }  
     }
 
     /**
@@ -129,45 +129,48 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //GameState.setMoving(false);
     }
 
+    private boolean isFirstKeyPressDone;
     /**
      * @inheritdoc
      */
     public void onAction(String name, boolean isPressed, float tpf) {
+        if (isPressed && !isFirstKeyPressDone) {
+            isFirstKeyPressDone = true;
+        }
+        if (!isFirstKeyPressDone) {
+            return;
+        }
         // Steering related
         if (name.equals(turnLeft)) {
             if (isPressed) {
-                vehicleModel.setSteeringValue(.4f);
+                vehicleModel.incrementSteeringValue(.4f);
             } else {
-                vehicleModel.setSteeringValue(0);
+                vehicleModel.decrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(turnRight)) {
             if (isPressed) {
-                vehicleModel.setSteeringValue(-.4f);
+                vehicleModel.decrementSteeringValue(.4f);
             } else {
-                vehicleModel.setSteeringValue(0);
+                vehicleModel.incrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(accelerateForward)) {
             if (isPressed) {
-                //vehicleModel.setAccelerationValue(vehicleModel.getAccelerationForce());
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
-                vehicleModel.setAccelerationValue(0);
-                //vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
+                vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {
             if (isPressed) {
-                //vehicleModel.setAccelerationValue(-vehicleModel.getAccelerationForce());
                 
                 // TODO ny input för bromsning?
                 //vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
-                vehicleModel.setAccelerationValue(0);
+                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce()); 
                 
                 //vehicle.brake(0f);
-                //vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(reset)) {
             if (isPressed) {
