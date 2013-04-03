@@ -39,6 +39,7 @@ public class LoadingScreenAppState extends AbstractAppState implements ScreenCon
     private TextRenderer textRenderer;
    
     private int frameCount;
+    private int nbrOfPlayers;
     
     private static final int FRAME_COUNT = 150;
     
