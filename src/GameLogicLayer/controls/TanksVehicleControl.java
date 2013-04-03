@@ -52,6 +52,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String accelerateBack;
     private String reset;
     private String shoot;
+    private boolean hasBeenPressed;
     
     // Needed to manage inputs
     private InputManager inputManager;
@@ -133,32 +134,38 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         // Steering related
         if (name.equals(turnLeft)) {
             if (isPressed) {
-                vehicleModel.incrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(.4f);
             } else {
-                vehicleModel.decrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(0);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(turnRight)) {
             if (isPressed) {
-                vehicleModel.decrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(-.4f);
             } else {
-                vehicleModel.incrementSteeringValue(.4f);
+                vehicleModel.setSteeringValue(0);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(accelerateForward)) {
             if (isPressed) {
+                //vehicleModel.setAccelerationValue(vehicleModel.getAccelerationForce());
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
-                vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
+                vehicleModel.setAccelerationValue(0);
+                //vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {
             if (isPressed) {
+                //vehicleModel.setAccelerationValue(-vehicleModel.getAccelerationForce());
+                
                 // TODO ny input för bromsning?
                 //vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
+                vehicleModel.setAccelerationValue(0);
+                
                 //vehicle.brake(0f);
-                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
+                //vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(reset)) {
             if (isPressed) {
@@ -174,7 +181,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
                 projectileEntity.setDirection(vehicle.getForwardVector(null));
                 Spatial projectile = projectileEntity.getSpatial();
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));
+                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(2f)));
                 projectile.setLocalRotation(spatial.getWorldRotation());
                 projectileEntity.finalise();
                 // Attach to world and phsysicsSpace
