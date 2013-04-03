@@ -1,5 +1,7 @@
 package GameViewLayer.effects;
 
+import com.jme3.effect.ParticleEmitter;
+
 /**
  *
  * @author Daniel
@@ -13,7 +15,7 @@ public enum EEffects {
         this.effect = effect;
     }
     
-    public IEffect getEffect() {
-        return effect;
+    public ParticleEmitter getEmitter() {
+        return effect.getParticleEmitter();
     }
 }

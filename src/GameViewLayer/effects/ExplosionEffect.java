@@ -48,6 +48,6 @@ public class ExplosionEffect implements IEffect {
     
     @Override
     public ParticleEmitter getParticleEmitter() {
-        return effect;
+        return effect.clone();
     }
 }

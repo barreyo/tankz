@@ -46,7 +46,7 @@ public class EffectsManager implements IManager {
     private void loadGraphics(EEffects[] effects, EViewPorts[] views) {
         for (EViewPorts view : views) {
             for (EEffects effect : effects) {
-                ParticleEmitter emitter = effect.getEffect().getParticleEmitter();
+                ParticleEmitter emitter = effect.getEmitter();
                 preloadManager.preload(emitter, view.getViewPort());
                 effectsMap.put(effect, emitter);
             }

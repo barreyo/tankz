@@ -2,6 +2,7 @@
 package GameLogicLayer.controls;
 
 import GameLogicLayer.Game.TanksGame;
+import GameViewLayer.effects.EEffects;
 import GameViewLayer.gameEntity.MissileProjectile;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -26,15 +27,13 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
     private MissileProjectile projectile;
     private RigidBodyControl physicsControl;
     
-    
-    private ParticleEmitter effect;
+ 
     
     
     public TankProjectileControl() {
         TanksGame app = TanksGame.getApp();
         physicsSpace = app.getBulletAppState().getPhysicsSpace();
         physicsSpace.addCollisionListener(this);
-        prepareEffects();
     }
     
      /**
@@ -61,6 +60,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
         }
         physicsControl = projectile.getPhysicsControl();
         if (event.getObjectA() == physicsControl || event.getObjectB() == physicsControl) {
+            ParticleEmitter effect = EEffects.EXPLOSION.getEmitter();
             if (effect != null && spatial.getParent() != null) {
                 effect.setLocalTranslation(spatial.getLocalTranslation());
                 spatial.getParent().attachChild(effect);
@@ -78,28 +78,5 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
         Vector3f oldLocation = spatial.getWorldTranslation();
         Vector3f newLocation = oldLocation.addLocal(projectile.getDirection());
         spatial.setLocalTranslation(newLocation);
-    }
-
-    private synchronized void prepareEffects() {
-        int COUNT_FACTOR = 1;
-        float COUNT_FACTOR_F = 1f;
-        effect = new ParticleEmitter("Flame", ParticleMesh.Type.Triangle, 32 * COUNT_FACTOR);
-        effect.setSelectRandomImage(true);
-        effect.setStartColor(new ColorRGBA(1f, 0.4f, 0.05f, (float) (1f / COUNT_FACTOR_F)));
-        effect.setEndColor(new ColorRGBA(.4f, .22f, .12f, 0f));
-        effect.setStartSize(1.3f);
-        effect.setEndSize(2f);
-        effect.setShape(new EmitterSphereShape(Vector3f.ZERO, 1f));
-        effect.setParticlesPerSec(0);
-        effect.setGravity(0, -5f, 0);
-        effect.setLowLife(.4f);
-        effect.setHighLife(.5f);
-        effect.setInitialVelocity(new Vector3f(0, 7, 0));
-        effect.setVelocityVariation(1f);
-        effect.setImagesX(2);
-        effect.setImagesY(2);
-        Material mat = new Material(app.getAssetManager(), "Common/MatDefs/Misc/Particle.j3md");
-        mat.setTexture("Texture", app.getAssetManager().loadTexture("Effects/Explosion/flame.png"));
-        effect.setMaterial(mat);
     }
 }
