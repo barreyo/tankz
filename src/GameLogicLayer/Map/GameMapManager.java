@@ -1,6 +1,7 @@
 package GameLogicLayer.Map;
 
 import GameLogicLayer.AppStates.LoadingScreenAppState;
+import GameLogicLayer.Effects.EffectsManager;
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Graphics.MaterialManager;
@@ -23,6 +24,7 @@ public class GameMapManager implements IManager {
     private PhysicsManager physicsManager;
     private SoundManager soundManager;
     private GraphicManager graphicsManager;
+    private EffectsManager effectsManager;
     
     private IGameMap currentGameMap;
     private int currentIntGameMap;
@@ -39,6 +41,7 @@ public class GameMapManager implements IManager {
         physicsManager = app.getPhysicsManager();
         soundManager = app.getSoundManager();
         graphicsManager = app.getGraphicManager();
+        effectsManager = app.getEffectsManager();
         currentIntGameMap = 1;
     }
 
@@ -76,6 +79,7 @@ public class GameMapManager implements IManager {
         physicsManager.load(gameMap);
         soundManager.load(gameMap);
         graphicsManager.load(gameMap);
+        effectsManager.load(gameMap);
 
         switch (gameMap) {
             case 1:

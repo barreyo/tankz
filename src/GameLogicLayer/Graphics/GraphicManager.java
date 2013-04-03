@@ -34,12 +34,11 @@ public class GraphicManager implements IManager {
      */
     @Override
     public void load(int level) {
-        //load all needed graphics
-        /*if (level == 1) {
-            loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
+        if (level == 1) {
+            loadGraphics(new EGraphics[]{EGraphics.SHARK, EGraphics.TANK});
         } else if (level == 2) {
-            loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
-        }*/
+            //loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
+        }
     }
 
     private void loadGraphics(EGraphics[] graphics) {

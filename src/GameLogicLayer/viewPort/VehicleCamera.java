@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameLogicLayer.controls;
+package GameLogicLayer.viewPort;
 
 import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;

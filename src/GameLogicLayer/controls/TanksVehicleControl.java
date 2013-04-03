@@ -1,8 +1,8 @@
 
 package GameLogicLayer.controls;
 
+import GameLogicLayer.viewPort.VehicleCamera;
 import GameLogicLayer.util.EPlayerInputs;
-import GameModelLayer.Game.GameState;
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
@@ -11,27 +11,18 @@ import GameViewLayer.gameEntity.Tank;
 import GameViewLayer.gameEntity.MissileProjectile;
 import GameViewLayer.gameEntity.EGameEntities;
 import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.control.CharacterControl;
-import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.control.VehicleControl;
-import com.jme3.input.ChaseCamera;
 import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.Trigger;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.renderer.ViewPort;
-import com.jme3.scene.CameraNode;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import com.jme3.scene.control.AbstractControl;
-import com.jme3.scene.control.CameraControl;
 
 /**
  *  A control of a tank vehicle.
@@ -232,9 +223,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
 
     private void addInputMappings() {
         // Looks for unused input mappings
-        for (EPlayerInputs player : EPlayerInputs.values()) {
-            if (!player.isInUse()) {
-                inputs = player;
+        for (EPlayerInputs playerInputs : EPlayerInputs.values()) {
+            if (!playerInputs.isInUse()) {
+                inputs = playerInputs;
                 break;
             }
         }

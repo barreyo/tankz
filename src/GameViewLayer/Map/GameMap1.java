@@ -2,6 +2,7 @@ package GameViewLayer.Map;
 
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.entity.GameEntityManager;
+import GameLogicLayer.viewPort.EViewPorts;
 import GameViewLayer.gameEntity.EGameEntities;
 import GameViewLayer.gameEntity.AGameEntity;
 import GameViewLayer.gameEntity.Tank;
@@ -48,33 +49,24 @@ public class GameMap1 implements IGameMap {
         app.getBulletAppState().getPhysicsSpace().addAll(mapNode);
         //app.getBulletAppState().getPhysicsSpace().enableDebug(app.getAssetManager());
         
-        Camera cam1 = app.getCamera().clone();
-        cam1.setViewPort(0f, 1f, 0f, 0.5f);
-        
-        ViewPort view1 = app.getRenderManager().createMainView("Bottom Left", cam1);
-        view1.setClearFlags(true, true, true);
+        ViewPort view1 = EViewPorts.VIEW1.getViewPort();
         view1.attachScene(app.getRootNode());
         
-        Camera cam2 = app.getCamera().clone();
-        cam2.setViewPort(0f, 1f, 0.5f, 1f);
-                
-        ViewPort view2 = app.getRenderManager().createMainView("Bottom Left", cam2);
-        view2.setClearFlags(true, true, true);
+        ViewPort view2 = EViewPorts.VIEW2.getViewPort();
         view2.attachScene(app.getRootNode());
         
         Tank tank1 = (Tank) entityManager.create(EGameEntities.TANK);
         tank1.getSpatial().move(10, 2, 10);
         rootNode.attachChild(tank1.getSpatial());
         tank1.finalise();
-        tank1.getTanksVehicleControl().setCamera(cam1);
+        tank1.getTanksVehicleControl().setCamera(view1.getCamera());
         allGameEntities.add(tank1);
-        
  
         Tank tank2 = (Tank) entityManager.create(EGameEntities.TANK);
         tank2.getSpatial().move(10, 2, 10);
         rootNode.attachChild(tank2.getSpatial());
         tank2.finalise();
-        tank2.getTanksVehicleControl().setCamera(cam2);
+        tank2.getTanksVehicleControl().setCamera(view2.getCamera());
         allGameEntities.add(tank2);
     }
 

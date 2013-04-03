@@ -77,11 +77,11 @@ public class TanksGame extends SimpleApplication {
         
         // Creating different essential managers
         guiManager = new GUIManager();
-        effectsManager = new EffectsManager();
         controlManager = new ControlManager();
         preloadManager = new PreloadManager();
         graphicManager = new GraphicManager();
         materialManager = new MaterialManager();
+        effectsManager = new EffectsManager();
         entityManager = new GameEntityManager();
         userSettings = new UserSettings();
         physicsManager = new PhysicsManager();
