@@ -13,6 +13,7 @@ import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.entity.GameEntityManager;
 import GameLogicLayer.util.PreloadManager;
 import GameLogicLayer.player.UserSettings;
+import GameLogicLayer.viewPort.ViewPortManager;
 import GameModelLayer.Game.Game;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
@@ -49,6 +50,7 @@ public class TanksGame extends SimpleApplication {
     private GameEntityManager entityManager;
     private UserSettings userSettings;
     private GameManager gameManager;
+    private ViewPortManager viewPortManager;
     private BulletAppState bulletAppState;
     private FilterPostProcessor fpp;
  
@@ -87,6 +89,7 @@ public class TanksGame extends SimpleApplication {
         preloadManager = new PreloadManager();
         graphicManager = new GraphicManager();
         materialManager = new MaterialManager();
+        viewPortManager = new ViewPortManager();
         effectsManager = new EffectsManager();
         entityManager = new GameEntityManager();
         userSettings = new UserSettings();
@@ -248,5 +251,9 @@ public class TanksGame extends SimpleApplication {
     
     public Game getGameModel() {
         return gameModel;
+    }
+
+    public ViewPortManager getViewPortManager() {
+        return viewPortManager;
     }
 }

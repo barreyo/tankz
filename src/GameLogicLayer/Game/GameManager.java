@@ -3,6 +3,7 @@ package GameLogicLayer.Game;
 import GameModelLayer.Game.Game;
 import GameModelLayer.Player.Player;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
+import java.util.List;
 
 /**
  *
@@ -17,5 +18,9 @@ public class GameManager {
     
     public void createPlayer(String name, IArmedVehicle vehicle) {
         gameModel.addPlayer(new Player(name, vehicle));
+    }
+    
+    public List<Player> getPlayers() {
+        return gameModel.getPlayers();
     }
 }

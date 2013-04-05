@@ -9,10 +9,13 @@ import com.jme3.renderer.ViewPort;
  * @author Daniel
  */
 public enum EViewPorts {
-    VIEW1(0f, 1f, 0f, 0.5f, "Bottom"),
-    VIEW2(0f, 1f, 0.5f, 1f, "Top");
-    //VIEW3,
-    //VIEW4;
+    CENTER(0f, 1f, 0f, 1f, "Center"),
+    TOP(0f, 1f, 0.5f, 1f, "Top"),
+    BOTTOM(0f, 1f, 0f, 0.5f, "Bottom"),
+    TOP_LEFT(0f, 0.5f, 0.5f, 1f, "TopLeft"),
+    TOP_RIGHT(0.5f, 1f, 0.5f, 1f, "TopRight"),
+    BOTTOM_Left(0f, 0.5f, 0f, 0.5f, "BottomLeft"),
+    BOTTOM_RIGHT(0.5f, 1f, 0f, 0.5f, "BottomRight");
     
     private ViewPort view;
     
@@ -23,6 +26,7 @@ public enum EViewPorts {
    
         view = app.getRenderManager().createMainView(loc, cam);
         view.setClearFlags(true, true, true);
+        view.setEnabled(false);
     }
     
     public ViewPort getViewPort() {

@@ -1,9 +1,8 @@
 
 package GameLogicLayer.controls;
 
-import GameLogicLayer.viewPort.VehicleCamera;
 import GameLogicLayer.player.EPlayerInputs;
-import GameLogicLayer.Game.GameState;
+import GameLogicLayer.viewPort.VehicleCamera;
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
@@ -18,9 +17,7 @@ import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
@@ -42,9 +39,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private PhysicsSpace physicsSpace;
     private Node rootNode;
  
-    
     // Cam to be set up behind Vehicle
-    private Camera cam;
+    private VehicleCamera chaseCam;
     
     // Input related commands
     private EPlayerInputs inputs;
@@ -54,19 +50,14 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String accelerateBack;
     private String reset;
     private String shoot;
-    private boolean hasBeenPressed;
-//    private ShootingThread shootingThread;
     
     // Needed to manage inputs
     private InputManager inputManager;
-    
-    public static final Quaternion PITCH011_25 = new Quaternion().fromAngleAxis(FastMath.PI/16,   new Vector3f(1,0,0));
  
     /**
      * Creates a control for a tank vehicle.
      */
     public TanksVehicleControl() {
-//        shootingThread = new ShootingThread(vehicle, this.getSpatial(), app, rootNode);
         // Get needed managers     
         inputManager = app.getInputManager();        
         
@@ -75,6 +66,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         projectileModel = new ProjectileModel(10, 0.001f);
         
         // Create a model for the vehicle
+        // TODO should have same model as player
         vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(2000.0f);
         vehicleModel.setForwardMaxSpeed(80f);
@@ -251,8 +243,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      * @param cam the camera that will follow the tank
      */
     public void setCamera(Camera cam) {
-        this.cam = cam;
-        setUpCam();
+        setUpCam(cam);
     }
 
     private void addInputMappings() {
@@ -309,13 +300,12 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         inputs.setInUse(false);
     }
 
-    private VehicleCamera chaseCam;
     /**
      * Initiates the third person camera that follows the vehicle.
      *
      * @param spatial The spatial to be followed by the camera.
      */
-    private void setUpCam() {
+    private void setUpCam(Camera cam) {
         // Chasecam properties
         chaseCam = new VehicleCamera(cam, spatial, inputManager);
         chaseCam.setMaxDistance(20);
