@@ -1,5 +1,5 @@
 
-package GameLogicLayer.util;
+package GameLogicLayer.player;
 
 /**
  *

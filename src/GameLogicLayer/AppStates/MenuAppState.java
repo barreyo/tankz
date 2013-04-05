@@ -6,8 +6,9 @@ package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.GUI.OptionsScreenController;
+import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Game.TanksGame;
-import GameModelLayer.Game.GameState;
+import GameLogicLayer.Game.GameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -33,6 +34,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private Element popupElement;
     private Element currentElement;
     private SoundHandle sound;
+    
+    private GameManager gameManager;
 
     /**
      *  Create a new main menu app state.

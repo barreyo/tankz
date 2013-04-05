@@ -1,5 +1,5 @@
 
-package GameModelLayer.Game;
+package GameLogicLayer.Game;
 
 /**
  *

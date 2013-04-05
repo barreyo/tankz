@@ -7,7 +7,7 @@ package GameLogicLayer.AppStates;
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Map.GameMapManager;
-import GameModelLayer.Game.GameState;
+import GameLogicLayer.Game.GameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;

@@ -13,6 +13,9 @@ public class Player {
     private String name;
     private IArmedVehicle vehicle;
     private int kills, deaths;
+    private boolean isActive;
+    
+    private static int numberOfActivePlayers;
     
     /**
      * Basic contructor for constructing a player
@@ -82,5 +85,41 @@ public class Player {
     public void resetStats() {
         deaths = 0;
         kills = 0;
+    }
+    
+    /**
+     * Returns a boolean indicating if the player is active.
+     * @return a boolean indicating if the player is active
+     */
+    public boolean isActive() {
+        return isActive;
+    }
+    
+    /**
+     * Activates the player.
+     */
+    public void activatePlayer(){
+        if (!isActive) {
+            isActive = true;
+            numberOfActivePlayers++;
+        }
+    }
+    
+    /**
+     * Deactivates the player.
+     */
+    public void deactivatePlayer() {
+        if (isActive) {
+            isActive = false;
+            numberOfActivePlayers--;
+        }
+    }
+    
+    /**
+     * Returns the number of active players.
+     * @return the number of active players
+     */
+    public static int getNumberOfActivePlayers() {
+        return numberOfActivePlayers;
     }
 }

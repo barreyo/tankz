@@ -1,4 +1,4 @@
-package GameLogicLayer.util;
+package GameLogicLayer.player;
 
 import com.jme3.input.KeyInput;
 

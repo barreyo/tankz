@@ -2,8 +2,8 @@
 package GameLogicLayer.controls;
 
 import GameLogicLayer.viewPort.VehicleCamera;
-import GameLogicLayer.util.EPlayerInputs;
-import GameModelLayer.Game.GameState;
+import GameLogicLayer.player.EPlayerInputs;
+import GameLogicLayer.Game.GameState;
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;

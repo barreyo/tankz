@@ -1,14 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.GUI.ProgressBar;
 import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Map.GameMapManager;
-import GameModelLayer.Game.GameState;
+import GameLogicLayer.Game.GameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
