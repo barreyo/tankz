@@ -289,6 +289,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     }
 
     private void removeInputMappings() {
+        if (inputs == null) {
+            return;
+        }
         inputManager.deleteMapping(turnLeft);
         inputManager.deleteMapping(turnRight);
         inputManager.deleteMapping(accelerateForward);
@@ -296,7 +299,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         inputManager.deleteMapping(reset);
         inputManager.deleteMapping(shoot);
         inputManager.removeListener(this);
-        
+
         inputs.setInUse(false);
     }
 

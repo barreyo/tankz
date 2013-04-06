@@ -71,11 +71,11 @@ public class GameMap1 implements IGameMap {
      * @inheritdoc
      */
     public void cleanup() {
-        rootNode.detachChild(mapNode);
         for (AGameEntity gameEntity : allGameEntities) {
             gameEntity.cleanup(); // should remove all physics and controls
             gameEntity.getSpatial().removeFromParent(); // remove from scene graph
         }
+        rootNode.detachChild(mapNode);
 
         allGameEntities.clear();
         allGameEntities = null;
