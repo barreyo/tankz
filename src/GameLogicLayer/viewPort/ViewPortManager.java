@@ -6,12 +6,11 @@ import GameModelLayer.Player.Player;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import java.util.Collection;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
+ * Manager for the game Tanks that handles viewports.
  *
  * @author Daniel
  */
@@ -21,6 +20,9 @@ public class ViewPortManager {
     private Node rootNode;
     private GameManager gameManager;
     
+    /**
+     * Creates a new viewport manager.
+     */
     public ViewPortManager() {
         TanksGame app = TanksGame.getApp();
         this.gameManager = app.getGameManager();
@@ -52,6 +54,9 @@ public class ViewPortManager {
         };
     }
     
+    /**
+     * Loads the right viewports determined by number of players.
+     */
     public void load() {
         initViews();
         for (EViewPorts view : views.values()) {
@@ -59,14 +64,27 @@ public class ViewPortManager {
         }
     };
     
+    /**
+     * Returns the viewport for the specified player.
+     * 
+     * @param p The player which you want the viewport for
+     * @return the viewport for the specified player
+     */
     public ViewPort getViewportForPlayer(Player p) {
         return views.get(p).getViewPort();
     }
     
+    /**
+     * Remove this later --> dont share the reference to the collection
+     * @return 
+     */
     public Collection<EViewPorts> getViews() {
         return views.values();
     }
 
+    /**
+     * Releases the resources contained by this manager.
+     */
     public void cleanup() {
         views.clear();
     }

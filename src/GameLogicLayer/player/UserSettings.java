@@ -2,7 +2,8 @@
 package GameLogicLayer.player;
 
 /**
- *
+ * Not in use yet, will be used to handle settings.
+ * 
  * @author Daniel
  */
 public class UserSettings {

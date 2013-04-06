@@ -25,7 +25,7 @@ public class EffectsManager implements IManager {
     private ViewPortManager viewPortManager;
 
     /**
-     *
+     *  Creates an manager for effects.
      */
     public EffectsManager() {
         app = TanksGame.getApp();
@@ -59,7 +59,7 @@ public class EffectsManager implements IManager {
     }
 
     /**
-     *
+     *  Releases resources held by this manager.
      */
     @Override
     public void cleanup() {

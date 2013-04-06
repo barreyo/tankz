@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameLogicLayer.entity;
 
-import GameLogicLayer.util.IManager;
 import GameViewLayer.gameEntity.AGameEntity;
 import GameViewLayer.gameEntity.EGameEntities;
 

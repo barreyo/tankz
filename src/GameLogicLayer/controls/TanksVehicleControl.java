@@ -10,11 +10,9 @@ import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.gameEntity.Tank;
 import GameViewLayer.gameEntity.MissileProjectile;
 import GameViewLayer.gameEntity.EGameEntities;
-import com.jme3.app.SimpleApplication;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Matrix3f;
@@ -81,18 +79,20 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     @Override
     void controlUpdate(float tpf) {
-        if (vehicle == null || chaseCam == null) {
-            return;
+        if (enabled) {
+            if (vehicle == null || chaseCam == null) {
+                return;
+            }
+
+            // Keep vehicle within max speeds
+            float maxSpeed = (vehicleModel.getAccelerationValue() >= 0
+                    ? vehicleModel.getForwardMaxSpeed()
+                    : -vehicleModel.getBackMaxSpeed());
+            float speedFactor = (maxSpeed - vehicle.getCurrentVehicleSpeedKmHour()) / maxSpeed;
+            vehicle.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
+
+            chaseCam.setHorizonalLookAt(vehicle.getForwardVector(null).multLocal(new Vector3f(1, 0, 1)));
         }
-        
-        // Keep vehicle within max speeds
-        float maxSpeed = (vehicleModel.getAccelerationValue() >= 0 ? 
-                          vehicleModel.getForwardMaxSpeed() :
-                          -vehicleModel.getBackMaxSpeed());
-        float speedFactor = (maxSpeed-vehicle.getCurrentVehicleSpeedKmHour())/maxSpeed;
-        vehicle.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
-  
-        chaseCam.setHorizonalLookAt(vehicle.getForwardVector(null).multLocal(new Vector3f(1,0,1)));
     }
 
     /**

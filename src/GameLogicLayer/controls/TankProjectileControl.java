@@ -7,19 +7,13 @@ import GameViewLayer.gameEntity.MissileProjectile;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.effect.ParticleEmitter;
-import com.jme3.effect.ParticleMesh;
-import com.jme3.effect.shapes.EmitterSphereShape;
-import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 /**
- * 
+ * A control for a tank projectile.
  *
  * @author Daniel
  */
@@ -29,15 +23,17 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
     private RigidBodyControl physicsControl;
     private ParticleEmitter effect;
     
-    private boolean effectPlaying;
+    private boolean effectShowing;
     private static final float EFFECT_END_TIME = 0.5f;
     private static final float MAX_LIFE_TIME = 4f;
     
     private float effectTimer;
     private float projectileLifeTimer;
     
+    /**
+     * Creates a tank projectile control.
+     */
     public TankProjectileControl() {
-        TanksGame app = TanksGame.getApp();
         physicsSpace = app.getBulletAppState().getPhysicsSpace();
         physicsSpace.addCollisionListener(this);
         effect = EEffects.EXPLOSION.getEmitter();
@@ -68,7 +64,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
         physicsControl = projectile.getPhysicsControl();
         if (event.getObjectA() == physicsControl || event.getObjectB() == physicsControl) {
             if (effect != null && spatial.getParent() != null) {
-                effectPlaying = true;
+                effectShowing = true;
                 effect.setLocalTranslation(spatial.getLocalTranslation());
                 spatial.getParent().attachChild(effect);
                 effect.emitAllParticles();  
@@ -95,7 +91,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
                     physicsSpace.removeCollisionListener(this);
                 }
             }
-            if (effectPlaying) {
+            if (effectShowing) {
                 effectTimer += tpf;
                 if (effectTimer > EFFECT_END_TIME) {
                     effect.removeFromParent();

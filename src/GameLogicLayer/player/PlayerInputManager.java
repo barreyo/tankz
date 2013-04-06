@@ -1,15 +1,15 @@
 package GameLogicLayer.player;
 
-import GameLogicLayer.viewPort.EViewPorts;
 import GameModelLayer.Player.Player;
-import java.util.EnumMap;
+import java.util.HashMap;
 
 /**
+ * Should maybe map players to inputs ?
  *
  * @author Daniel
  */
 public class PlayerInputManager {
     
-    private EnumMap<EPlayerInputs, Player> views = new EnumMap<EPlayerInputs, Player>(EPlayerInputs.class);
+    private HashMap<Player, EPlayerInputs> inputs = new HashMap<Player, EPlayerInputs>();
     
 }
