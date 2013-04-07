@@ -12,7 +12,9 @@ import GameLogicLayer.Sounds.SoundManager;
 import GameLogicLayer.controls.ControlManager;
 import GameLogicLayer.entity.GameEntityManager;
 import GameLogicLayer.util.PreloadManager;
-import GameLogicLayer.util.UserSettings;
+import GameLogicLayer.player.UserSettings;
+import GameLogicLayer.viewPort.ViewPortManager;
+import GameModelLayer.Game.Game;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.asset.AssetManager;
@@ -32,6 +34,7 @@ import java.util.logging.Logger;
 public class TanksGame extends SimpleApplication {
     // A reference to this app. This is needed to allow access to managers.
     private static TanksGame tanksApp;
+    private Game gameModel;
     
     // Managers
     private TanksAppStateManager tanksAppStateManager;
@@ -47,6 +50,8 @@ public class TanksGame extends SimpleApplication {
     private MaterialManager materialManager;
     private GameEntityManager entityManager;
     private UserSettings userSettings;
+    private GameManager gameManager;
+    private ViewPortManager viewPortManager;
     private BulletAppState bulletAppState;
     private FilterPostProcessor fpp;
  
@@ -66,6 +71,7 @@ public class TanksGame extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         tanksApp = this;
+        gameModel = new Game();
         
         fpp = new FilterPostProcessor(assetManager);
         
@@ -76,12 +82,15 @@ public class TanksGame extends SimpleApplication {
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
         
+        gameManager = new GameManager(new Game());
+        
         // Creating different essential managers
         guiManager = new GUIManager();
         controlManager = new ControlManager();
         preloadManager = new PreloadManager();
         graphicManager = new GraphicManager();
         materialManager = new MaterialManager();
+        viewPortManager = new ViewPortManager();
         effectsManager = new EffectsManager();
         entityManager = new GameEntityManager();
         userSettings = new UserSettings();
@@ -235,5 +244,17 @@ public class TanksGame extends SimpleApplication {
      */
     public FilterPostProcessor getFpp() {
         return fpp;
+    }
+    
+    public GameManager getGameManager() {
+        return gameManager;
+    }
+    
+    public Game getGameModel() {
+        return gameModel;
+    }
+
+    public ViewPortManager getViewPortManager() {
+        return viewPortManager;
     }
 }

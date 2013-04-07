@@ -1,8 +1,8 @@
 
 package GameLogicLayer.controls;
 
+import GameLogicLayer.player.EPlayerInputs;
 import GameLogicLayer.viewPort.VehicleCamera;
-import GameLogicLayer.util.EPlayerInputs;
 import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
@@ -13,12 +13,9 @@ import GameViewLayer.gameEntity.EGameEntities;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
-import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Node;
@@ -40,9 +37,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private PhysicsSpace physicsSpace;
     private Node rootNode;
  
-    
     // Cam to be set up behind Vehicle
-    private Camera cam;
+    private VehicleCamera chaseCam;
     
     // Input related commands
     private EPlayerInputs inputs;
@@ -52,26 +48,23 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String accelerateBack;
     private String reset;
     private String shoot;
-    private boolean hasBeenPressed;
     
     // Needed to manage inputs
     private InputManager inputManager;
-    
-    public static final Quaternion PITCH011_25 = new Quaternion().fromAngleAxis(FastMath.PI/16,   new Vector3f(1,0,0));
  
-    
     /**
      * Creates a control for a tank vehicle.
      */
     public TanksVehicleControl() {
         // Get needed managers     
-        inputManager = app.getInputManager();
+        inputManager = app.getInputManager();        
         
         physicsSpace = app.getBulletAppState().getPhysicsSpace();
         rootNode = app.getRootNode();
         projectileModel = new ProjectileModel(10, 0.001f);
         
         // Create a model for the vehicle
+        // TODO should have same model as player
         vehicleModel = new TankModel();
         vehicleModel.setAccelerationForce(2000.0f);
         vehicleModel.setForwardMaxSpeed(80f);
@@ -86,18 +79,20 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     @Override
     void controlUpdate(float tpf) {
-        if (vehicle == null || chaseCam == null) {
-            return;
+        if (enabled) {
+            if (vehicle == null || chaseCam == null) {
+                return;
+            }
+
+            // Keep vehicle within max speeds
+            float maxSpeed = (vehicleModel.getAccelerationValue() >= 0
+                    ? vehicleModel.getForwardMaxSpeed()
+                    : -vehicleModel.getBackMaxSpeed());
+            float speedFactor = (maxSpeed - vehicle.getCurrentVehicleSpeedKmHour()) / maxSpeed;
+            vehicle.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
+
+            chaseCam.setHorizonalLookAt(vehicle.getForwardVector(null).multLocal(new Vector3f(1, 0, 1)));
         }
-        
-        // Keep vehicle within max speeds
-        float maxSpeed = (vehicleModel.getAccelerationValue() >= 0 ? 
-                          vehicleModel.getForwardMaxSpeed() :
-                          -vehicleModel.getBackMaxSpeed());
-        float speedFactor = (maxSpeed-vehicle.getCurrentVehicleSpeedKmHour())/maxSpeed;
-        vehicle.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
-  
-        chaseCam.setHorizonalLookAt(vehicle.getForwardVector(null).multLocal(new Vector3f(1,0,1)));
     }
 
     /**
@@ -111,8 +106,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             // Get the visual representation of the tank and the applied vehicle control
             Tank tank = spatial.getUserData("entity");
             vehicle = tank.getVehicleControl();
-        }
-        
+        }  
     }
 
     /**
@@ -127,45 +121,69 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         //GameState.setMoving(false);
     }
 
+    private boolean isFirstLeftKeyPressDone;
+    private boolean isFirstRightKeyPressDone;
+    private boolean isFirstUpKeyPressDone;
+    private boolean isFirstDownKeyPressDone;
     /**
      * @inheritdoc
      */
     public void onAction(String name, boolean isPressed, float tpf) {
+       
         // Steering related
         if (name.equals(turnLeft)) {
             if (isPressed) {
-                vehicleModel.setSteeringValue(.4f);
+                if (!isFirstLeftKeyPressDone) {
+                    isFirstLeftKeyPressDone = true;
+                }
+                vehicleModel.incrementSteeringValue(.4f);
             } else {
-                vehicleModel.setSteeringValue(0);
+                if (!isFirstLeftKeyPressDone) {
+                    return;
+                }
+                vehicleModel.decrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(turnRight)) {
             if (isPressed) {
-                vehicleModel.setSteeringValue(-.4f);
+                if (!isFirstRightKeyPressDone) {
+                    isFirstRightKeyPressDone = true;
+                }
+                vehicleModel.decrementSteeringValue(.4f);
             } else {
-                vehicleModel.setSteeringValue(0);
+                if (!isFirstRightKeyPressDone) {
+                    return;
+                }
+                vehicleModel.incrementSteeringValue(.4f);
             }
             vehicle.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(accelerateForward)) {
             if (isPressed) {
-                //vehicleModel.setAccelerationValue(vehicleModel.getAccelerationForce());
+                if (!isFirstUpKeyPressDone) {
+                    isFirstUpKeyPressDone = true;
+                }
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
-                vehicleModel.setAccelerationValue(0);
-                //vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
+                if (!isFirstUpKeyPressDone) {
+                    return;
+                }
+                vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {
             if (isPressed) {
-                //vehicleModel.setAccelerationValue(-vehicleModel.getAccelerationForce());
-                
+                if (!isFirstDownKeyPressDone) {
+                    isFirstDownKeyPressDone = true;
+                }
                 // TODO ny input för bromsning?
                 //vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
-                vehicleModel.setAccelerationValue(0);
+                if (!isFirstDownKeyPressDone) {
+                    return;
+                }
+                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce()); 
                 
                 //vehicle.brake(0f);
-                //vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(reset)) {
             if (isPressed) {
@@ -178,10 +196,11 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             }
         } else if (name.equals(shoot)) {
             if (!isPressed) {
+                
                 MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
                 projectileEntity.setDirection(vehicle.getForwardVector(null));
                 Spatial projectile = projectileEntity.getSpatial();
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(2f)));
+                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));
                 projectile.setLocalRotation(spatial.getWorldRotation());
                 projectileEntity.finalise();
                 // Attach to world and phsysicsSpace
@@ -211,9 +230,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 // Create a controller of the projectile
                 //TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
                                                             //projectileSpatial, physicsSpace);*/
+
             }
         }
-
         //boolean isMoving = left || right || up || down;
         //GameState.setMoving(isMoving);
     }
@@ -224,8 +243,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      * @param cam the camera that will follow the tank
      */
     public void setCamera(Camera cam) {
-        this.cam = cam;
-        setUpCam();
+        setUpCam(cam);
     }
 
     private void addInputMappings() {
@@ -271,6 +289,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     }
 
     private void removeInputMappings() {
+        if (inputs == null) {
+            return;
+        }
         inputManager.deleteMapping(turnLeft);
         inputManager.deleteMapping(turnRight);
         inputManager.deleteMapping(accelerateForward);
@@ -278,17 +299,16 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         inputManager.deleteMapping(reset);
         inputManager.deleteMapping(shoot);
         inputManager.removeListener(this);
-        
+
         inputs.setInUse(false);
     }
 
-    private VehicleCamera chaseCam;
     /**
      * Initiates the third person camera that follows the vehicle.
      *
      * @param spatial The spatial to be followed by the camera.
      */
-    private void setUpCam() {
+    private void setUpCam(Camera cam) {
         // Chasecam properties
         chaseCam = new VehicleCamera(cam, spatial, inputManager);
         chaseCam.setMaxDistance(20);

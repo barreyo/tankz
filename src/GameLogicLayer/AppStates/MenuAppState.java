@@ -6,8 +6,10 @@ package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.GUI.OptionsScreenController;
+import GameLogicLayer.Game.GameManager;
 import GameLogicLayer.Game.TanksGame;
-import GameModelLayer.Game.GameState;
+import GameLogicLayer.Game.GameState;
+import GameModelLayer.gameEntity.Vehicle.TankModel;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -33,6 +35,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private Element popupElement;
     private Element currentElement;
     private SoundHandle sound;
+    
+    private GameManager gameManager;
 
     /**
      *  Create a new main menu app state.
@@ -40,6 +44,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     public MenuAppState() {
         app = TanksGame.getApp();
         guiManager = app.getGUIManager();
+        gameManager = app.getGameManager();
         nifty = guiManager.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
@@ -179,6 +184,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadOnePlayerGame() {
+        gameManager.createPlayer("Player1", new TankModel());
         guiManager.showLoadingScreen();
     }
     
@@ -186,6 +192,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadTwoPlayerGame() {
+        gameManager.createPlayer("Player1", new TankModel());
+        gameManager.createPlayer("Player2", new TankModel());
         guiManager.showLoadingScreen();
     }
     
@@ -193,6 +201,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadThreePlayerGame() {
+        gameManager.createPlayer("Player1", new TankModel());
+        gameManager.createPlayer("Player2", new TankModel());
+        gameManager.createPlayer("Player3", new TankModel());
         guiManager.showLoadingScreen();
     }
     
@@ -200,6 +211,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadFourPlayerGame() {
+        gameManager.createPlayer("Player1", new TankModel());
+        gameManager.createPlayer("Player2", new TankModel());
+        gameManager.createPlayer("Player3", new TankModel());
+        gameManager.createPlayer("Player4", new TankModel());
         guiManager.showLoadingScreen();
     }
 }

@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameLogicLayer.viewPort;
 
 import com.jme3.input.ChaseCamera;
@@ -12,46 +9,38 @@ import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;
 
 /**
- *
+ * A camera that is used to follow a vehicle.
+ * 
+ * It uses the abilities of the default chase camera but
+ * calculates the horizontal direction vector of the camera diffrently.
+ * 
  * @author Daniel
  */
 public class VehicleCamera extends ChaseCamera {
     
     /**
-     * Constructs the chase camera
-     * @param cam the application camera
-     * @param target the spatial to follow
+     * {@inheritdoc}
      */
     public VehicleCamera(Camera cam, final Spatial target) {
         super(cam, target);
     }
 
     /**
-     * Constructs the chase camera
-     * if you use this constructor you have to attach the cam later to a spatial
-     * doing spatial.addControl(chaseCamera);
-     * @param cam the application camera
+     * {@inheritdoc}
      */
     public VehicleCamera(Camera cam) {
         super(cam);
     }
 
     /**
-     * Constructs the chase camera, and registers inputs
-     * if you use this constructor you have to attach the cam later to a spatial
-     * doing spatial.addControl(chaseCamera);
-     * @param cam the application camera
-     * @param inputManager the inputManager of the application to register inputs
+     * {@inheritdoc}
      */
     public VehicleCamera(Camera cam, InputManager inputManager) {
         super(cam, inputManager);
     }
 
     /**
-     * Constructs the chase camera, and registers inputs
-     * @param cam the application camera
-     * @param target the spatial to follow
-     * @param inputManager the inputManager of the application to register inputs
+     * {@inheritdoc}
      */
     public VehicleCamera(Camera cam, final Spatial target, InputManager inputManager) {
         super(cam, target, inputManager);
@@ -59,11 +48,18 @@ public class VehicleCamera extends ChaseCamera {
     
     private Vector3f horLookAt;
     
+    /**
+     * Sets the horizontal vector that is used to specify the horizontal direction of the camera.
+     * 
+     * @param lo 
+     */
     public void setHorizonalLookAt(Vector3f lo) {
         horLookAt = lo.normalizeLocal();
     }
    
-    
+    /**
+     * {@inheritdoc}
+     */
     protected void computePosition() {
         if (horLookAt == null) 
             return;

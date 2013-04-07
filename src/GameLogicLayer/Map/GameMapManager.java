@@ -8,6 +8,7 @@ import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.Physics.PhysicsManager;
 import GameLogicLayer.Sounds.SoundManager;
 import GameLogicLayer.util.IManager;
+import GameLogicLayer.viewPort.ViewPortManager;
 import GameViewLayer.Map.IGameMap;
 import GameViewLayer.Map.GameMap1;
 
@@ -23,6 +24,7 @@ public class GameMapManager implements IManager {
     private MaterialManager materialManager;
     private PhysicsManager physicsManager;
     private SoundManager soundManager;
+    private ViewPortManager viewPortManager;
     private GraphicManager graphicsManager;
     private EffectsManager effectsManager;
     
@@ -40,6 +42,7 @@ public class GameMapManager implements IManager {
         materialManager = app.getMaterialManager();
         physicsManager = app.getPhysicsManager();
         soundManager = app.getSoundManager();
+        viewPortManager = app.getViewPortManager();
         graphicsManager = app.getGraphicManager();
         effectsManager = app.getEffectsManager();
         currentIntGameMap = 1;
@@ -78,6 +81,7 @@ public class GameMapManager implements IManager {
         materialManager.load(gameMap);
         physicsManager.load(gameMap);
         soundManager.load(gameMap);
+        viewPortManager.load();
         graphicsManager.load(gameMap);
         effectsManager.load(gameMap);
 
@@ -124,7 +128,9 @@ public class GameMapManager implements IManager {
         materialManager.cleanup();
         physicsManager.cleanup();
         soundManager.cleanup();
+        viewPortManager.cleanup();
         graphicsManager.cleanup();
+        effectsManager.cleanup();
         currentGameMap.cleanup();
         // animManager.cleanup();
     }

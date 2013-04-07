@@ -5,7 +5,7 @@
 package GameLogicLayer.controls;
 
 import GameLogicLayer.Game.TanksGame;
-import GameModelLayer.Game.GameState;
+import GameLogicLayer.Game.GameState;
 import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
