@@ -15,6 +15,7 @@ import GameLogicLayer.util.PreloadManager;
 import GameLogicLayer.util.UserSettings;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
+import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.system.AppSettings;

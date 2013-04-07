@@ -1,11 +1,10 @@
 
 package GameViewLayer.gameEntity;
 
-import GameViewLayer.physics.ECollisionShapes;
 import GameLogicLayer.controls.EControls;
 import GameLogicLayer.controls.TanksVehicleControl;
+import GameViewLayer.GUI.FloatingNameControl;
 import GameViewLayer.graphics.EGraphics;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
@@ -41,6 +40,7 @@ public class Tank extends AGameEntity implements Savable {
         // Save this as user data for the spatial -> ie if you can access the spatial
         // you can access this.
         spatial.setUserData("entity", this);
+        spatial.addControl(new FloatingNameControl(spatial, assetManager));
     }
 
     /**
