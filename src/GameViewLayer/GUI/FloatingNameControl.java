@@ -32,19 +32,19 @@ public class FloatingNameControl extends AbstractControl {
     private FloatingNameControl() {} // Disable zero parameter instantiation
     
     public FloatingNameControl(Spatial player, AssetManager assetManager) {
-        this.player = player;
-        this.vp = EViewPorts.VIEW1.getViewPort();
-        BitmapFont font = assetManager.loadFont("Interface/Fonts/loadingFont.fnt");
-        text = new BitmapText(font, false);
-        // Initial setup of the text
-        text.setText("SpelareJHEJE");
-        text.setColor(ColorRGBA.Magenta);
-        text.setSize(1.0f);
-//        text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
-        text.setLocalTranslation(0.0f, 0.0f, 1);
-        TanksGame.getApp().getGuiNode().attachChild(text);
-        //vp.attachScene(text);
-        System.out.println("TJENARE");
+//        this.player = player;
+//        //this.vp = EViewPorts.VIEW1.getViewPort();
+//        BitmapFont font = assetManager.loadFont("Interface/Fonts/loadingFont.fnt");
+//        text = new BitmapText(font, false);
+//        // Initial setup of the text
+//        text.setText("SpelareJHEJE");
+//        text.setColor(ColorRGBA.Magenta);
+//        text.setSize(1.0f);
+////        text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
+//        text.setLocalTranslation(0.0f, 0.0f, 1);
+//        TanksGame.getApp().getGuiNode().attachChild(text);
+//        //vp.attachScene(text);
+//        System.out.println("TJENARE");
     }
     
     @Override
