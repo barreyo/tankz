@@ -1,7 +1,8 @@
 package GameLogicLayer.viewPort;
 
+import GameLogicLayer.Effects.EffectsManager;
 import GameLogicLayer.Game.GameManager;
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameModelLayer.Player.Player;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
@@ -15,6 +16,7 @@ import java.util.List;
  * @author Daniel
  */
 public class ViewPortManager {
+    private static ViewPortManager instance;
     
     private HashMap<Player, EViewPorts> views = new HashMap<Player, EViewPorts>();
     private Node rootNode;
@@ -23,10 +25,17 @@ public class ViewPortManager {
     /**
      * Creates a new viewport manager.
      */
-    public ViewPortManager() {
+    private ViewPortManager() {
         TanksGame app = TanksGame.getApp();
-        this.gameManager = app.getGameManager();
+        this.gameManager = GameManager.getInstance();
         this.rootNode = app.getRootNode();
+    }
+    
+    public static synchronized ViewPortManager getInstance() {
+        if (instance == null) {
+            instance = new ViewPortManager();
+        }
+        return instance;
     }
 
     private void initViews() {

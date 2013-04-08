@@ -1,6 +1,5 @@
 package GameLogicLayer.AppStates;
 
-import GameLogicLayer.Game.TanksGame;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.audio.AudioNode;

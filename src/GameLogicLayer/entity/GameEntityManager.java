@@ -1,5 +1,6 @@
 package GameLogicLayer.entity;
 
+import GameLogicLayer.Effects.EffectsManager;
 import GameViewLayer.gameEntity.AGameEntity;
 import GameViewLayer.gameEntity.EGameEntities;
 
@@ -9,6 +10,16 @@ import GameViewLayer.gameEntity.EGameEntities;
  * @author Daniel
  */
 public class GameEntityManager {
+    private static GameEntityManager instance;
+    
+    private GameEntityManager() {}
+    
+    public static synchronized GameEntityManager getInstance() {
+        if (instance == null) {
+            instance = new GameEntityManager();
+        }
+        return instance;
+    }
     /**
      * Creates a game entity.
      *

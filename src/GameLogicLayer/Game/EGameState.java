@@ -5,7 +5,7 @@ package GameLogicLayer.Game;
  *
  * @author Daniel
  */
-public enum GameState {
+public enum EGameState {
     /**
      *
      */
@@ -35,14 +35,14 @@ public enum GameState {
      */
     LOADING_MAP;
     
-    private static GameState currentGameState = GameState.NONE;
-    private static GameState previousGameState = GameState.NONE;
+    private static EGameState currentGameState = EGameState.NONE;
+    private static EGameState previousGameState = EGameState.NONE;
 
     /**
      *
      * @return
      */
-    public static GameState getGameState() {
+    public static EGameState getGameState() {
         return currentGameState;
     }
 
@@ -50,18 +50,18 @@ public enum GameState {
      *
      * @param currentGameState
      */
-    public static void setGameState(GameState currentGameState) {
+    public static void setGameState(EGameState currentGameState) {
         //store the currentgamestate into previous
-        previousGameState = GameState.currentGameState; 
+        previousGameState = EGameState.currentGameState; 
         //store new game state into currentgamestate
-        GameState.currentGameState = currentGameState; 
+        EGameState.currentGameState = currentGameState; 
     }
 
     /**
      *
      * @return
      */
-    public static GameState getPreviousGameState() {
+    public static EGameState getPreviousGameState() {
         return previousGameState;
     }
     /*

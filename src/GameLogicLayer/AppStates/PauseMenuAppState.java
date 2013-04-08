@@ -5,9 +5,8 @@
 package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
-import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Map.GameMapManager;
-import GameLogicLayer.Game.GameState;
+import GameLogicLayer.Game.EGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -48,8 +47,8 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     public PauseMenuAppState() {
         app = TanksGame.getApp();
         inputManager = app.getInputManager();
-        uiManager = app.getGUIManager();
-        mapManager = app.getMapManager();
+        uiManager = GUIManager.getInstance();
+        mapManager = GameMapManager.getInstance();
         niftyDisplay = new NiftyJmeDisplay(app.getAssetManager(),
                       inputManager, app.getAudioRenderer(), app.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
@@ -89,7 +88,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        GameState.setGameState(GameState.PAUSED);
+        EGameState.setGameState(EGameState.PAUSED);
 
         showPauseMenu();
 
@@ -177,7 +176,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *
      */
     public void resume() {
-        GameState.setGameState(GameState.RUNNING);
+        EGameState.setGameState(EGameState.RUNNING);
         app.getStateManager().detach(this);
     }
 
@@ -185,7 +184,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *
      */
     public void restart() {
-        GameState.setGameState(GameState.RUNNING);
+        EGameState.setGameState(EGameState.RUNNING);
         mapManager.restartMap();
         app.getStateManager().detach(this);
         /* remove this later */

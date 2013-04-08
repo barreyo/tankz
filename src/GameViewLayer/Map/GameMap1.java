@@ -1,7 +1,7 @@
 package GameViewLayer.Map;
 
 import GameLogicLayer.Game.GameManager;
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.entity.GameEntityManager;
 import GameLogicLayer.viewPort.ViewPortManager;
 import GameModelLayer.Player.Player;
@@ -36,9 +36,9 @@ public class GameMap1 implements IGameMap {
     public GameMap1() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
-        entityManager = app.getEntityManager();
-        viewPortManager = app.getViewPortManager();
-        gameManager = app.getGameManager();
+        entityManager = GameEntityManager.getInstance();
+        viewPortManager = ViewPortManager.getInstance();
+        gameManager = GameManager.getInstance();
         
         allGameEntities = new ArrayList<AGameEntity>();
     }

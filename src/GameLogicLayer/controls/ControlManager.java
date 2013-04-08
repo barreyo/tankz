@@ -1,6 +1,7 @@
 
 package GameLogicLayer.controls;
 
+import GameLogicLayer.Effects.EffectsManager;
 import com.jme3.scene.control.Control;
 
 /**
@@ -9,6 +10,16 @@ import com.jme3.scene.control.Control;
  * @author Daniel
  */
 public class ControlManager {
+    private static ControlManager instance;
+    
+    private ControlManager() {}
+    
+    public static synchronized ControlManager getInstance() {
+        if (instance == null) {
+            instance = new ControlManager();
+        }
+        return instance;
+    }
     /**
      *
      * @param tanksControl 

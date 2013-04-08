@@ -1,6 +1,6 @@
 package GameLogicLayer.Effects;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.util.IManager;
 import GameLogicLayer.util.PreloadManager;
 import GameLogicLayer.viewPort.EViewPorts;
@@ -18,6 +18,8 @@ import java.util.Set;
  * @author Per
  */
 public class EffectsManager implements IManager {
+    
+    private static EffectsManager instance;
 
     private TanksGame app;
     private EnumMap<EEffects, ParticleEmitter> effectsMap = new EnumMap<EEffects, ParticleEmitter>(EEffects.class);
@@ -27,10 +29,17 @@ public class EffectsManager implements IManager {
     /**
      *  Creates an manager for effects.
      */
-    public EffectsManager() {
+    private EffectsManager() {
         app = TanksGame.getApp();
-        preloadManager = app.getPreloadManager();
-        viewPortManager = app.getViewPortManager();
+        preloadManager = PreloadManager.getInstance();
+        viewPortManager = ViewPortManager.getInstance();
+    }
+    
+    public static synchronized EffectsManager getInstance() {
+        if (instance == null) {
+            instance = new EffectsManager();
+        }
+        return instance;
     }
 
     /**

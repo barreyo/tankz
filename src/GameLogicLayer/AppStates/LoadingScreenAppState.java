@@ -1,9 +1,8 @@
 package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
-import GameLogicLayer.Game.TanksGame;
 import GameLogicLayer.Map.GameMapManager;
-import GameLogicLayer.Game.GameState;
+import GameLogicLayer.Game.EGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -45,8 +44,8 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     public LoadingScreenAppState() {
         // Get managers
         app = TanksGame.getApp();
-        guiManager = app.getGUIManager();
-        mapManager = app.getMapManager();
+        guiManager = GUIManager.getInstance();
+        mapManager = GameMapManager.getInstance();
         nifty = guiManager.getNifty();
         
         // Register as a screen controller and add scree n to Hud handler Nifty
@@ -74,7 +73,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     @Override
     public void stateAttached(AppStateManager stateManager) {
         this.stateManager = stateManager;
-        GameState.setGameState(GameState.LOADING_MAP);
+        EGameState.setGameState(EGameState.LOADING_MAP);
         frameCount = 0;
     }
     
@@ -111,8 +110,8 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
             app.getInputManager().setCursorVisible(false);
             
             mapManager.load(mapManager.getCurrentIntMap());
-            stateManager.attach(app.getTanksAppStateManager().getAppState(GameAppState.class));
-            GameState.setGameState(GameState.RUNNING);
+            stateManager.attach(TanksAppStateManager.getInstance().getAppState(GameAppState.class));
+            EGameState.setGameState(EGameState.RUNNING);
         }
         //this.setProgress((float)frameCount, "Tanks");
         

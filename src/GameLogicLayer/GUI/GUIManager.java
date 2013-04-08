@@ -2,7 +2,8 @@ package GameLogicLayer.GUI;
 
 import GameLogicLayer.AppStates.LoadingScreenAppState;
 import GameLogicLayer.AppStates.MenuAppState;
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksAppStateManager;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.util.IManager;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;
@@ -17,6 +18,8 @@ import de.lessvoid.nifty.Nifty;
  * @author Daniel
  */
 public class GUIManager implements IManager {
+    private static GUIManager instance;
+    
     private TanksGame app;
     private AppStateManager stateManager;
     private Nifty nifty;
@@ -26,13 +29,20 @@ public class GUIManager implements IManager {
     /**
      *
      */
-    public GUIManager() {
+    private GUIManager() {
         app = TanksGame.getApp();
         initialiseNifty();
         stateManager = app.getStateManager();
         GUI_WIDTH = app.getSettings().getWidth() * 0.15f;
         powerupSlotHUDPosition = new Vector2f(
             app.getSettings().getWidth() * 0.2f, app.getSettings().getHeight() * 0.05f);
+    }
+    
+    public static synchronized GUIManager getInstance() {
+        if (instance == null) {
+            instance = new GUIManager();
+        }
+        return instance;
     }
     
     private void initialiseNifty() {
@@ -48,14 +58,14 @@ public class GUIManager implements IManager {
      *
      */
     public void showMainMenu() {
-        stateManager.attach(app.getTanksAppStateManager().getAppState(MenuAppState.class));
+        stateManager.attach(TanksAppStateManager.getInstance().getAppState(MenuAppState.class));
     }
 
     /**
      *
      */
     public void showLoadingScreen() {
-        stateManager.attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
+        stateManager.attach(TanksAppStateManager.getInstance().getAppState(LoadingScreenAppState.class));
     }
     
     /**

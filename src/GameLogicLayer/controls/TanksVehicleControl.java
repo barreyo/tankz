@@ -1,6 +1,7 @@
 
 package GameLogicLayer.controls;
 
+import GameLogicLayer.entity.GameEntityManager;
 import GameLogicLayer.player.EPlayerInputs;
 import GameLogicLayer.viewPort.VehicleCamera;
 import GameModelLayer.gameEntity.Projectile.IProjectile;

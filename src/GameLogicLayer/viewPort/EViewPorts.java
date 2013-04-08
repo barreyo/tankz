@@ -1,6 +1,6 @@
 package GameLogicLayer.viewPort;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 
