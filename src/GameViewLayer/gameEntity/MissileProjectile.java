@@ -1,8 +1,8 @@
 
 package GameViewLayer.gameEntity;
 
-import GameLogicLayer.controls.TankProjectileControl;
-import GameLogicLayer.controls.EControls;
+import GameLogicLayer.entitycontrols.TankProjectileControl;
+import GameLogicLayer.entitycontrols.EControls;
 import GameViewLayer.graphics.EGraphics;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;

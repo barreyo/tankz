@@ -1,10 +1,10 @@
 package GameViewLayer.gameEntity;
 
-import GameLogicLayer.AppStates.TanksGame;
-import GameLogicLayer.Graphics.GraphicManager;
-import GameLogicLayer.Graphics.MaterialManager;
-import GameLogicLayer.controls.ControlManager;
-import GameLogicLayer.util.PreloadManager;
+import GameLogicLayer.logic.TanksGame;
+import GameLogicLayer.logic.GraphicManager;
+import GameLogicLayer.logic.MaterialManager;
+import GameLogicLayer.entitycontrols.ControlFactory;
+import GameLogicLayer.logic.PreloadManager;
 import GameViewLayer.graphics.EGraphics;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.asset.AssetManager;
@@ -30,7 +30,7 @@ public abstract class AGameEntity {
     PreloadManager preloadManager;
     GraphicManager graphicManager;
     AppStateManager stateManager;
-    ControlManager controlManager;
+    ControlFactory controlManager;
     MaterialManager materialManager;
     
     Spatial spatial;
@@ -58,7 +58,7 @@ public abstract class AGameEntity {
         preloadManager = PreloadManager.getInstance();
         graphicManager = GraphicManager.getInstance();
         stateManager = app.getStateManager();
-        controlManager = ControlManager.getInstance();
+        controlManager = ControlFactory.getInstance();
         materialManager = MaterialManager.getInstance();
     }
 

@@ -1,6 +1,6 @@
 package GameViewLayer.effects;
 
-import GameLogicLayer.AppStates.TanksGame;
+import GameLogicLayer.logic.TanksGame;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
