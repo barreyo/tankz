@@ -48,6 +48,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String accelerateBack;
     private String reset;
     private String shoot;
+    private float counter;
+    private static final float SHOOTING_DELAY = 1.0f;
     
     // Needed to manage inputs
     private InputManager inputManager;
@@ -83,7 +85,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
             if (vehicle == null || chaseCam == null) {
                 return;
             }
-
+            
+            counter = counter + tpf;
+            
             // Keep vehicle within max speeds
             float maxSpeed = (vehicleModel.getAccelerationValue() >= 0
                     ? vehicleModel.getForwardMaxSpeed()
@@ -195,43 +199,43 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 vehicle.resetSuspension();
             }
         } else if (name.equals(shoot)) {
-            if (!isPressed) {
-                
-                MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
-                projectileEntity.setDirection(vehicle.getForwardVector(null));
-                Spatial projectile = projectileEntity.getSpatial();
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));
-                projectile.setLocalRotation(spatial.getWorldRotation());
-                projectileEntity.finalise();
-                // Attach to world and phsysicsSpace
-                rootNode.attachChild(projectile);
-                
-                /*
-                // Get a projectilespatial and translate it to weapon
-                Spatial projectile = projectileSpatial.getProjectileSpatial();
-                //projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0));
-                
-                // Create a RigidBodyControl over the projectile collision shape
-                RigidBodyControl projectileControl = new RigidBodyControl(
-                projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
-                projectileControl.setCcdMotionThreshold(0.1f);
-                
-                // TODO Solve direction of velocity, should be same as weapon direction
-//                projectileControl.setLinearVelocity(weaponSpatial.getAttackDirection().mult(200));
-                projectileControl.setLinearVelocity(driveDirection.multLocal(200));
-                projectile.addControl(projectileControl);
-                
-                
-                physicsSpace.add(projectileControl);
-                // Attach to world and phsysicsSpace
-                rootNode.attachChild(projectile);
-                
-                // Create a controller of the projectile
-                //TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
-                                                            //projectileSpatial, physicsSpace);*/
+                if (counter>SHOOTING_DELAY) {
+                    counter = 0;
+                    MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
+                    projectileEntity.setDirection(vehicle.getForwardVector(null));
+                    Spatial projectile = projectileEntity.getSpatial();
+                    projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));
+                    projectile.setLocalRotation(spatial.getWorldRotation());
+                    projectileEntity.finalise();
+                    // Attach to world and phsysicsSpace
+                    rootNode.attachChild(projectile);
 
-            }
+                    /*
+                    // Get a projectilespatial and translate it to weapon
+                    Spatial projectile = projectileSpatial.getProjectileSpatial();
+                    //projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
+                    projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0));
+
+                    // Create a RigidBodyControl over the projectile collision shape
+                    RigidBodyControl projectileControl = new RigidBodyControl(
+                    projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
+                    projectileControl.setCcdMotionThreshold(0.1f);
+
+                    // TODO Solve direction of velocity, should be same as weapon direction
+    //                projectileControl.setLinearVelocity(weaponSpatial.getAttackDirection().mult(200));
+                    projectileControl.setLinearVelocity(driveDirection.multLocal(200));
+                    projectile.addControl(projectileControl);
+
+
+                    physicsSpace.add(projectileControl);
+                    // Attach to world and phsysicsSpace
+                    rootNode.attachChild(projectile);
+
+                    // Create a controller of the projectile
+                    //TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
+                                                                //projectileSpatial, physicsSpace);*/
+
+                }
         }
         //boolean isMoving = left || right || up || down;
         //GameState.setMoving(isMoving);

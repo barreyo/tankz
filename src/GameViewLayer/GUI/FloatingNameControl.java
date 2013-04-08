@@ -40,7 +40,7 @@ public class FloatingNameControl extends AbstractControl {
 //        text.setText("SpelareJHEJE");
 //        text.setColor(ColorRGBA.Magenta);
 //        text.setSize(1.0f);
-////        text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
+//        text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
 //        text.setLocalTranslation(0.0f, 0.0f, 1);
 //        TanksGame.getApp().getGuiNode().attachChild(text);
 //        //vp.attachScene(text);
