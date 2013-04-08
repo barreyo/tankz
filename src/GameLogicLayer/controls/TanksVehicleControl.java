@@ -50,7 +50,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String reset;
     private String shoot;
     private float counter;
-    private static final float SHOOTING_DELAY = 1.0f;
+    private static final float SHOOTING_DELAY = 0.3f;
+    private boolean isShooting;
     
     // Needed to manage inputs
     private InputManager inputManager;
@@ -87,8 +88,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 return;
             }
             
-            counter = counter + tpf;
             
+            
+            counter = counter + tpf;
             // Keep vehicle within max speeds
             float maxSpeed = (vehicleModel.getAccelerationValue() >= 0
                     ? vehicleModel.getForwardMaxSpeed()
@@ -200,9 +202,11 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 vehicle.resetSuspension();
             }
         } else if (name.equals(shoot)) {
+            if (!isPressed) {
+                isShooting = false;
                 if (counter>SHOOTING_DELAY) {
                     counter = 0;
-                    MissileProjectile projectileEntity = (MissileProjectile) app.getEntityManager().create(EGameEntities.MISSILE_PROJECTILE);
+                    MissileProjectile projectileEntity = (MissileProjectile) GameEntityManager.getInstance().create(EGameEntities.MISSILE_PROJECTILE);
                     projectileEntity.setDirection(vehicle.getForwardVector(null));
                     Spatial projectile = projectileEntity.getSpatial();
                     projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));
@@ -237,6 +241,9 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                                                                 //projectileSpatial, physicsSpace);*/
 
                 }
+            } else {
+                isShooting = true;
+            }
         }
         //boolean isMoving = left || right || up || down;
         //GameState.setMoving(isMoving);
