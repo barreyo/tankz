@@ -4,6 +4,7 @@
  */
 package GameLogicLayer.AppStates;
 
+import GameLogicLayer.Effects.EffectsManager;
 import GameLogicLayer.util.IManager;
 import com.jme3.app.state.AbstractAppState;
 import java.util.ArrayList;
@@ -15,8 +16,18 @@ import java.util.List;
  * @author Daniel
  */
 public class TanksAppStateManager implements IManager {
+    private static TanksAppStateManager instance;
 
     private List<AbstractAppState> appStates = new ArrayList<AbstractAppState>(10);
+    
+    private TanksAppStateManager() {}
+    
+    public static synchronized TanksAppStateManager getInstance() {
+        if (instance == null) {
+            instance = new TanksAppStateManager();
+        }
+        return instance;
+    }
 
     /**
      * Returns an app state of the specified class.

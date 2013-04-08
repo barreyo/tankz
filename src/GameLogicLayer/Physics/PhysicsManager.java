@@ -4,6 +4,7 @@
  */
 package GameLogicLayer.Physics;
 
+import GameLogicLayer.Effects.EffectsManager;
 import GameViewLayer.physics.ECollisionShapes;
 import GameLogicLayer.util.IManager;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -16,9 +17,19 @@ import java.util.EnumMap;
  * @author Per
  */
 public class PhysicsManager implements IManager {
+    private static PhysicsManager instance;
     
     private EnumMap<ECollisionShapes, CollisionShape> collisionShapeMap = new EnumMap<ECollisionShapes, CollisionShape>(ECollisionShapes.class);
 
+    private PhysicsManager() {}
+    
+    public static synchronized PhysicsManager getInstance() {
+        if (instance == null) {
+            instance = new PhysicsManager();
+        }
+        return instance;
+    }
+    
     /**
      *
      * @param level

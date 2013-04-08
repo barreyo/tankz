@@ -1,7 +1,7 @@
 
 package GameLogicLayer.controls;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameViewLayer.effects.EEffects;
 import GameViewLayer.gameEntity.MissileProjectile;
 import com.jme3.bullet.PhysicsSpace;
@@ -85,7 +85,9 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
                 spatial.setLocalTranslation(newLocation);
                 projectileLifeTimer += tpf;
                 if (projectileLifeTimer > MAX_LIFE_TIME) {
-                    physicsSpace.remove(physicsControl);
+                    if (physicsControl != null) {
+                        physicsSpace.remove(physicsControl);
+                    }
                     spatial.removeFromParent();
                     projectile.cleanup();
                     physicsSpace.removeCollisionListener(this);

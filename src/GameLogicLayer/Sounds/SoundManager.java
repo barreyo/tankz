@@ -4,7 +4,8 @@
  */
 package GameLogicLayer.Sounds;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.Effects.EffectsManager;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.util.IManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
@@ -17,6 +18,7 @@ import java.util.EnumMap;
  * @author Per
  */
 public class SoundManager implements IManager {
+    private static SoundManager instance;
     
     private EnumMap<ESounds, AudioNode> soundMap;
     private TanksGame app;
@@ -26,12 +28,19 @@ public class SoundManager implements IManager {
     /**
      *
      */
-    public SoundManager() {
+    private SoundManager() {
         app = TanksGame.getApp();
         audioRenderer = app.getAudioRenderer();
         assetManager = app.getAssetManager();
 
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
+    }
+    
+    public static synchronized SoundManager getInstance() {
+        if (instance == null) {
+            instance = new SoundManager();
+        }
+        return instance;
     }
 
     /**

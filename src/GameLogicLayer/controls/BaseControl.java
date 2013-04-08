@@ -4,8 +4,8 @@
  */
 package GameLogicLayer.controls;
 
-import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.Game.GameState;
+import GameLogicLayer.AppStates.TanksGame;
+import GameLogicLayer.Game.EGameState;
 import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
@@ -96,7 +96,7 @@ public abstract class BaseControl implements Control {
      */
     @Override
     public void update(float tpf) {
-        if (!enabled || GameState.getGameState() != GameState.RUNNING) {
+        if (!enabled || EGameState.getGameState() != EGameState.RUNNING) {
             return;
         }
 

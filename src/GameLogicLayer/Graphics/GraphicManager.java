@@ -1,7 +1,8 @@
 package GameLogicLayer.Graphics;
 
+import GameLogicLayer.Effects.EffectsManager;
 import GameViewLayer.graphics.EGraphics;
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.util.IManager;
 import GameLogicLayer.util.PreloadManager;
 import com.jme3.asset.AssetManager;
@@ -9,10 +10,11 @@ import com.jme3.scene.Spatial;
 import java.util.EnumMap;
 
 /**
- *
+ * Extenda assetmanager?
  * @author Daniel
  */
 public class GraphicManager implements IManager {
+    private static GraphicManager instance;
 
     private TanksGame app;
     private AssetManager assetManager;
@@ -22,10 +24,17 @@ public class GraphicManager implements IManager {
     /**
      *
      */
-    public GraphicManager() {
+    private GraphicManager() {
         app = TanksGame.getApp();
         assetManager = app.getAssetManager();
-        preloadManager = app.getPreloadManager();
+        preloadManager = PreloadManager.getInstance();
+    }
+    
+    public static synchronized GraphicManager getInstance() {
+        if (instance == null) {
+            instance = new GraphicManager();
+        }
+        return instance;
     }
 
     /**

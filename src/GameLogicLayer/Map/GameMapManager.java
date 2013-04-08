@@ -1,8 +1,9 @@
 package GameLogicLayer.Map;
 
 import GameLogicLayer.AppStates.LoadingScreenAppState;
+import GameLogicLayer.AppStates.TanksAppStateManager;
 import GameLogicLayer.Effects.EffectsManager;
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.Physics.PhysicsManager;
@@ -19,6 +20,7 @@ import GameViewLayer.Map.GameMap1;
  * @author Daniel
  */
 public class GameMapManager implements IManager {
+    private static GameMapManager instance;
 
     private TanksGame app;
     private MaterialManager materialManager;
@@ -37,15 +39,22 @@ public class GameMapManager implements IManager {
     /**
      * Creates a manager for game maps.
      */
-    public GameMapManager() {
+    private GameMapManager() {
         app = TanksGame.getApp();
-        materialManager = app.getMaterialManager();
-        physicsManager = app.getPhysicsManager();
-        soundManager = app.getSoundManager();
-        viewPortManager = app.getViewPortManager();
-        graphicsManager = app.getGraphicManager();
-        effectsManager = app.getEffectsManager();
+        materialManager = MaterialManager.getInstance();
+        physicsManager = PhysicsManager.getInstance();
+        graphicsManager = GraphicManager.getInstance();
+        soundManager = SoundManager.getInstance();
+        viewPortManager = ViewPortManager.getInstance();
+        effectsManager = EffectsManager.getInstance();
         currentIntGameMap = 1;
+    }
+    
+    public static synchronized GameMapManager getInstance() {
+        if (instance == null) {
+            instance = new GameMapManager();
+        }
+        return instance;
     }
 
     /**
@@ -98,7 +107,7 @@ public class GameMapManager implements IManager {
         cleanup();
 
         //this calls currentGameMap.load() inside
-        app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
+        app.getStateManager().attach(TanksAppStateManager.getInstance().getAppState(LoadingScreenAppState.class));
     }
 
     public void loadNextMap() {
@@ -109,7 +118,7 @@ public class GameMapManager implements IManager {
         }
 
         cleanup();
-        app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
+        app.getStateManager().attach(TanksAppStateManager.getInstance().getAppState(LoadingScreenAppState.class));
     }
 
     public void loadPreviousMap() {
@@ -120,7 +129,7 @@ public class GameMapManager implements IManager {
         }
 
         cleanup();
-        app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
+        app.getStateManager().attach(TanksAppStateManager.getInstance().getAppState(LoadingScreenAppState.class));
     }
 
     @Override

@@ -7,8 +7,7 @@ package GameLogicLayer.AppStates;
 import GameLogicLayer.GUI.GUIManager;
 import GameLogicLayer.GUI.OptionsScreenController;
 import GameLogicLayer.Game.GameManager;
-import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.Game.GameState;
+import GameLogicLayer.Game.EGameState;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -43,8 +42,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     public MenuAppState() {
         app = TanksGame.getApp();
-        guiManager = app.getGUIManager();
-        gameManager = app.getGameManager();
+        guiManager = GUIManager.getInstance();
+        gameManager = GameManager.getInstance();
         nifty = guiManager.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
@@ -62,7 +61,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     @Override
     public void stateAttached(AppStateManager stateManager) {
         goToMainMenu();
-        GameState.setGameState(GameState.MAIN_MENU);
+        EGameState.setGameState(EGameState.MAIN_MENU);
     }
 
     /**

@@ -4,7 +4,7 @@
  */
 package GameViewLayer.GUI;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.viewPort.EViewPorts;
 import com.jme3.asset.AssetManager;
 import com.jme3.bounding.BoundingVolume;

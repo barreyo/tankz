@@ -4,7 +4,8 @@
  */
 package GameLogicLayer.Graphics;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.Effects.EffectsManager;
+import GameLogicLayer.AppStates.TanksGame;
 import GameViewLayer.graphics.EMaterials;
 import GameLogicLayer.util.IManager;
 import GameLogicLayer.util.PreloadManager;
@@ -17,6 +18,7 @@ import java.util.EnumMap;
  * @author Daniel
  */
 public class MaterialManager implements IManager {
+    private static MaterialManager instance;
     
     private EnumMap<EMaterials, Material> materialMap = new EnumMap<EMaterials, Material>(EMaterials.class);
     private TanksGame app;
@@ -26,11 +28,18 @@ public class MaterialManager implements IManager {
     /**
      *
      */
-    public MaterialManager() {
+    private MaterialManager() {
         app = TanksGame.getApp();
         assetManager = app.getAssetManager();
-        preloadManager = app.getPreloadManager();
+        preloadManager = PreloadManager.getInstance();
         
+    }
+    
+    public static synchronized MaterialManager getInstance() {
+        if (instance == null) {
+            instance = new MaterialManager();
+        }
+        return instance;
     }
 
     /**

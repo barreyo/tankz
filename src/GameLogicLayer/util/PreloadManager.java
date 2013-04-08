@@ -1,7 +1,8 @@
 
 package GameLogicLayer.util;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.Effects.EffectsManager;
+import GameLogicLayer.AppStates.TanksGame;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.renderer.RenderManager;
@@ -14,10 +15,19 @@ import com.jme3.scene.Spatial;
  * @author Daniel
  */
 public class PreloadManager {
+    private static PreloadManager instance;
 
     private TanksGame app = TanksGame.getApp();
     private RenderManager renderManager = app.getRenderManager();
 
+    private PreloadManager() {}
+    
+    public static synchronized PreloadManager getInstance() {
+        if (instance == null) {
+            instance = new PreloadManager();
+        }
+        return instance;
+    }
     /**
      * Preloads the specified material.
      * 

@@ -1,6 +1,6 @@
 package GameViewLayer.gameEntity;
 
-import GameLogicLayer.Game.TanksGame;
+import GameLogicLayer.AppStates.TanksGame;
 import GameLogicLayer.Graphics.GraphicManager;
 import GameLogicLayer.Graphics.MaterialManager;
 import GameLogicLayer.controls.ControlManager;
@@ -55,11 +55,11 @@ public abstract class AGameEntity {
         guiNode = app.getGuiNode();
         bulletAppState = app.getBulletAppState();
         assetManager = app.getAssetManager();
-        preloadManager = app.getPreloadManager();
-        graphicManager = app.getGraphicManager();
+        preloadManager = PreloadManager.getInstance();
+        graphicManager = GraphicManager.getInstance();
         stateManager = app.getStateManager();
-        controlManager = app.getControlManager();
-        materialManager = app.getMaterialManager();
+        controlManager = ControlManager.getInstance();
+        materialManager = MaterialManager.getInstance();
     }
 
     /**

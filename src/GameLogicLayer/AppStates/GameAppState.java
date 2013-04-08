@@ -1,8 +1,7 @@
 package GameLogicLayer.AppStates;
 
 import GameLogicLayer.GUI.GUIManager;
-import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.Game.GameState;
+import GameLogicLayer.Game.EGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -24,7 +23,6 @@ public class GameAppState extends AbstractAppState implements ScreenController {
     
     private TanksGame app;
     private InputManager inputManager;
-    private GUIManager guiManager;
     
     // Input mapping command
     private static final String PAUSE = "PAUSE";
@@ -35,7 +33,6 @@ public class GameAppState extends AbstractAppState implements ScreenController {
     public GameAppState() {
         app = TanksGame.getApp();
         inputManager = app.getInputManager();
-        guiManager = app.getGUIManager();
     }
     
     /**
@@ -56,10 +53,10 @@ public class GameAppState extends AbstractAppState implements ScreenController {
     @Override
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
-        GameState.setGameState(GameState.RUNNING);
+        EGameState.setGameState(EGameState.RUNNING);
         //showHud();
         
-        app.getStateManager().attach(app.getTanksAppStateManager().getAppState(CommonMapAppState.class));
+        app.getStateManager().attach(TanksAppStateManager.getInstance().getAppState(CommonMapAppState.class));
         app.getBulletAppState().setEnabled(true);
 
         loadDesktopInputs();
@@ -136,13 +133,13 @@ public class GameAppState extends AbstractAppState implements ScreenController {
 
         public void onAction(String name, boolean isPressed, float tpf) {
            
-             System.out.println(GameState.getGameState().name());
-            if (GameState.getGameState() != GameState.RUNNING) {
+             System.out.println(EGameState.getGameState().name());
+            if (EGameState.getGameState() != EGameState.RUNNING) {
                 return;
             }
             if (name.equals(PAUSE) && !isPressed) {
                 //app.getStateManager().detach(GameAppState.this);
-                app.getStateManager().attach(app.getTanksAppStateManager().getAppState(PauseMenuAppState.class));
+                app.getStateManager().attach(TanksAppStateManager.getInstance().getAppState(PauseMenuAppState.class));
             }
         }
     };

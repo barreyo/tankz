@@ -1,7 +1,6 @@
 package GameLogicLayer.AppStates;
 
-import GameLogicLayer.Game.TanksGame;
-import GameLogicLayer.Game.GameState;
+import GameLogicLayer.Game.EGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -108,7 +107,7 @@ public class CommonMapAppState extends AbstractAppState {
     
     @Override
     public void update(float tpf) {
-        if (GameState.getGameState() == GameState.PAUSED) {
+        if (EGameState.getGameState() == EGameState.PAUSED) {
             return;
         }
     }
