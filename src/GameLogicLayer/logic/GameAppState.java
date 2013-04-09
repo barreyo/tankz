@@ -5,24 +5,19 @@ import GameModelLayer.Game.EGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.input.InputManager;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
-import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
-import de.lessvoid.nifty.screen.Screen;
-import de.lessvoid.nifty.screen.ScreenController;
 
 /**
  * A game app state holding functionality for the game.
  * 
  * @author Daniel
  */
-public class GameAppState extends AbstractAppState implements ScreenController {
+public class GameAppState extends AbstractAppState {
     
     private TanksGame app;
-    private InputManager inputManager;
     
     // Input mapping command
     private static final String PAUSE = "PAUSE";
@@ -32,7 +27,6 @@ public class GameAppState extends AbstractAppState implements ScreenController {
      */
     public GameAppState() {
         app = TanksGame.getApp();
-        inputManager = app.getInputManager();
     }
     
     /**
@@ -56,7 +50,7 @@ public class GameAppState extends AbstractAppState implements ScreenController {
         EGameState.setGameState(EGameState.RUNNING);
         //showHud();
         
-        app.getStateManager().attach(TanksAppStateFactory.getInstance().getAppState(CommonMapAppState.class));
+        app.getStateManager().attach(TanksAppStateFactory.getAppState(CommonMapAppState.class));
         app.getBulletAppState().setEnabled(true);
 
         loadDesktopInputs();
@@ -87,81 +81,48 @@ public class GameAppState extends AbstractAppState implements ScreenController {
       super.cleanup();
       // unregister all my listeners, detach all my nodes, etc...
       this.app.getRootNode().detachAllChildren(); // modify scene graph...
-      //this.myApp.doSomethingElse();                 // call custom methods...
     }
 
     @Override
     public void setEnabled(boolean enabled) {
       // Pause and unpause
       super.setEnabled(enabled);
-      if(enabled){
-        // init stuff that is in use while this state is RUNNING
-      } else {
-        // take away everything not needed while this state is PAUSED
-      }
     }
 
     // Note that update is only called while the state is both attached and enabled.
     @Override
     public void update(float tpf) {
-      // do the following while game is RUNNING
-      //this.myApp.getRootNode().getChild("blah").scale(tpf); // modify scene graph...
-      //x.setUserData(...);                                 // call some methods...
     }
     
     private void loadDesktopInputs() {
-        if (inputManager.hasMapping("SIMPLEAPP_Exit")) {
-            inputManager.deleteMapping("SIMPLEAPP_Exit");
+        if (TanksInputAdapter.INSTANCE.hasMapping("SIMPLEAPP_Exit")) {
+            TanksInputAdapter.INSTANCE.deleteMapping("SIMPLEAPP_Exit");
         }
 
-        inputManager.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_ESCAPE),
+        TanksInputAdapter.INSTANCE.addMapping(PAUSE, new KeyTrigger(KeyInput.KEY_ESCAPE),
                               new KeyTrigger(KeyboardInputEvent.KEY_PAUSE),
                               new KeyTrigger(KeyboardInputEvent.KEY_P));
         /*inputManager.addMapping(NEXT_LEVEL, new KeyTrigger(KeyInput.KEY_F2));
         inputManager.addMapping(PREVIOUS_LEVEL, new KeyTrigger(KeyInput.KEY_F1));*/
 
-        inputManager.addListener(actionListener, PAUSE);
+        TanksInputAdapter.INSTANCE.addListener(actionListener, PAUSE);
     }
     
      private void removeDesktopInputs() {
-        inputManager.deleteMapping(PAUSE);
+        TanksInputAdapter.INSTANCE.deleteMapping(PAUSE);
 
-        inputManager.removeListener(actionListener);
+        TanksInputAdapter.INSTANCE.removeListener(actionListener);
     }
     
     private ActionListener actionListener = new ActionListener() {
-
         public void onAction(String name, boolean isPressed, float tpf) {
-           
-             System.out.println(EGameState.getGameState().name());
+            System.out.println(EGameState.getGameState().name());
             if (EGameState.getGameState() != EGameState.RUNNING) {
                 return;
             }
             if (name.equals(PAUSE) && !isPressed) {
-                //app.getStateManager().detach(GameAppState.this);
-                app.getStateManager().attach(TanksAppStateFactory.getInstance().getAppState(PauseMenuAppState.class));
+                GUIManager.INSTANCE.showPauseMenu();
             }
         }
     };
-
-    /**
-     *
-     * @param nifty
-     * @param screen
-     */
-    public void bind(Nifty nifty, Screen screen) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     *
-     */
-    public void onStartScreen() {
-    }
-
-    /**
-     *
-     */
-    public void onEndScreen() {
-    }
 }

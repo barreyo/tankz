@@ -6,8 +6,11 @@ package GameLogicLayer.logic;
 
 import GameLogicLayer.logic.GUIManager;
 import GameLogicLayer.GUI.OptionsScreenController;
-import GameLogicLayer.logic.GameManager;
+import GameModelLayer.Game.TanksFactory;
+import GameModelLayer.Game.UserSettings;
 import GameModelLayer.Game.EGameState;
+import GameModelLayer.Game.TanksGameModel;
+import GameModelLayer.Player.Player;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -21,6 +24,8 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An app state representing the main menu.
@@ -29,22 +34,20 @@ import de.lessvoid.nifty.tools.Color;
  */
 public class MenuAppState extends AbstractAppState implements ScreenController {
     private TanksGame app;
-    private GUIManager guiManager;
     private Nifty nifty;
     private Element popupElement;
     private Element currentElement;
     private SoundHandle sound;
     
-    private GameManager gameManager;
+    private TanksFactory gameManager;
 
     /**
      *  Create a new main menu app state.
      */
     public MenuAppState() {
         app = TanksGame.getApp();
-        guiManager = GUIManager.getInstance();
-        gameManager = GameManager.getInstance();
-        nifty = guiManager.getNifty();
+        gameManager = TanksFactory.getInstance();
+        nifty = GUIManager.INSTANCE.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
 
@@ -60,6 +63,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
+        TanksInputAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EGameState.setGameState(EGameState.MAIN_MENU);
     }
@@ -178,42 +182,41 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         app.stop();
     }
     
-    // TODO implement method to call for number of players
     /**
      *
      */
     public void loadOnePlayerGame() {
-        gameManager.createPlayer("Player1", new TankModel());
-        guiManager.showLoadingScreen();
+        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        GUIManager.INSTANCE.showLoadingScreen();
     }
     
     /**
      *
      */
     public void loadTwoPlayerGame() {
-        gameManager.createPlayer("Player1", new TankModel());
-        gameManager.createPlayer("Player2", new TankModel());
-        guiManager.showLoadingScreen();
+        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        UserSettings.INSTANCE.addPlayer("Player2", new TankModel());
+        GUIManager.INSTANCE.showLoadingScreen();
     }
     
     /**
      *
      */
     public void loadThreePlayerGame() {
-        gameManager.createPlayer("Player1", new TankModel());
-        gameManager.createPlayer("Player2", new TankModel());
-        gameManager.createPlayer("Player3", new TankModel());
-        guiManager.showLoadingScreen();
+        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        UserSettings.INSTANCE.addPlayer("Player2", new TankModel());
+        UserSettings.INSTANCE.addPlayer("Player3", new TankModel());
+        GUIManager.INSTANCE.showLoadingScreen();
     }
     
     /**
      *
      */
     public void loadFourPlayerGame() {
-        gameManager.createPlayer("Player1", new TankModel());
-        gameManager.createPlayer("Player2", new TankModel());
-        gameManager.createPlayer("Player3", new TankModel());
-        gameManager.createPlayer("Player4", new TankModel());
-        guiManager.showLoadingScreen();
+        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        UserSettings.INSTANCE.addPlayer("Player2", new TankModel());
+        UserSettings.INSTANCE.addPlayer("Player3", new TankModel());
+        UserSettings.INSTANCE.addPlayer("Player4", new TankModel());
+        GUIManager.INSTANCE.showLoadingScreen();
     }
 }

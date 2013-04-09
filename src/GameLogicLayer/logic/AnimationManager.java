@@ -5,6 +5,9 @@ package GameLogicLayer.logic;
  *
  * @author Daniel
  */
-public class AnimationManager {
+public enum AnimationManager {
+    INSTANCE;
+    
+    private AnimationManager() {}
     
 }

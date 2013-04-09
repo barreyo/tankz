@@ -32,12 +32,10 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     
     private TanksGame app;
     private InputManager inputManager;
-    private GUIManager uiManager;
     private Nifty nifty;
     private Element currentElement;
     private SoundHandle sound;
     private Vector2f cursorPosition;
-    private GameMapManager mapManager;
     
     private NiftyJmeDisplay niftyDisplay;
 
@@ -47,8 +45,6 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     public PauseMenuAppState() {
         app = TanksGame.getApp();
         inputManager = app.getInputManager();
-        uiManager = GUIManager.getInstance();
-        mapManager = GameMapManager.getInstance();
         niftyDisplay = new NiftyJmeDisplay(app.getAssetManager(),
                       inputManager, app.getAudioRenderer(), app.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
@@ -169,7 +165,6 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
 
         inputManager.setCursorVisible(true);
         nifty.gotoScreen("pause");
-        //inputManager.setCursorVisible(true);
     }
 
     /**
@@ -177,6 +172,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void resume() {
         EGameState.setGameState(EGameState.RUNNING);
+        inputManager.setCursorVisible(false);
         app.getStateManager().detach(this);
     }
 
@@ -185,7 +181,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void restart() {
         EGameState.setGameState(EGameState.RUNNING);
-        mapManager.restartMap();
+        GameMapManager.INSTANCE.restartMap();
         app.getStateManager().detach(this);
         /* remove this later */
         //app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));

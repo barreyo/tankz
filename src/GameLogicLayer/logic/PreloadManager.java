@@ -12,20 +12,15 @@ import com.jme3.scene.Spatial;
  * 
  * @author Daniel
  */
-public class PreloadManager {
-    private static PreloadManager instance;
+public enum PreloadManager {
+    INSTANCE;
 
-    private TanksGame app = TanksGame.getApp();
-    private RenderManager renderManager = app.getRenderManager();
+    private RenderManager renderManager;
 
-    private PreloadManager() {}
-    
-    public static synchronized PreloadManager getInstance() {
-        if (instance == null) {
-            instance = new PreloadManager();
-        }
-        return instance;
+    private PreloadManager() {
+        renderManager = TanksGame.getApp().getRenderManager();
     }
+    
     /**
      * Preloads the specified material.
      * 

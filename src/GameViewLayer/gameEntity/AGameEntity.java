@@ -27,11 +27,8 @@ public abstract class AGameEntity {
     Node guiNode;
     BulletAppState bulletAppState;
     AssetManager assetManager;
-    PreloadManager preloadManager;
-    GraphicManager graphicManager;
     AppStateManager stateManager;
     ControlFactory controlManager;
-    MaterialManager materialManager;
     
     Spatial spatial;
     //protected AnimComponent animComponent;
@@ -43,7 +40,7 @@ public abstract class AGameEntity {
      */
     AGameEntity(EGraphics graphic) {
         this();
-        spatial = graphicManager.createSpatial(graphic);
+        spatial = GraphicManager.INSTANCE.createSpatial(graphic);
     }
 
     /**
@@ -55,11 +52,8 @@ public abstract class AGameEntity {
         guiNode = app.getGuiNode();
         bulletAppState = app.getBulletAppState();
         assetManager = app.getAssetManager();
-        preloadManager = PreloadManager.getInstance();
-        graphicManager = GraphicManager.getInstance();
         stateManager = app.getStateManager();
         controlManager = ControlFactory.getInstance();
-        materialManager = MaterialManager.getInstance();
     }
 
     /**

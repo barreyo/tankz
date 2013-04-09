@@ -1,6 +1,6 @@
 package GameLogicLayer.logic;
 
-import GameLogicLayer.logic.IManager;
+import GameLogicLayer.logic.IMapRelatedManager;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
@@ -13,8 +13,8 @@ import de.lessvoid.nifty.Nifty;
  *
  * @author Daniel
  */
-public class GUIManager implements IManager {
-    private static GUIManager instance;
+public enum GUIManager {
+    INSTANCE;
     
     private TanksGame app;
     private AppStateManager stateManager;
@@ -31,19 +31,12 @@ public class GUIManager implements IManager {
         stateManager = app.getStateManager();
         GUI_WIDTH = app.getSettings().getWidth() * 0.15f;
         powerupSlotHUDPosition = new Vector2f(
-            app.getSettings().getWidth() * 0.2f, app.getSettings().getHeight() * 0.05f);
-    }
-    
-    public static synchronized GUIManager getInstance() {
-        if (instance == null) {
-            instance = new GUIManager();
-        }
-        return instance;
+                app.getSettings().getWidth() * 0.2f, app.getSettings().getHeight() * 0.05f);
     }
     
     private void initialiseNifty() {
-        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(app.getAssetManager(),
-        app.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
+        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(TanksAssetAdapter.INSTANCE.getAssetManager(),
+        TanksInputAdapter.INSTANCE.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
         nifty.enableAutoScaling(1280, 720);
         app.getGuiViewPort().addProcessor(niftyDisplay);
@@ -54,14 +47,21 @@ public class GUIManager implements IManager {
      *
      */
     public void showMainMenu() {
-        stateManager.attach(TanksAppStateFactory.getInstance().getAppState(MenuAppState.class));
+        stateManager.attach(TanksAppStateFactory.getAppState(MenuAppState.class));
     }
 
     /**
      *
      */
     public void showLoadingScreen() {
-        stateManager.attach(TanksAppStateFactory.getInstance().getAppState(LoadingScreenAppState.class));
+        stateManager.attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+    }
+    
+    /**
+     *
+     */
+    public void showPauseMenu() {
+        stateManager.attach(TanksAppStateFactory.getAppState(PauseMenuAppState.class));
     }
     
     /**
@@ -153,7 +153,7 @@ public class GUIManager implements IManager {
      *
      * @param level
      */
-    public void load(int level) {
+    public void load() {
         //load any nifty effects and uiImages on the screen
     }
 

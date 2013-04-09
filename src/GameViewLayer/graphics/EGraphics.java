@@ -14,7 +14,11 @@ public enum EGraphics {
     /**
      * Model used for missile projectiles.
      */
-    SHARK("Models/shark/shark.j3o");
+    SHARK("Models/shark/shark.j3o"),
+    /**
+     * 
+     */
+    MAP("Scenes/Map1/Map3.j3o");
     
     private String fileLocation;
 

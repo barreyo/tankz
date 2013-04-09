@@ -9,19 +9,11 @@ import java.util.List;
  *
  * @author Daniel
  */
-public class TanksAppStateFactory {
-    private static TanksAppStateFactory instance;
+public final class TanksAppStateFactory {
 
-    private List<AbstractAppState> appStates = new ArrayList<AbstractAppState>(10);
+    private static List<AbstractAppState> appStates = new ArrayList<AbstractAppState>(10);
     
     private TanksAppStateFactory() {}
-    
-    public static synchronized TanksAppStateFactory getInstance() {
-        if (instance == null) {
-            instance = new TanksAppStateFactory();
-        }
-        return instance;
-    }
 
     /**
      * Returns an app state of the specified class.
@@ -32,7 +24,7 @@ public class TanksAppStateFactory {
      * @param appStateClass The specified class that extends AbstractAppState
      * @return The appstate instance of the specified class.
      */
-    public <T extends AbstractAppState> AbstractAppState getAppState(Class<T> appStateClass) {
+    public static <T extends AbstractAppState> AbstractAppState getAppState(Class<T> appStateClass) {
         for (AbstractAppState state : appStates) {
             if (appStateClass.isAssignableFrom(state.getClass())) {
                 return (T) state;
@@ -46,7 +38,6 @@ public class TanksAppStateFactory {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return null;
     }
 }

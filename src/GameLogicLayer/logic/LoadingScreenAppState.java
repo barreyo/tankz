@@ -23,8 +23,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
 
     private AppStateManager stateManager;
     private TanksGame app;
-    private GUIManager guiManager;
-    private GameMapManager mapManager;
     private Nifty nifty;
     private Element progressBarElement;
     private Element progressTextElement;
@@ -32,7 +30,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     private int frameCount;
     private int nbrOfPlayers;
     
-    private static final int FRAME_COUNT = 150;
+    private static final int FRAME_COUNT = 50;
     
     private boolean isLoaded = false;
     
@@ -42,9 +40,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     public LoadingScreenAppState() {
         // Get managers
         app = TanksGame.getApp();
-        guiManager = GUIManager.getInstance();
-        mapManager = GameMapManager.getInstance();
-        nifty = guiManager.getNifty();
+        nifty = GUIManager.INSTANCE.getNifty();
         
         // Register as a screen controller and add scree n to Hud handler Nifty
         nifty.registerScreenController(this);
@@ -107,8 +103,8 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
 
             app.getInputManager().setCursorVisible(false);
             
-            mapManager.load(mapManager.getCurrentIntMap());
-            stateManager.attach(TanksAppStateFactory.getInstance().getAppState(GameAppState.class));
+            GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
+            stateManager.attach(TanksAppStateFactory.getAppState(GameAppState.class));
             EGameState.setGameState(EGameState.RUNNING);
         }
         //this.setProgress((float)frameCount, "Tanks");

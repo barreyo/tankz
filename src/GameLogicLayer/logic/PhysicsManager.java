@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameLogicLayer.logic;
 
 import GameViewLayer.physics.ECollisionShapes;
-import GameLogicLayer.logic.IManager;
+import GameLogicLayer.logic.IMapRelatedManager;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.PhysicsControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -15,19 +11,12 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public class PhysicsManager implements IManager {
-    private static PhysicsManager instance;
+public enum PhysicsManager implements IMapRelatedManager {
+    INSTANCE;
     
     private EnumMap<ECollisionShapes, CollisionShape> collisionShapeMap = new EnumMap<ECollisionShapes, CollisionShape>(ECollisionShapes.class);
 
     private PhysicsManager() {}
-    
-    public static synchronized PhysicsManager getInstance() {
-        if (instance == null) {
-            instance = new PhysicsManager();
-        }
-        return instance;
-    }
     
     /**
      *

@@ -3,8 +3,8 @@ package GameLogicLayer.logic;
 import GameLogicLayer.logic.GUIManager;
 import GameLogicLayer.logic.GUIManager;
 import GameLogicLayer.logic.GUIManager;
-import GameLogicLayer.player.UserSettings;
-import GameModelLayer.Game.Game;
+import GameModelLayer.Game.UserSettings;
+import GameModelLayer.Game.TanksGameModel;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class TanksGame extends SimpleApplication {
     // A reference to this app. This is needed to allow access to managers.
     private static TanksGame tanksApp;
-    private Game gameModel;
     
     // Managers
     private UserSettings userSettings;
@@ -46,7 +45,6 @@ public class TanksGame extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         tanksApp = this;
-        gameModel = new Game();
         
         fpp = new FilterPostProcessor(assetManager);
         
@@ -54,13 +52,12 @@ public class TanksGame extends SimpleApplication {
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
         
-        
+        /*
         // Creating different essential managers
-        userSettings = new UserSettings();
+        userSettings = new UserSettings();*/
         
         // Show the main menu
-        GUIManager.getInstance().showMainMenu();
-        inputManager.setCursorVisible(true);
+        GUIManager.INSTANCE.showMainMenu();
         
         // Detach the settings window.
         stateManager.detach(stateManager.getState(StatsAppState.class));
@@ -108,9 +105,5 @@ public class TanksGame extends SimpleApplication {
      */
     public FilterPostProcessor getFpp() {
         return fpp;
-    }
-    
-    public Game getGameModel() {
-        return gameModel;
     }
 }

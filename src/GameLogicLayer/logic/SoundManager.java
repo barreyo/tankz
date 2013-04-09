@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameLogicLayer.logic;
 
 import GameLogicLayer.Sounds.ESounds;
-import GameLogicLayer.logic.IManager;
+import GameLogicLayer.logic.IMapRelatedManager;
+import GameModelLayer.Game.UserSettings;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioRenderer;
@@ -16,11 +13,10 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public class SoundManager implements IManager {
-    private static SoundManager instance;
+public enum SoundManager implements IMapRelatedManager {
+    INSTANCE;
     
     private EnumMap<ESounds, AudioNode> soundMap;
-    private TanksGame app;
     private AudioRenderer audioRenderer;
     private AssetManager assetManager;
 
@@ -28,18 +24,11 @@ public class SoundManager implements IManager {
      *
      */
     private SoundManager() {
-        app = TanksGame.getApp();
+        TanksGame app = TanksGame.getApp();
         audioRenderer = app.getAudioRenderer();
         assetManager = app.getAssetManager();
 
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
-    }
-    
-    public static synchronized SoundManager getInstance() {
-        if (instance == null) {
-            instance = new SoundManager();
-        }
-        return instance;
     }
 
     /**
@@ -118,12 +107,12 @@ public class SoundManager implements IManager {
         if (audio != null) {
             
             if (sound.isMusic()) {
-                if (app.getUserSettings().isMusicMuted()) {
+                if (UserSettings.INSTANCE.isMusicMuted()) {
                     return;
                 }
                 audio.play();
             } else {
-                if (app.getUserSettings().isSoundFXMuted()) {
+                if (UserSettings.INSTANCE.isSoundFXMuted()) {
                     return;
                 }
                 audio.playInstance();

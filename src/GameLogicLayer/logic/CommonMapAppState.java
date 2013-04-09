@@ -25,7 +25,6 @@ public class CommonMapAppState extends AbstractAppState {
   
     private TanksGame app;
     private Node rootNode;
-    private AssetManager assetManager;
     private Vector3f lightDir = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
     
     /**
@@ -34,7 +33,6 @@ public class CommonMapAppState extends AbstractAppState {
     public CommonMapAppState() {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
-        assetManager = app.getAssetManager();
         loadCommon();
     }
 
@@ -51,7 +49,8 @@ public class CommonMapAppState extends AbstractAppState {
         sun.setColor(ColorRGBA.White.clone().multLocal(1.7f));
         rootNode.addLight(sun);
         
-        Spatial sky = SkyFactory.createSky(assetManager, "Scenes/FullskiesSunset0068.dds", false);
+        Spatial sky = SkyFactory.createSky(TanksAssetAdapter.INSTANCE.getAssetManager(), 
+                                        "Scenes/FullskiesSunset0068.dds", false);
         sky.setLocalScale(350);
         
         mainScene.attachChild(sky);

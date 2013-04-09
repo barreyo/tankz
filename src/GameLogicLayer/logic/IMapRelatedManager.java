@@ -5,7 +5,7 @@ package GameLogicLayer.logic;
  *
  * @author Daniel
  */
-public interface IManager {
+public interface IMapRelatedManager {
     /**
      * Load data relevant to the specified map
      * 

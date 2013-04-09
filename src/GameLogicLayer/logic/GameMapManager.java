@@ -1,9 +1,7 @@
 package GameLogicLayer.logic;
 
-import GameLogicLayer.logic.PhysicsManager;
-import GameLogicLayer.logic.SoundManager;
-import GameLogicLayer.logic.IManager;
-import GameLogicLayer.logic.ViewPortManager;
+import GameModelLayer.Game.TanksGameModel;
+import GameModelLayer.Game.UserSettings;
 import GameViewLayer.Map.IGameMap;
 import GameViewLayer.Map.GameMap1;
 
@@ -13,16 +11,10 @@ import GameViewLayer.Map.GameMap1;
  *
  * @author Daniel
  */
-public class GameMapManager implements IManager {
-    private static GameMapManager instance;
+public enum GameMapManager implements IMapRelatedManager {
+    INSTANCE;
 
     private TanksGame app;
-    private MaterialManager materialManager;
-    private PhysicsManager physicsManager;
-    private SoundManager soundManager;
-    private ViewPortManager viewPortManager;
-    private GraphicManager graphicsManager;
-    private EffectsManager effectsManager;
     
     private IGameMap currentGameMap;
     private int currentIntGameMap;
@@ -35,20 +27,7 @@ public class GameMapManager implements IManager {
      */
     private GameMapManager() {
         app = TanksGame.getApp();
-        materialManager = MaterialManager.getInstance();
-        physicsManager = PhysicsManager.getInstance();
-        graphicsManager = GraphicManager.getInstance();
-        soundManager = SoundManager.getInstance();
-        viewPortManager = ViewPortManager.getInstance();
-        effectsManager = EffectsManager.getInstance();
         currentIntGameMap = 1;
-    }
-    
-    public static synchronized GameMapManager getInstance() {
-        if (instance == null) {
-            instance = new GameMapManager();
-        }
-        return instance;
     }
 
     /**
@@ -81,16 +60,16 @@ public class GameMapManager implements IManager {
      */
     public void load(int gameMap) {
 
-        materialManager.load(gameMap);
-        physicsManager.load(gameMap);
-        soundManager.load(gameMap);
-        viewPortManager.load();
-        graphicsManager.load(gameMap);
-        effectsManager.load(gameMap);
+        MaterialManager.INSTANCE.load(gameMap);
+        PhysicsManager.INSTANCE.load(gameMap);
+        SoundManager.INSTANCE.load(gameMap);
+        ViewPortManager.INSTANCE.load();
+        GraphicManager.INSTANCE.load(gameMap);
+        EffectsManager.INSTANCE.load(gameMap);
 
         switch (gameMap) {
             case 1:
-                currentGameMap = new GameMap1();
+                currentGameMap = new GameMap1(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
                 break;
         }
         
@@ -101,7 +80,7 @@ public class GameMapManager implements IManager {
         cleanup();
 
         //this calls currentGameMap.load() inside
-        app.getStateManager().attach(TanksAppStateFactory.getInstance().getAppState(LoadingScreenAppState.class));
+        app.getStateManager().attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     public void loadNextMap() {
@@ -112,7 +91,7 @@ public class GameMapManager implements IManager {
         }
 
         cleanup();
-        app.getStateManager().attach(TanksAppStateFactory.getInstance().getAppState(LoadingScreenAppState.class));
+        app.getStateManager().attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     public void loadPreviousMap() {
@@ -123,17 +102,17 @@ public class GameMapManager implements IManager {
         }
 
         cleanup();
-        app.getStateManager().attach(TanksAppStateFactory.getInstance().getAppState(LoadingScreenAppState.class));
+        app.getStateManager().attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     @Override
     public void cleanup() {
-        materialManager.cleanup();
-        physicsManager.cleanup();
-        soundManager.cleanup();
-        viewPortManager.cleanup();
-        graphicsManager.cleanup();
-        effectsManager.cleanup();
+        MaterialManager.INSTANCE.cleanup();
+        PhysicsManager.INSTANCE.cleanup();
+        SoundManager.INSTANCE.cleanup();
+        ViewPortManager.INSTANCE.cleanup();
+        GraphicManager.INSTANCE.cleanup();
+        EffectsManager.INSTANCE.cleanup();
         currentGameMap.cleanup();
         // animManager.cleanup();
     }

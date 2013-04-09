@@ -1,6 +1,7 @@
 
 package GameLogicLayer.entitycontrols;
 
+import GameLogicLayer.logic.TanksInputAdapter;
 import GameViewLayer.gameEntity.GameEntityFactory;
 import GameLogicLayer.player.EPlayerInputs;
 import GameViewLayer.viewPort.VehicleCamera;
@@ -11,6 +12,7 @@ import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.gameEntity.Tank;
 import GameViewLayer.gameEntity.MissileProjectile;
 import GameViewLayer.gameEntity.EGameEntities;
+import GameViewLayer.viewPort.VehicleCameraFactory;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
@@ -49,16 +51,11 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     private String accelerateBack;
     private String reset;
     private String shoot;
-    
-    // Needed to manage inputs
-    private InputManager inputManager;
  
     /**
      * Creates a control for a tank vehicle.
      */
-    public TanksVehicleControl() {
-        // Get needed managers     
-        inputManager = app.getInputManager();        
+    public TanksVehicleControl() {    
         
         physicsSpace = app.getBulletAppState().getPhysicsSpace();
         rootNode = app.getRootNode();
@@ -276,14 +273,14 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         shoot = "" + shootI;
         
         // Adds the mappings to inputmanager
-        inputManager.addMapping(turnLeft, new KeyTrigger(left));
-        inputManager.addMapping(turnRight, new KeyTrigger(right));
-        inputManager.addMapping(accelerateForward, new KeyTrigger(up));
-        inputManager.addMapping(accelerateBack, new KeyTrigger(down));
-        inputManager.addMapping(reset, new KeyTrigger(resetI));
-        inputManager.addMapping(shoot, new KeyTrigger(shootI));
+        TanksInputAdapter.INSTANCE.addMapping(turnLeft, new KeyTrigger(left));
+        TanksInputAdapter.INSTANCE.addMapping(turnRight, new KeyTrigger(right));
+        TanksInputAdapter.INSTANCE.addMapping(accelerateForward, new KeyTrigger(up));
+        TanksInputAdapter.INSTANCE.addMapping(accelerateBack, new KeyTrigger(down));
+        TanksInputAdapter.INSTANCE.addMapping(reset, new KeyTrigger(resetI));
+        TanksInputAdapter.INSTANCE.addMapping(shoot, new KeyTrigger(shootI));
         // Registers this as an listener for the specified mappingnames
-        inputManager.addListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot);
+        TanksInputAdapter.INSTANCE.addListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot);
         
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
@@ -293,13 +290,13 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         if (inputs == null) {
             return;
         }
-        inputManager.deleteMapping(turnLeft);
-        inputManager.deleteMapping(turnRight);
-        inputManager.deleteMapping(accelerateForward);
-        inputManager.deleteMapping(accelerateBack);
-        inputManager.deleteMapping(reset);
-        inputManager.deleteMapping(shoot);
-        inputManager.removeListener(this);
+        TanksInputAdapter.INSTANCE.deleteMapping(turnLeft);
+        TanksInputAdapter.INSTANCE.deleteMapping(turnRight);
+        TanksInputAdapter.INSTANCE.deleteMapping(accelerateForward);
+        TanksInputAdapter.INSTANCE.deleteMapping(accelerateBack);
+        TanksInputAdapter.INSTANCE.deleteMapping(reset);
+        TanksInputAdapter.INSTANCE.deleteMapping(shoot);
+        TanksInputAdapter.INSTANCE.removeListener(this);
 
         inputs.setInUse(false);
     }
@@ -310,15 +307,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      * @param spatial The spatial to be followed by the camera.
      */
     private void setUpCam(Camera cam) {
-        // Chasecam properties
-        chaseCam = new VehicleCamera(cam, spatial, inputManager);
-        chaseCam.setMaxDistance(20);
-        chaseCam.setMinDistance(10);
-        chaseCam.setDefaultDistance(15);
-        chaseCam.setChasingSensitivity(5f);
-        chaseCam.setSmoothMotion(true); //automatic following
-        chaseCam.setUpVector(Vector3f.UNIT_Y);
-        chaseCam.setTrailingEnabled(true);
-        chaseCam.setDefaultVerticalRotation(0.3f);
+        chaseCam = VehicleCameraFactory.getVehicleChaseCamera(cam, spatial);
     }
 }

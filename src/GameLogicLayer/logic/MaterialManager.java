@@ -1,12 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameLogicLayer.logic;
 
 import GameViewLayer.graphics.EMaterials;
-import GameLogicLayer.logic.IManager;
-import GameLogicLayer.logic.PreloadManager;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import java.util.EnumMap;
@@ -15,13 +10,12 @@ import java.util.EnumMap;
  *
  * @author Daniel
  */
-public class MaterialManager implements IManager {
-    private static MaterialManager instance;
+public enum MaterialManager implements IMapRelatedManager {
+    INSTANCE;
     
     private EnumMap<EMaterials, Material> materialMap = new EnumMap<EMaterials, Material>(EMaterials.class);
     private TanksGame app;
     private AssetManager assetManager;
-    private PreloadManager preloadManager;
     
     /**
      *
@@ -29,15 +23,6 @@ public class MaterialManager implements IManager {
     private MaterialManager() {
         app = TanksGame.getApp();
         assetManager = app.getAssetManager();
-        preloadManager = PreloadManager.getInstance();
-        
-    }
-    
-    public static synchronized MaterialManager getInstance() {
-        if (instance == null) {
-            instance = new MaterialManager();
-        }
-        return instance;
     }
 
     /**
@@ -58,7 +43,7 @@ public class MaterialManager implements IManager {
         for (EMaterials material : materials) {
             Material m = assetManager.loadMaterial(material.getPathToMaterial());
             materialMap.put(material, m);
-            preloadManager.preload(m);
+            PreloadManager.INSTANCE.preload(m);
         }
     }
 
