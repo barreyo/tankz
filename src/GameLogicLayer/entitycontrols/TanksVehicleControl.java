@@ -1,6 +1,7 @@
 
 package GameLogicLayer.entitycontrols;
 
+import GameLogicLayer.logic.TanksGame;
 import GameLogicLayer.logic.TanksInputAdapter;
 import GameViewLayer.gameEntity.GameEntityFactory;
 import GameLogicLayer.player.EPlayerInputs;
@@ -10,7 +11,7 @@ import GameModelLayer.gameEntity.Projectile.ProjectileModel;
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
 import GameModelLayer.gameEntity.Vehicle.TankModel;
 import GameViewLayer.gameEntity.Tank;
-import GameViewLayer.gameEntity.MissileProjectile;
+import GameViewLayer.gameEntity.MissileProjectileEntity;
 import GameViewLayer.gameEntity.EGameEntities;
 import GameViewLayer.viewPort.VehicleCameraFactory;
 import com.jme3.bullet.PhysicsSpace;
@@ -57,8 +58,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     public TanksVehicleControl() {    
         
-        physicsSpace = app.getBulletAppState().getPhysicsSpace();
-        rootNode = app.getRootNode();
+        physicsSpace = TanksGame.getApp().getBulletAppState().getPhysicsSpace();
+        rootNode = TanksGame.getApp().getRootNode();
         projectileModel = new ProjectileModel(10, 0.001f);
         
         // Create a model for the vehicle
@@ -195,7 +196,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         } else if (name.equals(shoot)) {
             if (!isPressed) {
                 
-                MissileProjectile projectileEntity = (MissileProjectile) GameEntityFactory.getInstance().create(EGameEntities.MISSILE_PROJECTILE);
+                MissileProjectileEntity projectileEntity = (MissileProjectileEntity) GameEntityFactory.create(EGameEntities.MISSILE_PROJECTILE);
                 projectileEntity.setDirection(vehicle.getForwardVector(null));
                 Spatial projectile = projectileEntity.getSpatial();
                 projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));

@@ -24,7 +24,6 @@ import java.util.List;
 public class GameMap1 implements IGameMap {
     
     private TanksGame app;
-    private GameEntityFactory entityManager;
     private TanksGameModel game;
     
     private Node mapNode;
@@ -38,7 +37,6 @@ public class GameMap1 implements IGameMap {
     public GameMap1(TanksGameModel game) {
         app = TanksGame.getApp();
         rootNode = app.getRootNode();
-        entityManager = GameEntityFactory.getInstance();
         this.game = game;
         
         allGameEntities = new ArrayList<AGameEntity>();
@@ -52,11 +50,11 @@ public class GameMap1 implements IGameMap {
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
         rootNode.attachChild(mapNode);
         app.getBulletAppState().getPhysicsSpace().addAll(mapNode);
-        //app.getBulletAppState().getPhysicsSpace().enableDebug(app.getAssetManager());
+        app.getBulletAppState().getPhysicsSpace().enableDebug(app.getAssetManager());
         
         for (Player player : game.getPlayers()) {
             // Create a tank for each player
-            Tank tank1 = (Tank) entityManager.create(EGameEntities.TANK);
+            Tank tank1 = (Tank) GameEntityFactory.create(EGameEntities.TANK);
             // Attach to root node at startpos
             tank1.getSpatial().move(10, 2, 10);
             rootNode.attachChild(tank1.getSpatial());

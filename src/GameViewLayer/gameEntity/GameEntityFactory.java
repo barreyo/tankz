@@ -8,24 +8,17 @@ import GameViewLayer.gameEntity.EGameEntities;
  * 
  * @author Daniel
  */
-public class GameEntityFactory {
-    private static GameEntityFactory instance;
+public final class GameEntityFactory {
     
     private GameEntityFactory() {}
     
-    public static synchronized GameEntityFactory getInstance() {
-        if (instance == null) {
-            instance = new GameEntityFactory();
-        }
-        return instance;
-    }
     /**
      * Creates a game entity.
      *
      * @param newEntity The entity to create.
      * @return The created game entity
      */
-    public AGameEntity create(EGameEntities newEntity) {
+    public static AGameEntity create(EGameEntities newEntity) {
         AGameEntity entity = newEntity.createEntity();
         return entity;
     }

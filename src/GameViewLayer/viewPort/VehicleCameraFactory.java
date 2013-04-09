@@ -10,6 +10,9 @@ import com.jme3.scene.Spatial;
  * @author Daniel
  */
 public final class VehicleCameraFactory {
+    
+    private VehicleCameraFactory() {}
+   
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksInputAdapter.INSTANCE.getInputManager());
         chaseCam.setMaxDistance(20);

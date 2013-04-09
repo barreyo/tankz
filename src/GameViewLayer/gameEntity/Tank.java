@@ -1,8 +1,10 @@
 
 package GameViewLayer.gameEntity;
 
+import GameLogicLayer.entitycontrols.ControlFactory;
 import GameLogicLayer.entitycontrols.EControls;
 import GameLogicLayer.entitycontrols.TanksVehicleControl;
+import GameLogicLayer.logic.TanksAssetAdapter;
 import GameViewLayer.GUI.FloatingNameControl;
 import GameViewLayer.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -40,7 +42,7 @@ public class Tank extends AGameEntity implements Savable {
         // Save this as user data for the spatial -> ie if you can access the spatial
         // you can access this.
         spatial.setUserData("entity", this);
-        spatial.addControl(new FloatingNameControl(spatial, assetManager));
+        spatial.addControl(new FloatingNameControl(spatial, TanksAssetAdapter.INSTANCE.getAssetManager()));
     }
 
     /**
@@ -132,7 +134,7 @@ public class Tank extends AGameEntity implements Savable {
      */
     @Override
     void addControl() {
-        tanksVehicleControl = (TanksVehicleControl)controlManager.getControl(EControls.VEHICLE_CONTROL);
+        tanksVehicleControl = (TanksVehicleControl)ControlFactory.getControl(EControls.VEHICLE_CONTROL);
         spatial.addControl(tanksVehicleControl);
     }
 

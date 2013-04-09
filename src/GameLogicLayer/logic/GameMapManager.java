@@ -19,8 +19,6 @@ public enum GameMapManager implements IMapRelatedManager {
     private IGameMap currentGameMap;
     private int currentIntGameMap;
     private static final int NUMBER_OF_MAPS = 1; 
-            
-    //private CinematicComposition cc;
 
     /**
      * Creates a manager for game maps.

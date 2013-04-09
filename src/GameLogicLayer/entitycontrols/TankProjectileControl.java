@@ -3,7 +3,7 @@ package GameLogicLayer.entitycontrols;
 
 import GameLogicLayer.logic.TanksGame;
 import GameViewLayer.effects.EEffects;
-import GameViewLayer.gameEntity.MissileProjectile;
+import GameViewLayer.gameEntity.MissileProjectileEntity;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -19,7 +19,7 @@ import com.jme3.scene.Spatial;
  */
 public class TankProjectileControl extends BaseControl implements PhysicsCollisionListener{
     private PhysicsSpace physicsSpace;
-    private MissileProjectile projectile;
+    private MissileProjectileEntity projectile;
     private RigidBodyControl physicsControl;
     private ParticleEmitter effect;
     
@@ -34,7 +34,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
      * Creates a tank projectile control.
      */
     public TankProjectileControl() {
-        physicsSpace = app.getBulletAppState().getPhysicsSpace();
+        physicsSpace = TanksGame.getApp().getBulletAppState().getPhysicsSpace();
         physicsSpace.addCollisionListener(this);
         effect = EEffects.EXPLOSION.getEmitter();
     }

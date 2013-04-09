@@ -23,8 +23,6 @@ import java.io.IOException;
  */
 public abstract class BaseControl implements Control {
     
-    TanksGame app;
-    
     boolean enabled = true;
 
     Spatial spatial;
@@ -32,9 +30,7 @@ public abstract class BaseControl implements Control {
     /**
      * Creates a basecontrol. Only visible in same package.
      */
-    BaseControl() {
-        app = TanksGame.getApp();
-    }
+    BaseControl() {}
 
     /**
      * Registers a spatial to control.
@@ -99,7 +95,6 @@ public abstract class BaseControl implements Control {
         if (!enabled || EGameState.getGameState() != EGameState.RUNNING) {
             return;
         }
-
         controlUpdate(tpf);
     }
 

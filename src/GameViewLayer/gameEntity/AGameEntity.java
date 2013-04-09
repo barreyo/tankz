@@ -22,13 +22,9 @@ import com.jme3.scene.Spatial;
  * @author Daniel
  */
 public abstract class AGameEntity {
-    TanksGame app;
     Node rootNode;
     Node guiNode;
     BulletAppState bulletAppState;
-    AssetManager assetManager;
-    AppStateManager stateManager;
-    ControlFactory controlManager;
     
     Spatial spatial;
     //protected AnimComponent animComponent;
@@ -47,13 +43,10 @@ public abstract class AGameEntity {
      *  Creates a game entity with its needed managers.
      */
     AGameEntity() {
-        app = TanksGame.getApp();
+        TanksGame app = TanksGame.getApp();
         rootNode = app.getRootNode();
         guiNode = app.getGuiNode();
         bulletAppState = app.getBulletAppState();
-        assetManager = app.getAssetManager();
-        stateManager = app.getStateManager();
-        controlManager = ControlFactory.getInstance();
     }
 
     /**
@@ -103,9 +96,9 @@ public abstract class AGameEntity {
     }
     
     /**
-     * Internal help metohd used to get the boundingbox of the spatial.
+     * Help metohd used to get the boundingbox of the spatial.
      */
-    Vector3f getExtents() {
+    public Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
     }
     

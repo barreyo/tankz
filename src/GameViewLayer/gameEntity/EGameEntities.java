@@ -30,7 +30,7 @@ public enum EGameEntities {
                 entity = new Tank();
                 break;
             case MISSILE_PROJECTILE:
-                entity = new MissileProjectile();
+                entity = new MissileProjectileEntity();
                 break;
             default:
                 entity = new Tank();

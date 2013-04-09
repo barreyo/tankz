@@ -15,10 +15,7 @@ public enum TanksAssetAdapter {
         assetManager = TanksGame.getApp().getAssetManager();
     }
     
-    AssetManager getAssetManager() {
+    public AssetManager getAssetManager() {
         return assetManager;
     }
-    
-    
-    
 }

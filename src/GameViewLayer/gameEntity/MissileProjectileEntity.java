@@ -1,6 +1,7 @@
 
 package GameViewLayer.gameEntity;
 
+import GameLogicLayer.entitycontrols.ControlFactory;
 import GameLogicLayer.entitycontrols.TankProjectileControl;
 import GameLogicLayer.entitycontrols.EControls;
 import GameViewLayer.graphics.EGraphics;
@@ -21,14 +22,14 @@ import java.io.IOException;
  *
  * @author Daniel
  */
-public class MissileProjectile extends AGameEntity implements Savable {
+public class MissileProjectileEntity extends AGameEntity implements Savable {
     
     private TankProjectileControl projectileControl;
     private RigidBodyControl physicsControl;
     
     private Vector3f direction;
 
-    public MissileProjectile() {
+    public MissileProjectileEntity() {
         super(EGraphics.SHARK);
         
         // Add this instance as user data to the spatial
@@ -81,7 +82,7 @@ public class MissileProjectile extends AGameEntity implements Savable {
      */
     @Override
     void addControl() {
-        this.projectileControl = (TankProjectileControl)controlManager.getControl(EControls.PROJECTILE_CONTROL);
+        this.projectileControl = (TankProjectileControl)ControlFactory.getControl(EControls.PROJECTILE_CONTROL);
         spatial.addControl(this.projectileControl);
     }
 

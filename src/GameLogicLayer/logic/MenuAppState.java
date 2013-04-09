@@ -38,15 +38,12 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private Element popupElement;
     private Element currentElement;
     private SoundHandle sound;
-    
-    private TanksFactory gameManager;
 
     /**
      *  Create a new main menu app state.
      */
     public MenuAppState() {
         app = TanksGame.getApp();
-        gameManager = TanksFactory.getInstance();
         nifty = GUIManager.INSTANCE.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
