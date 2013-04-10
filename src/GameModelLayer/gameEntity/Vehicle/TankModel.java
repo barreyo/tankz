@@ -2,7 +2,9 @@ package GameModelLayer.gameEntity.Vehicle;
 
 import GameModelLayer.gameEntity.Powerup.EPowerup;
 import GameModelLayer.gameEntity.Powerup.PowerupSlot;
+import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Weapon.IWeapon;
+import java.util.List;
 
 /**
  * Model for a tank vehicle.
@@ -20,7 +22,8 @@ public class TankModel implements IArmedVehicle {
     private float accelerationValue;
     private float maxForwardSpeed;
     private float maxBackSpeed;
-    
+    // MAX_BACKWARDS and MAX_FORWARDS should be final, and gotten through constructor
+    // Powerups should be handled by player instead of the tank
     private PowerupSlot powerupSlot;
     private IWeapon weaponModel;
 
@@ -214,5 +217,17 @@ public class TankModel implements IArmedVehicle {
     @Override
     public void setBackMaxSpeed(float max) {
         this.maxBackSpeed = max;
+    }
+
+    public void decrementHealth(int hp) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void shoot() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<IProjectile> getFiredProjetiles() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

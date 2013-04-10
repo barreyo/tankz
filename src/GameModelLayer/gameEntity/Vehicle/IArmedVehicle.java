@@ -5,7 +5,9 @@
 package GameModelLayer.gameEntity.Vehicle;
 
 import GameModelLayer.gameEntity.Powerup.EPowerup;
+import GameModelLayer.gameEntity.Projectile.IProjectile;
 import GameModelLayer.gameEntity.Weapon.IWeapon;
+import java.util.List;
 
 
 /**
@@ -191,4 +193,20 @@ public interface IArmedVehicle {
          */
         DESTROYED;
     }
+    
+    /**
+     * Decrements the hp of the vehicle by the given amount
+     */
+    public void decrementHealth(int hp);
+    
+    /**
+     * Shoots a projectile from the vehicle
+     */
+    public void shoot();
+    
+    /**
+     * Returns the projectiles this vehicle has fired, that still exists
+     */
+    public List<IProjectile> getFiredProjetiles();
+    
 }

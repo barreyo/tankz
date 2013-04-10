@@ -28,4 +28,8 @@ public class PowerupSlot {
     public synchronized void consumePowerup() {
         powerup = null;
     }
+    
+    public boolean isEmpty() {
+        return this.getPowerup()==null;
+    }
 }

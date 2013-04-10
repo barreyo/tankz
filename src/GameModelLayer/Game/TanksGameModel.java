@@ -2,6 +2,7 @@
 package GameModelLayer.Game;
 
 import GameModelLayer.Player.Player;
+import GameModelLayer.gameEntity.Powerup.IPowerUp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -13,6 +14,9 @@ import java.util.List;
  */
 public class TanksGameModel {
     private final List<Player> players;
+    private List<IPowerUp> powerups;
+    private List<ISpawningPoints> spawningPoints;
+    private float timer;
     
     public TanksGameModel(List<Player> players) {
         this.players = players;
