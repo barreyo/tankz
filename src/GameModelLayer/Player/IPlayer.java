@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModelLayer.Player;
 
 import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
@@ -72,12 +69,6 @@ public interface IPlayer {
      * Deactivates the player.
      */
     public void deactivatePlayer();
-    
-    /**
-     * Returns the number of active players.
-     * @return the number of active players
-     */
-    public void getNumberOfActivePlayers();
     
     
     

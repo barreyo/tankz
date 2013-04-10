@@ -9,7 +9,7 @@ import GameModelLayer.gameEntity.Vehicle.IArmedVehicle;
  * @author Albin
  * @author Daniel
  */
-public class Player {
+public class Player implements IPlayer {
     private String name;
     private IArmedVehicle vehicle;
     private int kills, deaths;
@@ -75,7 +75,11 @@ public class Player {
             numberOfActivePlayers--;
         }
     }
-
+    
+    /**
+     * Returns the number of active players.
+     * @return the number of active players
+     */
     public static int getNumberOfActivePlayers() {
         return numberOfActivePlayers;
     }
