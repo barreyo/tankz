@@ -7,14 +7,17 @@ package GameModelLayer.Game;
  */
 public class PowerupSpawningPoint implements ISpawningPoints {
     
-    private boolean isTaken;
+    private boolean inUse;
 
     public PowerupSpawningPoint (boolean isTaken){
-        this.isTaken = isTaken;
+        this.inUse = inUse;
     }
     
     public boolean isInUse() {
-        return isTaken;
+        return inUse;
     }
     
+    public void setInUse(boolean inUse){
+        this.inUse = inUse;
+    }
 }

@@ -8,14 +8,18 @@ package GameModelLayer.Game;
  */
 public class PlayerSpawningPoint implements ISpawningPoints {
     
-    private boolean isTaken;
+    private boolean inUse;
     
-    public PlayerSpawningPoint (boolean isTaken){
-        this.isTaken = isTaken;
+    public PlayerSpawningPoint (boolean inUse){
+        this.inUse = inUse;
     }
     
     public boolean isInUse() {
-        return isTaken;
+        return inUse;
+    }
+    
+    public void setInUse(boolean inUse){
+        this.inUse = inUse;
     }
     
 }
