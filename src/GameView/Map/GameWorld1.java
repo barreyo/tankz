@@ -7,6 +7,7 @@ import GameView.gameEntity.GameEntityFactory;
 import GameControllers.logic.ViewPortManager;
 import GameModel.Game.TanksGameModel;
 import GameModel.Player.Player;
+import GameUtilities.TankAppAdapter;
 import GameView.gameEntity.EGameEntities;
 import GameView.gameEntity.AGameEntity;
 import GameView.gameEntity.Tank;
@@ -21,24 +22,19 @@ import java.util.List;
  *
  * @author Daniel
  */
-public class GameMap1 implements IGameMap {
+public class GameWorld1 implements IGameWorld {
     
-    private TanksApp app;
     private TanksGameModel game;
     
     private Node mapNode;
-    private Node rootNode;
     
     private List<AGameEntity> allGameEntities;
     
     /**
      * Creates a game map.
      */
-    public GameMap1(TanksGameModel game) {
-        app = TanksApp.getApp();
-        rootNode = app.getRootNode();
+    public GameWorld1(TanksGameModel game) {
         this.game = game;
-        
         allGameEntities = new ArrayList<AGameEntity>();
     }
 
@@ -48,8 +44,8 @@ public class GameMap1 implements IGameMap {
     public void load() {
         // Load, attach map to root node, and add nodes and geoms in the map to physicsspace
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
-        rootNode.attachChild(mapNode);
-        app.getBulletAppState().getPhysicsSpace().addAll(mapNode);
+        TankAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
+        TankAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
 //        app.getBulletAppState().getPhysicsSpace().enableDebug(app.getAssetManager());
         
         for (Player player : game.getPlayers()) {
@@ -57,7 +53,7 @@ public class GameMap1 implements IGameMap {
             Tank tank1 = (Tank) GameEntityFactory.create(EGameEntities.TANK);
             // Attach to root node at startpos
             tank1.getSpatial().move(10, 2, 10);
-            rootNode.attachChild(tank1.getSpatial());
+            TankAppAdapter.INSTANCE.attachChildToRootNode(tank1.getSpatial());
             // Add controls to tank
             tank1.finalise();
             
@@ -78,7 +74,7 @@ public class GameMap1 implements IGameMap {
             gameEntity.cleanup(); // should remove all physics and controls
             gameEntity.getSpatial().removeFromParent(); // remove from scene graph
         }
-        rootNode.detachChild(mapNode);
+        TankAppAdapter.INSTANCE.detachChildFromRootNode(mapNode);
 
         allGameEntities.clear();
         allGameEntities = null;

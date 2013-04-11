@@ -8,7 +8,7 @@ import java.util.List;
  * 
  * @author Daniel
  */
-public interface IGameMap {
+public interface IGameWorld {
     
     /**
      * Loads the map.

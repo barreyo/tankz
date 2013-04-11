@@ -5,7 +5,7 @@ import GameControllers.entitycontrols.ControlFactory;
 import GameControllers.entitycontrols.EControls;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameModel.gameEntity.Vehicle.TankModel;
-import GameUtilities.TanksAssetAdapter;
+import GameUtilities.TankAppAdapter;
 import GameView.GUI.FloatingNameControl;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -44,7 +44,7 @@ public class Tank extends AGameEntity implements Savable {
         // you can access this.
         spatial.setUserData("entity", this);
         spatial.addControl(new FloatingNameControl(spatial,
-                TanksAssetAdapter.INSTANCE.getAssetManager()));
+                TankAppAdapter.INSTANCE.getAssetManager()));
     }
 
     /**

@@ -1,7 +1,7 @@
 package GameControllers.logic;
 
-import App.TanksApp;
 import GameModel.Game.EGameState;
+import GameUtilities.TankAppAdapter;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -22,8 +22,6 @@ import java.util.Properties;
  */
 public final class LoadingScreenAppState extends AbstractAppState implements ScreenController, Controller {
 
-    private AppStateManager stateManager;
-    private TanksApp app;
     private Nifty nifty;
     private Element progressBarElement;
     private Element progressTextElement;
@@ -40,7 +38,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
      */
     public LoadingScreenAppState() {
         // Get managers
-        app = TanksApp.getApp();
         nifty = GUIManager.INSTANCE.getNifty();
         
         // Register as a screen controller and add scree n to Hud handler Nifty
@@ -67,7 +64,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
-        this.stateManager = stateManager;
+        super.stateAttached(stateManager);
         EGameState.setGameState(EGameState.LOADING_MAP);
         frameCount = 0;
     }
@@ -78,6 +75,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
      */
     @Override
     public void stateDetached(AppStateManager stateManager) {
+        super.stateDetached(stateManager);
         nifty.gotoScreen("end");
         isLoaded = true;
     }
@@ -100,12 +98,12 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
         } else if (frameCount == FRAME_COUNT) { //using 150 as a debug, this is where you load the game
 
             //at end of loading
-            stateManager.detach(this);
+            TankAppAdapter.INSTANCE.detachAppState(this);
 
-            app.getInputManager().setCursorVisible(false);
+            TankAppAdapter.INSTANCE.setCursorVisible(false);
             
             GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
-            stateManager.attach(TanksAppStateFactory.getAppState(GameAppState.class));
+            TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(GameAppState.class));
             EGameState.setGameState(EGameState.RUNNING);
         }
         //this.setProgress((float)frameCount, "Tanks");

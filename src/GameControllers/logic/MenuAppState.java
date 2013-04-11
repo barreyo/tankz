@@ -1,19 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameControllers.logic;
 
-import App.TanksApp;
-import GameUtilities.TanksInputAdapter;
-import GameControllers.logic.GUIManager;
 import GameControllers.GUI.OptionsScreenController;
-import GameModel.Game.TanksFactory;
 import GameModel.Game.UserSettings;
 import GameModel.Game.EGameState;
-import GameModel.Game.TanksGameModel;
-import GameModel.Player.Player;
 import GameModel.gameEntity.Vehicle.TankModel;
+import GameUtilities.TankAppAdapter;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -26,8 +18,6 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An app state representing the main menu.
@@ -35,7 +25,6 @@ import java.util.List;
  * @author Daniel
  */
 public class MenuAppState extends AbstractAppState implements ScreenController {
-    private TanksApp app;
     private Nifty nifty;
     private Element popupElement;
     private Element currentElement;
@@ -45,7 +34,6 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *  Create a new main menu app state.
      */
     public MenuAppState() {
-        app = TanksApp.getApp();
         nifty = GUIManager.INSTANCE.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
@@ -62,7 +50,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
-        TanksInputAdapter.INSTANCE.setCursorVisible(true);
+        TankAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EGameState.setGameState(EGameState.MAIN_MENU);
     }
@@ -178,7 +166,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void exit() {
-        app.stop();
+        TankAppAdapter.INSTANCE.stop();
     }
     
     /**

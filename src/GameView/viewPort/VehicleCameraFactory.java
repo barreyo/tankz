@@ -1,6 +1,6 @@
 package GameView.viewPort;
 
-import GameUtilities.TanksInputAdapter;
+import GameUtilities.TankAppAdapter;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;
@@ -14,7 +14,7 @@ public final class VehicleCameraFactory {
     private VehicleCameraFactory() {}
    
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
-        VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksInputAdapter.INSTANCE.getInputManager());
+        VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TankAppAdapter.INSTANCE.getInputManager());
         chaseCam.setMaxDistance(20);
         chaseCam.setMinDistance(10);
         chaseCam.setDefaultDistance(15);

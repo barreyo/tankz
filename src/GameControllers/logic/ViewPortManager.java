@@ -1,12 +1,10 @@
 package GameControllers.logic;
 
-import App.TanksApp;
-import GameModel.Game.TanksFactory;
 import GameModel.Game.UserSettings;
 import GameView.viewPort.EViewPorts;
 import GameModel.Player.Player;
+import GameUtilities.TankAppAdapter;
 import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Node;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -20,14 +18,6 @@ public enum ViewPortManager {
     INSTANCE;
     
     private HashMap<Player, EViewPorts> views = new HashMap<Player, EViewPorts>();
-    private Node rootNode;
-    
-    /**
-     * Creates a new viewport manager.
-     */
-    private ViewPortManager() {
-        this.rootNode = TanksApp.getApp().getRootNode();
-    }
 
     private void initViews() {
         List<Player> players = UserSettings.INSTANCE.getPlayers();
@@ -60,7 +50,7 @@ public enum ViewPortManager {
     public void load() {
         initViews();
         for (EViewPorts view : views.values()) {
-            view.getViewPort().attachScene(rootNode);
+            view.getViewPort().attachScene(TankAppAdapter.INSTANCE.getRootNode());
         }
     };
     

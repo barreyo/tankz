@@ -1,29 +1,17 @@
 package GameControllers.logic;
 
-import App.TanksApp;
+import GameUtilities.TankAppAdapter;
 import GameView.graphics.EGraphics;
-import com.jme3.asset.AssetManager;
 import com.jme3.scene.Spatial;
 import java.util.EnumMap;
 
 /**
- * Extenda assetmanager?
  * @author Daniel
  */
 public enum GraphicManager implements IMapRelatedManager {
     INSTANCE;
 
-    private TanksApp app;
-    private AssetManager assetManager;
     private EnumMap<EGraphics, Spatial> graphicMap = new EnumMap<EGraphics, Spatial>(EGraphics.class);
-    
-    /**
-     *
-     */
-    private GraphicManager() {
-        app = TanksApp.getApp();
-        assetManager = app.getAssetManager();
-    }
 
     /**
      *
@@ -52,7 +40,7 @@ public enum GraphicManager implements IMapRelatedManager {
      * @return
      */
     public Spatial createSpatial(EGraphics graphic) {
-        return assetManager.loadModel(graphic.getPath());
+        return TankAppAdapter.INSTANCE.loadModel(graphic.getPath());
     }
 
     /**

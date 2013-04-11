@@ -1,9 +1,8 @@
 
 package GameControllers.logic;
 
-import App.TanksApp;
+import GameUtilities.TankAppAdapter;
 import GameView.graphics.EMaterials;
-import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import java.util.EnumMap;
 
@@ -15,16 +14,7 @@ public enum MaterialManager implements IMapRelatedManager {
     INSTANCE;
     
     private EnumMap<EMaterials, Material> materialMap = new EnumMap<EMaterials, Material>(EMaterials.class);
-    private TanksApp app;
-    private AssetManager assetManager;
     
-    /**
-     *
-     */
-    private MaterialManager() {
-        app = TanksApp.getApp();
-        assetManager = app.getAssetManager();
-    }
 
     /**
      *
@@ -42,7 +32,7 @@ public enum MaterialManager implements IMapRelatedManager {
 
     private void loadMaterials(EMaterials[] materials) {
         for (EMaterials material : materials) {
-            Material m = assetManager.loadMaterial(material.getPathToMaterial());
+            Material m = TankAppAdapter.INSTANCE.loadMaterial(material.getPathToMaterial());
             materialMap.put(material, m);
             PreloadManager.INSTANCE.preload(m);
         }

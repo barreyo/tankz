@@ -16,11 +16,6 @@ public enum EffectsManager implements IMapRelatedManager {
     private EnumMap<EEffects, ParticleEmitter> effectsMap = new EnumMap<EEffects, ParticleEmitter>(EEffects.class);
 
     /**
-     *  Creates an manager for effects.
-     */
-    private EffectsManager() {}
-
-    /**
      *
      * @param level
      */
