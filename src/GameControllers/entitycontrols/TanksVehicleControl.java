@@ -1,7 +1,7 @@
 
 package GameControllers.entitycontrols;
 
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import GameUtilities.TanksInputAdapter;
 import GameView.gameEntity.GameEntityFactory;
 import GameControllers.player.EPlayerInputs;
@@ -58,8 +58,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      */
     public TanksVehicleControl() {    
         
-        physicsSpace = TanksGame.getApp().getBulletAppState().getPhysicsSpace();
-        rootNode = TanksGame.getApp().getRootNode();
+        physicsSpace = TanksApp.getApp().getBulletAppState().getPhysicsSpace();
+        rootNode = TanksApp.getApp().getRootNode();
         projectileModel = new ProjectileModel(10, 0.001f);
         
         // Create a model for the vehicle

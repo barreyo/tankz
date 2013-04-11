@@ -4,7 +4,7 @@
  */
 package GameControllers.entitycontrols;
 
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import GameModel.Game.EGameState;
 import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;

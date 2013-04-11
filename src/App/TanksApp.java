@@ -1,5 +1,6 @@
-package GameControllers.logic;
+package App;
 
+import GameControllers.logic.GUIManager;
 import GameControllers.logic.GUIManager;
 import GameControllers.logic.GUIManager;
 import GameControllers.logic.GUIManager;
@@ -20,9 +21,9 @@ import java.util.logging.Logger;
  *
  * @author Daniel, Per, Johan, Albin
  */
-public class TanksGame extends SimpleApplication {
+public class TanksApp extends SimpleApplication {
     // A reference to this app. This is needed to allow access to managers.
-    private static TanksGame tanksApp;
+    private static TanksApp tanksApp;
     
     // Managers
     private UserSettings userSettings;
@@ -35,7 +36,7 @@ public class TanksGame extends SimpleApplication {
     /**
      *
      */
-    public TanksGame() {
+    public TanksApp() {
         super(new StatsAppState());
     }
     
@@ -71,7 +72,7 @@ public class TanksGame extends SimpleApplication {
      *
      * @return
      */
-    public static TanksGame getApp() {
+    public static TanksApp getApp() {
         return tanksApp;
     }
 

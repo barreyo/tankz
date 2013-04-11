@@ -4,6 +4,7 @@
  */
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameControllers.logic.GUIManager;
 import GameControllers.logic.GameMapManager;
 import GameModel.Game.EGameState;
@@ -30,7 +31,7 @@ import de.lessvoid.nifty.tools.Color;
  */
 public class PauseMenuAppState extends AbstractAppState implements ScreenController {
     
-    private TanksGame app;
+    private TanksApp app;
     private InputManager inputManager;
     private Nifty nifty;
     private Element currentElement;
@@ -43,7 +44,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *  Create a pause menu app state.
      */
     public PauseMenuAppState() {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         inputManager = app.getInputManager();
         niftyDisplay = new NiftyJmeDisplay(app.getAssetManager(),
                       inputManager, app.getAudioRenderer(), app.getGuiViewPort());

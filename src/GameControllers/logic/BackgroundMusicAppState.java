@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.audio.AudioNode;
@@ -19,7 +20,7 @@ public class BackgroundMusicAppState extends AbstractAppState {
      * 
      * @param app
      */
-    public BackgroundMusicAppState(TanksGame app) {
+    public BackgroundMusicAppState(TanksApp app) {
         music = new AudioNode(app.getAssetManager(), "Sounds/Music/bg1.ogg", true);
         music.setLooping(false);
         music.setVolume(0.5f);

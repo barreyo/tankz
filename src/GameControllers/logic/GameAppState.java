@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameUtilities.TanksInputAdapter;
 import GameControllers.logic.GUIManager;
 import GameModel.Game.EGameState;
@@ -18,7 +19,7 @@ import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
  */
 public class GameAppState extends AbstractAppState {
     
-    private TanksGame app;
+    private TanksApp app;
     
     // Input mapping command
     private static final String PAUSE = "PAUSE";
@@ -27,7 +28,7 @@ public class GameAppState extends AbstractAppState {
      *  Creates a new game app state.
      */
     public GameAppState() {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
     }
     
     /**

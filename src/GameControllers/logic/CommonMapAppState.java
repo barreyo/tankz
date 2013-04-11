@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameUtilities.TanksAssetAdapter;
 import GameModel.Game.EGameState;
 import com.jme3.app.Application;
@@ -24,7 +25,7 @@ import com.jme3.util.SkyFactory;
  */
 public class CommonMapAppState extends AbstractAppState {
   
-    private TanksGame app;
+    private TanksApp app;
     private Node rootNode;
     private Vector3f lightDir = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
     
@@ -32,7 +33,7 @@ public class CommonMapAppState extends AbstractAppState {
      * Creates a new common map appstate.
      */
     public CommonMapAppState() {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         rootNode = app.getRootNode();
         loadCommon();
     }
