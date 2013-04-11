@@ -1,5 +1,6 @@
 package GameModel.gameEntity.Vehicle;
 
+import GameModel.IObservable;
 import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Powerup.PowerupSlot;
 import GameModel.gameEntity.Projectile.IProjectile;
@@ -8,6 +9,8 @@ import com.jme3.bullet.control.VehicleControl;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 /**
@@ -15,7 +18,7 @@ import java.util.List;
  * 
  * @author Daniel
  */
-public class TankModel implements IArmedVehicle {
+public class TankModel implements IArmedVehicle, IObservable {
 
     private int health;
     private VehicleState vehicleState;
@@ -44,6 +47,8 @@ public class TankModel implements IArmedVehicle {
     public static final float TANK_WHEEL_Y_OFF = 0.3f;
     public static final float TANK_WHEEL_X_OFF = 0.5f;
     public static final float TANK_WHEEL_Z_OFF = 1.5f;
+    
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     
     
@@ -250,5 +255,14 @@ public class TankModel implements IArmedVehicle {
 
     public List<IProjectile> getFiredProjetiles() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
+    public void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener(l);
+    }
+    
+    public void removeObserver(PropertyChangeListener l) {
+        pcs.removePropertyChangeListener(l);
     }
 }

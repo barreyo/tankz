@@ -1,8 +1,11 @@
 
 package GameModel.Game;
 
+import GameModel.IObservable;
 import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.IPowerUp;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,11 +15,13 @@ import java.util.List;
  *
  * @author Daniel
  */
-public class TanksGameModel implements ITanks {
+public class TanksGameModel implements ITanks, IObservable {
     private final List<Player> players;
     private List<IPowerUp> powerups;
     private List<ISpawningPoints> spawningPoints;
     private float timer;
+    
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     public TanksGameModel(List<Player> players) {
         this.players = players;
@@ -66,5 +71,14 @@ public class TanksGameModel implements ITanks {
         List <ISpawningPoints> sp = Collections.unmodifiableList(spawningPoints);
         // Cast OK PlayerSpawningPoint and PowerupSpawningPoint implements ISpawningPoint
         return (Collection<ISpawningPoints>) sp;
+    }
+
+
+    public void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener(l);
+    }
+    
+    public void removeObserver(PropertyChangeListener l) {
+        pcs.removePropertyChangeListener(l);
     }
 }

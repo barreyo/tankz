@@ -1,12 +1,18 @@
 package GameModel.gameEntity.Powerup;
 
+import GameModel.IObservable;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 /**
  * A slot for a powerup.
  *
  * @author Daniel
  */
-public class PowerupSlot {
+public class PowerupSlot implements IObservable {
     private EPowerup powerup;
+    
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      * @return The powerup contained in this slot.
@@ -31,5 +37,15 @@ public class PowerupSlot {
     
     public boolean isEmpty() {
         return this.getPowerup()==null;
+    }
+
+
+    public void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener(l);
+    }
+    
+
+    public void removeObserver(PropertyChangeListener l) {
+        pcs.removePropertyChangeListener(l);
     }
 }
