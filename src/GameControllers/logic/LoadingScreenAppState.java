@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameModel.Game.EGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -22,7 +23,7 @@ import java.util.Properties;
 public final class LoadingScreenAppState extends AbstractAppState implements ScreenController, Controller {
 
     private AppStateManager stateManager;
-    private TanksGame app;
+    private TanksApp app;
     private Nifty nifty;
     private Element progressBarElement;
     private Element progressTextElement;
@@ -39,7 +40,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
      */
     public LoadingScreenAppState() {
         // Get managers
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         nifty = GUIManager.INSTANCE.getNifty();
         
         // Register as a screen controller and add scree n to Hud handler Nifty

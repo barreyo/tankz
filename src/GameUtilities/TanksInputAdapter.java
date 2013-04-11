@@ -1,6 +1,6 @@
 package GameUtilities;
 
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.Trigger;
@@ -15,7 +15,7 @@ public enum TanksInputAdapter {
     private final InputManager inputManager;
     
     private TanksInputAdapter() {
-        inputManager = TanksGame.getApp().getInputManager();
+        inputManager = TanksApp.getApp().getInputManager();
     }
     
     public boolean hasMapping(String mapping) {

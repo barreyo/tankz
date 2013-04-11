@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
 import GameView.Map.IGameMap;
@@ -14,7 +15,7 @@ import GameView.Map.GameMap1;
 public enum GameMapManager implements IMapRelatedManager {
     INSTANCE;
 
-    private TanksGame app;
+    private TanksApp app;
     
     private IGameMap currentGameMap;
     private int currentIntGameMap;
@@ -24,7 +25,7 @@ public enum GameMapManager implements IMapRelatedManager {
      * Creates a manager for game maps.
      */
     private GameMapManager() {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         currentIntGameMap = 1;
     }
 

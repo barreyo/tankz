@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameView.graphics.EGraphics;
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Spatial;
@@ -12,7 +13,7 @@ import java.util.EnumMap;
 public enum GraphicManager implements IMapRelatedManager {
     INSTANCE;
 
-    private TanksGame app;
+    private TanksApp app;
     private AssetManager assetManager;
     private EnumMap<EGraphics, Spatial> graphicMap = new EnumMap<EGraphics, Spatial>(EGraphics.class);
     
@@ -20,7 +21,7 @@ public enum GraphicManager implements IMapRelatedManager {
      *
      */
     private GraphicManager() {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         assetManager = app.getAssetManager();
     }
 

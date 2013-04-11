@@ -2,7 +2,7 @@ package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
 import GameModel.Game.TanksFactory;
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import GameView.gameEntity.GameEntityFactory;
 import GameControllers.logic.ViewPortManager;
 import GameModel.Game.TanksGameModel;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class GameMap1 implements IGameMap {
     
-    private TanksGame app;
+    private TanksApp app;
     private TanksGameModel game;
     
     private Node mapNode;
@@ -35,7 +35,7 @@ public class GameMap1 implements IGameMap {
      * Creates a game map.
      */
     public GameMap1(TanksGameModel game) {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         rootNode = app.getRootNode();
         this.game = game;
         

@@ -4,6 +4,7 @@
  */
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameUtilities.TanksInputAdapter;
 import GameControllers.logic.GUIManager;
 import GameControllers.GUI.OptionsScreenController;
@@ -34,7 +35,7 @@ import java.util.List;
  * @author Daniel
  */
 public class MenuAppState extends AbstractAppState implements ScreenController {
-    private TanksGame app;
+    private TanksApp app;
     private Nifty nifty;
     private Element popupElement;
     private Element currentElement;
@@ -44,7 +45,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *  Create a new main menu app state.
      */
     public MenuAppState() {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         nifty = GUIManager.INSTANCE.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");

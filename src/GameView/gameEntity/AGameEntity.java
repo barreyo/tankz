@@ -1,6 +1,6 @@
 package GameView.gameEntity;
 
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import GameControllers.logic.GraphicManager;
 import GameControllers.logic.MaterialManager;
 import GameControllers.entitycontrols.ControlFactory;
@@ -43,7 +43,7 @@ public abstract class AGameEntity {
      *  Creates a game entity with its needed managers.
      */
     AGameEntity() {
-        TanksGame app = TanksGame.getApp();
+        TanksApp app = TanksApp.getApp();
         rootNode = app.getRootNode();
         guiNode = app.getGuiNode();
         bulletAppState = app.getBulletAppState();

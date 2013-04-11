@@ -1,6 +1,6 @@
 package GameView.viewPort;
 
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 
@@ -21,7 +21,7 @@ public enum EViewPorts {
     private final ViewPort view;
     
     private EViewPorts(float left, float right, float bottom, float top, String loc) {
-        TanksGame app = TanksGame.getApp();
+        TanksApp app = TanksApp.getApp();
         Camera cam = app.getCamera().clone();
         cam.setViewPort(left, right, bottom, top);
    

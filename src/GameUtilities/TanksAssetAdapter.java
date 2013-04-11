@@ -1,6 +1,6 @@
 package GameUtilities;
 
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import com.jme3.asset.AssetManager;
 
 /**
@@ -13,7 +13,7 @@ public enum TanksAssetAdapter {
     private final AssetManager assetManager;
     
     private TanksAssetAdapter() {
-        assetManager = TanksGame.getApp().getAssetManager();
+        assetManager = TanksApp.getApp().getAssetManager();
     }
     
     public AssetManager getAssetManager() {

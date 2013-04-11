@@ -1,6 +1,8 @@
+package App;
 
 
-import GameControllers.logic.TanksGame;
+
+import App.TanksApp;
 import com.jme3.system.AppSettings;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,7 +24,7 @@ public class Main {
      */
     public static void main(String[] args) {
         // Create app and start it
-        TanksGame app = new TanksGame();
+        TanksApp app = new TanksApp();
         
         // load the application settings
         AppSettings appSettings = new AppSettings(true);

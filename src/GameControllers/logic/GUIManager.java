@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameUtilities.TanksInputAdapter;
 import GameUtilities.TanksAssetAdapter;
 import GameControllers.logic.IMapRelatedManager;
@@ -18,7 +19,7 @@ import de.lessvoid.nifty.Nifty;
 public enum GUIManager {
     INSTANCE;
     
-    private TanksGame app;
+    private TanksApp app;
     private AppStateManager stateManager;
     private Nifty nifty;
     private final float GUI_WIDTH;
@@ -28,7 +29,7 @@ public enum GUIManager {
      *
      */
     private GUIManager() {
-        app = TanksGame.getApp();
+        app = TanksApp.getApp();
         initialiseNifty();
         stateManager = app.getStateManager();
         GUI_WIDTH = app.getSettings().getWidth() * 0.15f;

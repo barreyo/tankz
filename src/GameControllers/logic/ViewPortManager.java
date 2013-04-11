@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import App.TanksApp;
 import GameModel.Game.TanksFactory;
 import GameModel.Game.UserSettings;
 import GameView.viewPort.EViewPorts;
@@ -25,7 +26,7 @@ public enum ViewPortManager {
      * Creates a new viewport manager.
      */
     private ViewPortManager() {
-        this.rootNode = TanksGame.getApp().getRootNode();
+        this.rootNode = TanksApp.getApp().getRootNode();
     }
 
     private void initViews() {

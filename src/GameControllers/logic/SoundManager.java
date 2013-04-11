@@ -1,6 +1,7 @@
 package GameControllers.logic;
 
-import GameControllers.Sounds.ESounds;
+import App.TanksApp;
+import GameView.Sounds.ESounds;
 import GameControllers.logic.IMapRelatedManager;
 import GameModel.Game.UserSettings;
 import com.jme3.asset.AssetManager;
@@ -24,7 +25,7 @@ public enum SoundManager implements IMapRelatedManager {
      *
      */
     private SoundManager() {
-        TanksGame app = TanksGame.getApp();
+        TanksApp app = TanksApp.getApp();
         audioRenderer = app.getAudioRenderer();
         assetManager = app.getAssetManager();
 

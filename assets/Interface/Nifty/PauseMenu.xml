@@ -13,7 +13,7 @@
         width="400px"/>
     </style>
 
-    <screen id="pause" controller="GameLogicLayer.logic.PauseMenuAppState">
+    <screen id="pause" controller="GameControllers.PauseMenuAppState">
         <layer id="layer" backgroundColor="#0000" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >

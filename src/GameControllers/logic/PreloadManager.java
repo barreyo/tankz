@@ -1,6 +1,7 @@
 
 package GameControllers.logic;
 
+import App.TanksApp;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.renderer.RenderManager;
@@ -18,7 +19,7 @@ public enum PreloadManager {
     private RenderManager renderManager;
 
     private PreloadManager() {
-        renderManager = TanksGame.getApp().getRenderManager();
+        renderManager = TanksApp.getApp().getRenderManager();
     }
     
     /**

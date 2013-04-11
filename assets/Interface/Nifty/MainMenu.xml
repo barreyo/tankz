@@ -12,7 +12,7 @@
         width="350px"/>
     </style>
     
-    <screen id="start" controller="GameLogicLayer.logic.MenuAppState">
+    <screen id="start" controller="GameControllers.logic.MenuAppState">
         <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >
@@ -31,7 +31,7 @@
         </layer>
     </screen>
     
-    <screen id="multi" controller="GameLogicLayer.logic.MenuAppState">
+    <screen id="multi" controller="GameControllers.logic.MenuAppState">
         <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >

@@ -1,6 +1,6 @@
 package GameView.effects;
 
-import GameControllers.logic.TanksGame;
+import App.TanksApp;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
@@ -19,7 +19,7 @@ public class ExplosionEffect implements IEffect {
     private AssetManager assetManager;
     
     public ExplosionEffect() {
-        assetManager = TanksGame.getApp().getAssetManager();
+        assetManager = TanksApp.getApp().getAssetManager();
         prepareEffects();
     }
     
