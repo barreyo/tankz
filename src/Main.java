@@ -1,6 +1,6 @@
 
 
-import GameLogicLayer.logic.TanksGame;
+import GameControllers.logic.TanksGame;
 import com.jme3.system.AppSettings;
 import java.awt.image.BufferedImage;
 import java.io.File;
