@@ -4,6 +4,7 @@ package GameView.gameEntity;
 import GameControllers.entitycontrols.ControlFactory;
 import GameControllers.entitycontrols.EControls;
 import GameControllers.entitycontrols.TanksVehicleControl;
+import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TanksAssetAdapter;
 import GameView.GUI.FloatingNameControl;
 import GameView.graphics.EGraphics;
@@ -42,7 +43,8 @@ public class Tank extends AGameEntity implements Savable {
         // Save this as user data for the spatial -> ie if you can access the spatial
         // you can access this.
         spatial.setUserData("entity", this);
-        spatial.addControl(new FloatingNameControl(spatial, TanksAssetAdapter.INSTANCE.getAssetManager()));
+        spatial.addControl(new FloatingNameControl(spatial,
+                TanksAssetAdapter.INSTANCE.getAssetManager()));
     }
 
     /**
@@ -67,34 +69,36 @@ public class Tank extends AGameEntity implements Savable {
         spatial.addControl(vehicle);
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
 
-        float stiffness = 80.0f;//200=f1 car
-        float compValue = 0.2f; //(should be lower than damp)
-        float dampValue = 0.5f;
-        vehicle.setSuspensionCompression(compValue * 2.0f * FastMath.sqrt(stiffness));
-        vehicle.setSuspensionDamping(dampValue * 2.0f * FastMath.sqrt(stiffness));
-        vehicle.setSuspensionStiffness(stiffness);
+        vehicle.setSuspensionCompression(TankModel.TANK_COMP_VALUE * 2.0f
+                                * FastMath.sqrt(TankModel.TANK_STIFFNESS));
+        vehicle.setSuspensionDamping(TankModel.TANK_DAMP_VALUE * 2.0f 
+                                * FastMath.sqrt(TankModel.TANK_STIFFNESS));
+        vehicle.setSuspensionStiffness(TankModel.TANK_STIFFNESS);
         vehicle.setMaxSuspensionForce(999000.0f);
 
-        //Create four wheels and add them at their locations
-        Vector3f wheelDirection = new Vector3f(0, -1, 0); // was 0, -1, 0
-        Vector3f wheelAxle = new Vector3f(-1, 0, 0); // was -1, 0, 0
-        float radius = 0.1f;
-        float restLength = 0.2f;
-        float yOff = 0.3f;
-        float xOff = 0.5f;
-        float zOff = 1.5f;
+        vehicle.addWheel(null, new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                true);
 
-        vehicle.addWheel(null, new Vector3f(-xOff, yOff, zOff),
-                wheelDirection, wheelAxle, restLength, radius, true);
+        vehicle.addWheel(null, new Vector3f(TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                true);
 
-        vehicle.addWheel(null, new Vector3f(xOff, yOff, zOff),
-                wheelDirection, wheelAxle, restLength, radius, true);
+        vehicle.addWheel(null, new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                false);
 
-        vehicle.addWheel(null, new Vector3f(-xOff, yOff, -zOff),
-                wheelDirection, wheelAxle, restLength, radius, false);
-
-        vehicle.addWheel(null, new Vector3f(xOff, yOff, -zOff),
-                wheelDirection, wheelAxle, restLength, radius, false);
+        vehicle.addWheel(null, new Vector3f(TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                false);
         
         // Specify the groups to coolide with
         //vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
