@@ -1,5 +1,6 @@
 package GameControllers.logic;
 
+import GameUtilities.TanksInputAdapter;
 import GameControllers.logic.GUIManager;
 import GameModel.Game.EGameState;
 import com.jme3.app.Application;

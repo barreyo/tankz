@@ -1,5 +1,7 @@
 package GameControllers.logic;
 
+import GameUtilities.TanksInputAdapter;
+import GameUtilities.TanksAssetAdapter;
 import GameControllers.logic.IMapRelatedManager;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.ColorRGBA;

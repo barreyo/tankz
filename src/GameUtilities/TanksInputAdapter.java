@@ -1,5 +1,6 @@
-package GameControllers.logic;
+package GameUtilities;
 
+import GameControllers.logic.TanksGame;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.Trigger;
@@ -41,7 +42,7 @@ public enum TanksInputAdapter {
         return inputManager;
     }
 
-    void setCursorVisible(boolean bool) {
+    public void setCursorVisible(boolean bool) {
         inputManager.setCursorVisible(bool);
     }
 }

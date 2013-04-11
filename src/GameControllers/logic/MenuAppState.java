@@ -4,6 +4,7 @@
  */
 package GameControllers.logic;
 
+import GameUtilities.TanksInputAdapter;
 import GameControllers.logic.GUIManager;
 import GameControllers.GUI.OptionsScreenController;
 import GameModel.Game.TanksFactory;

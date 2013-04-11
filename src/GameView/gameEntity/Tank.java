@@ -4,7 +4,7 @@ package GameView.gameEntity;
 import GameControllers.entitycontrols.ControlFactory;
 import GameControllers.entitycontrols.EControls;
 import GameControllers.entitycontrols.TanksVehicleControl;
-import GameControllers.logic.TanksAssetAdapter;
+import GameUtilities.TanksAssetAdapter;
 import GameView.GUI.FloatingNameControl;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;

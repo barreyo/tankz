@@ -2,7 +2,7 @@
 package GameControllers.entitycontrols;
 
 import GameControllers.logic.TanksGame;
-import GameControllers.logic.TanksInputAdapter;
+import GameUtilities.TanksInputAdapter;
 import GameView.gameEntity.GameEntityFactory;
 import GameControllers.player.EPlayerInputs;
 import GameView.viewPort.VehicleCamera;

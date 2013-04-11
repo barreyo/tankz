@@ -1,6 +1,6 @@
 package GameView.viewPort;
 
-import GameControllers.logic.TanksInputAdapter;
+import GameUtilities.TanksInputAdapter;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;

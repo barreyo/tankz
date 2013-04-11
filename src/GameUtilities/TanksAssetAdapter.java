@@ -1,5 +1,6 @@
-package GameControllers.logic;
+package GameUtilities;
 
+import GameControllers.logic.TanksGame;
 import com.jme3.asset.AssetManager;
 
 /**
