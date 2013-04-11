@@ -3,6 +3,7 @@ package GameModel.Game;
 
 import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.IPowerUp;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,16 +40,16 @@ public interface ITanks {
     /**
      * Returns a list of all the players in the game
      */
-    public List<Player> getPlayers();
+    public Collection<Player> getPlayers();
     
     /**
      * Returns a list of all the powerups in the game
      */
-    public List<IPowerUp> getPowerups();
+    public Collection<IPowerUp> getPowerups();
     
     /**
      * Returns a list of all the spawningpoints in the game
      */
-    public List<ISpawningPoints> getSpawningPoints();
+    public Collection<ISpawningPoints> getSpawningPoints();
     
 }
