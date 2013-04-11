@@ -11,12 +11,9 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.Trigger;
 import com.jme3.light.Light;
 import com.jme3.material.Material;
-import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 
