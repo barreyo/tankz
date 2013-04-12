@@ -62,7 +62,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         vehicleModel.setAccelerationForce(2000.0f);
         vehicleModel.setForwardMaxSpeed(80f);
         vehicleModel.setBackMaxSpeed(30f);
-        vehicleModel.setBrakeForce(10000.0f);
+        vehicleModel.setBrakeForce(30.0f);
         // Register input mappings
         addInputMappings();
     }
@@ -160,6 +160,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 if (!isFirstUpKeyPressDone) {
                     return;
                 }
+                vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {
