@@ -1,6 +1,7 @@
 package GameModel.Game;
 
 import GameModel.Game.TanksGameModel;
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public final class TanksFactory {
     private TanksFactory() {}
     
     public static TanksGameModel getTanks() {
-        List<Player> players = UserSettings.INSTANCE.getPlayers();
+        List<IPlayer> players = UserSettings.INSTANCE.getPlayers();
         return new TanksGameModel(players);
     }
 }

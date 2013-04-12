@@ -1,11 +1,6 @@
 package App;
 
 import GameControllers.logic.GUIManager;
-import GameControllers.logic.GUIManager;
-import GameControllers.logic.GUIManager;
-import GameControllers.logic.GUIManager;
-import GameModel.Game.UserSettings;
-import GameModel.Game.TanksGameModel;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;

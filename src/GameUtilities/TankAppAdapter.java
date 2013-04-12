@@ -6,6 +6,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.Trigger;
@@ -158,5 +159,13 @@ public enum TankAppAdapter {
 
     public void detachChildFromRootNode(Spatial spatial) {
         tanksApp.getRootNode().detachChild(spatial);
+    }
+
+    public void addToPhysicsSpace(Object obj) {
+        tanksApp.getBulletAppState().getPhysicsSpace().add(obj);
+    }
+
+    public void removeFromPhysicsSpace(Object obj) {
+        tanksApp.getBulletAppState().getPhysicsSpace().remove(obj);
     }
 }

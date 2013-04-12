@@ -1,6 +1,7 @@
 package GameControllers.logic;
 
 import GameModel.Game.UserSettings;
+import GameModel.Player.IPlayer;
 import GameView.viewPort.EViewPorts;
 import GameModel.Player.Player;
 import GameUtilities.TankAppAdapter;
@@ -17,10 +18,10 @@ import java.util.List;
 public enum ViewPortManager {
     INSTANCE;
     
-    private HashMap<Player, EViewPorts> views = new HashMap<Player, EViewPorts>();
+    private HashMap<IPlayer, EViewPorts> views = new HashMap<IPlayer, EViewPorts>();
 
     private void initViews() {
-        List<Player> players = UserSettings.INSTANCE.getPlayers();
+        List<IPlayer> players = UserSettings.INSTANCE.getPlayers();
         switch(players.size()) {
             case 0:   
             case 1:
@@ -60,7 +61,7 @@ public enum ViewPortManager {
      * @param p The player which you want the viewport for
      * @return the viewport for the specified player
      */
-    public ViewPort getViewportForPlayer(Player p) {
+    public ViewPort getViewportForPlayer(IPlayer p) {
         return views.get(p).getViewPort();
     }
     

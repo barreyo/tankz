@@ -1,31 +1,20 @@
 package GameView.gameEntity;
 
-import App.TanksApp;
 import GameControllers.logic.GraphicManager;
-import GameControllers.logic.MaterialManager;
-import GameControllers.entitycontrols.ControlFactory;
-import GameControllers.logic.PreloadManager;
 import GameView.graphics.EGraphics;
-import com.jme3.app.state.AppStateManager;
-import com.jme3.asset.AssetManager;
 import com.jme3.bounding.BoundingBox;
-import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
-import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.control.Control;
 
 /**
  * An abstract game entity.
  * 
  * @author Daniel
  */
-public abstract class AGameEntity {
-    Node rootNode;
-    Node guiNode;
-    BulletAppState bulletAppState;
-    
+public abstract class AGameEntity implements IGameEntity {
     Spatial spatial;
     //protected AnimComponent animComponent;
 
@@ -35,18 +24,7 @@ public abstract class AGameEntity {
      * @param graphic The graphical objekt to be loaded.
      */
     AGameEntity(EGraphics graphic) {
-        this();
         spatial = GraphicManager.INSTANCE.createSpatial(graphic);
-    }
-
-    /**
-     *  Creates a game entity with its needed managers.
-     */
-    AGameEntity() {
-        TanksApp app = TanksApp.getApp();
-        rootNode = app.getRootNode();
-        guiNode = app.getGuiNode();
-        bulletAppState = app.getBulletAppState();
     }
 
     /**
@@ -59,32 +37,31 @@ public abstract class AGameEntity {
     /**
      * Adds an material to the spatial.
      */
-    abstract void addMaterial();
+    @Override
+    public void setMaterial(Material mat) {
+        spatial.setMaterial(mat);
+    }
 
     /**
      * Adds an appropriate control to the spatial.
      */
-    abstract void addControl();
+    @Override
+    public void addControl(Control control) {
+        spatial.addControl(control);
+    }
+    
+    /**
+     * Adds an appropriate control to the spatial.
+     */
+    @Override
+    public void removeControl(Control control) {
+        spatial.removeControl(control);
+    }
 
     /**
      * Releases all occupied resources of this instance.
      */
     public abstract void cleanup();
-
-    /**
-     * Puts this entity in a controlled state.
-     */
-    public abstract void finalise();
-
-    /**
-     * Adds a physics control to the game entity.
-     */
-    void addPhysicsControl() {
-        RigidBodyControl rigidBodyControl = new RigidBodyControl(getCollisionShape(), 1);
-        rigidBodyControl.setKinematic(true);
-        spatial.addControl(rigidBodyControl);
-        bulletAppState.getPhysicsSpace().add(rigidBodyControl);
-    }
 
     /**
      * Returns the spatial of this game entity.

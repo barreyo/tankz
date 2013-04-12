@@ -34,21 +34,37 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
      * Creates a tank projectile control.
      */
     public TankProjectileControl() {
-        physicsSpace = TankAppAdapter.INSTANCE.getPhysicsSpace();
-        physicsSpace.addCollisionListener(this);
-        effect = EEffects.EXPLOSION.getEmitter();
+       physicsSpace = TankAppAdapter.INSTANCE.getPhysicsSpace();
+       effect = EEffects.EXPLOSION.getEmitter();
     }
     
      /**
      * @inheritdoc
      */
     @Override
-    public synchronized void setSpatial(Spatial spatial) {
+    public void setSpatial(Spatial spatial) {
         super.setSpatial(spatial);
 
         if (spatial != null) {
             // Get the visual representation of the tank
             projectile = spatial.getUserData("entity");
+        }
+        
+        initControl();
+    }
+    
+    private void addPhysicsControl() {
+        physicsControl = new RigidBodyControl(projectile.getCollisionShape(), 0.001f);
+        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setKinematic(true);
+        physicsSpace.addCollisionListener(this);
+        projectile.addControl(physicsControl);
+        TankAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
+    }
+
+    private void initControl() {
+        if (physicsControl == null) {
+            addPhysicsControl();
         }
     }
 
@@ -61,7 +77,6 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
         if (spatial == null || projectile == null) {
             return;
         }
-        physicsControl = projectile.getPhysicsControl();
         if (event.getObjectA() == physicsControl || event.getObjectB() == physicsControl) {
             if (effect != null && spatial.getParent() != null) {
                 effectShowing = true;
@@ -71,7 +86,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
             }
             physicsSpace.remove(physicsControl);
             spatial.removeFromParent();
-            projectile.cleanup();
+            this.cleanup();
             effect.addControl(this);
         }
     }
@@ -89,7 +104,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
                         physicsSpace.remove(physicsControl);
                     }
                     spatial.removeFromParent();
-                    projectile.cleanup();
+                    this.cleanup();
                     physicsSpace.removeCollisionListener(this);
                 }
             }

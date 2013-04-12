@@ -2,6 +2,7 @@
 package GameModel.Game;
 
 import GameModel.IObservable;
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.IPowerUp;
 import java.beans.PropertyChangeListener;
@@ -16,29 +17,28 @@ import java.util.List;
  * @author Daniel
  */
 public class TanksGameModel implements ITanks, IObservable {
-    private final List<Player> players;
+    private final List<IPlayer> players;
     private List<IPowerUp> powerups;
     private List<ISpawningPoints> spawningPoints;
     private float timer;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    public TanksGameModel(List<Player> players) {
+    public TanksGameModel(List<IPlayer> players) {
         this.players = players;
     }
     
-    public TanksGameModel(List <Player> players, List <IPowerUp> powerups,
+    public TanksGameModel(List<IPlayer> players, List <IPowerUp> powerups,
             List <ISpawningPoints> spawningPoints){
         this.players = players;
         this.powerups = powerups;
         this.spawningPoints = spawningPoints;
     }
-    
-    @SuppressWarnings("unchecked")
-    public Collection<Player> getPlayers() { 
-        List<Player> pls = Collections.unmodifiableList(players);
+
+    public Collection<IPlayer> getPlayers() { 
+        List<IPlayer> pls = Collections.unmodifiableList(players);
         // Cast OK Player implements IPlayer
-        return (Collection<Player>) pls; 
+        return (Collection<IPlayer>) pls; 
     }
 
     public void startGame() {

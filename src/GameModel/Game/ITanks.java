@@ -1,6 +1,7 @@
 
 package GameModel.Game;
 
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.IPowerUp;
 import java.util.Collection;
@@ -40,7 +41,7 @@ public interface ITanks {
     /**
      * Returns a list of all the players in the game
      */
-    public Collection<Player> getPlayers();
+    public Collection<IPlayer> getPlayers();
     
     /**
      * Returns a list of all the powerups in the game

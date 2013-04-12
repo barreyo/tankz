@@ -1,6 +1,7 @@
 
 package GameModel.Game;
 
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ import java.util.List;
 public enum UserSettings {
     INSTANCE;
     
-    private final List<Player> players = new ArrayList<Player>();
+    private final List<IPlayer> players = new ArrayList<IPlayer>();
     
-    public List<Player> getPlayers() {
+    public List<IPlayer> getPlayers() {
         return players;
     }
     

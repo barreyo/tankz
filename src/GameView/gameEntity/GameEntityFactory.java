@@ -1,7 +1,5 @@
 package GameView.gameEntity;
 
-import GameView.gameEntity.AGameEntity;
-import GameView.gameEntity.EGameEntities;
 
 /**
  * Manages game entities.

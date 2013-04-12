@@ -1,6 +1,10 @@
 package GameControllers.logic;
 
+import GameControllers.logic.IMapRelatedManager;
+import GameControllers.logic.PreloadManager;
+import GameControllers.logic.ViewPortManager;
 import GameView.viewPort.EViewPorts;
+import GameView.effects.EEffects;
 import GameView.effects.EEffects;
 import com.jme3.effect.ParticleEmitter;
 import java.util.Collection;

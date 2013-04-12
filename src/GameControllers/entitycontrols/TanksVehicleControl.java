@@ -1,7 +1,6 @@
 
 package GameControllers.entitycontrols;
 
-import App.TanksApp;
 import GameView.gameEntity.GameEntityFactory;
 import GameControllers.player.EPlayerInputs;
 import GameView.viewPort.VehicleCamera;
@@ -10,18 +9,20 @@ import GameModel.gameEntity.Projectile.ProjectileModel;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TankAppAdapter;
+import GameView.GUI.FloatingNameControl;
 import GameView.gameEntity.Tank;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.EGameEntities;
 import GameView.viewPort.VehicleCameraFactory;
-import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Node;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Spatial;
 
 /**
@@ -33,6 +34,8 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     
     // The model for the vehicle (holds the data)
     private IArmedVehicle vehicleModel;
+    private Tank tank;
+    
     private VehicleControl vehicle;
     
     // Variables needed to fire projectiles
@@ -97,9 +100,66 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
 
         if (spatial != null) {
             // Get the visual representation of the tank and the applied vehicle control
-            Tank tank = spatial.getUserData("entity");
-            vehicle = tank.getVehicleControl();
+            tank = spatial.getUserData("entity");
+            
+            initControl();
         }  
+    }
+    
+    private void initControl() {
+        if (vehicle == null) {
+            addVehicleControl();
+        }
+        // ?
+        spatial.addControl(new FloatingNameControl(spatial,
+                TankAppAdapter.INSTANCE.getAssetManager()));
+    }
+
+    private void addVehicleControl() {
+        CompoundCollisionShape compoundShape = new CompoundCollisionShape();
+        compoundShape.addChildShape(tank.getCollisionShape(), new Vector3f(0, 1, 0));
+
+        // Create the actual vehicle control
+        vehicle = new VehicleControl(compoundShape, 600);
+        spatial.addControl(vehicle);
+        spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
+
+        vehicle.setSuspensionCompression(TankModel.TANK_COMP_VALUE * 2.0f
+                                * FastMath.sqrt(TankModel.TANK_STIFFNESS));
+        vehicle.setSuspensionDamping(TankModel.TANK_DAMP_VALUE * 2.0f 
+                                * FastMath.sqrt(TankModel.TANK_STIFFNESS));
+        vehicle.setSuspensionStiffness(TankModel.TANK_STIFFNESS);
+        vehicle.setMaxSuspensionForce(999000.0f);
+
+        vehicle.addWheel(null, new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                true);
+
+        vehicle.addWheel(null, new Vector3f(TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                true);
+
+        vehicle.addWheel(null, new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                false);
+
+        vehicle.addWheel(null, new Vector3f(TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
+                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
+                false);
+        
+        // Specify the groups to coolide with
+        //vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
+        //vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02 | PhysicsCollisionObject.COLLISION_GROUP_04);
+        // Add vehicle to physics space
+        TankAppAdapter.INSTANCE.addToPhysicsSpace(vehicle);
     }
 
     /**
@@ -195,35 +255,10 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 Spatial projectile = projectileEntity.getSpatial();
                 projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(vehicle.getForwardVector(null).multLocal(3f)));
                 projectile.setLocalRotation(spatial.getWorldRotation());
-                projectileEntity.finalise();
+                TankProjectileControl projectileControl = (TankProjectileControl)ControlFactory.getControl(EControls.PROJECTILE_CONTROL);
+                projectileEntity.addControl(projectileControl);
                 // Attach to world and phsysicsSpace
                 TankAppAdapter.INSTANCE.attachChildToRootNode(projectile);
-                
-                /*
-                // Get a projectilespatial and translate it to weapon
-                Spatial projectile = projectileSpatial.getProjectileSpatial();
-                //projectile.setLocalTranslation(weaponSpatial.getWeaponSpatial().getWorldTranslation());
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0));
-                
-                // Create a RigidBodyControl over the projectile collision shape
-                RigidBodyControl projectileControl = new RigidBodyControl(
-                projectileSpatial.getProjectileCollisionShape(), projectileModel.getMass());
-                projectileControl.setCcdMotionThreshold(0.1f);
-                
-                // TODO Solve direction of velocity, should be same as weapon direction
-//                projectileControl.setLinearVelocity(weaponSpatial.getAttackDirection().mult(200));
-                projectileControl.setLinearVelocity(driveDirection.multLocal(200));
-                projectile.addControl(projectileControl);
-                
-                
-                physicsSpace.add(projectileControl);
-                // Attach to world and phsysicsSpace
-                rootNode.attachChild(projectile);
-                
-                // Create a controller of the projectile
-                //TankProjectileManager projectileManager = new TankProjectileManager(projectileModel,
-                                                            //projectileSpatial, physicsSpace);*/
-
             }
         }
         //boolean isMoving = left || right || up || down;

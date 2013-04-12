@@ -1,12 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel.gameEntity.Vehicle;
 
 import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Projectile.IProjectile;
-import GameModel.gameEntity.Weapon.IWeapon;
 import java.util.List;
 
 
@@ -137,18 +133,6 @@ public interface IArmedVehicle {
      * @param powerup The powerup to add in powerupSlot
      */
     void setPowerup(EPowerup powerup);
-    
-    /**
-     *
-     * @param model
-     */
-    void setWeaponModel(IWeapon model);
-    
-    /**
-     *
-     * @return
-     */
-    IWeapon getWeaponModel();
 
     /**
      * 

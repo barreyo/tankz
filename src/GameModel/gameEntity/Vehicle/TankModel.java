@@ -4,7 +4,6 @@ import GameModel.IObservable;
 import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Powerup.PowerupSlot;
 import GameModel.gameEntity.Projectile.IProjectile;
-import GameModel.gameEntity.Weapon.IWeapon;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
@@ -32,7 +31,6 @@ public class TankModel implements IArmedVehicle, IObservable {
     // MAX_BACKWARDS and MAX_FORWARDS should be final, and gotten through constructor
     // Powerups should be handled by player instead of the tank
     private PowerupSlot powerupSlot;
-    private IWeapon weaponModel;
 
     // This is physics-related information about the Tank
     public static final float TANK_STIFFNESS = 80.0f;//200=f1 car
@@ -179,22 +177,6 @@ public class TankModel implements IArmedVehicle, IObservable {
     @Override
     public void decrementSteeringValue(float value) {
         this.steeringValue -= value;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setWeaponModel(IWeapon model) {
-        weaponModel = model;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public IWeapon getWeaponModel() {
-        return weaponModel;
     }
 
     /**
