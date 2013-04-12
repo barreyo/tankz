@@ -194,6 +194,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (!isFirstUpKeyPressDone) {
                     return;
                 }
+                vehicle.brake(vehicleModel.getBrakeForce());
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {

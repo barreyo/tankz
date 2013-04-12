@@ -7,4 +7,10 @@ package GameModel.gameEntity.Powerup;
  */
 public interface IPowerUp {
     
+    /**
+     * Use the powerup.
+     */
+    public void usePowerup();
+    
+    
 }
