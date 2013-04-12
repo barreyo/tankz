@@ -4,7 +4,7 @@ package GameControllers.entitycontrols;
 import App.TanksApp;
 import GameUtilities.TanksInputAdapter;
 import GameView.gameEntity.GameEntityFactory;
-import GameControllers.player.EPlayerInputs;
+import GameModel.Player.EPlayerInputs;
 import GameView.viewPort.VehicleCamera;
 import GameModel.gameEntity.Projectile.IProjectile;
 import GameModel.gameEntity.Projectile.ProjectileModel;
