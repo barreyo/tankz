@@ -1,7 +1,6 @@
 
 package GameModel.gameEntity.Vehicle;
 
-import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Projectile.IProjectile;
 import java.util.List;
 
@@ -68,20 +67,6 @@ public interface IArmedVehicle {
     void setVehicleState(VehicleState state);
     
     /**
-     * Sets acceleration force of vehicle.
-     *
-     * @param force The acceleration force used to accelerate.
-     */
-    void setAccelerationForce(float force);
-    
-    /**
-     * Sets brake force value of vehicle.
-     *
-     * @param force The brake force used to brake
-     */
-    void setBrakeForce(float force);
-    
-    /**
      * Sets steering value of vehicle.
      *
      * @param value The steeringvalue to be set
@@ -119,26 +104,6 @@ public interface IArmedVehicle {
      * @param value that decrements the steering value
      */
     void decrementSteeringValue(float value);
-    
-    /**
-     * Returns the powerup in powerupSlot.
-     * 
-     * @return The powerup contained in powerupSlot
-     */
-    EPowerup getPowerup();
-
-    /**
-     * Sets the powerup in the powerupSlot.
-     * 
-     * @param powerup The powerup to add in powerupSlot
-     */
-    void setPowerup(EPowerup powerup);
-
-    /**
-     * 
-     * @param max 
-     */
-    void setForwardMaxSpeed(float max);
 
     /**
      * Returns the forward max speed in km/h of the vehicle.
@@ -153,12 +118,6 @@ public interface IArmedVehicle {
      * @return the backwards max speed in km/h of the vehicle
      */
     float getBackMaxSpeed();
-    
-    /**
-     * 
-     * @param max
-     */
-    void setBackMaxSpeed(float max);
 
     /**
      * Enum representing different states of the vehicle.

@@ -1,22 +1,16 @@
 package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
-import GameModel.Game.TanksFactory;
-import App.TanksApp;
 import GameControllers.entitycontrols.ControlFactory;
-import GameControllers.entitycontrols.EControls;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameView.gameEntity.GameEntityFactory;
-import GameControllers.logic.ViewPortManager;
 import GameModel.Game.TanksGameModel;
 import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
 import GameUtilities.TankAppAdapter;
 import GameView.gameEntity.EGameEntities;
 import GameView.gameEntity.AGameEntity;
 import GameView.gameEntity.Tank;
 import GameView.graphics.EGraphics;
-import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -57,18 +51,12 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         for (IPlayer player : game.getPlayers()) {
             // Create a tank for each player
             Tank tank1 = (Tank) GameEntityFactory.create(EGameEntities.TANK);
-            // Attach to root node at startpos
+            // Attach to map node at startpos
             tank1.getSpatial().move(10, 2, 10);
-            TankAppAdapter.INSTANCE.attachChildToRootNode(tank1.getSpatial());
-            // Add controls to tank
-            TanksVehicleControl tanksVehicleControl = (TanksVehicleControl)ControlFactory.getControl(EControls.VEHICLE_CONTROL);
-            tank1.addControl(tanksVehicleControl);
+            mapNode.attachChild(tank1.getSpatial());
             
-            // Get the right viewport for the player and enable it
-            ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player);
-            viewPort.setEnabled(true);
-            // Give the tank a refernce to the camera of the viewport
-            tanksVehicleControl.setCamera(viewPort.getCamera());
+            // Add controls to tank
+            TanksVehicleControl tanksVehicleControl = ControlFactory.getTankControl(tank1, player);
             
             allGameEntities.add(tank1);
         }

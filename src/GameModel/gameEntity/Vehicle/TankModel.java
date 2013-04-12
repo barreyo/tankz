@@ -1,13 +1,8 @@
 package GameModel.gameEntity.Vehicle;
 
 import GameModel.IObservable;
-import GameModel.gameEntity.Powerup.EPowerup;
-import GameModel.gameEntity.Powerup.PowerupSlot;
 import GameModel.gameEntity.Projectile.IProjectile;
-import com.jme3.bullet.control.VehicleControl;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.queue.RenderQueue;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
@@ -18,24 +13,23 @@ import java.util.List;
  * @author Daniel
  */
 public class TankModel implements IArmedVehicle, IObservable {
-
+    
     private int health;
     private VehicleState vehicleState;
     
-    private float accelerationForce;
-    private float brakeForce;
     private float steeringValue;
     private float accelerationValue;
-    private float maxForwardSpeed;
-    private float maxBackSpeed;
-    // MAX_BACKWARDS and MAX_FORWARDS should be final, and gotten through constructor
-    // Powerups should be handled by player instead of the tank
-    private PowerupSlot powerupSlot;
-
+    
     // This is physics-related information about the Tank
+    public static final float TANK_MASS = 600.0f;
     public static final float TANK_STIFFNESS = 80.0f;//200=f1 car
     public static final float TANK_COMP_VALUE = 0.2f; //(should be lower than damp)
     public static final float TANK_DAMP_VALUE = 0.5f;
+    public static final float TANK_MAX_FORWARD_SPEED = 80.0f; 
+    public static final float TANK_MAX_BACK_SPEED = 30.0f;
+    public static final float TANK_ACCELERATION_FORCE = 2000.0f;
+    public static final float TANK_BRAKE_FORCE = 10000.0f;
+    public static final float TANK_MAX_SUSPENSION_FORCE = 999000.0f;
 
     //Create four wheels and add them at their locations
     public static final Vector3f TANK_WHEEL_DIRECTION = new Vector3f(0, -1, 0); // was 0, -1, 0
@@ -47,9 +41,6 @@ public class TankModel implements IArmedVehicle, IObservable {
     public static final float TANK_WHEEL_Z_OFF = 1.5f;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    
-    
-    
     
     /**
      * @inheritdoc
@@ -72,7 +63,7 @@ public class TankModel implements IArmedVehicle, IObservable {
      */
     @Override
     public float getAccelerationForce() {
-        return accelerationForce;
+        return TANK_ACCELERATION_FORCE;
     }
 
     /**
@@ -80,7 +71,7 @@ public class TankModel implements IArmedVehicle, IObservable {
      */
     @Override
     public float getBrakeForce() {
-        return brakeForce;
+        return TANK_BRAKE_FORCE;
     }
 
     /**
@@ -113,22 +104,6 @@ public class TankModel implements IArmedVehicle, IObservable {
     @Override
     public void setVehicleState(VehicleState state) {
         this.vehicleState = state;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setAccelerationForce(float force) {
-        this.accelerationForce = force;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setBrakeForce(float force) {
-        this.brakeForce = force;
     }
 
     /**
@@ -183,32 +158,8 @@ public class TankModel implements IArmedVehicle, IObservable {
      * @inheritdoc
      */
     @Override
-    public EPowerup getPowerup() {
-        return powerupSlot.getPowerup();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setPowerup(EPowerup powerup) {
-        powerupSlot.setPowerup(powerup);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setForwardMaxSpeed(float max) {
-        this.maxForwardSpeed = max;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
     public float getForwardMaxSpeed() {
-        return maxForwardSpeed;
+        return TANK_MAX_FORWARD_SPEED;
     }
 
     /**
@@ -216,19 +167,15 @@ public class TankModel implements IArmedVehicle, IObservable {
      */
     @Override
     public float getBackMaxSpeed() {
-        return maxBackSpeed;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setBackMaxSpeed(float max) {
-        this.maxBackSpeed = max;
+        return TANK_MAX_BACK_SPEED;
     }
 
     public void decrementHealth(int hp) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (health - hp < 0) {
+            health = 0;
+        } else {
+            health -= hp;
+        }
     }
 
     public void shoot() {

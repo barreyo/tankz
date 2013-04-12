@@ -4,7 +4,6 @@ import GameControllers.logic.GUIManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.post.FilterPostProcessor;
 import com.jme3.system.AppSettings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +21,6 @@ public class TanksApp extends SimpleApplication {
     
     // Managers
     private BulletAppState bulletAppState;
-    private FilterPostProcessor fpp;
  
     /*
      * Creates a new TanksGame which starts in settings window.
@@ -40,8 +38,6 @@ public class TanksApp extends SimpleApplication {
     @Override
     public void simpleInitApp() {
         tanksApp = this;
-        
-        fpp = new FilterPostProcessor(assetManager);
         
         // Attaching a physics appstate
         bulletAppState = new BulletAppState();
@@ -84,13 +80,5 @@ public class TanksApp extends SimpleApplication {
      */
     public AppSettings getSettings() {
         return settings;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public FilterPostProcessor getFpp() {
-        return fpp;
     }
 }

@@ -1,6 +1,7 @@
 
 package GameControllers.entitycontrols;
 
+import com.jme3.scene.control.Control;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,10 +13,6 @@ import java.util.logging.Logger;
 public enum EControls {
     
     /**
-     * A weapon control.
-     */
-    FIRE_WEAPON_CONTROL(FireWeaponControl.class),
-    /**
      * A tank vehicle control.
      */
     VEHICLE_CONTROL(TanksVehicleControl.class),
@@ -24,9 +21,9 @@ public enum EControls {
      */
     PROJECTILE_CONTROL(TankProjectileControl.class);
 
-    private Class<? extends BaseControl> control;
+    private Class<? extends Control> control;
 
-    EControls(Class<? extends BaseControl> control) {
+    EControls(Class<? extends Control> control) {
         this.control = control;
     }
 
@@ -51,7 +48,7 @@ public enum EControls {
      * 
      * @return The control.
      */
-    public Class<? extends BaseControl> getControl() {
+    public Class<? extends Control> getControl() {
         return control;
     }
 }

@@ -2,6 +2,8 @@
 package GameModel.Player;
 
 import GameModel.IObservable;
+import GameModel.gameEntity.Powerup.EPowerup;
+import GameModel.gameEntity.Powerup.PowerupSlot;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -17,8 +19,7 @@ public class Player implements IPlayer, IObservable {
     private IArmedVehicle vehicle;
     private int kills, deaths;
     private boolean isActive;
-    
-    private static int numberOfActivePlayers;
+    private PowerupSlot powerupSlot;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -70,25 +71,30 @@ public class Player implements IPlayer, IObservable {
     public void activatePlayer(){
         if (!isActive) {
             isActive = true;
-            numberOfActivePlayers++;
         }
     }
     
     public void deactivatePlayer() {
         if (isActive) {
             isActive = false;
-            numberOfActivePlayers--;
         }
     }
     
     /**
-     * Returns the number of active players.
-     * @return the number of active players
+     * @inheritdoc
      */
-    public static int getNumberOfActivePlayers() {
-        return numberOfActivePlayers;
+    @Override
+    public EPowerup getPowerup() {
+        return powerupSlot.getPowerup();
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public void setPowerup(EPowerup powerup) {
+        powerupSlot.setPowerup(powerup);
+    }
 
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);

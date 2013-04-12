@@ -1,6 +1,7 @@
 
 package GameModel.Player;
 
+import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 
 /**
@@ -70,6 +71,17 @@ public interface IPlayer {
      */
     public void deactivatePlayer();
     
-    
-    
+    /**
+     * Returns the powerup in powerupSlot.
+     * 
+     * @return The powerup contained in powerupSlot
+     */
+    EPowerup getPowerup();
+
+    /**
+     * Sets the powerup in the powerupSlot.
+     * 
+     * @param powerup The powerup to add in powerupSlot
+     */
+    void setPowerup(EPowerup powerup);
 }
