@@ -26,7 +26,6 @@ public class TanksApp extends SimpleApplication {
     private static TanksApp tanksApp;
     
     // Managers
-    private UserSettings userSettings;
     private BulletAppState bulletAppState;
     private FilterPostProcessor fpp;
  
@@ -90,14 +89,6 @@ public class TanksApp extends SimpleApplication {
      */
     public AppSettings getSettings() {
         return settings;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public UserSettings getUserSettings() {
-        return userSettings;
     }
 
     /**

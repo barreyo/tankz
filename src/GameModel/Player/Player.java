@@ -1,7 +1,10 @@
 
 package GameModel.Player;
 
+import GameModel.IObservable;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * A representation of a player.
@@ -9,13 +12,15 @@ import GameModel.gameEntity.Vehicle.IArmedVehicle;
  * @author Albin
  * @author Daniel
  */
-public class Player implements IPlayer {
+public class Player implements IPlayer, IObservable {
     private String name;
     private IArmedVehicle vehicle;
     private int kills, deaths;
     private boolean isActive;
     
     private static int numberOfActivePlayers;
+    
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      * Basic contructor for constructing a player
@@ -82,5 +87,14 @@ public class Player implements IPlayer {
      */
     public static int getNumberOfActivePlayers() {
         return numberOfActivePlayers;
+    }
+
+
+    public void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener(l);
+    }
+    
+    public void removeObserver(PropertyChangeListener l) {
+        pcs.removePropertyChangeListener(l);
     }
 }

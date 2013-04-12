@@ -1,7 +1,6 @@
 package GameControllers.logic;
 
 import GameView.physics.ECollisionShapes;
-import GameControllers.logic.IMapRelatedManager;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.PhysicsControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -15,8 +14,6 @@ public enum PhysicsManager implements IMapRelatedManager {
     INSTANCE;
     
     private EnumMap<ECollisionShapes, CollisionShape> collisionShapeMap = new EnumMap<ECollisionShapes, CollisionShape>(ECollisionShapes.class);
-
-    private PhysicsManager() {}
     
     /**
      *

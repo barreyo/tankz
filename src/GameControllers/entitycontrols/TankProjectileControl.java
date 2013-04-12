@@ -1,7 +1,7 @@
 
 package GameControllers.entitycontrols;
 
-import App.TanksApp;
+import GameUtilities.TankAppAdapter;
 import GameView.effects.EEffects;
 import GameView.gameEntity.MissileProjectileEntity;
 import com.jme3.bullet.PhysicsSpace;
@@ -34,7 +34,7 @@ public class TankProjectileControl extends BaseControl implements PhysicsCollisi
      * Creates a tank projectile control.
      */
     public TankProjectileControl() {
-        physicsSpace = TanksApp.getApp().getBulletAppState().getPhysicsSpace();
+        physicsSpace = TankAppAdapter.INSTANCE.getPhysicsSpace();
         physicsSpace.addCollisionListener(this);
         effect = EEffects.EXPLOSION.getEmitter();
     }

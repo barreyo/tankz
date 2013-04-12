@@ -1,12 +1,9 @@
 package GameControllers.logic;
 
-import App.TanksApp;
 import GameView.Sounds.ESounds;
-import GameControllers.logic.IMapRelatedManager;
 import GameModel.Game.UserSettings;
-import com.jme3.asset.AssetManager;
+import GameUtilities.TankAppAdapter;
 import com.jme3.audio.AudioNode;
-import com.jme3.audio.AudioRenderer;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -18,17 +15,11 @@ public enum SoundManager implements IMapRelatedManager {
     INSTANCE;
     
     private EnumMap<ESounds, AudioNode> soundMap;
-    private AudioRenderer audioRenderer;
-    private AssetManager assetManager;
 
     /**
      *
      */
     private SoundManager() {
-        TanksApp app = TanksApp.getApp();
-        audioRenderer = app.getAudioRenderer();
-        assetManager = app.getAssetManager();
-
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
     }
 
@@ -47,7 +38,7 @@ public enum SoundManager implements IMapRelatedManager {
     // loads all sound effects which will be needed for that map
     private void loadSoundEffects(ESounds[] sounds) {
         for (ESounds s : sounds) {
-            AudioNode soundNode = new AudioNode(assetManager, s.path());
+            AudioNode soundNode = new AudioNode(TankAppAdapter.INSTANCE.getAssetManager(), s.path());
             soundMap.put(s, soundNode);
         }
     }
@@ -60,7 +51,7 @@ public enum SoundManager implements IMapRelatedManager {
     public void loadMusic(ESounds[] music) {
         for (ESounds s : music) {
             if (s != null) {
-                AudioNode musicNode = new AudioNode(assetManager, s.path(), true);
+                AudioNode musicNode = new AudioNode(TankAppAdapter.INSTANCE.getAssetManager(), s.path(), true);
                 musicNode.setLooping(true);
                 musicNode.setPositional(false);
                 musicNode.setDirectional(false);
@@ -130,7 +121,7 @@ public enum SoundManager implements IMapRelatedManager {
         AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
-            audioRenderer.pauseSource(audio);
+            TankAppAdapter.INSTANCE.pauseAudioSource(audio);
         }
     }
 

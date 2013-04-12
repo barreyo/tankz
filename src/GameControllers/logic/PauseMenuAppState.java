@@ -1,17 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameControllers.logic;
 
-import App.TanksApp;
-import GameControllers.logic.GUIManager;
-import GameControllers.logic.GameMapManager;
 import GameModel.Game.EGameState;
+import GameUtilities.TankAppAdapter;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.input.InputManager;
 import com.jme3.math.Vector2f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
@@ -31,8 +24,6 @@ import de.lessvoid.nifty.tools.Color;
  */
 public class PauseMenuAppState extends AbstractAppState implements ScreenController {
     
-    private TanksApp app;
-    private InputManager inputManager;
     private Nifty nifty;
     private Element currentElement;
     private SoundHandle sound;
@@ -44,10 +35,8 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *  Create a pause menu app state.
      */
     public PauseMenuAppState() {
-        app = TanksApp.getApp();
-        inputManager = app.getInputManager();
-        niftyDisplay = new NiftyJmeDisplay(app.getAssetManager(),
-                      inputManager, app.getAudioRenderer(), app.getGuiViewPort());
+        niftyDisplay = new NiftyJmeDisplay(TankAppAdapter.INSTANCE.getAssetManager(),
+                      TankAppAdapter.INSTANCE.getInputManager(), TankAppAdapter.INSTANCE.getAudioRenderer(), TankAppAdapter.INSTANCE.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
         nifty.registerScreenController(this);
         nifty.fromXml("Interface/Nifty/PauseMenu.xml", "pause", this);
@@ -74,7 +63,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
         removeDesktopInputs();
-        app.getGuiViewPort().removeProcessor(niftyDisplay);
+        TankAppAdapter.INSTANCE.removeGuiViewProcessor(niftyDisplay);
     }
 
     /**
@@ -162,9 +151,8 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void showPauseMenu() {
         // attach the nifty display to the gui view port as a processor
-        app.getGuiViewPort().addProcessor(niftyDisplay);
-
-        inputManager.setCursorVisible(true);
+        TankAppAdapter.INSTANCE.addGuiViewProcessor(niftyDisplay);
+        TankAppAdapter.INSTANCE.setCursorVisible(true);
         nifty.gotoScreen("pause");
     }
 
@@ -173,8 +161,8 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void resume() {
         EGameState.setGameState(EGameState.RUNNING);
-        inputManager.setCursorVisible(false);
-        app.getStateManager().detach(this);
+        TankAppAdapter.INSTANCE.setCursorVisible(false);
+        TankAppAdapter.INSTANCE.detachAppState(this);
     }
 
     /**
@@ -183,7 +171,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     public void restart() {
         EGameState.setGameState(EGameState.RUNNING);
         GameMapManager.INSTANCE.restartMap();
-        app.getStateManager().detach(this);
+        TankAppAdapter.INSTANCE.detachAppState(this);
         /* remove this later */
         //app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
     }
@@ -197,13 +185,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     /**
      *
      */
-    public void showOptionsScreen() {
-    }
-
-    /**
-     *
-     */
     public void exit() {
-        app.stop();
+        TankAppAdapter.INSTANCE.stop();
     }
 }

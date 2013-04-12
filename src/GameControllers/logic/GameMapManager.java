@@ -3,8 +3,9 @@ package GameControllers.logic;
 import App.TanksApp;
 import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
-import GameView.Map.IGameMap;
-import GameView.Map.GameMap1;
+import GameUtilities.TankAppAdapter;
+import GameView.Map.IGameWorld;
+import GameView.Map.GameWorld1;
 
 
 /**
@@ -14,10 +15,8 @@ import GameView.Map.GameMap1;
  */
 public enum GameMapManager implements IMapRelatedManager {
     INSTANCE;
-
-    private TanksApp app;
     
-    private IGameMap currentGameMap;
+    private IGameWorld currentGameMap;
     private int currentIntGameMap;
     private static final int NUMBER_OF_MAPS = 1; 
 
@@ -25,7 +24,6 @@ public enum GameMapManager implements IMapRelatedManager {
      * Creates a manager for game maps.
      */
     private GameMapManager() {
-        app = TanksApp.getApp();
         currentIntGameMap = 1;
     }
 
@@ -49,7 +47,7 @@ public enum GameMapManager implements IMapRelatedManager {
      *
      * @return
      */
-    public IGameMap getCurrentMap() {
+    public IGameWorld getCurrentMap() {
         return currentGameMap;
     }
 
@@ -68,7 +66,7 @@ public enum GameMapManager implements IMapRelatedManager {
 
         switch (gameMap) {
             case 1:
-                currentGameMap = new GameMap1(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
+                currentGameMap = new GameWorld1(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
                 break;
         }
         
@@ -79,7 +77,7 @@ public enum GameMapManager implements IMapRelatedManager {
         cleanup();
 
         //this calls currentGameMap.load() inside
-        app.getStateManager().attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     public void loadNextMap() {
@@ -90,7 +88,7 @@ public enum GameMapManager implements IMapRelatedManager {
         }
 
         cleanup();
-        app.getStateManager().attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     public void loadPreviousMap() {
@@ -101,7 +99,7 @@ public enum GameMapManager implements IMapRelatedManager {
         }
 
         cleanup();
-        app.getStateManager().attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     @Override

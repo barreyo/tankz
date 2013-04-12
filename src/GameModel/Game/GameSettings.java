@@ -1,15 +1,21 @@
 
 package GameModel.Game;
 
+import GameModel.IObservable;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 /**
  * Representation of the rules.
  * 
  * @author perthoresson
  */
-public class GameSettings {
+public class GameSettings implements IObservable {
     
     private float gameTime;
     private int killsToWin;
+    
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      * Basic constructor.
@@ -53,6 +59,15 @@ public class GameSettings {
      */
     public int killsToWin(){
         return killsToWin;
+    }
+
+    
+    public void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener(l);
+    }
+
+    public void removeObserver(PropertyChangeListener l) {
+        pcs.removePropertyChangeListener(l);
     }
     
 }

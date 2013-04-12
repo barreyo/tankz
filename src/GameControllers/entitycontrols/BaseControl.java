@@ -1,10 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameControllers.entitycontrols;
 
-import App.TanksApp;
 import GameModel.Game.EGameState;
 import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;

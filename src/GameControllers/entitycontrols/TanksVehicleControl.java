@@ -2,7 +2,6 @@
 package GameControllers.entitycontrols;
 
 import App.TanksApp;
-import GameUtilities.TanksInputAdapter;
 import GameView.gameEntity.GameEntityFactory;
 import GameModel.Player.EPlayerInputs;
 import GameView.viewPort.VehicleCamera;
@@ -10,13 +9,13 @@ import GameModel.gameEntity.Projectile.IProjectile;
 import GameModel.gameEntity.Projectile.ProjectileModel;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameModel.gameEntity.Vehicle.TankModel;
+import GameUtilities.TankAppAdapter;
 import GameView.gameEntity.Tank;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.EGameEntities;
 import GameView.viewPort.VehicleCameraFactory;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.control.VehicleControl;
-import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Matrix3f;
@@ -38,8 +37,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
     
     // Variables needed to fire projectiles
     private IProjectile projectileModel;
-    private PhysicsSpace physicsSpace;
-    private Node rootNode;
  
     // Cam to be set up behind Vehicle
     private VehicleCamera chaseCam;
@@ -57,9 +54,6 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
      * Creates a control for a tank vehicle.
      */
     public TanksVehicleControl() {    
-        
-        physicsSpace = TanksApp.getApp().getBulletAppState().getPhysicsSpace();
-        rootNode = TanksApp.getApp().getRootNode();
         projectileModel = new ProjectileModel(10, 0.001f);
         
         // Create a model for the vehicle
@@ -203,7 +197,7 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
                 projectile.setLocalRotation(spatial.getWorldRotation());
                 projectileEntity.finalise();
                 // Attach to world and phsysicsSpace
-                rootNode.attachChild(projectile);
+                TankAppAdapter.INSTANCE.attachChildToRootNode(projectile);
                 
                 /*
                 // Get a projectilespatial and translate it to weapon
@@ -274,14 +268,14 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         shoot = "" + shootI;
         
         // Adds the mappings to inputmanager
-        TanksInputAdapter.INSTANCE.addMapping(turnLeft, new KeyTrigger(left));
-        TanksInputAdapter.INSTANCE.addMapping(turnRight, new KeyTrigger(right));
-        TanksInputAdapter.INSTANCE.addMapping(accelerateForward, new KeyTrigger(up));
-        TanksInputAdapter.INSTANCE.addMapping(accelerateBack, new KeyTrigger(down));
-        TanksInputAdapter.INSTANCE.addMapping(reset, new KeyTrigger(resetI));
-        TanksInputAdapter.INSTANCE.addMapping(shoot, new KeyTrigger(shootI));
+        TankAppAdapter.INSTANCE.addInputMapping(turnLeft, new KeyTrigger(left));
+        TankAppAdapter.INSTANCE.addInputMapping(turnRight, new KeyTrigger(right));
+        TankAppAdapter.INSTANCE.addInputMapping(accelerateForward, new KeyTrigger(up));
+        TankAppAdapter.INSTANCE.addInputMapping(accelerateBack, new KeyTrigger(down));
+        TankAppAdapter.INSTANCE.addInputMapping(reset, new KeyTrigger(resetI));
+        TankAppAdapter.INSTANCE.addInputMapping(shoot, new KeyTrigger(shootI));
         // Registers this as an listener for the specified mappingnames
-        TanksInputAdapter.INSTANCE.addListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot);
+        TankAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot);
         
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
@@ -291,13 +285,13 @@ public class TanksVehicleControl extends BaseControl implements ActionListener {
         if (inputs == null) {
             return;
         }
-        TanksInputAdapter.INSTANCE.deleteMapping(turnLeft);
-        TanksInputAdapter.INSTANCE.deleteMapping(turnRight);
-        TanksInputAdapter.INSTANCE.deleteMapping(accelerateForward);
-        TanksInputAdapter.INSTANCE.deleteMapping(accelerateBack);
-        TanksInputAdapter.INSTANCE.deleteMapping(reset);
-        TanksInputAdapter.INSTANCE.deleteMapping(shoot);
-        TanksInputAdapter.INSTANCE.removeListener(this);
+        TankAppAdapter.INSTANCE.deleteInputMapping(turnLeft);
+        TankAppAdapter.INSTANCE.deleteInputMapping(turnRight);
+        TankAppAdapter.INSTANCE.deleteInputMapping(accelerateForward);
+        TankAppAdapter.INSTANCE.deleteInputMapping(accelerateBack);
+        TankAppAdapter.INSTANCE.deleteInputMapping(reset);
+        TankAppAdapter.INSTANCE.deleteInputMapping(shoot);
+        TankAppAdapter.INSTANCE.removeInputListener(this);
 
         inputs.setInUse(false);
     }

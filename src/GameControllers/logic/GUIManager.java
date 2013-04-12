@@ -1,10 +1,6 @@
 package GameControllers.logic;
 
-import App.TanksApp;
-import GameUtilities.TanksInputAdapter;
-import GameUtilities.TanksAssetAdapter;
-import GameControllers.logic.IMapRelatedManager;
-import com.jme3.app.state.AppStateManager;
+import GameUtilities.TankAppAdapter;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -18,9 +14,7 @@ import de.lessvoid.nifty.Nifty;
  */
 public enum GUIManager {
     INSTANCE;
-    
-    private TanksApp app;
-    private AppStateManager stateManager;
+
     private Nifty nifty;
     private final float GUI_WIDTH;
     private final Vector2f powerupSlotHUDPosition;
@@ -29,20 +23,19 @@ public enum GUIManager {
      *
      */
     private GUIManager() {
-        app = TanksApp.getApp();
         initialiseNifty();
-        stateManager = app.getStateManager();
-        GUI_WIDTH = app.getSettings().getWidth() * 0.15f;
-        powerupSlotHUDPosition = new Vector2f(
-                app.getSettings().getWidth() * 0.2f, app.getSettings().getHeight() * 0.05f);
+        GUI_WIDTH = TankAppAdapter.INSTANCE.getSettings().getWidth() * 0.15f;
+        powerupSlotHUDPosition = new Vector2f(TankAppAdapter.INSTANCE.getSettings().getWidth() * 0.2f, 
+                TankAppAdapter.INSTANCE.getSettings().getHeight() * 0.05f);
     }
     
     private void initialiseNifty() {
-        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(TanksAssetAdapter.INSTANCE.getAssetManager(),
-        TanksInputAdapter.INSTANCE.getInputManager(), app.getAudioRenderer(), app.getGuiViewPort());
+        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(TankAppAdapter.INSTANCE.getAssetManager(),
+                TankAppAdapter.INSTANCE.getInputManager(), TankAppAdapter.INSTANCE.getAudioRenderer(), 
+                TankAppAdapter.INSTANCE.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
         nifty.enableAutoScaling(1280, 720);
-        app.getGuiViewPort().addProcessor(niftyDisplay);
+        TankAppAdapter.INSTANCE.addGuiViewProcessor(niftyDisplay);
         //nifty.setDebugOptionPanelColors(true);
     }
     
@@ -50,21 +43,21 @@ public enum GUIManager {
      *
      */
     public void showMainMenu() {
-        stateManager.attach(TanksAppStateFactory.getAppState(MenuAppState.class));
+        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(MenuAppState.class));
     }
 
     /**
      *
      */
     public void showLoadingScreen() {
-        stateManager.attach(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
     
     /**
      *
      */
     public void showPauseMenu() {
-        stateManager.attach(TanksAppStateFactory.getAppState(PauseMenuAppState.class));
+        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(PauseMenuAppState.class));
     }
     
     /**
@@ -106,13 +99,13 @@ public enum GUIManager {
 
     private void createBorder(Vector2f position) {
         border = new Picture("border");
-        border.setImage(app.getAssetManager(), "Interface/inventoryBorder.png", true);
+        border.setImage(TankAppAdapter.INSTANCE.getAssetManager(), "Interface/inventoryBorder.png", true);
 
         border.setWidth(GUI_WIDTH);
         border.setHeight(GUI_WIDTH);
 
         border.setPosition(position.getX(), position.getY());
-        app.getGuiNode().attachChild(border);
+        TankAppAdapter.INSTANCE.attachChildToGUINode(border);
     }
 
     /**
@@ -126,11 +119,11 @@ public enum GUIManager {
         for (int i = 0, length = 3; i < length; i++) {
 
             Vector2f position = powerupSlotHUDPosition.clone();
-            position.setX(position.getX() + (GUI_WIDTH * i) + (app.getSettings().getWidth() * 0.08f * i));
+            position.setX(position.getX() + (GUI_WIDTH * i) + (TankAppAdapter.INSTANCE.getSettings().getWidth() * 0.08f * i));
             createBorder(position);
         }
 
-        app.getGuiNode().attachChild(products);
+        TankAppAdapter.INSTANCE.attachChildToGUINode(products);
     }
 
     // between 0 and 2
@@ -148,22 +141,5 @@ public enum GUIManager {
         }
 
         // find the position to put the image
-    }
-    
-    
-
-    /**
-     *
-     * @param level
-     */
-    public void load() {
-        //load any nifty effects and uiImages on the screen
-    }
-
-    /**
-     *
-     */
-    public void cleanup() {
-       app.getGuiNode();
     }
 }

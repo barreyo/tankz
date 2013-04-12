@@ -1,19 +1,15 @@
 package GameControllers.logic;
 
-import App.TanksApp;
-import GameUtilities.TanksAssetAdapter;
 import GameModel.Game.EGameState;
+import GameUtilities.TankAppAdapter;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.asset.AssetManager;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.BloomFilter;
 import com.jme3.post.filters.DepthOfFieldFilter;
-import com.jme3.post.filters.LightScatteringFilter;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.util.SkyFactory;
@@ -25,16 +21,12 @@ import com.jme3.util.SkyFactory;
  */
 public class CommonMapAppState extends AbstractAppState {
   
-    private TanksApp app;
-    private Node rootNode;
-    private Vector3f lightDir = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
+    private static final Vector3f LIGHT_DIR = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
     
     /**
      * Creates a new common map appstate.
      */
     public CommonMapAppState() {
-        app = TanksApp.getApp();
-        rootNode = app.getRootNode();
         loadCommon();
     }
 
@@ -42,22 +34,21 @@ public class CommonMapAppState extends AbstractAppState {
      * Loads the common functionality and visuality of maps.
      */
     private void loadCommon() {
-        
         Node mainScene = new Node("Main Scene");
-        rootNode.attachChild(mainScene);
+        TankAppAdapter.INSTANCE.attachChildToRootNode(mainScene);
         
         DirectionalLight sun = new DirectionalLight();
-        sun.setDirection(lightDir);
+        sun.setDirection(LIGHT_DIR);
         sun.setColor(ColorRGBA.White.clone().multLocal(1.7f));
-        rootNode.addLight(sun);
+        TankAppAdapter.INSTANCE.addLightToRootNode(sun);
         
-        Spatial sky = SkyFactory.createSky(TanksAssetAdapter.INSTANCE.getAssetManager(), 
+        Spatial sky = SkyFactory.createSky(TankAppAdapter.INSTANCE.getAssetManager(), 
                                         "Scenes/FullskiesSunset0068.dds", false);
         sky.setLocalScale(350);
         
         mainScene.attachChild(sky);
         
-        FilterPostProcessor fpp = app.getFpp();
+        FilterPostProcessor fpp = new FilterPostProcessor(TankAppAdapter.INSTANCE.getAssetManager());
         /* Disabled for performance atm
         BloomFilter bloom = new BloomFilter();
         
@@ -75,7 +66,7 @@ public class CommonMapAppState extends AbstractAppState {
         dof.setFocusRange(100);
         fpp.addFilter(dof);
         
-        app.getViewPort().addProcessor(fpp);
+        TankAppAdapter.INSTANCE.addViewPortProcessor(fpp);
     }
     
     /**
