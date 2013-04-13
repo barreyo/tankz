@@ -1,7 +1,7 @@
 package GameModel.gameEntity.Vehicle;
 
 import GameModel.IObservable;
-import GameModel.gameEntity.Projectile.IProjectile;
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -182,7 +182,7 @@ public class TankModel implements IArmedVehicle, IObservable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<IProjectile> getFiredProjetiles() {
+    public List<IExplodingProjectile> getFiredProjetiles() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

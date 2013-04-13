@@ -1,11 +1,13 @@
 package GameUtilities;
 
 import App.TanksApp;
+import GameControllers.entitycontrols.MissileControl;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
@@ -167,5 +169,9 @@ public enum TankAppAdapter {
 
     public void removeFromPhysicsSpace(Object obj) {
         tanksApp.getBulletAppState().getPhysicsSpace().remove(obj);
+    }
+
+    public void addPhysiscsCollisionListener(PhysicsCollisionListener listener) {
+        tanksApp.getBulletAppState().getPhysicsSpace().addCollisionListener(listener);
     }
 }

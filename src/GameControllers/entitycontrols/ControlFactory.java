@@ -3,11 +3,19 @@ package GameControllers.entitycontrols;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameModel.gameEntity.Vehicle.TankModel;
+import GameUtilities.TankAppAdapter;
+import GameView.gameEntity.EGameEntities;
+import GameView.gameEntity.GameEntityFactory;
 import GameView.gameEntity.IGameEntity;
+import GameView.gameEntity.MissileProjectileEntity;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.control.Control;
@@ -20,18 +28,6 @@ import com.jme3.scene.control.Control;
 public final class ControlFactory {
     
     private ControlFactory() {}
-   
-    /**
-     *
-     * @param tanksControl 
-     * @return
-     */
-    public static Control getControl(EControls tanksControl) {
-        if (tanksControl != null) {
-            return tanksControl.createControl();
-        }
-        return null;
-    }
     
     public static TanksVehicleControl getTankControl(IGameEntity entity, IPlayer player) {
         CompoundCollisionShape compoundShape = new CompoundCollisionShape();
@@ -78,5 +74,22 @@ public final class ControlFactory {
         vehicle.setCamera(viewPort.getCamera());
         
         return vehicle;
+    }
+    
+    public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation) {
+        IExplodingProjectile projectileModel = new MissileModel(position, direction, rotation);
+        
+        MissileProjectileEntity projectileEntity = (MissileProjectileEntity) GameEntityFactory.create(EGameEntities.MISSILE_PROJECTILE);
+        projectileEntity.setModel(projectileModel);
+        
+        MissileControl control = new MissileControl(projectileEntity, projectileModel);
+        
+        control.setCcdMotionThreshold(0.1f);
+        control.setKinematic(true);
+        
+        TankAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+        TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
+        
+        projectileEntity.addControl(control);
     }
 }

@@ -1,14 +1,16 @@
 
 package GameView.gameEntity;
 
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameUtilities.TankAppAdapter;
+import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.export.JmeExporter;
-import com.jme3.export.JmeImporter;
-import com.jme3.export.Savable;
-import com.jme3.math.Vector3f;
-import java.io.IOException;
+import com.jme3.effect.ParticleEmitter;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 
 /**
@@ -16,13 +18,15 @@ import java.io.IOException;
  *
  * @author Daniel
  */
-public class MissileProjectileEntity extends AGameEntity implements Savable {
-    private Vector3f direction;
+public class MissileProjectileEntity extends AGameEntity{
+    private IExplodingProjectile projectile;
+    private ParticleEmitter effect;
+    
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public MissileProjectileEntity() {
         super(EGraphics.SHARK);
-        // Add this instance as user data to the spatial
-        spatial.setUserData("entity", this);
+        effect = EEffects.EXPLOSION.getEmitter();
     }
     
     /**
@@ -38,35 +42,84 @@ public class MissileProjectileEntity extends AGameEntity implements Savable {
      */
     @Override
     public void cleanup() {
-        // LÖS
-        /*projectileControl.cleanup();
-        //bulletAppState.getPhysicsSpace().remove(vehicle);
-        spatial.removeControl(projectileControl);*/
+        if (spatial.getParent() != null) {
+            // Remove ourself from world
+            spatial.removeFromParent();
+            projectile.removeObserver(this);
+        }
     }
 
-    /**
-     * Returns the direction this missile is facing.
-     * 
-     * @return The direction this missile is facing
-     */
-    public Vector3f getDirection() {
-        return direction;
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(IExplodingProjectile.NEW_POS)) {
+            updatePosition();
+        } else if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
+            // Pass on
+            pcs.firePropertyChange(evt);
+            // Clean up
+            cleanup();
+        } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
+            // Remove effect from world
+            effect.removeFromParent();
+            // Pass on
+            pcs.firePropertyChange(evt);
+            projectile.removeObserver(this);
+        } else if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
+            impact();
+        }
     }
     
-    /**
-     * Sets the direction of the missile.
-     * 
-     * @param direction sets the direcetion this missile is facing
-     */
-    public void setDirection(Vector3f direction) {
-        this.direction = direction;
+    private void impact() {
+        showEffect();
+        // Remove projectile from world
+        spatial.removeFromParent();
+    }
+    
+     private void showEffect() {
+        if (effect != null && spatial.getParent() != null) {
+            effect.setLocalTranslation(spatial.getLocalTranslation());
+            spatial.getParent().attachChild(effect);
+            effect.emitAllParticles();
+        }
     }
 
-    public void write(JmeExporter ex) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public IExplodingProjectile getModel() {
+       return projectile;
+    }
+    
+    public ParticleEmitter getEffect() {
+        return effect;
     }
 
-    public void read(JmeImporter im) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setModel(IExplodingProjectile proj) {
+        if (projectile != null) {
+            projectile.removeObserver(this);
+        }
+        projectile = proj;
+        if (projectile != null) {
+            projectile.addObserver(this);
+        }
+        updatePosition();
+        updateRotation();
+        attachToRootNode();
+    }
+    
+    private void updatePosition() {
+        spatial.setLocalTranslation(projectile.getPosition());
+    }
+    
+    private void updateRotation() {
+        spatial.setLocalRotation(projectile.getRotation());
+    }
+    
+    private void attachToRootNode() {
+        TankAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+    }
+
+    public void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener(l);
+    }
+
+    public void removeObserver(PropertyChangeListener l) {
+        pcs.removePropertyChangeListener(l);
     }
 }

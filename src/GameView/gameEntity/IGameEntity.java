@@ -1,16 +1,18 @@
 package GameView.gameEntity;
 
+import GameModel.IObservable;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
+import java.beans.PropertyChangeListener;
 
 /**
  *
  * @author Daniel
  */
-public interface IGameEntity {
+public interface IGameEntity extends PropertyChangeListener, IObservable {
     
     /**
      * Returns a collisionshape of this game entity.

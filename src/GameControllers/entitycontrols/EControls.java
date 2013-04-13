@@ -19,28 +19,12 @@ public enum EControls {
     /**
      * A tank projectile control.
      */
-    PROJECTILE_CONTROL(TankProjectileControl.class);
+    MISSILE_CONTROL(MissileControl.class);
 
     private Class<? extends Control> control;
 
     EControls(Class<? extends Control> control) {
         this.control = control;
-    }
-
-    /**
-     * Returns a new instance of the control.
-     * 
-     * @return A new instance of the control.
-     */
-    public BaseControl createControl() {
-        try {  
-            return (BaseControl) control.newInstance();
-        } catch (InstantiationException ex) {
-            Logger.getLogger(EControls.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(EControls.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 
     /**

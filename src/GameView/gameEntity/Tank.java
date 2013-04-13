@@ -12,6 +12,8 @@ import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
 import com.jme3.renderer.queue.RenderQueue;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 /**
@@ -71,5 +73,17 @@ public class Tank extends AGameEntity implements Savable {
     @Override
     public void read(JmeImporter e) throws IOException {
         InputCapsule capsule = e.getCapsule(this);
+    }
+
+    public void propertyChange(PropertyChangeEvent evt) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void addObserver(PropertyChangeListener l) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void removeObserver(PropertyChangeListener l) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

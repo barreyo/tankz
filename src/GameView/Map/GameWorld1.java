@@ -46,7 +46,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
         TankAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
         TankAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
-//        app.getBulletAppState().getPhysicsSpace().enableDebug(app.getAssetManager());
+        TankAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TankAppAdapter.INSTANCE.getAssetManager());
         
         for (IPlayer player : game.getPlayers()) {
             // Create a tank for each player

@@ -2,16 +2,15 @@
 package GameControllers.entitycontrols;
 
 import GameView.gameEntity.GameEntityFactory;
-import GameControllers.player.EPlayerInputs;
 import GameModel.Game.EGameState;
+import GameModel.Player.EPlayerInputs;
 import GameModel.Player.IPlayer;
 import GameView.viewPort.VehicleCamera;
-import GameModel.gameEntity.Projectile.IProjectile;
-import GameModel.gameEntity.Projectile.ProjectileModel;
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameUtilities.TankAppAdapter;
 import GameView.GUI.FloatingNameControl;
-import GameView.gameEntity.Tank;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.EGameEntities;
 import GameView.gameEntity.IGameEntity;
@@ -41,8 +40,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     // The player controlling
     private IPlayer player;
    
-    // Variables needed to fire projectiles
-    private IProjectile projectileModel;
+    // Variables needed to fire projectile
     
     // Cam to be set up behind Vehicle
     private VehicleCamera chaseCam;
@@ -52,9 +50,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      */
     public TanksVehicleControl(CollisionShape shape, float mass, IGameEntity entity, IPlayer player) {  
         super(shape, mass);
-        
-        // TODO remove (use factory)
-        projectileModel = new ProjectileModel(10, 0.001f);
         
         // Save references to model, view and player
         this.entity = entity;
@@ -189,12 +184,13 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (!isFirstUpKeyPressDone) {
                     isFirstUpKeyPressDone = true;
                 }
+                this.brake(0f);
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
             } else {
                 if (!isFirstUpKeyPressDone) {
                     return;
                 }
-                vehicle.brake(vehicleModel.getBrakeForce());
+                this.brake(10.0f);
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             }
         } else if (name.equals(accelerateBack)) {
@@ -202,16 +198,14 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (!isFirstDownKeyPressDone) {
                     isFirstDownKeyPressDone = true;
                 }
-                // TODO ny input för bromsning?
-                //vehicle.brake(vehicleModel.getBrakeForce());
+                this.brake(0f);
                 vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
             } else {
                 if (!isFirstDownKeyPressDone) {
                     return;
                 }
+                this.brake(10.0f);
                 vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce()); 
-                
-                //vehicle.brake(0f);
             }
         } else if (name.equals(reset)) {
             if (isPressed) {
@@ -220,20 +214,12 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 this.setPhysicsRotation(new Matrix3f());
                 this.setLinearVelocity(Vector3f.ZERO);
                 this.setAngularVelocity(Vector3f.ZERO);
-                vehicle.resetSuspension();
+                this.resetSuspension();
             }
         } else if (name.equals(shoot)) {
             if (!isPressed) {
-                
-                MissileProjectileEntity projectileEntity = (MissileProjectileEntity) GameEntityFactory.create(EGameEntities.MISSILE_PROJECTILE);
-                projectileEntity.setDirection(this.getForwardVector(null));
-                Spatial projectile = projectileEntity.getSpatial();
-                projectile.setLocalTranslation(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(this.getForwardVector(null).multLocal(3f)));
-                projectile.setLocalRotation(spatial.getWorldRotation());
-                TankProjectileControl projectileControl = (TankProjectileControl)ControlFactory.getControl(EControls.PROJECTILE_CONTROL);
-                projectileEntity.addControl(projectileControl);
-                // Attach to world and phsysicsSpace
-                TankAppAdapter.INSTANCE.attachChildToRootNode(projectile);
+                ControlFactory.createNewMissile(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(this.getForwardVector(null).multLocal(3f)),
+                                this.getForwardVector(null), spatial.getWorldRotation());
             }
         }
         //boolean isMoving = left || right || up || down;

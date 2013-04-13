@@ -1,7 +1,7 @@
 
 package GameModel.gameEntity.Vehicle;
 
-import GameModel.gameEntity.Projectile.IProjectile;
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import java.util.List;
 
 
@@ -150,6 +150,6 @@ public interface IArmedVehicle {
     /**
      * Returns the projectiles this vehicle has fired, that still exists
      */
-    public List<IProjectile> getFiredProjetiles();
+    public List<IExplodingProjectile> getFiredProjetiles();
     
 }

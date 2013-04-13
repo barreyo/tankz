@@ -50,7 +50,7 @@ public class FloatingNameControl extends AbstractControl {
     @Override
     protected void controlUpdate(float tpf) {
         // Update text location
-        System.out.println("DEBUG");
+        //System.out.println("DEBUG");
         //text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
     }
 
