@@ -1,10 +1,8 @@
 
 package GameView.gameEntity;
 
-import GameControllers.logic.SoundManager;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameUtilities.TankAppAdapter;
-import GameView.Sounds.ESounds;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -14,21 +12,22 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-
 /**
  * A missile projectile.
  *
  * @author Daniel
  */
-public class MissileProjectileEntity extends AGameEntity{
+public final class MissileProjectileEntity extends AGameEntity{
     private IExplodingProjectile projectile;
-    private ParticleEmitter effect;
+    private final ParticleEmitter effect;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public MissileProjectileEntity() {
+    public MissileProjectileEntity(IExplodingProjectile proj) {
         super(EGraphics.SHARK);
         effect = EEffects.EXPLOSION.getEmitter();
+        
+        setModel(proj);
     }
     
     /**
@@ -47,8 +46,8 @@ public class MissileProjectileEntity extends AGameEntity{
         if (spatial.getParent() != null) {
             // Remove ourself from world
             spatial.removeFromParent();
-            projectile.removeObserver(this);
         }
+        projectile.removeObserver(this);
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
@@ -60,24 +59,24 @@ public class MissileProjectileEntity extends AGameEntity{
             // Clean up
             cleanup();
         } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
-            // Remove effect from world
-            effect.removeFromParent();
+            if (effect.getParent() != null) {
+                // Remove effect from world
+                effect.removeFromParent();
+            }
             // Pass on
             pcs.firePropertyChange(evt);
             projectile.removeObserver(this);
         } else if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
-            //Pass on to SoundManager.
-            pcs.addPropertyChangeListener(SoundManager.INSTANCE);
-            pcs.firePropertyChange(evt);
-            pcs.removePropertyChangeListener(SoundManager.INSTANCE);
             impact();
         }
     }
     
     private void impact() {
         showEffect();
-        // Remove projectile from world
-        spatial.removeFromParent();
+        if (spatial.getParent() != null) {
+            // Remove projectile from world
+            spatial.removeFromParent();
+        }
     }
     
      private void showEffect() {
@@ -98,7 +97,7 @@ public class MissileProjectileEntity extends AGameEntity{
 
     public void setModel(IExplodingProjectile proj) {
         if (projectile != null) {
-            projectile.removeObserver(this);
+            this.cleanup();
         }
         projectile = proj;
         if (projectile != null) {
@@ -124,7 +123,7 @@ public class MissileProjectileEntity extends AGameEntity{
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
-    
+
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }

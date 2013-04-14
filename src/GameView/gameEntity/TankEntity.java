@@ -21,12 +21,12 @@ import java.io.IOException;
  * 
  * @author Daniel
  */
-public class Tank extends AGameEntity implements Savable {
+public class TankEntity extends AGameEntity implements Savable {
 
     /**
      * Creates a tank game entity.
      */
-    public Tank() {
+    public TankEntity() {
         super(EGraphics.TANK);
         // Save this as user data for the spatial -> ie if you can access the spatial
         // you can access this.

@@ -2,22 +2,16 @@
 package GameControllers.entitycontrols;
 
 import GameControllers.logic.SoundManager;
-import GameView.gameEntity.GameEntityFactory;
 import GameModel.Game.EGameState;
 import GameModel.Player.EPlayerInputs;
 import GameModel.Player.IPlayer;
 import GameView.viewPort.VehicleCamera;
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
-import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameUtilities.TankAppAdapter;
 import GameView.GUI.FloatingNameControl;
 import GameView.Sounds.ESounds;
-import GameView.gameEntity.MissileProjectileEntity;
-import GameView.gameEntity.EGameEntities;
 import GameView.gameEntity.IGameEntity;
 import GameView.viewPort.VehicleCameraFactory;
-import com.jme3.audio.AudioNode;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
