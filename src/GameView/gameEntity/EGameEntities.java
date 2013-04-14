@@ -15,7 +15,11 @@ public enum EGameEntities {
     /**
      * The missile projectile game entity.
      */
-    MISSILE_PROJECTILE;
+    MISSILE_PROJECTILE,
+    /**
+     * The poweruop game entity.
+     */
+    POWERUP;
     
     /**
      * Returns an instance of the apropriate game enitity.
@@ -31,6 +35,9 @@ public enum EGameEntities {
                 break;
             case MISSILE_PROJECTILE:
                 entity = new MissileProjectileEntity();
+                break;
+            case POWERUP:
+                entity = new PowerupEntity();
                 break;
             default:
                 entity = new Tank();

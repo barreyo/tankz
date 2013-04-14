@@ -4,6 +4,7 @@ import GameModel.Game.EGameState;
 import GameModel.Game.UserSettings;
 import GameUtilities.TankAppAdapter;
 import GameView.GUI.PowerupSlotView;
+import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
