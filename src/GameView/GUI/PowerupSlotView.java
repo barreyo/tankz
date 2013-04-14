@@ -1,8 +1,8 @@
 
 package GameView.GUI;
 
+import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.EPowerup;
 import GameUtilities.TankAppAdapter;
 import com.jme3.asset.AssetManager;
@@ -24,39 +24,63 @@ public class PowerupSlotView implements PropertyChangeListener {
     private Picture powerupIcon;
     private AssetManager assetManager = TankAppAdapter.INSTANCE.getAssetManager();
     
+    /**
+     * Instantiate a gui representation of the powerups. 
+     * 
+     * @param player which player's powerup that should be shown.
+     * @param vp the viewport of the player.
+     */
     public PowerupSlotView(IPlayer player, ViewPort vp) {
         this.vp = vp;
         this.player = player;
         powerupIcon = new Picture("PowerupSlot");
-        powerupIcon.setImage(assetManager, "Interface/PowerupIcons/Empty.png", true);
-        powerupIcon.setHeight(vp.getCamera().getHeight()/6);
-        powerupIcon.setWidth(vp.getCamera().getWidth()/9);
-        powerupIcon.setPosition(vp.getCamera().getWidth() * 0.03f, vp.getCamera().getHeight() * 0.05f);
-        System.out.println(powerupIcon.toString());
+        powerupIcon.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
+        
+        // Calculate the height of the picture relative to the ViewPort resolution.
+        powerupIcon.setHeight((vp.getCamera().getHeight()/5.2f) / 
+                UserSettings.INSTANCE.getPlayers().size() * 
+                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1));
+        // Calculate the height of the picture relative to the ViewPort resolution.
+        powerupIcon.setWidth((vp.getCamera().getWidth()/9) / 
+                UserSettings.INSTANCE.getPlayers().size() * 
+                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1));
+        // Sets position relative to ViewPort with offset by 20.
+        powerupIcon.setPosition(vp.getCamera().getViewPortLeft() * 
+                vp.getCamera().getWidth() + 20, vp.getCamera().getViewPortBottom() 
+                * vp.getCamera().getHeight() + 20);
+        
+        player.addObserver(this);
     }
-  
-    
+
+    /**
+     * Update the gui element.
+     * 
+     * @param pce change event.
+     */
     public void propertyChange(PropertyChangeEvent pce) {
-    /*    if (pce.getSource() instanceof IPlayer) {
-            IPlayer tempPlayer = (IPlayer) pce.getSource();
-            if (tempPlayer.getPowerup().equals(EPowerup.HASTE)) {
-                powerupIcon.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
-            } else if (tempPlayer.getPowerup().equals(EPowerup.HOMING)) {
-                powerupIcon.setImage(assetManager, EPowerupIcons.HOMING.getPath(), true);
-            } else if (tempPlayer.getPowerup().equals(EPowerup.BEER)) {
-                powerupIcon.setImage(assetManager, EPowerupIcons.BEER.getPath(), true);
-            } else if (tempPlayer.getPowerup().equals(EPowerup.LANDMINE)) {
-                powerupIcon.setImage(assetManager, EPowerupIcons.LANDMINE.getPath(), true);
-            } else {
-                powerupIcon.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
-            }
-        } */
+        if (player.getPowerup().equals(EPowerup.HASTE)) {
+            powerupIcon.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
+        } else if (player.getPowerup().equals(EPowerup.HOMING)) {
+            powerupIcon.setImage(assetManager, EPowerupIcons.HOMING.getPath(), true);
+        } else if (player.getPowerup().equals(EPowerup.BEER)) {
+            powerupIcon.setImage(assetManager, EPowerupIcons.BEER.getPath(), true);
+        } else if (player.getPowerup().equals(EPowerup.LANDMINE)) {
+            powerupIcon.setImage(assetManager, EPowerupIcons.LANDMINE.getPath(), true);
+        } else {
+            powerupIcon.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
+        } 
     }
     
+    /**
+     * Make the element visible in the GUI.
+     */
     public void show() {
         TankAppAdapter.INSTANCE.getGUINode().attachChild(powerupIcon);
     }
     
+    /**
+     * Remove the element from the GUI.
+     */
     public void hide() {
         TankAppAdapter.INSTANCE.getGUINode().detachChild(powerupIcon);
     }

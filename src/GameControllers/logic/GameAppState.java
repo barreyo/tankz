@@ -2,8 +2,10 @@ package GameControllers.logic;
 
 import GameModel.Game.EGameState;
 import GameModel.Game.UserSettings;
+import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
 import GameView.GUI.PowerupSlotView;
+import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -11,6 +13,8 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A game app state holding functionality for the game.
@@ -94,8 +98,14 @@ public class GameAppState extends AbstractAppState {
     }
     
     private void showHud() {
-        PowerupSlotView psw = new PowerupSlotView(UserSettings.INSTANCE.getPlayers().get(0), TankAppAdapter.INSTANCE.getGuiViewPort());
-        psw.show();
+        
+        List<PowerupSlotView> psvList = new ArrayList<PowerupSlotView>();
+        int i = 0;
+        for ( IPlayer p : UserSettings.INSTANCE.getPlayers() ) {
+            psvList.add(new PowerupSlotView(p, ViewPortManager.INSTANCE.getViewportForPlayer(p)));
+            psvList.get(i).show();
+            i++;
+        }        
     }
     
     private void loadDesktopInputs() {

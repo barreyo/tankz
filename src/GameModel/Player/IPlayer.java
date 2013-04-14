@@ -3,6 +3,7 @@ package GameModel.Player;
 
 import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import java.beans.PropertyChangeListener;
 
 /**
  * A representation of a player.
@@ -93,4 +94,10 @@ public interface IPlayer {
      */
     @Override
     boolean equals(Object obj);
+    
+    
+    void removeObserver(PropertyChangeListener l);
+    
+    
+    void addObserver(PropertyChangeListener l);
 }
