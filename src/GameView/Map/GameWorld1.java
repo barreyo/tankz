@@ -1,19 +1,14 @@
 package GameView.Map;
 
-import App.TanksApp;
 import GameControllers.logic.GraphicManager;
 import GameControllers.entitycontrols.ControlFactory;
 import GameControllers.entitycontrols.TanksVehicleControl;
-import GameView.gameEntity.GameEntityFactory;
 import GameModel.Game.TanksGameModel;
 import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
-import GameView.gameEntity.EGameEntities;
 import GameView.gameEntity.AGameEntity;
-import GameView.gameEntity.Tank;
+import GameView.gameEntity.TankEntity;
 import GameView.graphics.EGraphics;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.CartoonEdgeFilter;
 import com.jme3.scene.Node;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -49,11 +44,11 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
         TankAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
         TankAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
-        TankAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TankAppAdapter.INSTANCE.getAssetManager());
+        //TankAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TankAppAdapter.INSTANCE.getAssetManager());
         
         for (IPlayer player : game.getPlayers()) {
             // Create a tank for each player
-            Tank tank1 = (Tank) GameEntityFactory.create(EGameEntities.TANK);
+            TankEntity tank1 = new TankEntity();
             // Attach to map node at startpos
             tank1.getSpatial().move(10, 2, 10);
             mapNode.attachChild(tank1.getSpatial());

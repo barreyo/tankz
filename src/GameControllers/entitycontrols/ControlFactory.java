@@ -5,20 +5,15 @@ import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
-import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TankAppAdapter;
-import GameView.gameEntity.EGameEntities;
-import GameView.gameEntity.GameEntityFactory;
 import GameView.gameEntity.IGameEntity;
 import GameView.gameEntity.MissileProjectileEntity;
-import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.ViewPort;
-import com.jme3.scene.control.Control;
 
 /**
  * Manages controls.
@@ -79,8 +74,7 @@ public final class ControlFactory {
     public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation) {
         IExplodingProjectile projectileModel = new MissileModel(position, direction, rotation);
         
-        MissileProjectileEntity projectileEntity = (MissileProjectileEntity) GameEntityFactory.create(EGameEntities.MISSILE_PROJECTILE);
-        projectileEntity.setModel(projectileModel);
+        MissileProjectileEntity projectileEntity = new MissileProjectileEntity(projectileModel);
         
         MissileControl control = new MissileControl(projectileEntity, projectileModel);
         

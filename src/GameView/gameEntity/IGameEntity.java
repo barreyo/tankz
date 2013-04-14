@@ -37,6 +37,7 @@ public interface IGameEntity extends PropertyChangeListener, IObservable {
     void cleanup();
 
     /**
+     * TODO the goal is to remove this method, we dont want to share the spatial
      * Returns the spatial of this game entity.
      * 
      * @return The spatial of this game entity.
