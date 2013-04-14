@@ -34,6 +34,7 @@ public class GameSettings implements IObservable {
      */
     public void setGameTime (float gameTime){
         this.gameTime = gameTime;
+        pcs.firePropertyChange(null);
     }
     
     /**
