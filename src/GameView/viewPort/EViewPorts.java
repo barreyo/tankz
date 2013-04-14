@@ -24,7 +24,7 @@ public enum EViewPorts {
         TanksApp app = TanksApp.getApp();
         Camera cam = app.getCamera().clone();
         cam.setViewPort(left, right, bottom, top);
-   
+        
         view = app.getRenderManager().createMainView(loc, cam);
         view.setClearFlags(true, true, true);
         view.setEnabled(false);

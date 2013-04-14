@@ -84,4 +84,13 @@ public interface IPlayer {
      * @param powerup The powerup to add in powerupSlot
      */
     void setPowerup(EPowerup powerup);
+    
+    /**
+     * Players are considered equal when their names are equal.
+     * 
+     * @param player player to compare with.
+     * @return true if equal false otherwise.
+     */
+    @Override
+    boolean equals(Object obj);
 }

@@ -3,7 +3,6 @@ package GameControllers.logic;
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
 import GameView.viewPort.EViewPorts;
-import GameModel.Player.Player;
 import GameUtilities.TankAppAdapter;
 import com.jme3.renderer.ViewPort;
 import java.util.Collection;
