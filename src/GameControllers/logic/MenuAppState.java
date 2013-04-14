@@ -6,6 +6,7 @@ import GameModel.Game.UserSettings;
 import GameModel.Game.EGameState;
 import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TankAppAdapter;
+import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -53,6 +54,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         TankAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EGameState.setGameState(EGameState.MAIN_MENU);
+        SoundManager.INSTANCE.play(ESounds.MENU_SOUND);
     }
 
     /**

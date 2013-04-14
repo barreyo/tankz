@@ -1,5 +1,6 @@
 package GameView.Map;
 
+import App.TanksApp;
 import GameControllers.logic.GraphicManager;
 import GameControllers.entitycontrols.ControlFactory;
 import GameControllers.entitycontrols.TanksVehicleControl;
@@ -11,6 +12,8 @@ import GameView.gameEntity.EGameEntities;
 import GameView.gameEntity.AGameEntity;
 import GameView.gameEntity.Tank;
 import GameView.graphics.EGraphics;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.CartoonEdgeFilter;
 import com.jme3.scene.Node;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

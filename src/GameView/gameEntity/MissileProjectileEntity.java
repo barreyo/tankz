@@ -1,8 +1,10 @@
 
 package GameView.gameEntity;
 
+import GameControllers.logic.SoundManager;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameUtilities.TankAppAdapter;
+import GameView.Sounds.ESounds;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -64,6 +66,10 @@ public class MissileProjectileEntity extends AGameEntity{
             pcs.firePropertyChange(evt);
             projectile.removeObserver(this);
         } else if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
+            //Pass on to SoundManager.
+            pcs.addPropertyChangeListener(SoundManager.INSTANCE);
+            pcs.firePropertyChange(evt);
+            pcs.removePropertyChangeListener(SoundManager.INSTANCE);
             impact();
         }
     }
@@ -118,7 +124,7 @@ public class MissileProjectileEntity extends AGameEntity{
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
-
+    
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }

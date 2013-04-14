@@ -1,6 +1,7 @@
 
 package GameControllers.entitycontrols;
 
+import GameControllers.logic.SoundManager;
 import GameView.gameEntity.GameEntityFactory;
 import GameModel.Game.EGameState;
 import GameModel.Player.EPlayerInputs;
@@ -11,10 +12,12 @@ import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameUtilities.TankAppAdapter;
 import GameView.GUI.FloatingNameControl;
+import GameView.Sounds.ESounds;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.EGameEntities;
 import GameView.gameEntity.IGameEntity;
 import GameView.viewPort.VehicleCameraFactory;
+import com.jme3.audio.AudioNode;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
@@ -220,6 +223,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             if (!isPressed) {
                 ControlFactory.createNewMissile(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(this.getForwardVector(null).multLocal(3f)),
                                 this.getForwardVector(null), spatial.getWorldRotation());
+                SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
             }
         }
         //boolean isMoving = left || right || up || down;

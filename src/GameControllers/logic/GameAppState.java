@@ -2,6 +2,7 @@ package GameControllers.logic;
 
 import GameModel.Game.EGameState;
 import GameUtilities.TankAppAdapter;
+import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -46,6 +47,11 @@ public class GameAppState extends AbstractAppState {
         TankAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
 
         loadDesktopInputs();
+        
+        //Stops the menu sound and plays game sound.
+        //Did not work in stateDetached in MenuAppState
+        SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);
+        SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
     }
      
      /**

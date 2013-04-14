@@ -2,8 +2,11 @@ package GameControllers.logic;
 
 import GameView.Sounds.ESounds;
 import GameModel.Game.UserSettings;
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameUtilities.TankAppAdapter;
 import com.jme3.audio.AudioNode;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -11,8 +14,9 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public enum SoundManager implements IMapRelatedManager {
+public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
     INSTANCE;
+    
     
     private EnumMap<ESounds, AudioNode> soundMap;
 
@@ -21,6 +25,7 @@ public enum SoundManager implements IMapRelatedManager {
      */
     private SoundManager() {
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
+        
     }
 
     /**
@@ -30,8 +35,10 @@ public enum SoundManager implements IMapRelatedManager {
     @Override
     public void load(int map) {
         if (map == 1) {
-            loadSoundEffects(new ESounds[]{ESounds.TEST_SOUND});
-            loadMusic(new ESounds[]{ESounds.TEST_MUSIC});
+            loadSoundEffects(new ESounds[]{ESounds.CLICK_SOUND,
+                ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
+            ESounds.GAMEMUSIC_1});
+            loadMusic(new ESounds[]{ESounds.MENU_SOUND});
         }
     }
 
@@ -52,9 +59,9 @@ public enum SoundManager implements IMapRelatedManager {
         for (ESounds s : music) {
             if (s != null) {
                 AudioNode musicNode = new AudioNode(TankAppAdapter.INSTANCE.getAssetManager(), s.path(), true);
-                musicNode.setLooping(true);
                 musicNode.setPositional(false);
                 musicNode.setDirectional(false);
+                musicNode.setVolume(0.5f);
 
                 soundMap.put(s, musicNode);
             }
@@ -156,5 +163,13 @@ public enum SoundManager implements IMapRelatedManager {
     public void cleanup() {
         removeAllMusic();
         soundMap.clear();
+    }
+
+    public void propertyChange(PropertyChangeEvent evt) {
+            System.out.println("FÖÖÖRE");
+        if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
+            System.out.println("BAAAAAAJJJJSSSSSS");
+            play(ESounds.MISSILI_COLLISION_SOUND);
+        }
     }
 }

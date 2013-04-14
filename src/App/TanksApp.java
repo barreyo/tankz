@@ -1,9 +1,13 @@
 package App;
 
 import GameControllers.logic.GUIManager;
+import GameControllers.logic.SoundManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.CartoonEdgeFilter;
+import com.jme3.renderer.Caps;
 import com.jme3.system.AppSettings;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +25,13 @@ public class TanksApp extends SimpleApplication {
     
     // Managers
     private BulletAppState bulletAppState;
- 
+    
+    private FilterPostProcessor fpp;
+    
+    CartoonEdgeFilter cef = new CartoonEdgeFilter();
+    
+    
+    
     /*
      * Creates a new TanksGame which starts in settings window.
      */
@@ -47,6 +57,8 @@ public class TanksApp extends SimpleApplication {
         // Creating different essential managers
         userSettings = new UserSettings();*/
         
+        //Load sounds, needs to be done before main menu shows.
+        SoundManager.INSTANCE.load(1);
         // Show the main menu
         GUIManager.INSTANCE.showMainMenu();
         

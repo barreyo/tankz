@@ -13,13 +13,16 @@ public enum ESounds {
         /**
      *
      */
-    TEST_MUSIC("click.ogg", true),
-        /**
-     *
-     */
-    TEST_SOUND("click.ogg", false);
+    CLICK_SOUND("click.ogg", false),
+    
+    MISSILE_LAUNCH_SOUND("Explosion.ogg", false),
+    
+    MISSILI_COLLISION_SOUND("MissileCollision.ogg", false),
+    
+    MENU_SOUND("Menu.ogg", true),
+    
+    GAMEMUSIC_1("ItsLikeThat.ogg", false);
         
-
         private final String path;
         private final boolean music;
 
