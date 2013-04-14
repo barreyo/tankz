@@ -9,23 +9,23 @@ public enum EPowerup {
     /**
      *
      */
-    HEALTH_BOOST("Health"),
+    LANDMINE("Mine"),
     /**
      *
      */
-    SPEED_BOOST("Speed"),
+    HASTE("Speed"),
     /**
      *
      */
-    INVINSIBLE("Invincible"),
+    BEER("Beer"),
     /**
      *
      */
-    INVISIBLE("Invisable"),
+    EMPTY("Empty"),
     /**
      *
      */
-    MISSILE("Missile");
+    HOMING("Missile");
     
     private final String name;
     

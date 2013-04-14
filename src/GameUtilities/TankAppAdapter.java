@@ -17,6 +17,7 @@ import com.jme3.material.Material;
 import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
+import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 
@@ -173,5 +174,9 @@ public enum TankAppAdapter {
 
     public void addPhysiscsCollisionListener(PhysicsCollisionListener listener) {
         tanksApp.getBulletAppState().getPhysicsSpace().addCollisionListener(listener);
+    }
+    
+    public Node getGUINode() {
+        return tanksApp.getGuiNode();
     }
 }

@@ -1,8 +1,9 @@
 package GameControllers.logic;
 
 import GameModel.Game.EGameState;
+import GameModel.Game.UserSettings;
 import GameUtilities.TankAppAdapter;
-import GameView.Sounds.ESounds;
+import GameView.GUI.PowerupSlotView;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -41,7 +42,7 @@ public class GameAppState extends AbstractAppState {
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
         EGameState.setGameState(EGameState.RUNNING);
-        //showHud();
+        showHud();
         
         stateManager.attach(TanksAppStateFactory.getAppState(CommonMapAppState.class));
         TankAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
@@ -90,6 +91,11 @@ public class GameAppState extends AbstractAppState {
     // Note that update is only called while the state is both attached and enabled.
     @Override
     public void update(float tpf) {
+    }
+    
+    private void showHud() {
+        PowerupSlotView psw = new PowerupSlotView(UserSettings.INSTANCE.getPlayers().get(0), TankAppAdapter.INSTANCE.getGuiViewPort());
+        psw.show();
     }
     
     private void loadDesktopInputs() {

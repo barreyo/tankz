@@ -103,4 +103,31 @@ public class Player implements IPlayer, IObservable {
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
+
+    public boolean equals(IPlayer player) {
+        return false;
+        
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Player other = (Player) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        return true;
+    }
+    
 }
