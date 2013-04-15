@@ -19,7 +19,10 @@ public class TimerView extends AHudElement {
     private TanksGameModel gameModel;
     
     /**
-     * Instatiates a view component of the in game timer.
+     * Instatiates a view component of the in game timer. Needs a gameModel to
+     * listen to. Updates can be done in any way.
+     * 
+     * @param gameModel the GameModel this view will listen to.
      */
     public TimerView(TanksGameModel gameModel) {
         this.gameModel = gameModel;
@@ -38,12 +41,14 @@ public class TimerView extends AHudElement {
         bitmapText.setText("99:99");
         
         float xText = (screenWidth/2) - (bitmapText.getLineWidth() * 0.5f);
-        float yText = (screenHeight/2) + (bitmapText.getLineHeight() * 0.35f);
+        float yText = (screenHeight/2) + (bitmapText.getLineHeight() * 0.32f);
         float xPic = (screenWidth/2) - (screenWidth/10) * 0.5f;
         float yPic = (screenHeight/2) - (screenHeight/14) * 0.5f;
         if (gameModel.getPlayers().size() == 1) {
-            yPic = screenHeight - (screenHeight/14);
-            yText = screenHeight - (bitmapText.getLineHeight() * 0.35f);
+            xPic = screenWidth - ((screenWidth/10) * 1.3f);
+            yPic = screenHeight - ((screenHeight/14) * 1.5f);
+            xText = screenWidth - (bitmapText.getLineWidth() * 1.58f);
+            yText = screenHeight - (bitmapText.getLineHeight() * 0.8f);
         }
         picture.setPosition(xPic, yPic);
         bitmapText.setLocalTranslation(xText, yText, 1);
@@ -53,7 +58,7 @@ public class TimerView extends AHudElement {
      * {@inheritdoc}
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        
+        bitmapText.setText("13:37");
     }
     
     /**
@@ -61,8 +66,8 @@ public class TimerView extends AHudElement {
      */
     @Override
     public void show() {
-        TankAppAdapter.INSTANCE.getGUINode().attachChild(picture);
-        TankAppAdapter.INSTANCE.getGUINode().attachChild(bitmapText);
+        super.show();
+        guiNode.attachChild(bitmapText);
     }
     
     /**
@@ -70,8 +75,8 @@ public class TimerView extends AHudElement {
      */
     @Override
     public void hide() {
-        TankAppAdapter.INSTANCE.getGUINode().detachChild(picture);
-        TankAppAdapter.INSTANCE.getGUINode().detachChild(bitmapText);
+        super.hide();
+        guiNode.detachChild(bitmapText);
     }
 
     /**

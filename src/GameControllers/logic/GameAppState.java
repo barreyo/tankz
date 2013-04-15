@@ -5,6 +5,7 @@ import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
+import GameView.GUI.HealthView;
 import GameView.GUI.PowerupSlotView;
 import GameView.GUI.TimerView;
 import GameView.Sounds.ESounds;
@@ -97,6 +98,9 @@ public class GameAppState extends AbstractAppState {
     public void update(float tpf) {
     }
     
+    /**
+     * Show all HUD elements of the screen.
+     */
     private void showHud() {
         
         List<PowerupSlotView> psvList = new ArrayList<PowerupSlotView>();
@@ -108,6 +112,16 @@ public class GameAppState extends AbstractAppState {
         }
         TimerView timerView = new TimerView(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
         timerView.show();
+        
+        HealthView hpView = new HealthView(UserSettings.INSTANCE.getPlayers().get(0), ViewPortManager.INSTANCE.getViewportForPlayer(UserSettings.INSTANCE.getPlayers().get(0)));
+        hpView.show();
+    }
+    
+    /**
+     * Hide all HUD elements of the screen.
+     */
+    private void hideHud() {
+        
     }
     
     private void loadDesktopInputs() {

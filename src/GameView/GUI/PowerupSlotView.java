@@ -31,18 +31,21 @@ public class PowerupSlotView extends AHudElement {
         picture = new Picture("PowerupSlot");
         picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
         
+        float screenHeight = vp.getCamera().getHeight();
+        float screenWidth = vp.getCamera().getWidth();
+        
         // Calculate the height of the picture relative to the ViewPort resolution.
-        picture.setHeight((vp.getCamera().getHeight()/5.2f) / 
+        picture.setHeight((screenHeight/5.3f) / 
                 UserSettings.INSTANCE.getPlayers().size() * 
                 (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1));
         // Calculate the height of the picture relative to the ViewPort resolution.
-        picture.setWidth((vp.getCamera().getWidth()/9) / 
+        picture.setWidth((screenWidth/9) / 
                 UserSettings.INSTANCE.getPlayers().size() * 
                 (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1));
-        // Sets position relative to ViewPort with offset by 20.
+        // Sets position relative to ViewPort with offset by width * 0.1.
         picture.setPosition(vp.getCamera().getViewPortLeft() * 
-                vp.getCamera().getWidth() + 20, vp.getCamera().getViewPortBottom() 
-                * vp.getCamera().getHeight() + 20);
+                screenWidth + (screenWidth * 0.02f), vp.getCamera().getViewPortBottom() 
+                * screenHeight + (screenWidth * 0.02f));
         
         player.addObserver(this);
     }
