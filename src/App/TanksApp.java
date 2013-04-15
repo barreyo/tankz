@@ -57,8 +57,8 @@ public class TanksApp extends SimpleApplication {
         // Creating different essential managers
         userSettings = new UserSettings();*/
         
-        //Load sounds, needs to be done before main menu shows.
-        SoundManager.INSTANCE.load(1);
+        //Loads the sounds needed before game start.
+        SoundManager.INSTANCE.preLoad();
         // Show the main menu
         GUIManager.INSTANCE.showMainMenu();
         

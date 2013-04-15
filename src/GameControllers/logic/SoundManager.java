@@ -37,9 +37,17 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
         if (map == 1) {
             loadSoundEffects(new ESounds[]{ESounds.CLICK_SOUND,
                 ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
-            ESounds.GAMEMUSIC_1});
-            loadMusic(new ESounds[]{ESounds.MENU_SOUND});
+             ESounds.GAMEMUSIC_1});
+            /*
+              In-game sounds needs to be effects for now. Otherwise it tries to instansiate
+              it several times, which you cant with a streamed audio.
+              loadMusic(new ESounds[]{ESounds.GAMEMUSIC_1});
+             */
         }
+    }
+    
+    public void preLoad(){
+        loadMusic(new ESounds[]{ESounds.MENU_SOUND});
     }
 
     // loads all sound effects which will be needed for that map

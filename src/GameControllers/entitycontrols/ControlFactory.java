@@ -12,6 +12,7 @@ import GameUtilities.TankAppAdapter;
 import GameView.gameEntity.IGameEntity;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.PowerupEntity;
+import GameView.gameEntity.TankEntity;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
@@ -27,7 +28,12 @@ public final class ControlFactory {
     
     private ControlFactory() {}
     
-    public static TanksVehicleControl getTankControl(IGameEntity entity, IPlayer player) {
+    public static void createTank(IPlayer player, Vector3f startPos) {
+        // Create a tank for each player
+        TankEntity entity = new TankEntity(player.getVehicle());
+        // Move to startpos
+        entity.setPosition(startPos);
+        
         CompoundCollisionShape compoundShape = new CompoundCollisionShape();
         compoundShape.addChildShape(entity.getCollisionShape(), new Vector3f(0, 1, 0));
         
@@ -70,8 +76,6 @@ public final class ControlFactory {
         viewPort.setEnabled(true);
         // Give the tank a refernce to the camera of the viewport
         vehicle.setCamera(viewPort.getCamera());
-        
-        return vehicle;
     }
     
     public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation) {

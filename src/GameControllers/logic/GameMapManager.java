@@ -56,7 +56,8 @@ public enum GameMapManager implements IMapRelatedManager {
      * @param gameMap
      */
     public void load(int gameMap) {
-
+        
+        SoundManager.INSTANCE.load(gameMap);
         MaterialManager.INSTANCE.load(gameMap);
         PhysicsManager.INSTANCE.load(gameMap);
         ViewPortManager.INSTANCE.load();
