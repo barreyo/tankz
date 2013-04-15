@@ -89,4 +89,58 @@ public final class MissileModel implements IExplodingProjectile {
         exploding = true;
         pcs.firePropertyChange(IMPACT_MADE, null, null);
     }
+
+    /**
+     * 
+     * @return projectLifeTimer, position and direction 
+     * in the format: "MissileModel{projectileLifeTimer=xxx, position=xxxf, 
+     * direction=xxxf"
+     */
+    @Override
+    public String toString() {
+        return "MissileModel{" + "projectileLifeTimer=" + projectileLifeTimer 
+                + ", position=" + position + ", direction=" + direction + '}';
+    }
+
+    /**
+     * 
+     * @return hashCode based on projectileLifeTimer, position and direction.
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Float.floatToIntBits(this.projectileLifeTimer);
+        hash = 37 * hash + (this.position != null ? this.position.hashCode() : 0);
+        hash = 37 * hash + (this.direction != null ? this.direction.hashCode() : 0);
+        return hash;
+    }
+
+    /**
+     * Equals method that compares projectileLifeTimer, position and direction.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this MissileModel is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MissileModel other = (MissileModel) obj;
+        if (Float.floatToIntBits(this.projectileLifeTimer) != Float.floatToIntBits(other.projectileLifeTimer)) {
+            return false;
+        }
+        if (this.position != other.position && (this.position == null || !this.position.equals(other.position))) {
+            return false;
+        }
+        if (this.direction != other.direction && (this.direction == null || !this.direction.equals(other.direction))) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }
