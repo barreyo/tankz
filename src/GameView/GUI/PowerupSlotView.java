@@ -56,6 +56,7 @@ public class PowerupSlotView extends AHudElement {
      * @param pce change event.
      */
     public void propertyChange(PropertyChangeEvent pce) {
+        System.out.println("POWERUPSLOT PROPERTY CHANGE");
         if (player.getPowerup().equals(EPowerup.HASTE)) {
             picture.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
         } else if (player.getPowerup().equals(EPowerup.HOMING)) {
