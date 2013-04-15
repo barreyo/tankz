@@ -4,12 +4,9 @@ package GameView.GUI;
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Powerup.EPowerup;
-import GameUtilities.TankAppAdapter;
-import com.jme3.asset.AssetManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  * The graphical represenation of a Powerup. Each powerup is displayed
@@ -68,6 +65,17 @@ public class PowerupSlotView extends AHudElement {
             picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
         } 
     }
-    
 
+    /**
+     * Format: Pic: ######
+     *         Player: ######
+     *         VP: ######
+     * 
+     * @return summary of variables.
+     */
+    @Override
+    public String toString() {
+        return super.toString() + "\nPlayer: " + player.getName() + 
+                "\nVP: " + vp.getName();
+    }
 }

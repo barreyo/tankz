@@ -166,9 +166,7 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
-            System.out.println("FÖÖÖRE");
         if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
-            System.out.println("BAAAAAAJJJJSSSSSS");
             play(ESounds.MISSILI_COLLISION_SOUND);
         }
     }

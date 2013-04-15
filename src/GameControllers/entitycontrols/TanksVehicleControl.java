@@ -280,4 +280,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
 
         inputs.setInUse(false);
     }
+    
+    public IPlayer getPlayer() {
+        return player;
+    }
 }
