@@ -3,12 +3,15 @@ package GameControllers.entitycontrols;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
+import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.gameEntity.Powerup.Powerup;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TankAppAdapter;
 import GameView.gameEntity.IGameEntity;
 import GameView.gameEntity.MissileProjectileEntity;
+import GameView.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
@@ -85,5 +88,20 @@ public final class ControlFactory {
         TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
         
         projectileEntity.addControl(control);
+    }
+    
+    public static void createNewPowerup(Vector3f position) {
+        IPowerup model = new Powerup();
+        PowerupEntity view = new PowerupEntity(model);
+        PowerupControl control = new PowerupControl(view, model);
+        
+        //What does these do? :)
+        control.setCcdMotionThreshold(0.1f);
+        control.setKinematic(true);
+
+        TankAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+        TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
+        
+        view.addControl(control);
     }
 }
