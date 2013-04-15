@@ -4,11 +4,9 @@
  */
 package GameModel.gameEntity.Powerup;
 
-import GameModel.Game.PowerupSpawningPoint;
 import GameModel.IObservable;
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
-import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -16,14 +14,14 @@ import java.beans.PropertyChangeSupport;
  *
  * @author Garpetun
  */
-public abstract class APowerup implements IObservable {
+public class Powerup implements IPowerup {
+
+    private EPowerup powerup;
+    private boolean isVisible;
+    
+    private final float HASTE_FACTOR = 1000;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    
-    /**
-     * Use the powerup.
-     */
-    public abstract void usePowerup(IPlayer player);
 
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
@@ -32,8 +30,15 @@ public abstract class APowerup implements IObservable {
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
+
+    public void addPowerup() {
+        isVisible = true;
+    }
     
-    //Add methods for getting spawningpoint, and randomizing a new one
-    //And methods for position of course. But shouldn't spawningpoint perhaps
-    // have a position?
+    /**
+     * Use the powerup, removing it from world.
+     */
+    public void removePowerup() {
+        isVisible = false;
+    }
 }

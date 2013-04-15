@@ -5,7 +5,9 @@
 package GameView.gameEntity;
 
 import GameControllers.logic.GraphicManager;
-import GameModel.gameEntity.Powerup.APowerup;
+import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameUtilities.TankAppAdapter;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -20,7 +22,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class PowerupEntity extends AGameEntity {
 
-    private APowerup powerup;
+    private IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     public PowerupEntity() {
@@ -33,13 +35,21 @@ public class PowerupEntity extends AGameEntity {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void cleanup() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (spatial.getParent() != null) {
+            // Remove ourself from world
+            spatial.removeFromParent();
+        }
+        powerup.removeObserver(this);
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pcs.firePropertyChange(pce);
+        this.cleanup();
     }
 
     public void addObserver(PropertyChangeListener l) {
@@ -48,6 +58,21 @@ public class PowerupEntity extends AGameEntity {
 
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
+    }
+    
+    public void setModel(IPowerup pow) {
+        if (powerup != null) {
+            this.cleanup();
+        }
+        powerup = pow;
+        if (powerup != null) {
+            powerup.addObserver(this);
+        }
+        attachToRootNode();
+    }
+        
+    private void attachToRootNode() {
+        TankAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
     
 }
