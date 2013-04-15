@@ -18,8 +18,6 @@ import java.beans.PropertyChangeSupport;
 public abstract class APowerup implements IObservable {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private PowerupSpawningPoint spawningPoint;
-    private Vector3f position;
     
     /**
      * Use the powerup.
