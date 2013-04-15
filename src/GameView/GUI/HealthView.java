@@ -43,6 +43,10 @@ public class HealthView extends AHudElement {
         picture.setHeight(elementHeight);
         picture.setWidth(elementWidth);
         picture.setPosition(elementX, elementY);
+        
+        mask.setHeight(elementHeight);
+        mask.setWidth(elementWidth);
+        mask.setPosition(elementX, elementY);
     }
     
     /**
@@ -58,6 +62,7 @@ public class HealthView extends AHudElement {
     @Override
     public void show() {
         super.show();
+        guiNode.attachChild(mask);
     }
     
     /**
@@ -66,5 +71,6 @@ public class HealthView extends AHudElement {
     @Override
     public void hide() {
         super.hide();
+        guiNode.detachChild(mask);
     } 
 }
