@@ -35,7 +35,7 @@ public class TimerView extends AHudElement {
         picture.setWidth(screenWidth/10);
         picture.setHeight(screenHeight/14);
         
-        BitmapFont font = assetManager.loadFont("Interface/Fonts/HandDrawnShapes.fnt");
+        BitmapFont font = assetManager.loadFont(EFonts.HANDDRAWNSHAPES.getPath());
         bitmapText = new BitmapText(font, false);
         bitmapText.setSize(font.getCharSet().getRenderedSize() * ((screenHeight/screenWidth) + 0.4f));
         bitmapText.setText("99:99");

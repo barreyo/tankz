@@ -6,7 +6,9 @@ package GameView.GUI;
 
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
+import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
+import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
@@ -48,6 +50,13 @@ public class HealthView extends AHudElement {
         mask.setWidth(elementWidth);
         mask.setPosition(elementX, elementY);
         
+        BitmapFont font = assetManager.loadFont(EFonts.HANDDRAWNSHAPES.getPath());
+        text = new BitmapText(font, false);
+        text.setText("" + player.getVehicle().getHealth());
+        text.setColor(new ColorRGBA(53/255,53/255,53/255, 1));
+        text.setSize(font.getCharSet().getRenderedSize() * 0.7f);
+        text.setLocalTranslation(elementX, elementY - 5.0f, 0);
+        
         player.getVehicle().addObserver(this);
     }
     
@@ -56,6 +65,7 @@ public class HealthView extends AHudElement {
      */
     public void propertyChange(PropertyChangeEvent pce) {
         mask.setWidth(elementWidth * (player.getVehicle().getHealth() * 0.01f));
+        text.setText("" + player.getVehicle().getHealth());
     }
     
     /**
@@ -65,6 +75,7 @@ public class HealthView extends AHudElement {
     public void show() {
         super.show();
         guiNode.attachChild(mask);
+        guiNode.attachChild(text);
     }
     
     /**
@@ -74,5 +85,6 @@ public class HealthView extends AHudElement {
     public void hide() {
         super.hide();
         guiNode.detachChild(mask);
+        guiNode.detachChild(text);
     } 
 }

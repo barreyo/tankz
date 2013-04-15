@@ -16,7 +16,9 @@ public enum EFonts {
     
     MAINMENU("Interface/Fonts/loadingFont.fnt"),
     
-    INGAME("Interface/Fonts/loadingFont.fnt");
+    INGAME("Interface/Fonts/loadingFont.fnt"),
+    
+    HANDDRAWNSHAPES("Interface/Fonts/HandDrawnShapes.fnt");
     
     private String path;
     

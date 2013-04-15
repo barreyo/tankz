@@ -12,6 +12,7 @@ import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.material.Material;
 import com.jme3.scene.Spatial;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
