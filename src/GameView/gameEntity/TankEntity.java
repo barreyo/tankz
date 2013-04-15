@@ -3,6 +3,8 @@ package GameView.gameEntity;
 
 import GameControllers.entitycontrols.EControls;
 import GameControllers.entitycontrols.TanksVehicleControl;
+import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import GameUtilities.TankAppAdapter;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -11,9 +13,11 @@ import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
 /**
@@ -21,17 +25,22 @@ import java.io.IOException;
  * 
  * @author Daniel
  */
-public class TankEntity extends AGameEntity implements Savable {
+public final class TankEntity extends AGameEntity implements Savable {
+    
+    private IArmedVehicle armedVehicle;
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
      * Creates a tank game entity.
      */
-    public TankEntity() {
+    public TankEntity(IArmedVehicle armedVehicle) {
         super(EGraphics.TANK);
         // Save this as user data for the spatial -> ie if you can access the spatial
         // you can access this.
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
-        spatial.setUserData("entity", this);
+        
+        setModel(armedVehicle);
+        show();
     }
 
     /**
@@ -51,7 +60,6 @@ public class TankEntity extends AGameEntity implements Savable {
         ((TanksVehicleControl)spatial.getControl(EControls.VEHICLE_CONTROL.getControl())).cleanup();
         //TankAppAdapter.INSTANCE.removeFromPhysicsSpace(vehicle);
         //spatial.removeControl(vehicle);
-        spatial.setUserData("entity", null);
         //vehicle = null;
     }
 
@@ -80,10 +88,28 @@ public class TankEntity extends AGameEntity implements Savable {
     }
 
     public void addObserver(PropertyChangeListener l) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pcs.addPropertyChangeListener(l);
     }
 
     public void removeObserver(PropertyChangeListener l) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pcs.removePropertyChangeListener(l);
+    }
+
+    public void setModel(IArmedVehicle vehicle) {
+        if (armedVehicle != null) {
+           armedVehicle.removeObserver(this);
+        }
+        armedVehicle = vehicle;
+        if (armedVehicle != null) {
+            armedVehicle.addObserver(this);
+        }
+    }
+
+    public void setPosition(Vector3f pos) {
+        spatial.setLocalTranslation(pos);
+    }
+
+    private void show() {
+        TankAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 }

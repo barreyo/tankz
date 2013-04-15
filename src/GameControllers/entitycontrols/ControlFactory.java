@@ -3,12 +3,16 @@ package GameControllers.entitycontrols;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
+import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.gameEntity.Powerup.Powerup;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TankAppAdapter;
 import GameView.gameEntity.IGameEntity;
 import GameView.gameEntity.MissileProjectileEntity;
+import GameView.gameEntity.PowerupEntity;
+import GameView.gameEntity.TankEntity;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
@@ -24,7 +28,12 @@ public final class ControlFactory {
     
     private ControlFactory() {}
     
-    public static TanksVehicleControl getTankControl(IGameEntity entity, IPlayer player) {
+    public static void createTank(IPlayer player, Vector3f startPos) {
+        // Create a tank for each player
+        TankEntity entity = new TankEntity(player.getVehicle());
+        // Move to startpos
+        entity.setPosition(startPos);
+        
         CompoundCollisionShape compoundShape = new CompoundCollisionShape();
         compoundShape.addChildShape(entity.getCollisionShape(), new Vector3f(0, 1, 0));
         
@@ -67,8 +76,6 @@ public final class ControlFactory {
         viewPort.setEnabled(true);
         // Give the tank a refernce to the camera of the viewport
         vehicle.setCamera(viewPort.getCamera());
-        
-        return vehicle;
     }
     
     public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation) {
@@ -85,5 +92,20 @@ public final class ControlFactory {
         TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
         
         projectileEntity.addControl(control);
+    }
+    
+    public static void createNewPowerup(Vector3f position) {
+        IPowerup model = new Powerup();
+        PowerupEntity view = new PowerupEntity(model);
+        PowerupControl control = new PowerupControl(view, model);
+        
+        //What does these do? :)
+        control.setCcdMotionThreshold(0.1f);
+        control.setKinematic(true);
+
+        TankAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+        TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
+        
+        view.addControl(control);
     }
 }

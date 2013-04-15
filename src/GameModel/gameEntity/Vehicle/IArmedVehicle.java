@@ -1,6 +1,7 @@
 
 package GameModel.gameEntity.Vehicle;
 
+import GameModel.IObservable;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author Daniel
  */
-public interface IArmedVehicle {
+public interface IArmedVehicle extends IObservable{
     /**
      * Gets the current health of the vehicle.
      *
@@ -22,7 +23,7 @@ public interface IArmedVehicle {
      *
      * @return The state of the vehicle
      */
-    VehicleState getVehicleState();
+    IArmedVehicle.VehicleState getVehicleState();
     
     /**
      * Gets the accerlationforce use to accelerate the vehicle.
@@ -64,7 +65,7 @@ public interface IArmedVehicle {
      * 
      * @param state The state of the vehicle
      */
-    void setVehicleState(VehicleState state);
+    void setVehicleState(IArmedVehicle.VehicleState state);
     
     /**
      * Sets steering value of vehicle.
@@ -152,4 +153,5 @@ public interface IArmedVehicle {
      */
     public List<IExplodingProjectile> getFiredProjetiles();
     
+    public void update(float tpf);
 }

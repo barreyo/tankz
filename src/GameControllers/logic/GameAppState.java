@@ -1,6 +1,7 @@
 package GameControllers.logic;
 
 import GameModel.Game.EGameState;
+import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
@@ -49,14 +50,13 @@ public class GameAppState extends AbstractAppState {
         EGameState.setGameState(EGameState.RUNNING);
         showHud();
         
-        stateManager.attach(TanksAppStateFactory.getAppState(CommonMapAppState.class));
         TankAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
 
         loadDesktopInputs();
         
         //Stops the menu sound and plays game sound.
-        SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);
         //Did not work in stateDetached in MenuAppState
+        SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);
         SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
     }
      
@@ -70,7 +70,6 @@ public class GameAppState extends AbstractAppState {
         super.stateDetached(stateManager);
         removeDesktopInputs();
         // deatch all Level States
-        stateManager.detach(TanksAppStateFactory.getAppState(CommonMapAppState.class));
         TankAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
 
         // TODO: pause any playing music
@@ -107,7 +106,7 @@ public class GameAppState extends AbstractAppState {
             psvList.get(i).show();
             i++;
         }
-        TimerView timerView = new TimerView();
+        TimerView timerView = new TimerView(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
         timerView.show();
     }
     
