@@ -29,6 +29,7 @@ public class PowerupEntity extends AGameEntity {
     public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
         setModel(pow);
+        spatial.setLocalTranslation(powerup.getPosition());
     }
     
     @Override

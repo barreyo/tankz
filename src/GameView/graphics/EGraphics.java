@@ -22,7 +22,7 @@ public enum EGraphics {
     /**
      * Model used for powerup boxes.
      */
-    POWERUP("Models/puBox/puBoc.j3o");
+    POWERUP("Models/puBox/puBox.j3o");
     
     private String fileLocation;
 

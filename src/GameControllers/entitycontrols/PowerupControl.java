@@ -22,37 +22,50 @@ import java.beans.PropertyChangeListener;
 public class PowerupControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
     private PowerupEntity powerupEntity;
     private IPowerup powerupModel;
+    private boolean isListening;
 
     
    public PowerupControl(PowerupEntity entity, IPowerup model) {
+       super(entity.getCollisionShape(), model.getMASS());
         powerupEntity = entity;
         powerupModel = model;
+        
+        isListening = true;
         
         // We observe view
         entity.addObserver(this);
     }
     
     public void collision(PhysicsCollisionEvent event) {
+        System.out.println("COLLISION HAPPENED");
         if (space == null) {
             return;
         }
-        if (event.getObjectA() == this && event.getObjectB() instanceof TanksVehicleControl) {
-            ((TanksVehicleControl) event.getObjectB()).getPlayer().setPowerup(EPowerup.HASTE);
+        if (event.getObjectA() instanceof TanksVehicleControl || event.getObjectB() instanceof TanksVehicleControl) {
+            System.out.println("OMG TANKEN NUDDAR NÅGONTING!!!!");
+        }
+        if (event.getObjectA() == this || event.getObjectB() == this) {
+            System.out.println("SOMETHING IS COLLIDING WITH BOX");
             powerupModel.removePowerup();
         }
-        if (event.getObjectB() == this && event.getObjectA() instanceof TanksVehicleControl) {
-            ((TanksVehicleControl) event.getObjectA()).getPlayer().setPowerup(EPowerup.HASTE);
-            powerupModel.removePowerup();
-        }
-
-        // We dont have to listen for collisions any more
-        space.removeCollisionListener(this);
         
-        // Remove ourself as a rigid body control from physics space
-        space.remove(this);
+        // We dont have to listen for collisions any more
+        isListening = false;
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("POWERUPCONTROL: PROPERTY CHANGED");
+        powerupEntity.cleanup();
+    }
+    
+    @Override
+    public void update(float tpf) {
+        super.update(tpf);
+        if (enabled) {
+            if (!isListening && space != null) {
+                space.removeCollisionListener(this);
+            }
+ //           powerupModel.update(tpf);
+        } 
     }
 }

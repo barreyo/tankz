@@ -4,6 +4,7 @@
  */
 package GameModel.gameEntity.Powerup;
 
+import GameModel.Game.UserSettings;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -18,13 +19,14 @@ public class Powerup implements IPowerup {
     private boolean isVisible;
     private Vector3f position;
     
+    public static final float MASS = 10f;
     private final float HASTE_FACTOR = 1000;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public Powerup() {
+    public Powerup(Vector3f pos) {
         powerup = EPowerup.HASTE;
-        position = new Vector3f(10,5,10);
+        position = pos;
     }
     
     public void addObserver(PropertyChangeListener l) {
@@ -43,10 +45,24 @@ public class Powerup implements IPowerup {
      * Use the powerup, removing it from world.
      */
     public void removePowerup() {
+        for (int i = 0; i < UserSettings.INSTANCE.getPlayers().size(); i++) {
+            if (UserSettings.INSTANCE.getPlayers().get(i) != null) {
+                 System.out.println("SETTING POWERUP ON ALL PLAYERS");
+                 UserSettings.INSTANCE.getPlayers().get(i).setPowerup(EPowerup.HASTE);
+            }
+        }
         isVisible = false;
+        System.out.println("REMOVING POWERUP FROM MODEL");
+        pcs.firePropertyChange(null, null, null);
     }
 
     public Vector3f getPosition() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return position;
     }
+
+    public float getMASS() {
+        return MASS;
+    }
+    
+    
 }

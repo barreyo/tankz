@@ -3,6 +3,7 @@ package GameModel.Player;
 
 import GameModel.IObservable;
 import GameModel.gameEntity.Powerup.EPowerup;
+import GameModel.gameEntity.Powerup.IPowerup;
 import GameModel.gameEntity.Powerup.PowerupSlot;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import java.beans.PropertyChangeListener;
@@ -19,7 +20,7 @@ public class Player implements IPlayer, IObservable {
     private IArmedVehicle vehicle;
     private int kills, deaths;
     private boolean isActive;
-    private PowerupSlot powerupSlot;
+    private EPowerup powerup;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -85,7 +86,7 @@ public class Player implements IPlayer, IObservable {
      */
     @Override
     public EPowerup getPowerup() {
-        return powerupSlot.getPowerup();
+        return powerup;
     }
 
     /**
@@ -93,7 +94,8 @@ public class Player implements IPlayer, IObservable {
      */
     @Override
     public void setPowerup(EPowerup powerup) {
-        powerupSlot.setPowerup(powerup);
+        this.powerup = powerup;
+        pcs.firePropertyChange(null);
     }
 
     public void addObserver(PropertyChangeListener l) {

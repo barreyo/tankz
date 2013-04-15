@@ -95,12 +95,10 @@ public final class ControlFactory {
     }
     
     public static void createNewPowerup(Vector3f position) {
-        IPowerup model = new Powerup();
+        IPowerup model = new Powerup(position);
         PowerupEntity view = new PowerupEntity(model);
         PowerupControl control = new PowerupControl(view, model);
         
-        //What does these do? :)
-        control.setCcdMotionThreshold(0.1f);
         control.setKinematic(true);
 
         TankAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
