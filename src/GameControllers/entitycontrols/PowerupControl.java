@@ -55,9 +55,7 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
 
     public void propertyChange(PropertyChangeEvent pce) {
         System.out.println("POWERUPCONTROL: PROPERTY CHANGED");
-        space.removeCollisionListener(this);
-        space.remove(this);
-        powerupEntity.removeObserver(this);
+        powerupEntity.cleanup();
     }
     
     @Override

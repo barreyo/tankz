@@ -44,6 +44,7 @@ public class Powerup implements IPowerup {
      * Use the powerup, removing it from world.
      */
     public void removePowerup() {
+        
         isVisible = false;
         System.out.println("REMOVING POWERUP FROM MODEL");
         pcs.firePropertyChange(null, null, null);
