@@ -47,10 +47,10 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
         if (event.getObjectA() == this || event.getObjectB() == this) {
             System.out.println("SOMETHING IS COLLIDING WITH BOX");
             powerupModel.removePowerup();
+            
+            // We dont have to listen for collisions any more
+            isListening = false;
         }
-        
-        // We dont have to listen for collisions any more
-        isListening = false;
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
