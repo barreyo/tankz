@@ -10,6 +10,7 @@ import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameUtilities.TankAppAdapter;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;
 import java.beans.PropertyChangeEvent;
@@ -26,13 +27,12 @@ public class PowerupEntity extends AGameEntity {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     public PowerupEntity() {
-        // Placeholder until sorted out if we should use EPowerupIcons
-        super(EGraphics.SHARK);
+        super(EGraphics.POWERUP);
     }
     
     @Override
     public CollisionShape getCollisionShape() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new BoxCollisionShape(getExtents());
     }
 
     /**
@@ -73,6 +73,10 @@ public class PowerupEntity extends AGameEntity {
         
     private void attachToRootNode() {
         TankAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+    }
+    
+   private void updatePosition() {
+        spatial.setLocalTranslation(powerup.getPosition());
     }
     
 }

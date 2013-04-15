@@ -19,4 +19,6 @@ import java.beans.PropertyChangeSupport;
 public interface IPowerup extends IObservable {
     public void addPowerup();
     public void removePowerup();
+
+    public Vector3f getPosition();
 }

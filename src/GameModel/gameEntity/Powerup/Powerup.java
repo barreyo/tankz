@@ -4,9 +4,7 @@
  */
 package GameModel.gameEntity.Powerup;
 
-import GameModel.IObservable;
-import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -18,11 +16,16 @@ public class Powerup implements IPowerup {
 
     private EPowerup powerup;
     private boolean isVisible;
+    private Vector3f position;
     
     private final float HASTE_FACTOR = 1000;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    public Powerup() {
+        
+    }
+    
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
@@ -40,5 +43,9 @@ public class Powerup implements IPowerup {
      */
     public void removePowerup() {
         isVisible = false;
+    }
+
+    public Vector3f getPosition() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
