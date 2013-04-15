@@ -23,7 +23,8 @@ public class Powerup implements IPowerup {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public Powerup() {
-        
+        powerup = EPowerup.HASTE;
+        position = new Vector3f(10,5,10);
     }
     
     public void addObserver(PropertyChangeListener l) {

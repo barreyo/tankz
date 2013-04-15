@@ -50,7 +50,6 @@ public class GameAppState extends AbstractAppState {
         EGameState.setGameState(EGameState.RUNNING);
         showHud();
         
-        stateManager.attach(TanksAppStateFactory.getAppState(CommonMapAppState.class));
         TankAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
 
         loadDesktopInputs();
@@ -71,7 +70,6 @@ public class GameAppState extends AbstractAppState {
         super.stateDetached(stateManager);
         removeDesktopInputs();
         // deatch all Level States
-        stateManager.detach(TanksAppStateFactory.getAppState(CommonMapAppState.class));
         TankAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
 
         // TODO: pause any playing music

@@ -26,8 +26,9 @@ public class PowerupEntity extends AGameEntity {
     private IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    public PowerupEntity() {
+    public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
+        setModel(pow);
     }
     
     @Override
