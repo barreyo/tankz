@@ -20,6 +20,8 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
     private MissileProjectileEntity entity;
     private IExplodingProjectile projectileModel;
     private ParticleEmitter effect;
+    
+    private boolean isListening;
 
     /**
      * Creates a tank projectile control.
@@ -29,6 +31,8 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
 
         this.entity = entity;
         this.projectileModel = projModel;
+        
+        isListening = true;
         
         // We observe view
         entity.addObserver(this);
@@ -46,7 +50,7 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
             projectileModel.impact();
             
             // We dont have to listen for collisions any more
-            space.removeCollisionListener(this);
+            isListening = false;
      
             // Remove ourself as a rigid body control from physics space
             space.remove(this);
@@ -60,8 +64,11 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
     public void update(float tpf) {
         super.update(tpf);
         if (enabled) {
+            if (!isListening && space != null) {
+                space.removeCollisionListener(this);
+            }
             projectileModel.update(tpf);
-        }
+        } 
     }
 
     @Override
