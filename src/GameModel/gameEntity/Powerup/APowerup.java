@@ -6,6 +6,7 @@ package GameModel.gameEntity.Powerup;
 
 import GameModel.Game.PowerupSpawningPoint;
 import GameModel.IObservable;
+import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
@@ -22,7 +23,7 @@ public abstract class APowerup implements IObservable {
     /**
      * Use the powerup.
      */
-    public abstract void usePowerup(IArmedVehicle vehicle);
+    public abstract void usePowerup(IPlayer player);
 
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);

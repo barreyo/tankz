@@ -22,7 +22,12 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
         if (space == null) {
             return;
         }
-        if (event.getObjectA() == this || event.getObjectB() == this) {
+        if (event.getObjectA() == this && event.getObjectB() instanceof TanksVehicleControl) {
+            powerupModel.usePowerup(((TanksVehicleControl) event.getObjectB()).getPlayer());
+        }
+        if (event.getObjectB() == this && event.getObjectA() instanceof TanksVehicleControl) {
+            powerupModel.usePowerup(((TanksVehicleControl) event.getObjectA()).getPlayer());
+        }
             // Impact made, alert model
             // Highly temporary, this means the powerup gets used as soon as you hit it
             // Also this doesn't know which tank hit it
@@ -34,6 +39,5 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
      
             // Remove ourself as a rigid body control from physics space
             space.remove(this);
-        }
     }
 }
