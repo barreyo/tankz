@@ -4,7 +4,7 @@ package GameModel.Game;
 import GameModel.IObservable;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
-import GameModel.gameEntity.Powerup.APowerup;
+import GameModel.gameEntity.Powerup.IPowerup;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class TanksGameModel implements ITanks, IObservable {
     private final List<IPlayer> players;
-    private List<APowerup> powerups;
+    private List<IPowerup> powerups;
     private List<ISpawningPoints> spawningPoints;
     private float timer;
     
@@ -28,7 +28,7 @@ public class TanksGameModel implements ITanks, IObservable {
         this.players = players;
     }
     
-    public TanksGameModel(List<IPlayer> players, List <APowerup> powerups,
+    public TanksGameModel(List<IPlayer> players, List <IPowerup> powerups,
             List <ISpawningPoints> spawningPoints){
         this.players = players;
         this.powerups = powerups;
@@ -53,7 +53,7 @@ public class TanksGameModel implements ITanks, IObservable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public void removePowerup(APowerup powerup) {
+    public void removePowerup(IPowerup powerup) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -61,10 +61,10 @@ public class TanksGameModel implements ITanks, IObservable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Collection<APowerup> getPowerups() {
-        List<APowerup> pUps = Collections.unmodifiableList(powerups);
+    public Collection<IPowerup> getPowerups() {
+        List<IPowerup> pUps = Collections.unmodifiableList(powerups);
         // Cast OK Powerup implements IPowerup
-        return (Collection<APowerup>) pUps; 
+        return (Collection<IPowerup>) pUps; 
     }
 
     public Collection<ISpawningPoints> getSpawningPoints() {
