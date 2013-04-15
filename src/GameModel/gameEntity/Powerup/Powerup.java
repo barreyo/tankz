@@ -18,13 +18,14 @@ public class Powerup implements IPowerup {
     private boolean isVisible;
     private Vector3f position;
     
+    public static final float MASS = 10f;
     private final float HASTE_FACTOR = 1000;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public Powerup() {
+    public Powerup(Vector3f pos) {
         powerup = EPowerup.HASTE;
-        position = new Vector3f(10,5,10);
+        position = pos;
     }
     
     public void addObserver(PropertyChangeListener l) {
@@ -44,9 +45,17 @@ public class Powerup implements IPowerup {
      */
     public void removePowerup() {
         isVisible = false;
+        System.out.println("REMOVING POWERUP FROM MODEL");
+        pcs.firePropertyChange(null, null, null);
     }
 
     public Vector3f getPosition() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return position;
     }
+
+    public float getMASS() {
+        return MASS;
+    }
+    
+    
 }
