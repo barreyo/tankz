@@ -108,13 +108,36 @@ public class Player implements IPlayer, IObservable {
         return false;
         
     }
+    
+    /**
+     * 
+     * @return name, vehicle, kills, deaths and isActive in the format:
+     * Player{name=xxx, vehicle=xxx, kills=xxx, deaths=xxx, isActive=xxxx
+     */
+    @Override
+    public String toString() {
+        return "Player{" + "name=" + name + ", vehicle=" + vehicle + ", "
+                + "kills=" + kills + ", deaths=" + deaths + ", isActive="
+                + isActive + '}';
+    } 
 
+    /**
+     * 
+     * @return hashCode based on the name. 
+     */
     @Override
     public int hashCode() {
         int hash = 3;
+        hash = 73 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
-
+    
+     /**
+     * Equals method that compares the name of the Player.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this Player is the same as the obj argument; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -129,5 +152,4 @@ public class Player implements IPlayer, IObservable {
         }
         return true;
     }
-    
 }

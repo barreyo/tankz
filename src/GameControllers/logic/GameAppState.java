@@ -1,6 +1,7 @@
 package GameControllers.logic;
 
 import GameModel.Game.EGameState;
+import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
@@ -107,7 +108,7 @@ public class GameAppState extends AbstractAppState {
             psvList.get(i).show();
             i++;
         }
-        TimerView timerView = new TimerView();
+        TimerView timerView = new TimerView(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
         timerView.show();
     }
     

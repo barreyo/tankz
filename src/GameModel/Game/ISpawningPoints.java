@@ -1,6 +1,8 @@
 
 package GameModel.Game;
 
+import com.jme3.math.Vector3f;
+
 /**
  *
  * @author perthoresson
@@ -8,9 +10,8 @@ package GameModel.Game;
 public interface ISpawningPoints {
     
     /**
-     * Returns if the spawning point is in use or not.
      * 
-     * @return 
+     * @return if the spawning point is in use or not.
      */
     public boolean isInUse();
     
@@ -20,5 +21,19 @@ public interface ISpawningPoints {
      * @param inUse 
      */
     public void setInUse(boolean inUse);
+    
+    /**
+     * 
+     * Sets position of the spawningpoint.
+     * 
+     * @param position 
+     */
+    public void setPosition(Vector3f position);
+    
+    /**
+     * 
+     * @return the position of the spawningpoint
+     */
+    public Vector3f getPosition();
     
 }
