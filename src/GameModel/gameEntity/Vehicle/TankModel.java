@@ -194,4 +194,63 @@ public class TankModel implements IArmedVehicle, IObservable {
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
+
+    /**
+     * 
+     * @return health, vehicleState, steeringValue and accelerationValue in the
+     * format: "Tankmodel{health=xxx, vehicleState=xxxxx, steeringValue=xxxf,
+     * accelerationValue=xxxf
+     */
+    @Override
+    public String toString() {
+        return "TankModel{" + "health=" + health + ", vehicleState="
+                + vehicleState + ", steeringValue=" + steeringValue 
+                + ", accelerationValue=" + accelerationValue + '}';
+    }
+    
+    /**
+     * 
+     * @return haschCode based on health, vehicleState, steeringValue 
+     * and accelerationValue.
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + this.health;
+        hash = 59 * hash + (this.vehicleState != null ? this.vehicleState.hashCode() : 0);
+        hash = 59 * hash + Float.floatToIntBits(this.steeringValue);
+        hash = 59 * hash + Float.floatToIntBits(this.accelerationValue);
+        return hash;
+    }
+    
+    /**
+     * Equals method that compares health, vehicleState, steeringValue and
+     * accelerationValue
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this TankModel is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TankModel other = (TankModel) obj;
+        if (this.health != other.health) {
+            return false;
+        }
+        if (this.vehicleState != other.vehicleState) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.steeringValue) != Float.floatToIntBits(other.steeringValue)) {
+            return false;
+        }
+        if (Float.floatToIntBits(this.accelerationValue) != Float.floatToIntBits(other.accelerationValue)) {
+            return false;
+        }
+        return true;
+    }
 }
