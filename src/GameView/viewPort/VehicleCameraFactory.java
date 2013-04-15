@@ -15,10 +15,10 @@ public final class VehicleCameraFactory {
    
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TankAppAdapter.INSTANCE.getInputManager());
-        chaseCam.setMaxDistance(20);
-        chaseCam.setMinDistance(10);
-        chaseCam.setDefaultDistance(15);
-        chaseCam.setChasingSensitivity(5f);
+        chaseCam.setMaxDistance(15);
+        chaseCam.setMinDistance(5);
+        chaseCam.setDefaultDistance(12);
+        chaseCam.setChasingSensitivity(50f);
         chaseCam.setSmoothMotion(true); //automatic following
         chaseCam.setUpVector(Vector3f.UNIT_Y);
         chaseCam.setTrailingEnabled(true);
