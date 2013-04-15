@@ -16,6 +16,8 @@ import com.jme3.light.Light;
 import com.jme3.material.Material;
 import com.jme3.math.Vector2f;
 import com.jme3.post.SceneProcessor;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.Caps;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
@@ -45,6 +47,10 @@ public enum TankAppAdapter {
 
     public void addLightToRootNode(Light light) {
         tanksApp.getRootNode().addLight(light);
+    }
+    
+    public void removeLightFromRootNode(Light light) {
+        tanksApp.getRootNode().removeLight(light);
     }
 
     public void detachAllGUIChildren() {
@@ -127,8 +133,6 @@ public enum TankAppAdapter {
         tanksApp.getGuiViewPort().addProcessor(processor);
     }
     
-    
-
     public AppSettings getSettings() {
         return tanksApp.getSettings();
     }
@@ -187,5 +191,17 @@ public enum TankAppAdapter {
     
     public float getScreenHeight() {
         return tanksApp.getSettings().getHeight();
+    }
+
+    public boolean rendererContains(Caps caps) {
+        return tanksApp.getRenderer().getCaps().contains(caps);
+    }
+
+    public Camera getCamera() {
+        return tanksApp.getCamera().clone();
+    }
+
+    public ViewPort createMainView(String loc, Camera cam) {
+        return tanksApp.getRenderManager().createMainView(loc, cam);
     }
 }
