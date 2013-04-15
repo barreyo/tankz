@@ -55,8 +55,8 @@ public class GameAppState extends AbstractAppState {
         loadDesktopInputs();
         
         //Stops the menu sound and plays game sound.
-        //Did not work in stateDetached in MenuAppState
         SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);
+        //Did not work in stateDetached in MenuAppState
         SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
     }
      
