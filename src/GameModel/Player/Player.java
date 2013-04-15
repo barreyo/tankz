@@ -95,7 +95,7 @@ public class Player implements IPlayer, IObservable {
     @Override
     public void setPowerup(EPowerup powerup) {
         this.powerup = powerup;
-        pcs.firePropertyChange(null);
+        pcs.firePropertyChange(null, null, null);
     }
 
     public void addObserver(PropertyChangeListener l) {
