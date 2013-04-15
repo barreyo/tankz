@@ -4,6 +4,7 @@
  */
 package GameModel.gameEntity.Powerup;
 
+import GameModel.Game.UserSettings;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -44,7 +45,12 @@ public class Powerup implements IPowerup {
      * Use the powerup, removing it from world.
      */
     public void removePowerup() {
-        
+        for (int i = 0; i < UserSettings.INSTANCE.getPlayers().size(); i++) {
+            if (UserSettings.INSTANCE.getPlayers().get(i) != null) {
+                 System.out.println("SETTING POWERUP ON ALL PLAYERS");
+                 UserSettings.INSTANCE.getPlayers().get(i).setPowerup(EPowerup.HASTE);
+            }
+        }
         isVisible = false;
         System.out.println("REMOVING POWERUP FROM MODEL");
         pcs.firePropertyChange(null, null, null);
