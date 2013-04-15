@@ -175,6 +175,7 @@ public class TankModel implements IArmedVehicle {
         } else {
             health -= hp;
         }
+        pcs.firePropertyChange(null,null,null);
     }
 
     public void shoot() {

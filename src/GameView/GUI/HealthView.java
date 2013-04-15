@@ -47,6 +47,8 @@ public class HealthView extends AHudElement {
         mask.setHeight(elementHeight);
         mask.setWidth(elementWidth);
         mask.setPosition(elementX, elementY);
+        
+        player.getVehicle().addObserver(this);
     }
     
     /**

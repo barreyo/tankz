@@ -84,7 +84,7 @@ public final class TankEntity extends AGameEntity implements Savable {
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
     public void addObserver(PropertyChangeListener l) {
