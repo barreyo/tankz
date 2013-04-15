@@ -1,5 +1,6 @@
 package GameModel.gameEntity.Projectile;
 
+import GameModel.Game.UserSettings;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
@@ -87,6 +88,10 @@ public final class MissileModel implements IExplodingProjectile {
 
     public void impact() {
         exploding = true;
+        for (int i = 0; i < UserSettings.INSTANCE.getPlayers().size(); i++) {
+            UserSettings.INSTANCE.getPlayers().get(i).getVehicle().decrementHealth(10);
+            System.out.println(UserSettings.INSTANCE.getPlayers().get(i).getVehicle().getHealth());
+        }
         pcs.firePropertyChange(IMPACT_MADE, null, null);
     }
 

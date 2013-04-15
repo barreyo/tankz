@@ -73,7 +73,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
             //allGameEntities.add(tank1);
         }
         
-        ControlFactory.createNewPowerup(new Vector3f(20,2,20));
+        ControlFactory.createNewPowerup(new Vector3f(20,1.5f,20));
     }
 
     /**

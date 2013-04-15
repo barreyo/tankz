@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class TankModel implements IArmedVehicle {
     
-    private int health;
+    private int health = 100;
     private IArmedVehicle.VehicleState vehicleState;
     
     private float steeringValue;
