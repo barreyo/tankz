@@ -66,19 +66,16 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             return;
         }
         super.update(tpf);
-        if (chaseCam == null) {
-            return;
-        }
         
-        // Keep vehicle within max speeds
-        float maxSpeed = (vehicleModel.getAccelerationValue() >= 0
-                ? vehicleModel.getForwardMaxSpeed()
-                : -vehicleModel.getBackMaxSpeed());
-        float speedFactor = (maxSpeed - this.getCurrentVehicleSpeedKmHour()) / maxSpeed;
-        this.accelerate(vehicleModel.getAccelerationValue() * speedFactor);
+        vehicleModel.updateCurrentVehicleSpeedKmHour(this.getCurrentVehicleSpeedKmHour());
+        vehicleModel.update(tpf);
+        
+        // Accelerate the vehicle accordning to the model
+        this.accelerate(vehicleModel.getAccelerationValue());
 
-        chaseCam.setHorizonalLookAt(this.getForwardVector(null).multLocal(new Vector3f(1, 0, 1)));
-
+        if (chaseCam != null) {
+            chaseCam.setHorizonalLookAt(this.getForwardVector(null).multLocal(new Vector3f(1, 0, 1)));
+        }
     }
 
     /**
@@ -147,20 +144,23 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     /**
      * @inheritdoc
      */
+    @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-       
+        if (!enabled || EGameState.getGameState() != EGameState.RUNNING) {
+            return;
+        }
         // Steering related
         if (name.equals(turnLeft)) {
             if (isPressed) {
                 if (!isFirstLeftKeyPressDone) {
                     isFirstLeftKeyPressDone = true;
                 }
-                vehicleModel.incrementSteeringValue(.4f);
+                vehicleModel.steerLeft();
             } else {
                 if (!isFirstLeftKeyPressDone) {
                     return;
                 }
-                vehicleModel.decrementSteeringValue(.4f);
+                vehicleModel.steerRight();
             }
             this.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(turnRight)) {
@@ -168,12 +168,12 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (!isFirstRightKeyPressDone) {
                     isFirstRightKeyPressDone = true;
                 }
-                vehicleModel.decrementSteeringValue(.4f);
+                vehicleModel.steerRight();
             } else {
                 if (!isFirstRightKeyPressDone) {
                     return;
                 }
-                vehicleModel.incrementSteeringValue(.4f);
+                vehicleModel.steerLeft();
             }
             this.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(accelerateForward)) {
@@ -181,32 +181,29 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (!isFirstUpKeyPressDone) {
                     isFirstUpKeyPressDone = true;
                 }
-                this.brake(0f);
-                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce());       
+                vehicleModel.accelerateForward();     
             } else {
                 if (!isFirstUpKeyPressDone) {
                     return;
                 }
-                this.brake(10.0f);
-                vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
+                this.brake(vehicleModel.getFrictionForce());
+                vehicleModel.accelerateBack();
             }
         } else if (name.equals(accelerateBack)) {
             if (isPressed) {
                 if (!isFirstDownKeyPressDone) {
                     isFirstDownKeyPressDone = true;
                 }
-                this.brake(0f);
-                vehicleModel.decrementAccelerationValue(vehicleModel.getAccelerationForce());
+                vehicleModel.accelerateBack();
             } else {
                 if (!isFirstDownKeyPressDone) {
                     return;
                 }
-                this.brake(10.0f);
-                vehicleModel.incrementAccelerationValue(vehicleModel.getAccelerationForce()); 
+                this.brake(vehicleModel.getFrictionForce());
+                vehicleModel.accelerateForward();
             }
         } else if (name.equals(reset)) {
             if (isPressed) {
-                System.out.println("Reset");
                 this.setPhysicsLocation(Vector3f.ZERO);
                 this.setPhysicsRotation(new Matrix3f());
                 this.setLinearVelocity(Vector3f.ZERO);
@@ -215,13 +212,12 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             }
         } else if (name.equals(shoot)) {
             if (!isPressed) {
+                // Shoot by creating a new missile with the right direction, position and rotation
                 ControlFactory.createNewMissile(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(this.getForwardVector(null).multLocal(3f)),
                                 this.getForwardVector(null), spatial.getWorldRotation());
                 SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
             }
         }
-        //boolean isMoving = left || right || up || down;
-        //GameState.setMoving(isMoving);
     }
 
     private void addInputMappings() {

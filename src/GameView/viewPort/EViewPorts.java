@@ -34,7 +34,7 @@ public enum EViewPorts {
         
         FilterPostProcessor fpp = new FilterPostProcessor(TankAppAdapter.INSTANCE.getAssetManager());
         
-        /*
+        
         DepthOfFieldFilter dof = new DepthOfFieldFilter();
         dof.setFocusDistance(0);
         dof.setFocusRange(100);
@@ -44,7 +44,7 @@ public enum EViewPorts {
         // uncomment this for cartoon, trees gets fucked up though
         if (TankAppAdapter.INSTANCE.rendererContains(Caps.GLSL100)){
             fpp.addFilter(new CartoonEdgeFilter());
-        }*/
+        }
         
         view.addProcessor(fpp);
     }

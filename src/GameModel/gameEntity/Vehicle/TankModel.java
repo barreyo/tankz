@@ -18,6 +18,8 @@ public class TankModel implements IArmedVehicle {
     
     private float steeringValue;
     private float accelerationValue;
+    private float acceleration;
+    private float currentVehicleSpeedKmHour;
     
     // This is physics-related information about the Tank
     public static final float TANK_MASS = 600.0f;
@@ -28,7 +30,9 @@ public class TankModel implements IArmedVehicle {
     public static final float TANK_MAX_BACK_SPEED = 30.0f;
     public static final float TANK_ACCELERATION_FORCE = 2000.0f;
     public static final float TANK_BRAKE_FORCE = 10000.0f;
+    public static final float TANK_FRICTION_FORCE = 10.0f;
     public static final float TANK_MAX_SUSPENSION_FORCE = 999000.0f;
+    public static final float TANK_STEERING_CHANGE_VALUE = 0.4f;
 
     //Create four wheels and add them at their locations
     public static final Vector3f TANK_WHEEL_DIRECTION = new Vector3f(0, -1, 0); // was 0, -1, 0
@@ -105,51 +109,19 @@ public class TankModel implements IArmedVehicle {
         this.vehicleState = state;
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setSteeringValue(float value) {
-        this.steeringValue = value;
+    private void incrementAcceleration(float force) {
+        this.acceleration += force;
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setAccelerationValue(float value) {
-        this.accelerationValue = value;
+    private void decrementAcceleration(float force) {
+        this.acceleration -= force;
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void incrementAccelerationValue(float force) {
-        this.accelerationValue += force;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void decrementAccelerationValue(float force) {
-        this.accelerationValue -= force;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void incrementSteeringValue(float value) {
+    private void incrementSteeringValue(float value) {
         this.steeringValue += value;
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void decrementSteeringValue(float value) {
+    private void decrementSteeringValue(float value) {
         this.steeringValue -= value;
     }
 
@@ -169,6 +141,7 @@ public class TankModel implements IArmedVehicle {
         return TANK_MAX_BACK_SPEED;
     }
 
+    @Override
     public void decrementHealth(int hp) {
         if (health - hp < 0) {
             health = 0;
@@ -178,25 +151,58 @@ public class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(null,null,null);
     }
 
+    @Override
     public void shoot() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    public List<IExplodingProjectile> getFiredProjetiles() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    
+  
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
     
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
     @Override
     public void update(float tpf) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Keep vehicle within max speeds
+        float maxSpeed = (acceleration >= 0
+                ? TANK_MAX_FORWARD_SPEED
+                : -TANK_MAX_BACK_SPEED);
+        float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
+        accelerationValue = acceleration * speedFactor;
+    }
+
+    @Override
+    public void accelerateForward() {
+        incrementAcceleration(TANK_ACCELERATION_FORCE);
+    }
+
+    @Override
+    public void accelerateBack() {
+        decrementAcceleration(TANK_ACCELERATION_FORCE);
+    }
+
+    @Override
+    public void steerLeft() {
+        incrementSteeringValue(TANK_STEERING_CHANGE_VALUE);
+    }
+
+    @Override
+    public void steerRight() {
+        decrementSteeringValue(TANK_STEERING_CHANGE_VALUE);
+    }
+
+    @Override
+    public float getFrictionForce() {
+        return TANK_FRICTION_FORCE;
+    }
+
+    @Override
+    public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour) {
+        this.currentVehicleSpeedKmHour = currentVehicleSpeedKmHour;
     }
 }

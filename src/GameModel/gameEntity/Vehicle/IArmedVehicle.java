@@ -66,45 +66,6 @@ public interface IArmedVehicle extends IObservable{
      * @param state The state of the vehicle
      */
     void setVehicleState(IArmedVehicle.VehicleState state);
-    
-    /**
-     * Sets steering value of vehicle.
-     *
-     * @param value The steeringvalue to be set
-     */
-    void setSteeringValue(float value);
-    
-    /**
-     * Sets accelerationvalue of vehicle.
-     *  
-     * @param value The accelerationvalue to be set
-     */
-    void setAccelerationValue(float value);
-    
-    /**
-     * Increments the acceleration value by specified force.
-     * 
-     * @param force that increments the acceleration value
-     */
-    void incrementAccelerationValue(float force);
-    /**
-     * Decrements the acceleration value by specified force.
-     * 
-     * @param force that decrements the acceleration value
-     */
-    void decrementAccelerationValue(float force);
-    /**
-     * Increments the steering value by specified value.
-     *
-     * @param value that increments the steering value
-     */
-    void incrementSteeringValue(float value);
-    /**
-     * Decrements the steering value by specified value.
-     * 
-     * @param value that decrements the steering value
-     */
-    void decrementSteeringValue(float value);
 
     /**
      * Returns the forward max speed in km/h of the vehicle.
@@ -119,6 +80,18 @@ public interface IArmedVehicle extends IObservable{
      * @return the backwards max speed in km/h of the vehicle
      */
     float getBackMaxSpeed();
+
+    public void accelerateForward();
+
+    public void accelerateBack();
+
+    public void steerLeft();
+
+    public void steerRight();
+
+    public float getFrictionForce();
+
+    public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour);
 
     /**
      * Enum representing different states of the vehicle.
@@ -147,11 +120,6 @@ public interface IArmedVehicle extends IObservable{
      * Shoots a projectile from the vehicle
      */
     public void shoot();
-    
-    /**
-     * Returns the projectiles this vehicle has fired, that still exists
-     */
-    public List<IExplodingProjectile> getFiredProjetiles();
     
     public void update(float tpf);
 }
