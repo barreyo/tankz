@@ -5,6 +5,7 @@ import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
 import GameView.GUI.PowerupSlotView;
+import GameView.GUI.TimerView;
 import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -105,7 +106,9 @@ public class GameAppState extends AbstractAppState {
             psvList.add(new PowerupSlotView(p, ViewPortManager.INSTANCE.getViewportForPlayer(p)));
             psvList.get(i).show();
             i++;
-        }        
+        }
+        TimerView timerView = new TimerView();
+        timerView.show();
     }
     
     private void loadDesktopInputs() {

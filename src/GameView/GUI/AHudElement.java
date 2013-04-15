@@ -31,5 +31,14 @@ public abstract class AHudElement implements PropertyChangeListener, IHudElement
     public void hide() {
         TankAppAdapter.INSTANCE.getGUINode().detachChild(picture);
     }
-    
+
+    /**
+     * Format: Pic: #######
+     * 
+     * @return name of the picture.
+     */
+    @Override
+    public String toString() {
+        return "Pic: " + picture.getName();
+    }
 }

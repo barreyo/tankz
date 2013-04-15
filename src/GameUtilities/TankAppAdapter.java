@@ -14,6 +14,7 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.Trigger;
 import com.jme3.light.Light;
 import com.jme3.material.Material;
+import com.jme3.math.Vector2f;
 import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
@@ -178,5 +179,13 @@ public enum TankAppAdapter {
     
     public Node getGUINode() {
         return tanksApp.getGuiNode();
+    }
+    
+    public float getScreenWidth() {
+        return  tanksApp.getSettings().getWidth();  
+    }
+    
+    public float getScreenHeight() {
+        return tanksApp.getSettings().getHeight();
     }
 }
