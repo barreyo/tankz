@@ -1,7 +1,11 @@
 package GameView.viewPort;
 
-import App.TanksApp;
+import GameUtilities.TankAppAdapter;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.CartoonEdgeFilter;
+import com.jme3.post.filters.DepthOfFieldFilter;
 import com.jme3.renderer.Camera;
+import com.jme3.renderer.Caps;
 import com.jme3.renderer.ViewPort;
 
 /**
@@ -21,13 +25,28 @@ public enum EViewPorts {
     private final ViewPort view;
     
     private EViewPorts(float left, float right, float bottom, float top, String loc) {
-        TanksApp app = TanksApp.getApp();
-        Camera cam = app.getCamera().clone();
+        Camera cam = TankAppAdapter.INSTANCE.getCamera();
         cam.setViewPort(left, right, bottom, top);
         
-        view = app.getRenderManager().createMainView(loc, cam);
+        view = TankAppAdapter.INSTANCE.createMainView(loc, cam);
         view.setClearFlags(true, true, true);
         view.setEnabled(false);
+        
+        FilterPostProcessor fpp = new FilterPostProcessor(TankAppAdapter.INSTANCE.getAssetManager());
+        
+        /*
+        DepthOfFieldFilter dof = new DepthOfFieldFilter();
+        dof.setFocusDistance(0);
+        dof.setFocusRange(100);
+        fpp.addFilter(dof);
+        
+       
+        // uncomment this for cartoon, trees gets fucked up though
+        if (TankAppAdapter.INSTANCE.rendererContains(Caps.GLSL100)){
+            fpp.addFilter(new CartoonEdgeFilter());
+        }*/
+        
+        view.addProcessor(fpp);
     }
 
     /**

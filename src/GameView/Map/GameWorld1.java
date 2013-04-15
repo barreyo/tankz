@@ -2,6 +2,7 @@ package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
 import GameControllers.entitycontrols.ControlFactory;
+import GameControllers.logic.ViewPortManager;
 import GameModel.Game.TanksGameModel;
 import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
@@ -10,7 +11,9 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
+import com.jme3.post.filters.CartoonEdgeFilter;
 import com.jme3.post.filters.DepthOfFieldFilter;
+import com.jme3.renderer.Caps;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.util.SkyFactory;
@@ -27,6 +30,8 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     private TanksGameModel game;
     
     private Node mapNode;
+    private Node mainScene;
+    private DirectionalLight sun;
     
     private static final Vector3f LIGHT_DIR = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
     
@@ -41,10 +46,10 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
      * @inheritdoc
      */
     public void load() {
-        Node mainScene = new Node("Main Scene");
+        mainScene = new Node("Main Scene");
         TankAppAdapter.INSTANCE.attachChildToRootNode(mainScene);
         
-        DirectionalLight sun = new DirectionalLight();
+        sun = new DirectionalLight();
         sun.setDirection(LIGHT_DIR);
         sun.setColor(ColorRGBA.White.clone().multLocal(1.7f));
         TankAppAdapter.INSTANCE.addLightToRootNode(sun);
@@ -54,15 +59,6 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         sky.setLocalScale(350);
         
         mainScene.attachChild(sky);
-        
-        FilterPostProcessor fpp = new FilterPostProcessor(TankAppAdapter.INSTANCE.getAssetManager());
-        
-        DepthOfFieldFilter dof = new DepthOfFieldFilter();
-        dof.setFocusDistance(0);
-        dof.setFocusRange(100);
-        fpp.addFilter(dof);
-        
-        TankAppAdapter.INSTANCE.addViewPortProcessor(fpp);
         
         // Load, attach map to root node, and add nodes and geoms in the map to physicsspace
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
@@ -85,7 +81,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
      */
     public void cleanup() {
         TankAppAdapter.INSTANCE.detachAllRootChildren();
-        
+        TankAppAdapter.INSTANCE.removeLightFromRootNode(sun);
         
         /*for (IGameEntity gameEntity : allGameEntities) {
             gameEntity.cleanup(); // should remove all physics and controls
