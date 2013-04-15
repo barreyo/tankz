@@ -95,7 +95,6 @@ public interface IPlayer {
     @Override
     boolean equals(Object obj);
     
-    
     void removeObserver(PropertyChangeListener l);
     
     

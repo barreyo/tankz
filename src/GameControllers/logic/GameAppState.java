@@ -113,8 +113,13 @@ public class GameAppState extends AbstractAppState {
         TimerView timerView = new TimerView(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
         timerView.show();
         
-        HealthView hpView = new HealthView(UserSettings.INSTANCE.getPlayers().get(0), ViewPortManager.INSTANCE.getViewportForPlayer(UserSettings.INSTANCE.getPlayers().get(0)));
-        hpView.show();
+        List<HealthView> hpvList = new ArrayList<HealthView>();
+        i = 0;
+        for ( IPlayer p : UserSettings.INSTANCE.getPlayers() ) {
+            hpvList.add(new HealthView(p, ViewPortManager.INSTANCE.getViewportForPlayer(p)));
+            hpvList.get(i).show();
+            i++;
+        }
     }
     
     /**
