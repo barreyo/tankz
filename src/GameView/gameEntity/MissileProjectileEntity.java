@@ -11,6 +11,7 @@ import com.jme3.effect.ParticleEmitter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
 
 /**
  * A missile projectile.
@@ -19,13 +20,13 @@ import java.beans.PropertyChangeSupport;
  */
 public final class MissileProjectileEntity extends AGameEntity{
     private IExplodingProjectile projectile;
-    private final ParticleEmitter effect;
+    private final Collection<ParticleEmitter> effects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public MissileProjectileEntity(IExplodingProjectile proj) {
         super(EGraphics.SHARK);
-        effect = EEffects.EXPLOSION.getEmitter();
+        effects = EEffects.EXPLOSION.getEmitters();
         
         setModel(proj);
     }
@@ -59,9 +60,12 @@ public final class MissileProjectileEntity extends AGameEntity{
             // Clean up
             cleanup();
         } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
-            if (effect.getParent() != null) {
-                // Remove effect from world
-                effect.removeFromParent();
+            for (ParticleEmitter effect : effects) {
+                if (effect.getParent() != null) {
+                    // Remove effect from world
+                    effect.killAllParticles();
+                    effect.removeFromParent();
+                }
             }
             // Pass on
             pcs.firePropertyChange(evt);
@@ -78,12 +82,14 @@ public final class MissileProjectileEntity extends AGameEntity{
             spatial.removeFromParent();
         }
     }
-    
-     private void showEffect() {
-        if (effect != null && spatial.getParent() != null) {
-            effect.setLocalTranslation(spatial.getLocalTranslation());
-            spatial.getParent().attachChild(effect);
-            effect.emitAllParticles();
+
+    private void showEffect() {
+        for (ParticleEmitter effect : effects) {
+            if (effect != null && spatial.getParent() != null) {
+                effect.setLocalTranslation(spatial.getLocalTranslation());
+                spatial.getParent().attachChild(effect);
+                effect.emitAllParticles();
+            }
         }
     }
 
@@ -91,8 +97,8 @@ public final class MissileProjectileEntity extends AGameEntity{
        return projectile;
     }
     
-    public ParticleEmitter getEffect() {
-        return effect;
+    public Collection<ParticleEmitter> getEffects() {
+        return effects;
     }
 
     public void setModel(IExplodingProjectile proj) {

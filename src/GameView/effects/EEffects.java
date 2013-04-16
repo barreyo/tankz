@@ -1,6 +1,8 @@
 package GameView.effects;
 
 import com.jme3.effect.ParticleEmitter;
+import java.util.Collection;
+
 
 /**
  *
@@ -15,7 +17,7 @@ public enum EEffects {
         this.effect = effect;
     }
     
-    public ParticleEmitter getEmitter() {
-        return effect.getParticleEmitter();
+    public Collection<ParticleEmitter> getEmitters() {
+        return effect.getParticleEmitters();
     }
 }

@@ -36,8 +36,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     private IGameEntity entity;
     // The player controlling
     private IPlayer player;
-   
-    // Variables needed to fire projectile
     
     // Cam to be set up behind Vehicle
     private VehicleCamera chaseCam;

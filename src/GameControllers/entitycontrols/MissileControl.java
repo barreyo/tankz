@@ -11,6 +11,7 @@ import com.jme3.export.JmeImporter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  *
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class MissileControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
     private MissileProjectileEntity entity;
     private IExplodingProjectile projectileModel;
-    private ParticleEmitter effect;
+    private Collection<ParticleEmitter> effects;
     
     private boolean isListening;
 
@@ -38,7 +39,7 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
         entity.addObserver(this);
         
         // Get effect
-        effect = entity.getEffect();
+        effects = entity.getEffects();
     }
 
     public void collision(PhysicsCollisionEvent event) {
@@ -55,8 +56,10 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
             // Remove ourself as a rigid body control from physics space
             space.remove(this);
             
-            // Now we control the effect instead
-            effect.addControl(this);
+            // Now we control the effects instead
+            for (ParticleEmitter effect : effects) {
+                effect.addControl(this);
+            }
         }
     }
 
@@ -89,7 +92,9 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
                 entity.removeObserver(this);
             }
         } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
-            effect.removeControl(this);
+            for (ParticleEmitter effect : effects) {
+                effect.removeControl(this);
+            }
             entity.removeObserver(this);
         }
     }

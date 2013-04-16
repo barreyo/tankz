@@ -54,32 +54,11 @@ public interface IArmedVehicle extends IObservable{
     float getAccelerationValue();
     
     /**
-     * Sets the health of the vehicle.
-     * 
-     * @param health The health of the vehicle
-     */
-    void setHealth(int health);
-    
-    /**
      * Sets the state of the vehicle.
      * 
      * @param state The state of the vehicle
      */
     void setVehicleState(IArmedVehicle.VehicleState state);
-
-    /**
-     * Returns the forward max speed in km/h of the vehicle.
-     * 
-     * @return the forward max speed in km/h of the vehicle
-     */
-    float getForwardMaxSpeed();
-
-    /**
-     * Returns the backwards max speed in km/h of the vehicle.
-     * 
-     * @return the backwards max speed in km/h of the vehicle
-     */
-    float getBackMaxSpeed();
 
     public void accelerateForward();
 

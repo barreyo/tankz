@@ -1,10 +1,8 @@
 package GameModel.gameEntity.Vehicle;
 
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.List;
 
 /**
  * Model for a tank vehicle.
@@ -13,7 +11,7 @@ import java.util.List;
  */
 public class TankModel implements IArmedVehicle {
     
-    private int health = 100;
+    private int health;
     private IArmedVehicle.VehicleState vehicleState;
     
     private float steeringValue;
@@ -44,6 +42,10 @@ public class TankModel implements IArmedVehicle {
     public static final float TANK_WHEEL_Z_OFF = 1.5f;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    
+    public TankModel() {
+        health = 100;
+    }
     
     /**
      * @inheritdoc
@@ -97,14 +99,6 @@ public class TankModel implements IArmedVehicle {
      * @inheritdoc
      */
     @Override
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
     public void setVehicleState(IArmedVehicle.VehicleState state) {
         this.vehicleState = state;
     }
@@ -123,22 +117,6 @@ public class TankModel implements IArmedVehicle {
 
     private void decrementSteeringValue(float value) {
         this.steeringValue -= value;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public float getForwardMaxSpeed() {
-        return TANK_MAX_FORWARD_SPEED;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public float getBackMaxSpeed() {
-        return TANK_MAX_BACK_SPEED;
     }
 
     @Override

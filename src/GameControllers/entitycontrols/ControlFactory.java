@@ -9,7 +9,6 @@ import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TankAppAdapter;
-import GameView.gameEntity.IGameEntity;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;

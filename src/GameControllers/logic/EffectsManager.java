@@ -1,10 +1,6 @@
 package GameControllers.logic;
 
-import GameControllers.logic.IMapRelatedManager;
-import GameControllers.logic.PreloadManager;
-import GameControllers.logic.ViewPortManager;
 import GameView.viewPort.EViewPorts;
-import GameView.effects.EEffects;
 import GameView.effects.EEffects;
 import com.jme3.effect.ParticleEmitter;
 import java.util.Collection;
@@ -17,7 +13,7 @@ import java.util.EnumMap;
 public enum EffectsManager implements IMapRelatedManager {
     INSTANCE;
 
-    private EnumMap<EEffects, ParticleEmitter> effectsMap = new EnumMap<EEffects, ParticleEmitter>(EEffects.class);
+    private EnumMap<EEffects, Collection<ParticleEmitter>> effectsMap = new EnumMap<EEffects, Collection<ParticleEmitter>>(EEffects.class);
 
     /**
      *
@@ -37,9 +33,10 @@ public enum EffectsManager implements IMapRelatedManager {
     private void loadGraphics(EEffects[] effects, Collection<EViewPorts> views) {
         for (EViewPorts view : views) {
             for (EEffects effect : effects) {
-                ParticleEmitter emitter = effect.getEmitter();
-                PreloadManager.INSTANCE.preload(emitter, view.getViewPort());
-                effectsMap.put(effect, emitter);
+                for (ParticleEmitter emitter : effect.getEmitters()) {
+                    PreloadManager.INSTANCE.preload(emitter, view.getViewPort());
+                }
+                effectsMap.put(effect, effect.getEmitters());
             }
         }
     }
