@@ -11,7 +11,6 @@ import GameUtilities.TankAppAdapter;
 import GameView.GUI.FloatingNameControl;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;
-import GameView.viewPort.VehicleCameraFactory;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
@@ -43,8 +42,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     /**
      * Creates a control for a tank vehicle.
      */
-    public TanksVehicleControl(CollisionShape shape, float mass, IGameEntity entity, IPlayer player) {  
-        super(shape, mass);
+    public TanksVehicleControl(IGameEntity entity, IPlayer player) {  
+        super(entity.getCollisionShape(), player.getVehicle().getMass());
         
         // Save references to model, view and player
         this.entity = entity;
@@ -114,7 +113,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      * @param spatial The spatial to be followed by the camera.
      */
     private void setUpCam(Camera cam) {
-        chaseCam = VehicleCameraFactory.getVehicleChaseCamera(cam, spatial);
+        chaseCam = ControlFactory.getVehicleChaseCamera(cam, spatial);
     }
 
     /**

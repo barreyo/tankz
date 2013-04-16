@@ -35,11 +35,10 @@ public class TankModel implements IArmedVehicle {
     //Create four wheels and add them at their locations
     public static final Vector3f TANK_WHEEL_DIRECTION = new Vector3f(0, -1, 0); // was 0, -1, 0
     public static final Vector3f TANK_WHEEL_AXIS = new Vector3f(-1, 0, 0); // was -1, 0, 0
-    public static final float TANK_WHEEL_RADIUS = 0.1f;
     public static final float TANK_WHEEL_REST_LENGTH = 0.2f;
-    public static final float TANK_WHEEL_Y_OFF = 0.3f;
-    public static final float TANK_WHEEL_X_OFF = 0.5f;
-    public static final float TANK_WHEEL_Z_OFF = 1.5f;
+    public static final float TANK_WHEEL_Y_OFF = 0.7f;
+    public static final float TANK_WHEEL_X_OFF = 0.9f;
+    public static final float TANK_WHEEL_Z_OFF = 0.7f;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -182,5 +181,10 @@ public class TankModel implements IArmedVehicle {
     @Override
     public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour) {
         this.currentVehicleSpeedKmHour = currentVehicleSpeedKmHour;
+    }
+
+    @Override
+    public float getMass() {
+        return TANK_MASS;
     }
 }

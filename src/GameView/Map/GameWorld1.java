@@ -2,7 +2,6 @@ package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
 import GameControllers.entitycontrols.ControlFactory;
-import GameControllers.logic.ViewPortManager;
 import GameModel.Game.TanksGameModel;
 import GameModel.Player.IPlayer;
 import GameUtilities.TankAppAdapter;
@@ -10,10 +9,6 @@ import GameView.graphics.EGraphics;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.post.filters.CartoonEdgeFilter;
-import com.jme3.post.filters.DepthOfFieldFilter;
-import com.jme3.renderer.Caps;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.util.SkyFactory;
@@ -69,8 +64,6 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         for (IPlayer player : game.getPlayers()) {
             // Create a tank for each player at startpos
             ControlFactory.createTank(player, new Vector3f(10, 2, 10));
-            
-            //allGameEntities.add(tank1);
         }
         
         ControlFactory.createNewPowerup(new Vector3f(20,1.5f,20));

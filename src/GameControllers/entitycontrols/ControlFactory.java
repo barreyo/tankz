@@ -9,14 +9,23 @@ import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
 import GameUtilities.TankAppAdapter;
+import GameUtilities.Util;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
+import GameView.viewPort.VehicleCamera;
+import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
+import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 
 /**
  * Manages controls.
@@ -33,41 +42,48 @@ public final class ControlFactory {
         // Move to startpos
         entity.setPosition(startPos);
         
-        CompoundCollisionShape compoundShape = new CompoundCollisionShape();
-        compoundShape.addChildShape(entity.getCollisionShape(), new Vector3f(0, 1, 0));
-        
-        TanksVehicleControl vehicle = new TanksVehicleControl(compoundShape, TankModel.TANK_MASS, entity, player);
+        Node carNode = (Node)entity.getSpatial();
+
+        TanksVehicleControl vehicle = new TanksVehicleControl(entity, player);
         vehicle.setSuspensionCompression(TankModel.TANK_COMP_VALUE * 2.0f
                                 * FastMath.sqrt(TankModel.TANK_STIFFNESS));
         vehicle.setSuspensionDamping(TankModel.TANK_DAMP_VALUE * 2.0f 
                                 * FastMath.sqrt(TankModel.TANK_STIFFNESS));
         vehicle.setSuspensionStiffness(TankModel.TANK_STIFFNESS);
         vehicle.setMaxSuspensionForce(TankModel.TANK_MAX_SUSPENSION_FORCE);
-
-        vehicle.addWheel(null, new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
-                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
-                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
-                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
-                true);
-
-        vehicle.addWheel(null, new Vector3f(TankModel.TANK_WHEEL_X_OFF,
-                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
-                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
-                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
-                true);
-
-        vehicle.addWheel(null, new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
-                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
-                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
-                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
-                false);
-
-        vehicle.addWheel(null, new Vector3f(TankModel.TANK_WHEEL_X_OFF,
-                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
-                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
-                TankModel.TANK_WHEEL_REST_LENGTH, TankModel.TANK_WHEEL_RADIUS,
-                false);
         
+        Geometry wheel_fr = Util.findGeom(carNode, "WheelFrontRight");
+        wheel_fr.center();
+        BoundingBox box = (BoundingBox) wheel_fr.getModelBound();
+        float wheelRadius = box.getYExtent();
+        vehicle.addWheel(wheel_fr.getParent(), new Vector3f(TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS, 
+                TankModel.TANK_WHEEL_REST_LENGTH, wheelRadius, true);
+
+        Geometry wheel_fl = Util.findGeom(carNode, "WheelFrontLeft");
+        wheel_fl.center();
+        box = (BoundingBox) wheel_fl.getModelBound();
+        vehicle.addWheel(wheel_fl.getParent(), new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS, 
+                TankModel.TANK_WHEEL_REST_LENGTH, wheelRadius, true);
+
+        Geometry wheel_br = Util.findGeom(carNode, "WheelBackRight");
+        wheel_br.center();
+        box = (BoundingBox) wheel_br.getModelBound();
+        vehicle.addWheel(wheel_br.getParent(), new Vector3f(TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS, 
+                TankModel.TANK_WHEEL_REST_LENGTH, wheelRadius, false);
+
+        Geometry wheel_bl = Util.findGeom(carNode, "WheelBackLeft");
+        wheel_bl.center();
+        box = (BoundingBox) wheel_bl.getModelBound();
+        vehicle.addWheel(wheel_bl.getParent(), new Vector3f(-TankModel.TANK_WHEEL_X_OFF,
+                TankModel.TANK_WHEEL_Y_OFF, -TankModel.TANK_WHEEL_Z_OFF),
+                TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS, 
+                TankModel.TANK_WHEEL_REST_LENGTH, wheelRadius, false);
         entity.addControl(vehicle);
         
         // Get the right viewport for the player and enable it
@@ -104,5 +120,18 @@ public final class ControlFactory {
         TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
         
         view.addControl(control);
+    }
+    
+    public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
+        VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TankAppAdapter.INSTANCE.getInputManager());
+        chaseCam.setMaxDistance(25);
+        chaseCam.setMinDistance(15);
+        chaseCam.setDefaultDistance(20);
+        chaseCam.setChasingSensitivity(50f);
+        chaseCam.setSmoothMotion(true); //automatic following
+        chaseCam.setUpVector(Vector3f.UNIT_Y);
+        chaseCam.setTrailingEnabled(true);
+        chaseCam.setDefaultVerticalRotation(0.3f);
+        return chaseCam;
     }
 }

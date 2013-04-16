@@ -31,7 +31,7 @@ public enum EViewPorts {
         view = TankAppAdapter.INSTANCE.createMainView(loc, cam);
         view.setClearFlags(true, true, true);
         view.setEnabled(false);
-        
+       
         FilterPostProcessor fpp = new FilterPostProcessor(TankAppAdapter.INSTANCE.getAssetManager());
         
         

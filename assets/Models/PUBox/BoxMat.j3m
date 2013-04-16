@@ -1,9 +1,7 @@
 Material My Material : Common/MatDefs/Misc/Unshaded.j3md {
      MaterialParameters {
-        Color : 0.0 0.0 0.0 1.0
+        ColorMap : Flip Repeat Models/PUBox/0EVjc_Iw9SGD5Szyw4yHYdCkpt-T5XxKQ_A3juTzfSY.png
      }
     AdditionalRenderState {
-      Blend Alpha
-        FaceCull FrontAndBack
     }
 }

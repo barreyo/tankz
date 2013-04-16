@@ -4,16 +4,11 @@
  */
 package GameView.gameEntity;
 
-import GameControllers.logic.GraphicManager;
 import GameModel.gameEntity.Powerup.IPowerup;
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameUtilities.TankAppAdapter;
-import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.material.Material;
-import com.jme3.scene.Spatial;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

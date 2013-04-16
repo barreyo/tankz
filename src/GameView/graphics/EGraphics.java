@@ -10,7 +10,7 @@ public enum EGraphics {
     /**
      *  Model used for tanks.
      */
-    TANK("Models/tanken/tanken.j3o"),
+    TANK("Models/Tankz/Tankz.j3o"),
     /**
      * Model used for missile projectiles.
      */

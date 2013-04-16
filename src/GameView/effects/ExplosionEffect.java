@@ -1,6 +1,7 @@
 package GameView.effects;
 
 import App.TanksApp;
+import GameUtilities.TankAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh.Type;
@@ -23,7 +24,7 @@ public class ExplosionEffect implements IEffect {
     private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
     
     public ExplosionEffect() {
-        assetManager = TanksApp.getApp().getAssetManager();
+        assetManager = TankAppAdapter.INSTANCE.getAssetManager();
         createFlame();
         createFlash();
         createSpark();

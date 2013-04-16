@@ -2,8 +2,6 @@
 package GameModel.gameEntity.Vehicle;
 
 import GameModel.IObservable;
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
-import java.util.List;
 
 
 /**
@@ -71,6 +69,8 @@ public interface IArmedVehicle extends IObservable{
     public float getFrictionForce();
 
     public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour);
+    
+    public float getMass();
 
     /**
      * Enum representing different states of the vehicle.

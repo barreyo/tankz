@@ -5,11 +5,14 @@ import GameControllers.entitycontrols.EControls;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameUtilities.TankAppAdapter;
+import GameUtilities.Util;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Geometry;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -42,7 +45,10 @@ public final class TankEntity extends AGameEntity {
      */
     @Override
     public CollisionShape getCollisionShape() {
-        return new BoxCollisionShape(getExtents());
+        Geometry chasis = Util.findGeom(spatial, "Chassi");
+        //Create a hull collision shape for the chassis
+        CollisionShape carHull = CollisionShapeFactory.createDynamicMeshShape(chasis);
+        return carHull;
     }
 
     /**
