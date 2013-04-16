@@ -9,22 +9,23 @@ import com.jme3.input.KeyInput;
  */
 public enum EPlayerInputs {
 
-    Player1(KeyInput.KEY_A, KeyInput.KEY_D, KeyInput.KEY_W, KeyInput.KEY_S, KeyInput.KEY_RETURN, KeyInput.KEY_Q),
-    Player2(KeyInput.KEY_H, KeyInput.KEY_K, KeyInput.KEY_U, KeyInput.KEY_J, KeyInput.KEY_O, KeyInput.KEY_Y),
-    Player3(KeyInput.KEY_LEFT, KeyInput.KEY_RIGHT, KeyInput.KEY_UP, KeyInput.KEY_DOWN, KeyInput.KEY_NUMPAD0, KeyInput.KEY_NUMPAD1),
-    Player4(KeyInput.KEY_NUMPAD4, KeyInput.KEY_NUMPAD6, KeyInput.KEY_NUMPAD8, KeyInput.KEY_NUMPAD5, KeyInput.KEY_NUMPAD9, KeyInput.KEY_NUMPAD7);
+    Player1(KeyInput.KEY_A, KeyInput.KEY_D, KeyInput.KEY_W, KeyInput.KEY_S, KeyInput.KEY_RETURN, KeyInput.KEY_Q, KeyInput.KEY_E),
+    Player2(KeyInput.KEY_H, KeyInput.KEY_K, KeyInput.KEY_U, KeyInput.KEY_J, KeyInput.KEY_O, KeyInput.KEY_Y, KeyInput.KEY_I),
+    Player3(KeyInput.KEY_LEFT, KeyInput.KEY_RIGHT, KeyInput.KEY_UP, KeyInput.KEY_DOWN, KeyInput.KEY_NUMPAD0, KeyInput.KEY_NUMPAD1, KeyInput.KEY_RSHIFT),
+    Player4(KeyInput.KEY_NUMPAD4, KeyInput.KEY_NUMPAD6, KeyInput.KEY_NUMPAD8, KeyInput.KEY_NUMPAD5, KeyInput.KEY_NUMPAD9, KeyInput.KEY_NUMPAD7, KeyInput.KEY_X);
     
-    private final int left, right, up, down, reset, shoot;
+    private final int left, right, up, down, reset, shoot, powerup;
     
     private boolean isInUse;
 
-    private EPlayerInputs(int l, int r, int u, int d, int re, int sh) {
+    private EPlayerInputs(int l, int r, int u, int d, int re, int sh, int pwr) {
         left = l;
         right = r;
         up = u;
         down = d;
         reset = re;
         shoot = sh;
+        powerup = pwr;
     }
 
     /**
@@ -79,6 +80,15 @@ public enum EPlayerInputs {
      */
     public int getShootKey() {
         return shoot;
+    }
+    
+    /**
+     * Returns an integer representing the powerup key.
+     * 
+     * @return an integer respresenting the powerup key.
+     */
+    public int getPowerupKey() {
+        return powerup;
     }
     
     /**

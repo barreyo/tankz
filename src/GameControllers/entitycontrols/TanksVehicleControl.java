@@ -136,6 +136,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     private String accelerateBack;
     private String reset;
     private String shoot;
+    private String powerup;
 
     private boolean isFirstLeftKeyPressDone;
     private boolean isFirstRightKeyPressDone;
@@ -217,6 +218,11 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                                 this.getForwardVector(null), spatial.getWorldRotation());
                 SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
             }
+        } else if (name.equals(powerup)) {
+            System.out.println("USED POWERUP BUTTON!");
+            if (!isPressed) {
+                player.usePowerup();
+            }
         }
     }
 
@@ -239,6 +245,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         int down = inputs.getDownKey();
         int resetI = inputs.getResetKey();
         int shootI = inputs.getShootKey();
+        int powerupI = inputs.getPowerupKey();
         
         // Specifies mappingnames for input
         turnLeft = "" + left;
@@ -247,6 +254,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         accelerateBack = "" + down;
         reset = "" + resetI;
         shoot = "" + shootI;
+        powerup = "" + powerupI;
         
         // Adds the mappings to inputmanager
         TankAppAdapter.INSTANCE.addInputMapping(turnLeft, new KeyTrigger(left));
@@ -255,8 +263,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TankAppAdapter.INSTANCE.addInputMapping(accelerateBack, new KeyTrigger(down));
         TankAppAdapter.INSTANCE.addInputMapping(reset, new KeyTrigger(resetI));
         TankAppAdapter.INSTANCE.addInputMapping(shoot, new KeyTrigger(shootI));
+        TankAppAdapter.INSTANCE.addInputMapping(powerup, new KeyTrigger(powerupI));
         // Registers this as an listener for the specified mappingnames
-        TankAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot);
+        TankAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot, powerup);
         
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);

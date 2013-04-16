@@ -99,4 +99,6 @@ public interface IPlayer {
     
     
     void addObserver(PropertyChangeListener l);
+
+    public void usePowerup();
 }

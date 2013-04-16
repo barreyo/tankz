@@ -153,7 +153,7 @@ public class TankModel implements IArmedVehicle {
 
     @Override
     public void shoot() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        System.out.println("PEWPEWPEW");
     }
   
     @Override

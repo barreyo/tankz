@@ -153,4 +153,14 @@ public class Player implements IPlayer, IObservable {
         }
         return true;
     }
+
+    public void usePowerup() {
+        if (powerup != null) {
+            if (powerup.equals(EPowerup.HASTE)) {
+                this.getVehicle().shoot();
+            }
+            powerup = EPowerup.EMPTY;
+            pcs.firePropertyChange(null,null,null);
+        }
+    }
 }
