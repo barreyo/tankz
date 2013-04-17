@@ -21,7 +21,8 @@ import java.util.Properties;
  * @author Daniel
  */
 public final class LoadingScreenAppState extends AbstractAppState implements ScreenController, Controller {
-
+    private static LoadingScreenAppState instance;
+    
     private Nifty nifty;
     private Element progressBarElement;
     private Element progressTextElement;
@@ -36,7 +37,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     /**
      *
      */
-    public LoadingScreenAppState() {
+    private LoadingScreenAppState() {
         // Get managers
         nifty = GUIManager.INSTANCE.getNifty();
         
@@ -48,6 +49,13 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
         //progressBarElement = nifty.getScreen("loadingScreen").findElementByName("progress");
         
         System.out.println("Tjena");
+    }
+    
+    public static synchronized LoadingScreenAppState getInstance() {
+        if (instance == null) {
+            instance = new LoadingScreenAppState();
+        }
+        return instance;
     }
     
     /**
@@ -103,13 +111,11 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
             
             GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
-            TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(GameAppState.class));
+            TanksAppAdapter.INSTANCE.attachAppState(new GameAppState());
             EGameState.setGameState(EGameState.RUNNING);
+            System.out.println("Finished loading game");
         }
         //this.setProgress((float)frameCount, "Tanks");
-        
-        System.out.println("Finished loading game");
-        
         frameCount++;
     }
     
