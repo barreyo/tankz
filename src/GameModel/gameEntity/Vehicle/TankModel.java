@@ -24,8 +24,8 @@ public class TankModel implements IArmedVehicle {
     public static final float TANK_STIFFNESS = 80.0f;//200=f1 car
     public static final float TANK_COMP_VALUE = 0.2f; //(should be lower than damp)
     public static final float TANK_DAMP_VALUE = 0.5f;
-    public static final float TANK_MAX_FORWARD_SPEED = 110.0f; 
-    public static final float TANK_MAX_BACK_SPEED = 50.0f;
+    public static final float TANK_MAX_FORWARD_SPEED = 80.0f; 
+    public static final float TANK_MAX_BACK_SPEED = 30.0f;
     public static final float TANK_ACCELERATION_FORCE = 2000.0f;
     public static final float TANK_BRAKE_FORCE = 10000.0f;
     public static final float TANK_FRICTION_FORCE = 10.0f;
