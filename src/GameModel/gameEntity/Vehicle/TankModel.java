@@ -1,5 +1,6 @@
 package GameModel.gameEntity.Vehicle;
 
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -13,6 +14,9 @@ public class TankModel implements IArmedVehicle {
     
     private int health;
     private IArmedVehicle.VehicleState vehicleState;
+    private Vector3f position;
+    private Vector3f direction;
+    private Quaternion rotation;
     
     private float steeringValue;
     private float accelerationValue;
@@ -111,26 +115,38 @@ public class TankModel implements IArmedVehicle {
     }
 
     private void incrementSteeringValue(float value) {
-        this.steeringValue += value;
+        if (value != 0) {
+            this.steeringValue += value;
+            steeringValueChanged();
+        }
     }
 
     private void decrementSteeringValue(float value) {
-        this.steeringValue -= value;
+        if (value != 0) {
+            this.steeringValue -= value;
+            steeringValueChanged();
+        }
+    }
+    
+    private void steeringValueChanged() {
+        pcs.firePropertyChange(STEER, null, null);
     }
 
     @Override
     public void decrementHealth(int hp) {
-        if (health - hp < 0) {
-            health = 0;
-        } else {
-            health -= hp;
+        if (hp != 0) {
+            if (health - hp < 0) {
+                health = 0;
+            } else {
+                health -= hp;
+            }
+            pcs.firePropertyChange(null, null, null);
         }
-        pcs.firePropertyChange(null,null,null);
     }
 
     @Override
     public void shoot() {
-        System.out.println("PEWPEWPEW");
+        pcs.firePropertyChange(SHOOT, null, null);
     }
   
     @Override
@@ -146,11 +162,13 @@ public class TankModel implements IArmedVehicle {
     @Override
     public void update(float tpf) {
         // Keep vehicle within max speeds
-        float maxSpeed = (acceleration >= 0
-                ? TANK_MAX_FORWARD_SPEED
-                : -TANK_MAX_BACK_SPEED);
+        float oldAcceleration = accelerationValue;
+        float maxSpeed = (acceleration >= 0 ? TANK_MAX_FORWARD_SPEED : -TANK_MAX_BACK_SPEED);
         float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
         accelerationValue = acceleration * speedFactor;
+        if (oldAcceleration != accelerationValue) {
+            pcs.firePropertyChange(ACCELERATE, oldAcceleration, accelerationValue);
+        }
     }
 
     @Override
@@ -186,5 +204,40 @@ public class TankModel implements IArmedVehicle {
     @Override
     public float getMass() {
         return TANK_MASS;
+    }
+
+    @Override
+    public void updatePosition(Vector3f pos) {
+        this.position = pos.clone();
+    }
+
+    @Override
+    public Vector3f getFirePosition() {
+        return position.addLocal(0, 1.1f, 0).addLocal(direction.multLocal(2f));
+    }
+
+    @Override
+    public void updateDirection(Vector3f forwardVector) {
+        direction = forwardVector.clone();
+    }
+
+    @Override
+    public Vector3f getDirection() {
+        return direction.clone();
+    }
+
+    @Override
+    public Quaternion getRotation() {
+        return rotation.clone();
+    }
+
+    @Override
+    public void updateRotation(Quaternion rotation) {
+        this.rotation = rotation.clone();
+    }
+
+    @Override
+    public void applyFriction() {
+        pcs.firePropertyChange(FRICTION, null, null);
     }
 }
