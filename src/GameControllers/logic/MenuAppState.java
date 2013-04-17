@@ -1,7 +1,6 @@
 
 package GameControllers.logic;
 
-import GameControllers.GUI.OptionsScreenController;
 import GameModel.Game.UserSettings;
 import GameModel.Game.EGameState;
 import GameModel.gameEntity.Vehicle.TankModel;
@@ -36,7 +35,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     public MenuAppState() {
         nifty = GUIManager.INSTANCE.getNifty();
-        nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
+        nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this);
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
 
         nifty.getSoundSystem().addSound("hooverSound", "Sounds/click.ogg");

@@ -3,6 +3,7 @@ package App;
 
 
 import App.TanksApp;
+import GameUtilities.TankAppAdapter;
 import com.jme3.system.AppSettings;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -23,9 +24,6 @@ public class Main {
      * @param args not used
      */
     public static void main(String[] args) {
-        // Create app and start it
-        TanksApp app = new TanksApp();
-        
         // load the application settings
         AppSettings appSettings = new AppSettings(true);
         appSettings.setVSync(true);
@@ -42,9 +40,9 @@ public class Main {
         appSettings.setSettingsDialogImage("Interface/splashscreen.jpg");
 
         // apply the settings
-        app.setSettings(appSettings);
+        TankAppAdapter.INSTANCE.setSettings(appSettings);
 
         // starts the application (GameNameGoesHere)
-        app.start();
+        TankAppAdapter.INSTANCE.start();
     }
 }
