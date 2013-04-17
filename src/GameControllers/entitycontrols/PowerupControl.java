@@ -4,7 +4,7 @@
  */
 package GameControllers.entitycontrols;
 
-import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.gameEntity.Powerup.IPowerupBox;
 import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameView.gameEntity.MissileProjectileEntity;
@@ -21,11 +21,11 @@ import java.beans.PropertyChangeListener;
  */
 public class PowerupControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
     private PowerupEntity powerupEntity;
-    private IPowerup powerupModel;
+    private IPowerupBox powerupModel;
     private boolean isListening;
 
     
-   public PowerupControl(PowerupEntity entity, IPowerup model) {
+   public PowerupControl(PowerupEntity entity, IPowerupBox model) {
        super(entity.getCollisionShape(), model.getMASS());
         powerupEntity = entity;
         powerupModel = model;

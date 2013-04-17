@@ -87,6 +87,12 @@ public interface IArmedVehicle extends IObservable{
     public void updateRotation(Quaternion worldRotation);
 
     public void applyFriction();
+    
+    public void setMaxSpeed(float maxSpeed);
+    
+    public void setAccelerationForce(float accelerationForce);
+    
+    public float getMaxSpeed();
 
     /**
      * Enum representing different states of the vehicle.

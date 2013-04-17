@@ -4,22 +4,42 @@
  */
 package GameModel.gameEntity.Powerup;
 
-import GameModel.Game.PowerupSpawningPoint;
-import GameUtilities.IObservable;
 import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import com.jme3.math.Vector3f;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 /**
  *
- * @author Garpetun
+ * @author Per
  */
-public interface IPowerup extends IObservable {
+public interface IPowerup {
+    
+    /**
+     * Adds a powerup to the world.
+     */
     public void addPowerup();
+    
+    /**
+     * Removes a powerup from the world.
+     */
     public void removePowerup();
+    
+    /**
+     * 
+     * @return mass of the powerup.
+     */
     public float getMASS();
 
+    /**
+     * 
+     * @return position of the powerup.
+     */
     public Vector3f getPosition();
+    
+    /**
+     * 
+     * Activates the powerup.
+     * 
+     * @param player 
+     */
+    public void usePowerup(IPlayer player);
 }

@@ -4,7 +4,7 @@
  */
 package GameView.gameEntity;
 
-import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.gameEntity.Powerup.IPowerupBox;
 import App.TanksAppAdapter;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -19,10 +19,10 @@ import java.beans.PropertyChangeSupport;
  */
 public class PowerupEntity extends AGameEntity {
 
-    private IPowerup powerup;
+    private IPowerupBox powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    public PowerupEntity(IPowerup pow) {
+    public PowerupEntity(IPowerupBox pow) {
         super(EGraphics.POWERUP);
         setModel(pow);
         spatial.setLocalTranslation(powerup.getPosition());
@@ -58,7 +58,7 @@ public class PowerupEntity extends AGameEntity {
         pcs.removePropertyChangeListener(l);
     }
     
-    public void setModel(IPowerup pow) {
+    public void setModel(IPowerupBox pow) {
         if (powerup != null) {
             this.cleanup();
         }

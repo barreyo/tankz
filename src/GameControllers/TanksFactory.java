@@ -3,8 +3,8 @@ package GameControllers;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.IPowerup;
-import GameModel.gameEntity.Powerup.Powerup;
+import GameModel.gameEntity.Powerup.IPowerupBox;
+import GameModel.gameEntity.Powerup.PowerupBox;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
@@ -111,7 +111,7 @@ public final class TanksFactory {
     }
     
     public static void createNewPowerup(Vector3f position) {
-        IPowerup model = new Powerup(position);
+        IPowerupBox model = new PowerupBox(position);
         PowerupEntity view = new PowerupEntity(model);
         PowerupControl control = new PowerupControl(view, model);
         
