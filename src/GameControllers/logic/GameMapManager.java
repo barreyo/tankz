@@ -76,7 +76,7 @@ public enum GameMapManager implements IMapRelatedManager {
         cleanup();
 
         //this calls currentGameMap.load() inside
-        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
     public void loadNextMap() {
@@ -87,7 +87,7 @@ public enum GameMapManager implements IMapRelatedManager {
         }
 
         cleanup();
-        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
     public void loadPreviousMap() {
@@ -98,7 +98,7 @@ public enum GameMapManager implements IMapRelatedManager {
         }
 
         cleanup();
-        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
     @Override

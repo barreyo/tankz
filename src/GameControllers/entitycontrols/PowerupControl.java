@@ -37,24 +37,20 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
     }
     
     public void collision(PhysicsCollisionEvent event) {
-        System.out.println("COLLISION HAPPENED");
         if (space == null) {
             return;
         }
-        if (event.getObjectA() instanceof TanksVehicleControl || event.getObjectB() instanceof TanksVehicleControl) {
-            System.out.println("OMG TANKEN NUDDAR NÅGONTING!!!!");
-        }
-        if (event.getObjectA() == this || event.getObjectB() == this) {
-            System.out.println("SOMETHING IS COLLIDING WITH BOX");
+        if (event.getObjectA() instanceof TanksVehicleControl && event.getObjectB() == this
+         || event.getObjectB() instanceof TanksVehicleControl && event.getObjectA() == this) {
             powerupModel.removePowerup();
             
             // We dont have to listen for collisions any more
             isListening = false;
+            space.remove(this);
         }
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
-        System.out.println("POWERUPCONTROL: PROPERTY CHANGED");
         powerupEntity.cleanup();
     }
     
