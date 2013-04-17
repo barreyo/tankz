@@ -11,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 /**
  * Graphical representation of the in game timer.
  *
- * @author backman
+ * @author Johan Backman
  */
 public class TimerView extends AHudElement {
     

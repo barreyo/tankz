@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameView.GUI;
 
 import GameModel.Game.UserSettings;
@@ -14,8 +11,9 @@ import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
 
 /**
- *
- * @author backman
+ * The graphical representation of player health.
+ * 
+ * @author Johan Backman
  */
 public class HealthView extends AHudElement {
 
@@ -23,9 +21,18 @@ public class HealthView extends AHudElement {
     private BitmapText text;
     private IPlayer player;
     private float elementWidth;
+    private ViewPort vp;
     
+    /**
+     * Instatiates a graphical representation of the player health at the
+     * position supplied in the ViewPort.
+     * 
+     * @param player player health to display.
+     * @param vp viewport of the player.
+     */
     public HealthView(IPlayer player, ViewPort vp) {
         this.player = player;
+        this.vp = vp;
         
         float screenHeight = vp.getCamera().getHeight();
         float screenWidth = vp.getCamera().getWidth();
@@ -86,5 +93,19 @@ public class HealthView extends AHudElement {
         super.hide();
         guiNode.detachChild(mask);
         guiNode.detachChild(text);
-    } 
+    }
+    
+    /**
+     * Format: Pic: ######
+     *         Player: ######
+     *         VP: ######
+     *         Text: ######
+     * 
+     * @return summary of variables.
+     */
+    @Override
+    public String toString() {
+        return super.toString() + "\nPlayer: " + player.getName() + 
+                "\nVP: " + vp.getName() + "\nText: " + text.getText();
+    }
 }
