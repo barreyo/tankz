@@ -30,10 +30,14 @@ public class GameAppState extends AbstractAppState {
     // Input mapping command
     private static final String PAUSE = "PAUSE";
     
-    /* This will be our game controller, ie will get a game model and a gameworld
+    private ITanks gameModel;
+    private IGameWorld gameWorld;
+    
+    // This will be our game controller, ie will get a game model and a gameworld
     public GameAppState(ITanks game, IGameWorld gameWorld) { 
-        
-    }*/
+        this.gameModel = game;
+        this.gameWorld = gameWorld;
+    }
     
     /**
      *
@@ -54,6 +58,7 @@ public class GameAppState extends AbstractAppState {
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
         EGameState.setGameState(EGameState.RUNNING);
+        gameWorld.load();
         showHud();
         
         TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
@@ -74,6 +79,8 @@ public class GameAppState extends AbstractAppState {
     @Override
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
+        gameWorld.cleanup();
+        
         removeDesktopInputs();
         // deatch all Level States
         TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
