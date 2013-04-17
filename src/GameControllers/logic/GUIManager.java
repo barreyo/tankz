@@ -1,6 +1,6 @@
 package GameControllers.logic;
 
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.niftygui.NiftyJmeDisplay;
@@ -24,18 +24,18 @@ public enum GUIManager {
      */
     private GUIManager() {
         initialiseNifty();
-        GUI_WIDTH = TankAppAdapter.INSTANCE.getSettings().getWidth() * 0.15f;
-        powerupSlotHUDPosition = new Vector2f(TankAppAdapter.INSTANCE.getSettings().getWidth() * 0.2f, 
-                TankAppAdapter.INSTANCE.getSettings().getHeight() * 0.05f);
+        GUI_WIDTH = TanksAppAdapter.INSTANCE.getSettings().getWidth() * 0.15f;
+        powerupSlotHUDPosition = new Vector2f(TanksAppAdapter.INSTANCE.getSettings().getWidth() * 0.2f, 
+                TanksAppAdapter.INSTANCE.getSettings().getHeight() * 0.05f);
     }
     
     private void initialiseNifty() {
-        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(TankAppAdapter.INSTANCE.getAssetManager(),
-                TankAppAdapter.INSTANCE.getInputManager(), TankAppAdapter.INSTANCE.getAudioRenderer(), 
-                TankAppAdapter.INSTANCE.getGuiViewPort());
+        NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(TanksAppAdapter.INSTANCE.getAssetManager(),
+                TanksAppAdapter.INSTANCE.getInputManager(), TanksAppAdapter.INSTANCE.getAudioRenderer(), 
+                TanksAppAdapter.INSTANCE.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
         nifty.enableAutoScaling(1280, 720);
-        TankAppAdapter.INSTANCE.addGuiViewProcessor(niftyDisplay);
+        TanksAppAdapter.INSTANCE.addGuiViewProcessor(niftyDisplay);
         //nifty.setDebugOptionPanelColors(true);
     }
     
@@ -43,21 +43,21 @@ public enum GUIManager {
      *
      */
     public void showMainMenu() {
-        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(MenuAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(MenuAppState.class));
     }
 
     /**
      *
      */
     public void showLoadingScreen() {
-        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
     
     /**
      *
      */
     public void showPauseMenu() {
-        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(PauseMenuAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(PauseMenuAppState.class));
     }
     
     /**
@@ -99,13 +99,13 @@ public enum GUIManager {
 
     private void createBorder(Vector2f position) {
         border = new Picture("border");
-        border.setImage(TankAppAdapter.INSTANCE.getAssetManager(), "Interface/inventoryBorder.png", true);
+        border.setImage(TanksAppAdapter.INSTANCE.getAssetManager(), "Interface/inventoryBorder.png", true);
 
         border.setWidth(GUI_WIDTH);
         border.setHeight(GUI_WIDTH);
 
         border.setPosition(position.getX(), position.getY());
-        TankAppAdapter.INSTANCE.attachChildToGUINode(border);
+        TanksAppAdapter.INSTANCE.attachChildToGUINode(border);
     }
 
     /**
@@ -119,11 +119,11 @@ public enum GUIManager {
         for (int i = 0, length = 3; i < length; i++) {
 
             Vector2f position = powerupSlotHUDPosition.clone();
-            position.setX(position.getX() + (GUI_WIDTH * i) + (TankAppAdapter.INSTANCE.getSettings().getWidth() * 0.08f * i));
+            position.setX(position.getX() + (GUI_WIDTH * i) + (TanksAppAdapter.INSTANCE.getSettings().getWidth() * 0.08f * i));
             createBorder(position);
         }
 
-        TankAppAdapter.INSTANCE.attachChildToGUINode(products);
+        TanksAppAdapter.INSTANCE.attachChildToGUINode(products);
     }
 
     // between 0 and 2

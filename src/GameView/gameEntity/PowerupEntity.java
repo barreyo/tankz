@@ -5,7 +5,7 @@
 package GameView.gameEntity;
 
 import GameModel.gameEntity.Powerup.IPowerup;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -70,7 +70,7 @@ public class PowerupEntity extends AGameEntity {
     }
         
     private void attachToRootNode() {
-        TankAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
     
    private void updatePosition() {

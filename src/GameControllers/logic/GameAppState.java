@@ -4,10 +4,12 @@ import GameModel.Game.EGameState;
 import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
+import GameModel.Game.ITanks;
 import GameView.GUI.HealthView;
 import GameView.GUI.PowerupSlotView;
 import GameView.GUI.TimerView;
+import GameView.Map.IGameWorld;
 import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -30,6 +32,11 @@ public class GameAppState extends AbstractAppState {
     // Input mapping command
     private static final String PAUSE = "PAUSE";
 
+    /* This will be our game controller, ie will get a game model and a gameworld
+    public GameAppState(ITanks game, IGameWorld gameWorld) { 
+        
+    }*/
+    
     /**
      *
      * @param stateManager
@@ -51,7 +58,7 @@ public class GameAppState extends AbstractAppState {
         EGameState.setGameState(EGameState.RUNNING);
         showHud();
         
-        TankAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
+        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
 
         loadDesktopInputs();
         
@@ -71,10 +78,10 @@ public class GameAppState extends AbstractAppState {
         super.stateDetached(stateManager);
         removeDesktopInputs();
         // deatch all Level States
-        TankAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
+        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
 
         // TODO: pause any playing music
-        TankAppAdapter.INSTANCE.detachAllGUIChildren();
+        TanksAppAdapter.INSTANCE.detachAllGUIChildren();
     }
     
     /**
@@ -84,7 +91,7 @@ public class GameAppState extends AbstractAppState {
     public void cleanup() {
       super.cleanup();
       // unregister all my listeners, detach all my nodes, etc...
-      TankAppAdapter.INSTANCE.detachAllRootChildren(); // modify scene graph...
+      TanksAppAdapter.INSTANCE.detachAllRootChildren(); // modify scene graph...
     }
 
     @Override
@@ -130,23 +137,23 @@ public class GameAppState extends AbstractAppState {
     }
     
     private void loadDesktopInputs() {
-        if (TankAppAdapter.INSTANCE.hasInputMapping("SIMPLEAPP_Exit")) {
-            TankAppAdapter.INSTANCE.deleteInputMapping("SIMPLEAPP_Exit");
+        if (TanksAppAdapter.INSTANCE.hasInputMapping("SIMPLEAPP_Exit")) {
+            TanksAppAdapter.INSTANCE.deleteInputMapping("SIMPLEAPP_Exit");
         }
 
-        TankAppAdapter.INSTANCE.addInputMapping(PAUSE, new KeyTrigger(KeyInput.KEY_ESCAPE),
+        TanksAppAdapter.INSTANCE.addInputMapping(PAUSE, new KeyTrigger(KeyInput.KEY_ESCAPE),
                               new KeyTrigger(KeyboardInputEvent.KEY_PAUSE),
                               new KeyTrigger(KeyboardInputEvent.KEY_P));
         /*inputManager.addMapping(NEXT_LEVEL, new KeyTrigger(KeyInput.KEY_F2));
         inputManager.addMapping(PREVIOUS_LEVEL, new KeyTrigger(KeyInput.KEY_F1));*/
 
-        TankAppAdapter.INSTANCE.addInputListener(actionListener, PAUSE);
+        TanksAppAdapter.INSTANCE.addInputListener(actionListener, PAUSE);
     }
     
      private void removeDesktopInputs() {
-        TankAppAdapter.INSTANCE.deleteInputMapping(PAUSE);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(PAUSE);
 
-        TankAppAdapter.INSTANCE.removeInputListener(actionListener);
+        TanksAppAdapter.INSTANCE.removeInputListener(actionListener);
     }
     
     private ActionListener actionListener = new ActionListener() {

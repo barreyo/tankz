@@ -1,6 +1,6 @@
 package GameModel.gameEntity.Projectile;
 
-import GameModel.IObservable;
+import GameUtilities.IObservable;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.math.Quaternion;

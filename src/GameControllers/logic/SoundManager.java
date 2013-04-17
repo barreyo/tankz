@@ -3,7 +3,7 @@ package GameControllers.logic;
 import GameView.Sounds.ESounds;
 import GameModel.Game.UserSettings;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import com.jme3.audio.AudioNode;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -53,7 +53,7 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
     // loads all sound effects which will be needed for that map
     private void loadSoundEffects(ESounds[] sounds) {
         for (ESounds s : sounds) {
-            AudioNode soundNode = new AudioNode(TankAppAdapter.INSTANCE.getAssetManager(), s.path());
+            AudioNode soundNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.path());
             soundMap.put(s, soundNode);
         }
     }
@@ -66,7 +66,7 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
     public void loadMusic(ESounds[] music) {
         for (ESounds s : music) {
             if (s != null) {
-                AudioNode musicNode = new AudioNode(TankAppAdapter.INSTANCE.getAssetManager(), s.path(), true);
+                AudioNode musicNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.path(), true);
                 musicNode.setPositional(false);
                 musicNode.setDirectional(false);
                 musicNode.setVolume(0.5f);
@@ -136,7 +136,7 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
         AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
-            TankAppAdapter.INSTANCE.pauseAudioSource(audio);
+            TanksAppAdapter.INSTANCE.pauseAudioSource(audio);
         }
     }
 

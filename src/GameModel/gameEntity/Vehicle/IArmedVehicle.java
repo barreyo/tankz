@@ -1,7 +1,7 @@
 
 package GameModel.gameEntity.Vehicle;
 
-import GameModel.IObservable;
+import GameUtilities.IObservable;
 
 
 /**

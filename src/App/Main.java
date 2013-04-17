@@ -23,9 +23,6 @@ public class Main {
      * @param args not used
      */
     public static void main(String[] args) {
-        // Create app and start it
-        TanksApp app = new TanksApp();
-        
         // load the application settings
         AppSettings appSettings = new AppSettings(true);
         appSettings.setVSync(true);
@@ -42,9 +39,9 @@ public class Main {
         appSettings.setSettingsDialogImage("Interface/splashscreen.jpg");
 
         // apply the settings
-        app.setSettings(appSettings);
+        TanksAppAdapter.INSTANCE.setSettings(appSettings);
 
         // starts the application (GameNameGoesHere)
-        app.start();
+        TanksAppAdapter.INSTANCE.start();
     }
 }

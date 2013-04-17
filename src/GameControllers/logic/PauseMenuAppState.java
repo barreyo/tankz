@@ -1,7 +1,7 @@
 package GameControllers.logic;
 
 import GameModel.Game.EGameState;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -35,8 +35,8 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *  Create a pause menu app state.
      */
     public PauseMenuAppState() {
-        niftyDisplay = new NiftyJmeDisplay(TankAppAdapter.INSTANCE.getAssetManager(),
-                      TankAppAdapter.INSTANCE.getInputManager(), TankAppAdapter.INSTANCE.getAudioRenderer(), TankAppAdapter.INSTANCE.getGuiViewPort());
+        niftyDisplay = new NiftyJmeDisplay(TanksAppAdapter.INSTANCE.getAssetManager(),
+                      TanksAppAdapter.INSTANCE.getInputManager(), TanksAppAdapter.INSTANCE.getAudioRenderer(), TanksAppAdapter.INSTANCE.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
         nifty.registerScreenController(this);
         nifty.fromXml("Interface/Nifty/PauseMenu.xml", "pause", this);
@@ -63,7 +63,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
         removeDesktopInputs();
-        TankAppAdapter.INSTANCE.removeGuiViewProcessor(niftyDisplay);
+        TanksAppAdapter.INSTANCE.removeGuiViewProcessor(niftyDisplay);
     }
 
     /**
@@ -151,8 +151,8 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void showPauseMenu() {
         // attach the nifty display to the gui view port as a processor
-        TankAppAdapter.INSTANCE.addGuiViewProcessor(niftyDisplay);
-        TankAppAdapter.INSTANCE.setCursorVisible(true);
+        TanksAppAdapter.INSTANCE.addGuiViewProcessor(niftyDisplay);
+        TanksAppAdapter.INSTANCE.setCursorVisible(true);
         nifty.gotoScreen("pause");
     }
 
@@ -161,8 +161,8 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void resume() {
         EGameState.setGameState(EGameState.RUNNING);
-        TankAppAdapter.INSTANCE.setCursorVisible(false);
-        TankAppAdapter.INSTANCE.detachAppState(this);
+        TanksAppAdapter.INSTANCE.setCursorVisible(false);
+        TanksAppAdapter.INSTANCE.detachAppState(this);
     }
 
     /**
@@ -171,7 +171,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     public void restart() {
         EGameState.setGameState(EGameState.RUNNING);
         GameMapManager.INSTANCE.restartMap();
-        TankAppAdapter.INSTANCE.detachAppState(this);
+        TanksAppAdapter.INSTANCE.detachAppState(this);
         /* remove this later */
         //app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
     }
@@ -186,6 +186,6 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *
      */
     public void exit() {
-        TankAppAdapter.INSTANCE.stop();
+        TanksAppAdapter.INSTANCE.stop();
     }
 }

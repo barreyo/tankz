@@ -1,7 +1,7 @@
 
 package GameModel.Player;
 
-import GameModel.IObservable;
+import GameUtilities.IObservable;
 import GameModel.gameEntity.Powerup.EPowerup;
 import GameModel.gameEntity.Powerup.PowerupSlot;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;

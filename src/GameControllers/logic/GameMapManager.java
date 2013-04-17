@@ -1,9 +1,8 @@
 package GameControllers.logic;
 
-import App.TanksApp;
 import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameView.Map.IGameWorld;
 import GameView.Map.GameWorld1;
 
@@ -77,7 +76,7 @@ public enum GameMapManager implements IMapRelatedManager {
         cleanup();
 
         //this calls currentGameMap.load() inside
-        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     public void loadNextMap() {
@@ -88,7 +87,7 @@ public enum GameMapManager implements IMapRelatedManager {
         }
 
         cleanup();
-        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     public void loadPreviousMap() {
@@ -99,7 +98,7 @@ public enum GameMapManager implements IMapRelatedManager {
         }
 
         cleanup();
-        TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
     }
 
     @Override

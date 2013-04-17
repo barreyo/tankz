@@ -3,7 +3,7 @@ package GameControllers.logic;
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
 import GameView.viewPort.EViewPorts;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import com.jme3.renderer.ViewPort;
 import java.util.Collection;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public enum ViewPortManager {
     public void load() {
         initViews();
         for (EViewPorts view : views.values()) {
-            view.getViewPort().attachScene(TankAppAdapter.INSTANCE.getRootNode());
+            view.getViewPort().attachScene(TanksAppAdapter.INSTANCE.getRootNode());
         }
     };
     

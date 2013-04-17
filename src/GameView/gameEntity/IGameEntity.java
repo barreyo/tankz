@@ -1,6 +1,6 @@
 package GameView.gameEntity;
 
-import GameModel.IObservable;
+import GameUtilities.IObservable;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;

@@ -1,7 +1,7 @@
 
 package GameModel.Game;
 
-import GameModel.IObservable;
+import GameUtilities.IObservable;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.IPowerup;

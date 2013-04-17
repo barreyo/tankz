@@ -2,7 +2,7 @@
 package GameView.GUI;
 
 import GameModel.Game.TanksGameModel;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.ui.Picture;
@@ -27,8 +27,8 @@ public class TimerView extends AHudElement {
     public TimerView(TanksGameModel gameModel) {
         this.gameModel = gameModel;
         
-        float screenWidth = TankAppAdapter.INSTANCE.getScreenWidth();
-        float screenHeight = TankAppAdapter.INSTANCE.getScreenHeight();
+        float screenWidth = TanksAppAdapter.INSTANCE.getScreenWidth();
+        float screenHeight = TanksAppAdapter.INSTANCE.getScreenHeight();
         
         picture = new Picture("GameTimer");
         picture.setImage(assetManager, "Interface/TimerBG.png", true);

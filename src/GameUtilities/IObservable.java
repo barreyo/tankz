@@ -1,4 +1,4 @@
-package GameModel;
+package GameUtilities;
 
 import java.beans.PropertyChangeListener;
 /**

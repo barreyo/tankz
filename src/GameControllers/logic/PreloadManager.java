@@ -1,7 +1,7 @@
 
 package GameControllers.logic;
 
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.renderer.ViewPort;
@@ -21,7 +21,7 @@ public enum PreloadManager {
      * @param m the material to be preloaded
      */
     public void preload(Material m) {
-        m.preload(TankAppAdapter.INSTANCE.getRenderManager());
+        m.preload(TanksAppAdapter.INSTANCE.getRenderManager());
     }
 
     /**
@@ -30,7 +30,7 @@ public enum PreloadManager {
      * @param s the spatial to be preloaded
      */
     public void preload(Spatial s) {
-        TankAppAdapter.INSTANCE.preloadSpatial(s);
+        TanksAppAdapter.INSTANCE.preloadSpatial(s);
     }
     
     /**
@@ -40,6 +40,6 @@ public enum PreloadManager {
      * @param view The viewport which the effect will be preloaded for
      */
     public void preload(ParticleEmitter effect, ViewPort view) {
-        effect.preload(TankAppAdapter.INSTANCE.getRenderManager(), view);
+        effect.preload(TanksAppAdapter.INSTANCE.getRenderManager(), view);
     }
 }

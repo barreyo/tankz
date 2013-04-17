@@ -1,11 +1,10 @@
 
 package GameControllers.logic;
 
-import GameControllers.GUI.OptionsScreenController;
 import GameModel.Game.UserSettings;
 import GameModel.Game.EGameState;
 import GameModel.gameEntity.Vehicle.TankModel;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -36,7 +35,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     public MenuAppState() {
         nifty = GUIManager.INSTANCE.getNifty();
-        nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this, new OptionsScreenController());
+        nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this);
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
 
         nifty.getSoundSystem().addSound("hooverSound", "Sounds/click.ogg");
@@ -51,7 +50,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
-        TankAppAdapter.INSTANCE.setCursorVisible(true);
+        TanksAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EGameState.setGameState(EGameState.MAIN_MENU);
         SoundManager.INSTANCE.play(ESounds.MENU_SOUND);
@@ -168,7 +167,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void exit() {
-        TankAppAdapter.INSTANCE.stop();
+        TanksAppAdapter.INSTANCE.stop();
     }
     
     /**

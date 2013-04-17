@@ -1,20 +1,17 @@
-package GameUtilities;
+package App;
 
 import App.TanksApp;
-import GameControllers.entitycontrols.MissileControl;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.Trigger;
 import com.jme3.light.Light;
 import com.jme3.material.Material;
-import com.jme3.math.Vector2f;
 import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.Caps;
@@ -28,14 +25,12 @@ import com.jme3.system.AppSettings;
  *
  * @author Daniel
  */
-public enum TankAppAdapter {
+public enum TanksAppAdapter {
     INSTANCE;
     
-    private final TanksApp tanksApp;
+    private final TanksApp tanksApp = new TanksApp();
     
-    private TankAppAdapter() {
-        tanksApp = TanksApp.getApp();
-    }
+    private TanksAppAdapter() {}
     
     public void setBulletAppStateEnabled(boolean bool) {
         tanksApp.getBulletAppState().setEnabled(bool);
@@ -203,5 +198,13 @@ public enum TankAppAdapter {
 
     public ViewPort createMainView(String loc, Camera cam) {
         return tanksApp.getRenderManager().createMainView(loc, cam);
+    }
+
+    public void start() {
+        tanksApp.start();
+    }
+
+    public void setSettings(AppSettings appSettings) {
+        tanksApp.setSettings(appSettings);
     }
 }

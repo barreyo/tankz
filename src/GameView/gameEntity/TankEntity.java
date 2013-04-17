@@ -4,7 +4,7 @@ package GameView.gameEntity;
 import GameControllers.entitycontrols.EControls;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameUtilities.Util;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -93,6 +93,6 @@ public final class TankEntity extends AGameEntity {
     }
 
     private void show() {
-        TankAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 }
