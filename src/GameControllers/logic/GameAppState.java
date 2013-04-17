@@ -27,8 +27,6 @@ import java.util.List;
  * @author Daniel
  */
 public class GameAppState extends AbstractAppState {
-    
-    
     // Input mapping command
     private static final String PAUSE = "PAUSE";
 

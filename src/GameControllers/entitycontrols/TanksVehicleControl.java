@@ -13,8 +13,6 @@ import GameModel.gameEntity.Powerup.EPowerup;
 import GameView.GUI.FloatingNameControl;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;
-import com.jme3.bullet.collision.PhysicsCollisionEvent;
-import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -22,6 +20,8 @@ import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.Spatial;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  *  A control of a tank vehicle.
@@ -30,7 +30,7 @@ import com.jme3.scene.Spatial;
  * 
  * @author Daniel
  */
-public class TanksVehicleControl extends VehicleControl implements ActionListener {
+public class TanksVehicleControl extends VehicleControl implements ActionListener, PropertyChangeListener {
     
     // The model for the vehicle
     private IArmedVehicle vehicleModel;
@@ -55,6 +55,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         
         // Register input mappings
         addInputMappings();
+        
+        // Observe view
+        entity.addObserver(this);
     }
 
     /*
@@ -68,13 +71,13 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         super.update(tpf);
         
         vehicleModel.updateCurrentVehicleSpeedKmHour(this.getCurrentVehicleSpeedKmHour());
+        vehicleModel.updatePosition(spatial.getWorldTranslation());
+        vehicleModel.updateDirection(this.getForwardVector(null));
+        vehicleModel.updateRotation(spatial.getWorldRotation());
         vehicleModel.update(tpf);
-        
-        // Accelerate the vehicle accordning to the model
-        this.accelerate(vehicleModel.getAccelerationValue());
 
         if (chaseCam != null) {
-            chaseCam.setHorizonalLookAt(this.getForwardVector(null).multLocal(new Vector3f(1, 0, 1)));
+            chaseCam.setHorizonalLookAt(vehicleModel.getDirection().multLocal(new Vector3f(1, 0, 1)));
         }
     }
 
@@ -91,9 +94,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     
     private void initControl() {
         addVehicleControl();
-        // ?
-        spatial.addControl(new FloatingNameControl(spatial,
-                TanksAppAdapter.INSTANCE.getAssetManager()));
+        // Please remove this, use factory and apply to the entity
+        //spatial.addControl(new FloatingNameControl(spatial,TanksAppAdapter.INSTANCE.getAssetManager()));
     }
 
     private void addVehicleControl() {
@@ -125,6 +127,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     public void cleanup() {
         // Remove this as a control and remove inputs
         spatial.removeControl(this);
+        entity.removeObserver(this);
         removeInputMappings();
     }
     
@@ -163,7 +166,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 }
                 vehicleModel.steerRight();
             }
-            this.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(turnRight)) {
             if (isPressed) {
                 if (!isFirstRightKeyPressDone) {
@@ -176,7 +178,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 }
                 vehicleModel.steerLeft();
             }
-            this.steer(vehicleModel.getSteeringValue());
         } else if (name.equals(accelerateForward)) {
             if (isPressed) {
                 if (!isFirstUpKeyPressDone) {
@@ -187,7 +188,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (!isFirstUpKeyPressDone) {
                     return;
                 }
-                this.brake(vehicleModel.getFrictionForce());
+                vehicleModel.applyFriction();
                 vehicleModel.accelerateBack();
             }
         } else if (name.equals(accelerateBack)) {
@@ -200,7 +201,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (!isFirstDownKeyPressDone) {
                     return;
                 }
-                this.brake(vehicleModel.getFrictionForce());
+                vehicleModel.applyFriction();
                 vehicleModel.accelerateForward();
             }
         } else if (name.equals(reset)) {
@@ -213,13 +214,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             }
         } else if (name.equals(shoot)) {
             if (!isPressed) {
-                // Shoot by creating a new missile with the right direction, position and rotation
-                TanksFactory.createNewMissile(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(this.getForwardVector(null).multLocal(3f)),
-                                this.getForwardVector(null), spatial.getWorldRotation());
-                SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
+                vehicleModel.shoot();
             }
         } else if (name.equals(powerup)) {
-            System.out.println("USED POWERUP BUTTON!");
             if (!isPressed) {
                 player.usePowerup();
             }
@@ -289,18 +286,23 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     public IPlayer getPlayer() {
         return player;
     }
-    
-    private boolean isListening;
-    
-    public void collision(PhysicsCollisionEvent event) {
-        if (space == null) {
-            return;
-        }
-        if (event.getObjectA() instanceof PowerupControl && event.getObjectB() == this) {
-            player.setPowerup(EPowerup.HASTE);
-        }
-        else if (event.getObjectB() instanceof PowerupControl && event.getObjectA() == this) {
-            player.setPowerup(EPowerup.HASTE);
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
+            // Shoot by creating a new missile with the right direction, position and rotation
+            TanksFactory.createNewMissile(vehicleModel.getFirePosition(),
+                    vehicleModel.getDirection(), vehicleModel.getRotation());
+            SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
+        } else if (evt.getPropertyName().equals(IArmedVehicle.STEER)) {
+            // Steer the vehicle according to the model
+            this.steer(vehicleModel.getSteeringValue());
+        } else if (evt.getPropertyName().equals(IArmedVehicle.ACCELERATE)) {
+            // Accelerate the vehicle accordning to the model
+            this.accelerate(vehicleModel.getAccelerationValue());
+        } else if (evt.getPropertyName().equals(IArmedVehicle.FRICTION)) {
+            // Brake the vehicle according to the friction in model
+            this.brake(vehicleModel.getFrictionForce());
         }
     }
 }

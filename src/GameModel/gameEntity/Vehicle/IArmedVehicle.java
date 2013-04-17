@@ -2,6 +2,8 @@
 package GameModel.gameEntity.Vehicle;
 
 import GameUtilities.IObservable;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 
 
 /**
@@ -72,6 +74,20 @@ public interface IArmedVehicle extends IObservable{
     
     public float getMass();
 
+    public void updatePosition(Vector3f physicsLocation);
+
+    public Vector3f getFirePosition();
+
+    public void updateDirection(Vector3f forwardVector);
+
+    public Vector3f getDirection();
+
+    public Quaternion getRotation();
+
+    public void updateRotation(Quaternion worldRotation);
+
+    public void applyFriction();
+
     /**
      * Enum representing different states of the vehicle.
      */
@@ -101,4 +117,10 @@ public interface IArmedVehicle extends IObservable{
     public void shoot();
     
     public void update(float tpf);
+    
+    //commands
+    public static String SHOOT = "SHOOT";
+    public static String STEER = "STEER";
+    public static String ACCELERATE = "ACCELERATE";
+    public static String FRICTION = "FRICTION";
 }

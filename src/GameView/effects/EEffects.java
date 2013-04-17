@@ -9,7 +9,9 @@ import java.util.Collection;
  * @author Daniel
  */
 public enum EEffects {
-    EXPLOSION(new ExplosionEffect());
+    EXPLOSION(new ExplosionEffect()),
+    SHOOT(new ShootEffect());
+    
     
     private IEffect effect;
     
