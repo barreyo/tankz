@@ -5,6 +5,7 @@
 package GameModel.gameEntity.Powerup;
 
 import GameModel.Game.UserSettings;
+import GameUtilities.IObservable;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -13,7 +14,7 @@ import java.beans.PropertyChangeSupport;
  *
  * @author Garpetun
  */
-public class Powerup implements IPowerup {
+public class PowerupBox implements IPowerupBox, IObservable {
 
     private EPowerup powerup;
     private boolean isVisible;
@@ -24,7 +25,7 @@ public class Powerup implements IPowerup {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public Powerup(Vector3f pos) {
+    public PowerupBox(Vector3f pos) {
         powerup = EPowerup.HASTE;
         position = pos;
     }

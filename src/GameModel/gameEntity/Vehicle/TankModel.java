@@ -27,14 +27,15 @@ public class TankModel implements IArmedVehicle {
     public static final float TANK_MASS = 600.0f;
     public static final float TANK_STIFFNESS = 80.0f;//200=f1 car
     public static final float TANK_COMP_VALUE = 0.2f; //(should be lower than damp)
-    public static final float TANK_DAMP_VALUE = 0.5f;
-    public static final float TANK_MAX_FORWARD_SPEED = 80.0f; 
+    public static final float TANK_DAMP_VALUE = 0.5f; 
     public static final float TANK_MAX_BACK_SPEED = 30.0f;
-    public static final float TANK_ACCELERATION_FORCE = 2000.0f;
     public static final float TANK_BRAKE_FORCE = 10000.0f;
     public static final float TANK_FRICTION_FORCE = 10.0f;
     public static final float TANK_MAX_SUSPENSION_FORCE = 999000.0f;
     public static final float TANK_STEERING_CHANGE_VALUE = 0.4f;
+    
+    private float maxSpeed = 80.0f;
+    private float accelerationForce = 2000.0f;
 
     //Create four wheels and add them at their locations
     public static final Vector3f TANK_WHEEL_DIRECTION = new Vector3f(0, -1, 0); // was 0, -1, 0
@@ -71,7 +72,7 @@ public class TankModel implements IArmedVehicle {
      */
     @Override
     public float getAccelerationForce() {
-        return TANK_ACCELERATION_FORCE;
+        return accelerationForce;
     }
 
     /**
@@ -163,7 +164,7 @@ public class TankModel implements IArmedVehicle {
     public void update(float tpf) {
         // Keep vehicle within max speeds
         float oldAcceleration = accelerationValue;
-        float maxSpeed = (acceleration >= 0 ? TANK_MAX_FORWARD_SPEED : -TANK_MAX_BACK_SPEED);
+        float maxSpeed = (acceleration >= 0 ? this.maxSpeed : -TANK_MAX_BACK_SPEED);
         float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
         accelerationValue = acceleration * speedFactor;
         if (oldAcceleration != accelerationValue) {
@@ -173,12 +174,12 @@ public class TankModel implements IArmedVehicle {
 
     @Override
     public void accelerateForward() {
-        incrementAcceleration(TANK_ACCELERATION_FORCE);
+        incrementAcceleration(accelerationForce);
     }
 
     @Override
     public void accelerateBack() {
-        decrementAcceleration(TANK_ACCELERATION_FORCE);
+        decrementAcceleration(accelerationForce);
     }
 
     @Override
@@ -240,4 +241,18 @@ public class TankModel implements IArmedVehicle {
     public void applyFriction() {
         pcs.firePropertyChange(FRICTION, null, null);
     }
+
+    public synchronized void setMaxSpeed(float maxSpeed) {
+        this.maxSpeed = maxSpeed;
+    }
+
+    public synchronized void setAccelerationForce(float accelerationForce) {
+        this.accelerationForce = accelerationForce;
+    }
+    
+    public float getMaxSpeed(){
+        return maxSpeed;
+    }
+    
+    
 }
