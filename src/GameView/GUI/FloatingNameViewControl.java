@@ -1,8 +1,13 @@
 package GameView.GUI;
 
-import com.jme3.asset.AssetManager;
+import App.TanksAppAdapter;
+import GameModel.Game.UserSettings;
+import GameModel.Player.IPlayer;
+import GameModel.Player.Player;
 import com.jme3.bounding.BoundingVolume;
+import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
+import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector2f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
@@ -10,33 +15,33 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Barre
  */
-public class FloatingNameControl extends AbstractControl {
+public class FloatingNameViewControl extends AbstractControl {
 
-    private Spatial player;
+    private IPlayer player;
     private ViewPort vp;
     private BitmapText text;
+    private List<IPlayer> players;
     
-    private FloatingNameControl() {} // Disable zero parameter instantiation
+    private FloatingNameViewControl() {} // Disable zero parameter instantiation
     
-    public FloatingNameControl(Spatial player, AssetManager assetManager) {
+    public FloatingNameViewControl(IPlayer player, ViewPort vp) {
 //        this.player = player;
-//        //this.vp = EViewPorts.VIEW1.getViewPort();
-//        BitmapFont font = assetManager.loadFont("Interface/Fonts/loadingFont.fnt");
+//        this.vp = vp;
+//        this.fillPlayersList();
+//        BitmapFont font = TanksAppAdapter.INSTANCE.getAssetManager().loadFont("Interface/Fonts/loadingFont.fnt");
 //        text = new BitmapText(font, false);
 //        // Initial setup of the text
 //        text.setText("SpelareJHEJE");
 //        text.setColor(ColorRGBA.Magenta);
 //        text.setSize(1.0f);
-////        text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
-//        text.setLocalTranslation(0.0f, 0.0f, 1);
-//        TanksGame.getApp().getGuiNode().attachChild(text);
-//        //vp.attachScene(text);
-//        System.out.println("TJENARE");
+        
     }
     
     @Override
@@ -56,6 +61,15 @@ public class FloatingNameControl extends AbstractControl {
         return null;
     }
     
+    private void fillPlayersList() {
+        players = new ArrayList<IPlayer>();
+        for (IPlayer p : UserSettings.INSTANCE.getPlayers()) {
+            if (!p.equals(player) ) {
+                players.add(p);
+            }
+        }
+    }
+    
     private boolean checkIfInViewPort(Spatial spatial) {
         BoundingVolume bv = spatial.getWorldBound();
         int planeState = vp.getCamera().getPlaneState();
@@ -65,15 +79,5 @@ public class FloatingNameControl extends AbstractControl {
         // Return the planestate to the original value
         vp.getCamera().setPlaneState(planeState);
         return res == Camera.FrustumIntersect.Intersects;
-    }
-    
-    private Vector2f getScreenCoordinates() {
-        // Calculate the plane to project onto
-        float f = player.getWorldTranslation().z - vp.getCamera().getLocation().z;
-        float x = ((player.getWorldTranslation().x - vp.getCamera().getLocation().x) * 
-                (f / player.getWorldTranslation().z)) + vp.getCamera().getLocation().x;
-        float y = ((player.getWorldTranslation().y - vp.getCamera().getLocation().y) * 
-                (f / player.getWorldTranslation().z)) + vp.getCamera().getLocation().y;
-        return new Vector2f(x,y);
     }
 }
