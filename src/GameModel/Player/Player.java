@@ -163,4 +163,10 @@ public class Player implements IPlayer, IObservable {
             pcs.firePropertyChange(null,null,null);
         }
     }
+    
+    public void decrementHealth(int hp) {
+        this.getVehicle().decrementHealth(hp);
+        //Needs to fire proper event to be handled.
+//        pcs.firePropertyChange(null,null,null);
+    }
 }

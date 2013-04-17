@@ -10,7 +10,6 @@ import GameView.viewPort.VehicleCamera;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import App.TanksAppAdapter;
 import GameModel.gameEntity.Powerup.EPowerup;
-import GameView.GUI.FloatingNameControl;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -323,6 +322,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             
             // We dont have to listen for collisions any more
             isListening = false;
+        } else if (event.getObjectA() instanceof MissileControl && event.getObjectB() == this
+                || event.getObjectB() instanceof MissileControl && event.getObjectA() == this) {
+            // Should be changed to variable of how much the projectile damages.
+            player.decrementHealth(10);
         }
     }
 }
