@@ -105,11 +105,9 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
             GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
             TankAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(GameAppState.class));
             EGameState.setGameState(EGameState.RUNNING);
+            System.out.println("Finished loading game");
         }
         //this.setProgress((float)frameCount, "Tanks");
-        
-        System.out.println("Finished loading game");
-        
         frameCount++;
     }
     
