@@ -1,4 +1,4 @@
-package GameUtilities;
+package App;
 
 import App.TanksApp;
 import com.jme3.app.state.AbstractAppState;
@@ -25,12 +25,12 @@ import com.jme3.system.AppSettings;
  *
  * @author Daniel
  */
-public enum TankAppAdapter {
+public enum TanksAppAdapter {
     INSTANCE;
     
     private final TanksApp tanksApp = new TanksApp();
     
-    private TankAppAdapter() {}
+    private TanksAppAdapter() {}
     
     public void setBulletAppStateEnabled(boolean bool) {
         tanksApp.getBulletAppState().setEnabled(bool);

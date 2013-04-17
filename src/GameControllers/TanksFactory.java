@@ -1,5 +1,5 @@
 
-package GameControllers.entitycontrols;
+package GameControllers;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
@@ -8,16 +8,17 @@ import GameModel.gameEntity.Powerup.Powerup;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
+import App.TanksAppAdapter;
+import GameControllers.entitycontrols.MissileControl;
+import GameControllers.entitycontrols.PowerupControl;
+import GameControllers.entitycontrols.TanksVehicleControl;
 import GameUtilities.Util;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bounding.BoundingBox;
-import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
-import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -32,9 +33,9 @@ import com.jme3.scene.Spatial;
  * 
  * @author Daniel
  */
-public final class ControlFactory {
+public final class TanksFactory {
     
-    private ControlFactory() {}
+    private TanksFactory() {}
     
     public static void createTank(IPlayer player, Vector3f startPos) {
         // Create a tank for each player
@@ -103,8 +104,8 @@ public final class ControlFactory {
         control.setCcdMotionThreshold(0.1f);
         control.setKinematic(true);
         
-        TankAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-        TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
         
         projectileEntity.addControl(control);
     }
@@ -116,14 +117,14 @@ public final class ControlFactory {
         
         control.setKinematic(true);
 
-        TankAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-        TankAppAdapter.INSTANCE.addToPhysicsSpace(control);
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
         
         view.addControl(control);
     }
     
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
-        VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TankAppAdapter.INSTANCE.getInputManager());
+        VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
         chaseCam.setMaxDistance(25);
         chaseCam.setMinDistance(15);
         chaseCam.setDefaultDistance(20);

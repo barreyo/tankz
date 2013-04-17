@@ -1,10 +1,10 @@
 package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
-import GameControllers.entitycontrols.ControlFactory;
+import GameControllers.TanksFactory;
 import GameModel.Game.TanksGameModel;
 import GameModel.Player.IPlayer;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameView.graphics.EGraphics;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
@@ -42,14 +42,14 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
      */
     public void load() {
         mainScene = new Node("Main Scene");
-        TankAppAdapter.INSTANCE.attachChildToRootNode(mainScene);
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(mainScene);
         
         sun = new DirectionalLight();
         sun.setDirection(LIGHT_DIR);
         sun.setColor(ColorRGBA.White.clone().multLocal(1.7f));
-        TankAppAdapter.INSTANCE.addLightToRootNode(sun);
+        TanksAppAdapter.INSTANCE.addLightToRootNode(sun);
         
-        Spatial sky = SkyFactory.createSky(TankAppAdapter.INSTANCE.getAssetManager(), 
+        Spatial sky = SkyFactory.createSky(TanksAppAdapter.INSTANCE.getAssetManager(), 
                                         "Scenes/FullskiesSunset0068.dds", false);
         sky.setLocalScale(350);
         
@@ -57,24 +57,24 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         
         // Load, attach map to root node, and add nodes and geoms in the map to physicsspace
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
-        TankAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
-        TankAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
+        TanksAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
         //TankAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TankAppAdapter.INSTANCE.getAssetManager());
         
         for (IPlayer player : game.getPlayers()) {
             // Create a tank for each player at startpos
-            ControlFactory.createTank(player, new Vector3f(10, 2, 10));
+            TanksFactory.createTank(player, new Vector3f(10, 2, 10));
         }
         
-        ControlFactory.createNewPowerup(new Vector3f(20,1.5f,20));
+        TanksFactory.createNewPowerup(new Vector3f(20,1.5f,20));
     }
 
     /**
      * @inheritdoc
      */
     public void cleanup() {
-        TankAppAdapter.INSTANCE.detachAllRootChildren();
-        TankAppAdapter.INSTANCE.removeLightFromRootNode(sun);
+        TanksAppAdapter.INSTANCE.detachAllRootChildren();
+        TanksAppAdapter.INSTANCE.removeLightFromRootNode(sun);
         
         /*for (IGameEntity gameEntity : allGameEntities) {
             gameEntity.cleanup(); // should remove all physics and controls

@@ -5,7 +5,7 @@
 package GameModel.gameEntity.Powerup;
 
 import GameModel.Game.PowerupSpawningPoint;
-import GameModel.IObservable;
+import GameUtilities.IObservable;
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import com.jme3.math.Vector3f;

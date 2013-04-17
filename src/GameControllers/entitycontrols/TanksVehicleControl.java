@@ -1,13 +1,14 @@
 
 package GameControllers.entitycontrols;
 
+import GameControllers.TanksFactory;
 import GameControllers.logic.SoundManager;
 import GameModel.Game.EGameState;
 import GameModel.Player.EPlayerInputs;
 import GameModel.Player.IPlayer;
 import GameView.viewPort.VehicleCamera;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameView.GUI.FloatingNameControl;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;
@@ -90,12 +91,12 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         addVehicleControl();
         // ?
         spatial.addControl(new FloatingNameControl(spatial,
-                TankAppAdapter.INSTANCE.getAssetManager()));
+                TanksAppAdapter.INSTANCE.getAssetManager()));
     }
 
     private void addVehicleControl() {
         // Add vehicle to physics space
-        TankAppAdapter.INSTANCE.addToPhysicsSpace(this);
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
     }
     
     /**
@@ -113,7 +114,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      * @param spatial The spatial to be followed by the camera.
      */
     private void setUpCam(Camera cam) {
-        chaseCam = ControlFactory.getVehicleChaseCamera(cam, spatial);
+        chaseCam = TanksFactory.getVehicleChaseCamera(cam, spatial);
     }
 
     /**
@@ -211,7 +212,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         } else if (name.equals(shoot)) {
             if (!isPressed) {
                 // Shoot by creating a new missile with the right direction, position and rotation
-                ControlFactory.createNewMissile(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(this.getForwardVector(null).multLocal(3f)),
+                TanksFactory.createNewMissile(spatial.getWorldTranslation().addLocal(0, 1, 0).addLocal(this.getForwardVector(null).multLocal(3f)),
                                 this.getForwardVector(null), spatial.getWorldRotation());
                 SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
             }
@@ -254,15 +255,15 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         powerup = "" + powerupI;
         
         // Adds the mappings to inputmanager
-        TankAppAdapter.INSTANCE.addInputMapping(turnLeft, new KeyTrigger(left));
-        TankAppAdapter.INSTANCE.addInputMapping(turnRight, new KeyTrigger(right));
-        TankAppAdapter.INSTANCE.addInputMapping(accelerateForward, new KeyTrigger(up));
-        TankAppAdapter.INSTANCE.addInputMapping(accelerateBack, new KeyTrigger(down));
-        TankAppAdapter.INSTANCE.addInputMapping(reset, new KeyTrigger(resetI));
-        TankAppAdapter.INSTANCE.addInputMapping(shoot, new KeyTrigger(shootI));
-        TankAppAdapter.INSTANCE.addInputMapping(powerup, new KeyTrigger(powerupI));
+        TanksAppAdapter.INSTANCE.addInputMapping(turnLeft, new KeyTrigger(left));
+        TanksAppAdapter.INSTANCE.addInputMapping(turnRight, new KeyTrigger(right));
+        TanksAppAdapter.INSTANCE.addInputMapping(accelerateForward, new KeyTrigger(up));
+        TanksAppAdapter.INSTANCE.addInputMapping(accelerateBack, new KeyTrigger(down));
+        TanksAppAdapter.INSTANCE.addInputMapping(reset, new KeyTrigger(resetI));
+        TanksAppAdapter.INSTANCE.addInputMapping(shoot, new KeyTrigger(shootI));
+        TanksAppAdapter.INSTANCE.addInputMapping(powerup, new KeyTrigger(powerupI));
         // Registers this as an listener for the specified mappingnames
-        TankAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot, powerup);
+        TanksAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot, powerup);
         
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
@@ -272,13 +273,13 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         if (inputs == null) {
             return;
         }
-        TankAppAdapter.INSTANCE.deleteInputMapping(turnLeft);
-        TankAppAdapter.INSTANCE.deleteInputMapping(turnRight);
-        TankAppAdapter.INSTANCE.deleteInputMapping(accelerateForward);
-        TankAppAdapter.INSTANCE.deleteInputMapping(accelerateBack);
-        TankAppAdapter.INSTANCE.deleteInputMapping(reset);
-        TankAppAdapter.INSTANCE.deleteInputMapping(shoot);
-        TankAppAdapter.INSTANCE.removeInputListener(this);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(turnLeft);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(turnRight);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(accelerateForward);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(accelerateBack);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(reset);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(shoot);
+        TanksAppAdapter.INSTANCE.removeInputListener(this);
 
         inputs.setInUse(false);
     }

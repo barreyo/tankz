@@ -1,6 +1,6 @@
 package GameModel.gameEntity.Powerup;
 
-import GameModel.IObservable;
+import GameUtilities.IObservable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

@@ -2,7 +2,7 @@ package GameControllers.logic;
 
 import GameControllers.logic.IMapRelatedManager;
 import GameControllers.logic.PreloadManager;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameView.graphics.EGraphics;
 import GameView.graphics.EGraphics;
 import com.jme3.scene.Spatial;
@@ -43,7 +43,7 @@ public enum GraphicManager implements IMapRelatedManager {
      * @return
      */
     public Spatial createSpatial(EGraphics graphic) {
-        return TankAppAdapter.INSTANCE.loadModel(graphic.getPath());
+        return TanksAppAdapter.INSTANCE.loadModel(graphic.getPath());
     }
 
     /**

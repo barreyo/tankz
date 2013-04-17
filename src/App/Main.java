@@ -3,7 +3,6 @@ package App;
 
 
 import App.TanksApp;
-import GameUtilities.TankAppAdapter;
 import com.jme3.system.AppSettings;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -40,9 +39,9 @@ public class Main {
         appSettings.setSettingsDialogImage("Interface/splashscreen.jpg");
 
         // apply the settings
-        TankAppAdapter.INSTANCE.setSettings(appSettings);
+        TanksAppAdapter.INSTANCE.setSettings(appSettings);
 
         // starts the application (GameNameGoesHere)
-        TankAppAdapter.INSTANCE.start();
+        TanksAppAdapter.INSTANCE.start();
     }
 }

@@ -2,7 +2,7 @@
 package GameView.gameEntity;
 
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
-import GameUtilities.TankAppAdapter;
+import App.TanksAppAdapter;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -123,7 +123,7 @@ public final class MissileProjectileEntity extends AGameEntity{
     }
     
     private void attachToRootNode() {
-        TankAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 
     public void addObserver(PropertyChangeListener l) {

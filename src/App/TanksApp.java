@@ -16,14 +16,14 @@ import java.util.logging.Logger;
  *
  * @author Daniel, Per, Johan, Albin
  */
-public class TanksApp extends SimpleApplication { 
+class TanksApp extends SimpleApplication { 
     // Managers
     private BulletAppState bulletAppState;
     
     /**
      * Creates a new TanksGame which starts in settings window.
      */
-    public TanksApp() {
+    TanksApp() {
         super(new StatsAppState());
     }
     
@@ -53,7 +53,7 @@ public class TanksApp extends SimpleApplication {
      *
      * @return
      */
-    public BulletAppState getBulletAppState() {
+    BulletAppState getBulletAppState() {
         return bulletAppState;
     }
     
@@ -61,7 +61,7 @@ public class TanksApp extends SimpleApplication {
      *
      * @return
      */
-    public AppSettings getSettings() {
+    AppSettings getSettings() {
         return settings;
     }
 }
