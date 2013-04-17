@@ -9,9 +9,11 @@ import GameModel.Player.IPlayer;
 import GameView.viewPort.VehicleCamera;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import App.TanksAppAdapter;
+import GameModel.gameEntity.Powerup.EPowerup;
 import GameView.GUI.FloatingNameControl;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
@@ -286,5 +288,19 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     
     public IPlayer getPlayer() {
         return player;
+    }
+    
+    private boolean isListening;
+    
+    public void collision(PhysicsCollisionEvent event) {
+        if (space == null) {
+            return;
+        }
+        if (event.getObjectA() instanceof PowerupControl && event.getObjectB() == this) {
+            player.setPowerup(EPowerup.HASTE);
+        }
+        else if (event.getObjectB() instanceof PowerupControl && event.getObjectA() == this) {
+            player.setPowerup(EPowerup.HASTE);
+        }
     }
 }
