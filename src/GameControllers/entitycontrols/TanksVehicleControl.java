@@ -13,6 +13,7 @@ import GameModel.gameEntity.Powerup.EPowerup;
 import GameView.GUI.FloatingNameControl;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -303,6 +304,25 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         } else if (evt.getPropertyName().equals(IArmedVehicle.FRICTION)) {
             // Brake the vehicle according to the friction in model
             this.brake(vehicleModel.getFrictionForce());
+        }
+    }
+    
+    private boolean isListening;
+    
+    public void collision(PhysicsCollisionEvent event) {
+        if (space == null) {
+            return;
+        }
+        if (event.getObjectA() instanceof PowerupControl && event.getObjectB() == this) {
+            player.setPowerup(EPowerup.HASTE);
+            
+            // We dont have to listen for collisions any more
+            isListening = false;
+        } else if (event.getObjectB() instanceof PowerupControl && event.getObjectA() == this) {
+            player.setPowerup(EPowerup.HASTE);
+            
+            // We dont have to listen for collisions any more
+            isListening = false;
         }
     }
 }
