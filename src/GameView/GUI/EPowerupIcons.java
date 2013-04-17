@@ -4,7 +4,7 @@ package GameView.GUI;
 /**
  * Paths to the graphical representation of powerups.
  * 
- * @author backman
+ * @author Johan Backman
  */
 public enum EPowerupIcons {
     

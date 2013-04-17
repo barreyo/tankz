@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameView.GUI;
 
 import App.TanksAppAdapter;
@@ -11,8 +8,13 @@ import com.jme3.ui.Picture;
 import java.beans.PropertyChangeListener;
 
 /**
- *
- * @author backman
+ * The fundamental parts of an HUD element. Contains a background, picture,
+ * a reference to the AssetManager, assetManager, and the GUI node, guiNode.
+ * The class also forces all HUD elements to implement the interface
+ * PropertyChangeListener and IHudElement which contains the show() and hide()
+ * methods.
+ * 
+ * @author Johan Backman
  */
 public abstract class AHudElement implements PropertyChangeListener, IHudElement {
 

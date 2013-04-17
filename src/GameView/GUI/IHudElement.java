@@ -4,7 +4,7 @@ package GameView.GUI;
 /**
  * The basic methods a hud element should have.
  * 
- * @author backman
+ * @author Johan Backman
  */
 public interface IHudElement {
     /**
