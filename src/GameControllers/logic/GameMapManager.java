@@ -1,10 +1,8 @@
 package GameControllers.logic;
 
-import GameModel.Game.TanksGameModel;
-import GameModel.Game.UserSettings;
 import App.TanksAppAdapter;
+import GameControllers.TanksFactory;
 import GameView.Map.IGameWorld;
-import GameView.Map.GameWorld1;
 
 
 /**
@@ -15,7 +13,7 @@ import GameView.Map.GameWorld1;
 public enum GameMapManager implements IMapRelatedManager {
     INSTANCE;
     
-    private IGameWorld currentGameMap;
+    private GameAppState currentGame;
     private int currentIntGameMap;
     private static final int NUMBER_OF_MAPS = 1; 
 
@@ -44,32 +42,19 @@ public enum GameMapManager implements IMapRelatedManager {
 
     /**
      *
-     * @return
-     */
-    public IGameWorld getCurrentMap() {
-        return currentGameMap;
-    }
-
-    /**
-     *
      * @param gameMap
      */
     public void load(int gameMap) {
-        
         SoundManager.INSTANCE.load(gameMap);
         MaterialManager.INSTANCE.load(gameMap);
         PhysicsManager.INSTANCE.load(gameMap);
         ViewPortManager.INSTANCE.load();
         GraphicManager.INSTANCE.load(gameMap);
         EffectsManager.INSTANCE.load(gameMap);
-
-        switch (gameMap) {
-            case 1:
-                currentGameMap = new GameWorld1(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
-                break;
-        }
         
-        currentGameMap.load();
+        currentGame = TanksFactory.getNewGame(gameMap);
+        
+        TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }
 
     public void restartMap() {
@@ -109,7 +94,7 @@ public enum GameMapManager implements IMapRelatedManager {
         ViewPortManager.INSTANCE.cleanup();
         GraphicManager.INSTANCE.cleanup();
         EffectsManager.INSTANCE.cleanup();
-        currentGameMap.cleanup();
+        TanksAppAdapter.INSTANCE.detachAppState(currentGame);
         // animManager.cleanup();
     }
 }

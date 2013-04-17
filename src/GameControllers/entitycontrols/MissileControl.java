@@ -1,6 +1,8 @@
 package GameControllers.entitycontrols;
 
+import GameControllers.logic.SoundManager;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameView.Sounds.ESounds;
 import GameView.gameEntity.MissileProjectileEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -60,6 +62,8 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
             for (ParticleEmitter effect : effects) {
                 effect.addControl(this);
             }
+            
+            SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
         }
     }
 

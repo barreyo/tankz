@@ -2,6 +2,7 @@ package GameControllers.logic;
 
 import GameModel.Game.EGameState;
 import App.TanksAppAdapter;
+import GameControllers.TanksFactory;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -109,9 +110,9 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
             TanksAppAdapter.INSTANCE.detachAppState(this);
 
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
-            
+           
             GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
-            TanksAppAdapter.INSTANCE.attachAppState(new GameAppState());
+            
             EGameState.setGameState(EGameState.RUNNING);
             System.out.println("Finished loading game");
         }

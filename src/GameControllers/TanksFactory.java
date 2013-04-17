@@ -3,8 +3,8 @@ package GameControllers;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.IPowerup;
-import GameModel.gameEntity.Powerup.Powerup;
+import GameModel.gameEntity.Powerup.IPowerupBox;
+import GameModel.gameEntity.Powerup.PowerupBox;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
@@ -13,11 +13,19 @@ import App.TanksAppAdapter;
 import GameControllers.entitycontrols.MissileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
+import GameControllers.logic.GameAppState;
+import GameModel.Game.ITanks;
+import GameModel.Game.TanksGameModel;
+import GameModel.Game.UserSettings;
+import GameModel.Player.Player;
 import GameUtilities.Util;
+import GameView.Map.GameWorld1;
+import GameView.Map.IGameWorld;
 import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
+import com.jme3.app.state.AbstractAppState;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
@@ -27,6 +35,8 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Manages controls.
@@ -111,7 +121,7 @@ public final class TanksFactory {
     }
     
     public static void createNewPowerup(Vector3f position) {
-        IPowerup model = new Powerup(position);
+        IPowerupBox model = new PowerupBox(position);
         PowerupEntity view = new PowerupEntity(model);
         PowerupControl control = new PowerupControl(view, model);
         
@@ -134,5 +144,20 @@ public final class TanksFactory {
         chaseCam.setTrailingEnabled(true);
         chaseCam.setDefaultVerticalRotation(0.3f);
         return chaseCam;
+    }
+    
+    public static GameAppState getNewGame(int intWorld) {
+        List<IPlayer> players = UserSettings.INSTANCE.getPlayers();
+        ITanks game = new TanksGameModel(players);
+        IGameWorld gameWorld = null;
+        switch (intWorld) {
+            case 1:
+                gameWorld = new GameWorld1(game);
+                break;
+            default: 
+                gameWorld = new GameWorld1(game);
+                break;
+        }
+        return new GameAppState(game, gameWorld);
     }
 }
