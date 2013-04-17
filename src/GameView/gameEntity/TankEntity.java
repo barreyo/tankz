@@ -6,16 +6,18 @@ import GameControllers.entitycontrols.TanksVehicleControl;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import App.TanksAppAdapter;
 import GameUtilities.Util;
+import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.CollisionShapeFactory;
+import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Collection;
 
 /**
  * The visual game entity class of a tank.
@@ -25,6 +27,8 @@ import java.beans.PropertyChangeSupport;
 public final class TankEntity extends AGameEntity {
     
     private IArmedVehicle armedVehicle;
+    private final Collection<ParticleEmitter> shootEffects;
+    
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
@@ -32,9 +36,8 @@ public final class TankEntity extends AGameEntity {
      */
     public TankEntity(IArmedVehicle armedVehicle) {
         super(EGraphics.TANK);
-        // Save this as user data for the spatial -> ie if you can access the spatial
-        // you can access this.
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
+        shootEffects = EEffects.SHOOT.getEmitters();
         
         setModel(armedVehicle);
         show();
@@ -65,7 +68,11 @@ public final class TankEntity extends AGameEntity {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        
+        if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
+            showShootEffect();
+        }
+        //Pass on
+        pcs.firePropertyChange(evt);
     }
 
     @Override
@@ -94,5 +101,17 @@ public final class TankEntity extends AGameEntity {
 
     private void show() {
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+    }
+
+    private void showShootEffect() {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : shootEffects) {
+                if (effect != null) {
+                    effect.setLocalTranslation(armedVehicle.getFirePosition());
+                    spatial.getParent().attachChild(effect);
+                    effect.emitAllParticles();
+                }
+            }
+        }
     }
 }
