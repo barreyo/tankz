@@ -11,6 +11,7 @@ import com.jme3.audio.AudioNode;
  * @author Daniel
  */
 public class BackgroundMusicAppState extends AbstractAppState {
+    private static BackgroundMusicAppState instance;
     
     private boolean isActive;
     private AudioNode music;
@@ -19,12 +20,19 @@ public class BackgroundMusicAppState extends AbstractAppState {
      * Creates a new app state for background music.
      * 
      */
-    public BackgroundMusicAppState() {
+    private BackgroundMusicAppState() {
         music = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), "Sounds/Music/bg1.ogg", true);
         music.setLooping(false);
         music.setVolume(0.5f);
         music.setPositional(false);
         music.setDirectional(false);
+    }
+    
+    public static synchronized BackgroundMusicAppState getInstance() {
+        if (instance == null) {
+            instance = new BackgroundMusicAppState();
+        }
+        return instance;
     }
 
     /**

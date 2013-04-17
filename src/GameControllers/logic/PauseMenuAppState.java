@@ -23,6 +23,7 @@ import de.lessvoid.nifty.tools.Color;
  * @author Daniel
  */
 public class PauseMenuAppState extends AbstractAppState implements ScreenController {
+    private static PauseMenuAppState instance;
     
     private Nifty nifty;
     private Element currentElement;
@@ -34,7 +35,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     /**
      *  Create a pause menu app state.
      */
-    public PauseMenuAppState() {
+    private PauseMenuAppState() {
         niftyDisplay = new NiftyJmeDisplay(TanksAppAdapter.INSTANCE.getAssetManager(),
                       TanksAppAdapter.INSTANCE.getInputManager(), TanksAppAdapter.INSTANCE.getAudioRenderer(), TanksAppAdapter.INSTANCE.getGuiViewPort());
         nifty = niftyDisplay.getNifty();
@@ -43,6 +44,13 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
 
         nifty.getSoundSystem().addSound("hooverSound", "Sounds/click.ogg");
         sound = nifty.getSoundSystem().getSound("hooverSound");
+    }
+    
+    public static synchronized PauseMenuAppState getInstance() {
+        if (instance == null) {
+            instance = new PauseMenuAppState();
+        }
+        return instance;
     }
 
     /**

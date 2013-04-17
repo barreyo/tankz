@@ -43,21 +43,21 @@ public enum GUIManager {
      *
      */
     public void showMainMenu() {
-        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(MenuAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(MenuAppState.getInstance());
     }
 
     /**
      *
      */
     public void showLoadingScreen() {
-        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(LoadingScreenAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
     
     /**
      *
      */
     public void showPauseMenu() {
-        TanksAppAdapter.INSTANCE.attachAppState(TanksAppStateFactory.getAppState(PauseMenuAppState.class));
+        TanksAppAdapter.INSTANCE.attachAppState(PauseMenuAppState.getInstance());
     }
     
     /**
