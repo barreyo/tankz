@@ -101,11 +101,5 @@ public interface IPlayer extends IObservable{
      */
     public void usePowerup();
     
-    /**
-     * Uses decrementHealth(int hp) on the IArmedVehicle
-     * @param hp 
-     */
-    public void decrementHealth(int hp);
-    
     public static final String POWERUP_CHANGED = "POWERUP_CHANGED";
 }

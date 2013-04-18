@@ -216,14 +216,4 @@ public class Player implements IPlayer {
             pcs.firePropertyChange(POWERUP_CHANGED, null, null);
         }
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void decrementHealth(int hp) {
-        this.getVehicle().decrementHealth(hp);
-        //Needs to fire proper event to be handled.
-//        pcs.firePropertyChange(null,null,null);
-    }
 }

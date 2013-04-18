@@ -102,4 +102,8 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
             entity.removeObserver(this);
         }
     }
+
+    IExplodingProjectile getProjectile() {
+        return projectileModel;
+    }
 }

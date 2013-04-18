@@ -1,6 +1,7 @@
 
 package GameModel.gameEntity.Vehicle;
 
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameUtilities.IObservable;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -94,6 +95,8 @@ public interface IArmedVehicle extends IObservable{
     
     public float getMaxSpeed();
 
+    public void gotHitBy(IExplodingProjectile projectile);
+
     /**
      * Enum representing different states of the vehicle.
      */
@@ -111,11 +114,6 @@ public interface IArmedVehicle extends IObservable{
          */
         DESTROYED;
     }
-    
-    /**
-     * Decrements the hp of the vehicle by the given amount
-     */
-    public void decrementHealth(int hp);
     
     /**
      * Shoots a projectile from the vehicle
