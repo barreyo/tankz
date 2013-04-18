@@ -132,5 +132,6 @@ public interface IArmedVehicle extends IObservable{
     public static String STEER = "STEER";
     public static String ACCELERATE = "ACCELERATE";
     public static String FRICTION = "FRICTION";
-    public static String HEALTH = "HEALTH";
+    public static String TAKEDMG = "TAKEDMG";
+    public static String VEHICLE_DESTROYED = "VEHICLE_DESTROYED";
 }
