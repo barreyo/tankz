@@ -10,7 +10,8 @@ import java.util.Collection;
  */
 public enum EEffects {
     EXPLOSION(new ExplosionEffect()),
-    SHOOT(new ShootEffect());
+    SHOOT(new ShootEffect()),
+    TANK_BLOWN_UP(new DestroyedEffect());
     
     
     private IEffect effect;

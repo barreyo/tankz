@@ -106,7 +106,7 @@ public enum SoundManager implements IMapRelatedManager{
      * @param sound
      */
     public void play(ESounds sound) {
-        AudioNode audio = soundMap.get(sound);
+        /*AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
             
@@ -121,7 +121,7 @@ public enum SoundManager implements IMapRelatedManager{
                 }
                 audio.playInstance();
             }
-        }
+        }*/
     }
 
     // pause the music

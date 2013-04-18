@@ -135,14 +135,14 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(STEER, null, null);
     }
 
-    private void decrementHealth(int hp) {
+    public void decrementHealth(int hp) {
         if (hp != 0) {
             if (health - hp < 0) {
                 health = 0;
             } else {
                 health -= hp;
             }
-            pcs.firePropertyChange(TAKEDMG, null, null);
+            pcs.firePropertyChange(HEALTH, null, null);
         }
     }
 
@@ -262,5 +262,9 @@ public final class TankModel implements IArmedVehicle {
     public void gotHitBy(IExplodingProjectile projectile) {
         this.decrementHealth(projectile.getDamageOnImpact());
         System.out.println(projectile.getDamageOnImpact());
+        if (health<=0){
+            setVehicleState(VehicleState.DESTROYED);
+            pcs.firePropertyChange(VEHICLE_DESTROYED, null, null);
+        }
     }
 }

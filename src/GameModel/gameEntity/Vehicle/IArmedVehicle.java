@@ -116,6 +116,11 @@ public interface IArmedVehicle extends IObservable{
     }
     
     /**
+     * Decrements the hp of the vehicle by the given amount
+     */
+    public void decrementHealth(int hp);
+    
+    /**
      * Shoots a projectile from the vehicle
      */
     public void shoot();
@@ -127,5 +132,6 @@ public interface IArmedVehicle extends IObservable{
     public static String STEER = "STEER";
     public static String ACCELERATE = "ACCELERATE";
     public static String FRICTION = "FRICTION";
-    public static String TAKEDMG = "TAKEDMG";
+    public static String HEALTH = "HEALTH";
+    public static String VEHICLE_DESTROYED = "VEHICLE_DESTROYED";
 }
