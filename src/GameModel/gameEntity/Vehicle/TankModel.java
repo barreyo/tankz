@@ -10,7 +10,7 @@ import java.beans.PropertyChangeSupport;
  * 
  * @author Daniel
  */
-public class TankModel implements IArmedVehicle {
+public final class TankModel implements IArmedVehicle {
     
     private int health;
     private float maxSpeed;
@@ -142,7 +142,7 @@ public class TankModel implements IArmedVehicle {
             } else {
                 health -= hp;
             }
-            pcs.firePropertyChange(null, null, null);
+            pcs.firePropertyChange(HEALTH, null, null);
         }
     }
 
