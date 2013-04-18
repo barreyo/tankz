@@ -1,9 +1,6 @@
 
 package GameModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Has all the settings of the game, and handles accordingly.
  * 

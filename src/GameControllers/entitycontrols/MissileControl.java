@@ -8,11 +8,8 @@ import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.effect.ParticleEmitter;
-import com.jme3.export.JmeExporter;
-import com.jme3.export.JmeImporter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.Collection;
 
 /**
@@ -76,16 +73,6 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
             }
             projectileModel.update(tpf);
         } 
-    }
-
-    @Override
-    public void read(JmeImporter im) throws IOException {
-        throw new UnsupportedOperationException("Reading not supported.");
-    }
-
-    @Override
-    public void write(JmeExporter ex) throws IOException {
-        throw new UnsupportedOperationException("Saving not supported.");
     }
 
     public void propertyChange(PropertyChangeEvent evt) {
