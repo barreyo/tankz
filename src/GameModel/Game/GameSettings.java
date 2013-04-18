@@ -62,11 +62,18 @@ public class GameSettings implements IObservable {
         return killsToWin;
     }
 
-    
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }

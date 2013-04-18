@@ -2,36 +2,37 @@
 package GameModel.Game;
 
 /**
- *
+ * Enum representing the game state.
+ * 
  * @author Daniel
  */
 public enum EGameState {
     /**
-     *
+     * Main menu state.
      */
     MAIN_MENU,
     /**
-     *
+     * Pause menu state.
      */
     PAUSED,
     /**
-     *
+     * Running state.
      */
     RUNNING,
     /**
-     *
+     * Loading screen state.
      */
     LOADING,
     /**
-     *
+     * No state.
      */
     NONE,
     /**
-     *
+     * Multiplayer choosing menu state.
      */
     MULTI_MENU,
     /**
-     *
+     * Loading map state.
      */
     LOADING_MAP;
     
@@ -39,16 +40,17 @@ public enum EGameState {
     private static EGameState previousGameState = EGameState.NONE;
 
     /**
-     *
-     * @return
+     * Returns the current EGameState.
+     * 
+     * @return the current EGameState
      */
     public static EGameState getGameState() {
         return currentGameState;
     }
 
     /**
-     *
-     * @param currentGameState
+     * Sets the current EGameState.
+     * @param currentGameState the EGameState to set.
      */
     public static void setGameState(EGameState currentGameState) {
         //store the currentgamestate into previous
@@ -58,8 +60,8 @@ public enum EGameState {
     }
 
     /**
-     *
-     * @return
+     * Returns the previous EGameState.
+     * @return the previous EGameState.
      */
     public static EGameState getPreviousGameState() {
         return previousGameState;

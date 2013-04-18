@@ -2,13 +2,12 @@
 package GameModel.Game;
 
 import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.IPowerupBox;
 import java.util.Collection;
-import java.util.List;
 
 /**
- *
+ * Interface with all the methods the gamestate needs.
+ * 
  * @author perthoresson
  */
 public interface ITanks {

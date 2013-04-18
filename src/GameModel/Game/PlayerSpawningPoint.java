@@ -4,38 +4,59 @@ package GameModel.Game;
 import com.jme3.math.Vector3f;
 
 /**
- *
+ * An IPlayers spawning point.
  * 
  * @author perthoresson
  */
 public class PlayerSpawningPoint implements ISpawningPoints {
     
     private boolean inUse;
-    
+
     private Vector3f position;
     
+    /**
+     * Instantiates the PlayerSpawningPoint.
+     * 
+     * @param inUse if the spawning point is in use or not.
+     */
     public PlayerSpawningPoint (boolean inUse){
         this.inUse = inUse;
     }
     
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public boolean isInUse() {
         return inUse;
     }
     
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public void setInUse(boolean inUse){
         this.inUse = inUse;
     }
 
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public Vector3f getPosition() {
         return position;
     }
 
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public void setPosition(Vector3f position) {
         this.position = position;
     }
 
     /**
-     * 
+     * Returns a string representation of the object, based on inUse and position.
      * @return inUse and position in the format: PlayerSpawningPoint{inUse=xxxx,
      *  position=xxxf}
      */
@@ -46,7 +67,7 @@ public class PlayerSpawningPoint implements ISpawningPoints {
     }
 
     /**
-     * 
+     * Returns hash code based on the position.
      * @return hash code based on the position.
      */
     @Override
@@ -77,9 +98,5 @@ public class PlayerSpawningPoint implements ISpawningPoints {
             return false;
         }
         return true;
-    }
-    
-    
-    
-    
+    }    
 }

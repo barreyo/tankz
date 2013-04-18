@@ -4,7 +4,8 @@ package GameModel.Game;
 import com.jme3.math.Vector3f;
 
 /**
- *
+ * An IPowerups spawning point.
+ * 
  * @author perthoresson
  */
 public class PowerupSpawningPoint implements ISpawningPoints {
@@ -13,27 +14,50 @@ public class PowerupSpawningPoint implements ISpawningPoints {
     
     private Vector3f position;
 
-    public PowerupSpawningPoint (boolean isTaken){
+    /**
+     * Instantiates the object.
+     * 
+     * @param inUse if the spawning point is in use or not.
+     */
+    public PowerupSpawningPoint (boolean inUse){
         this.inUse = inUse;
     }
     
+    /**
+     * Returns the boolean isInUse.
+     * @return true if it is in use, false if it's not.
+     */
+    @Override
     public boolean isInUse() {
         return inUse;
     }
     
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public void setInUse(boolean inUse){
         this.inUse = inUse;
     }
-    
+
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public Vector3f getPosition() {
         return position;
     }
 
+    /**
+     * {@inheritdoc} 
+     */
+    @Override
     public void setPosition(Vector3f position) {
         this.position = position;
     }
     
     /**
+     * Returns a string representation of the object, based on position and inUse.
      * 
      * @return inUse and position in the format: PlayerSpawningPoint{inUse=xxxx,
      *  position=xxxf}
@@ -45,6 +69,7 @@ public class PowerupSpawningPoint implements ISpawningPoints {
     }
     
     /**
+     * Returns hash code based on the position.
      * 
      * @return hash code based on the position.
      */
