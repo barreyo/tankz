@@ -52,5 +52,7 @@ public interface ITanks extends IObservable{
      * Returns a list of all the spawningpoints in the game
      */
     public Collection<ISpawningPoints> getSpawningPoints();
+
+    public void update(float tpf);
     
 }

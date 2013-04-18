@@ -134,4 +134,10 @@ public class TanksGameModel implements ITanks {
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
+
+    @Override
+    public void update(float tpf) {
+        timer += tpf;
+        // Check if someone has won
+    }
 }

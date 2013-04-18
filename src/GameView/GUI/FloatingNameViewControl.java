@@ -63,11 +63,11 @@ public class FloatingNameViewControl extends AbstractControl {
     
     private void fillPlayersList() {
         players = new ArrayList<IPlayer>();
-        for (IPlayer p : ApplicationSettings.INSTANCE.getPlayers()) {
+        /*for (IPlayer p : ApplicationSettings.INSTANCE.getPlayerNames()) {
             if (!p.equals(player) ) {
                 players.add(p);
             }
-        }
+        }*/
     }
     
     private boolean checkIfInViewPort(Spatial spatial) {

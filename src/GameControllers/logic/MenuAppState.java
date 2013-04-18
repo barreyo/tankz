@@ -3,7 +3,6 @@ package GameControllers.logic;
 
 import GameModel.Game.ApplicationSettings;
 import GameModel.Game.EGameState;
-import GameModel.gameEntity.Vehicle.TankModel;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
@@ -18,6 +17,8 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An app state representing the main menu.
@@ -26,10 +27,13 @@ import de.lessvoid.nifty.tools.Color;
  */
 public class MenuAppState extends AbstractAppState implements ScreenController {
     private static MenuAppState instance;
+    
     private Nifty nifty;
     private Element popupElement;
     private Element currentElement;
     private SoundHandle sound;
+    
+    private final List<String> playerNames = new ArrayList<String>();
 
     /**
      *  Create a new main menu app state.
@@ -85,6 +89,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     @Override
     public void cleanup() {
         super.cleanup();
+        playerNames.clear();
     }
 
     /**
@@ -182,7 +187,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadOnePlayerGame() {
-        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        playerNames.add("Player1");
         GUIManager.INSTANCE.showLoadingScreen();
     }
     
@@ -190,8 +195,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadTwoPlayerGame() {
-        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
-        ApplicationSettings.INSTANCE.addPlayer("Player2", new TankModel());
+        playerNames.add("Player1");
+        playerNames.add("Player2");
         GUIManager.INSTANCE.showLoadingScreen();
     }
     
@@ -199,9 +204,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadThreePlayerGame() {
-        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
-        ApplicationSettings.INSTANCE.addPlayer("Player2", new TankModel());
-        ApplicationSettings.INSTANCE.addPlayer("Player3", new TankModel());
+        playerNames.add("Player1");
+        playerNames.add("Player2");
+        playerNames.add("Player3");
         GUIManager.INSTANCE.showLoadingScreen();
     }
     
@@ -209,10 +214,14 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadFourPlayerGame() {
-        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
-        ApplicationSettings.INSTANCE.addPlayer("Player2", new TankModel());
-        ApplicationSettings.INSTANCE.addPlayer("Player3", new TankModel());
-        ApplicationSettings.INSTANCE.addPlayer("Player4", new TankModel());
+        playerNames.add("Player1");
+        playerNames.add("Player2");
+        playerNames.add("Player3");
+        playerNames.add("Player4");
         GUIManager.INSTANCE.showLoadingScreen();
+    }
+    
+    public ArrayList<String> getPlayerNames() {
+        return new ArrayList<String>(playerNames);
     }
 }

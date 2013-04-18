@@ -17,29 +17,29 @@ import java.util.List;
 public enum ViewPortManager {
     INSTANCE;
     
-    private HashMap<IPlayer, EViewPorts> views = new HashMap<IPlayer, EViewPorts>();
+    private HashMap<String, EViewPorts> views = new HashMap<String, EViewPorts>();
 
     private void initViews() {
-        List<IPlayer> players = ApplicationSettings.INSTANCE.getPlayers();
-        switch(players.size()) {
+        List<String> playerNames = MenuAppState.getInstance().getPlayerNames();
+        switch(playerNames.size()) {
             case 0:   
             case 1:
-                views.put(players.get(0), EViewPorts.CENTER);
+                views.put(playerNames.get(0), EViewPorts.CENTER);
                 break;
             case 2:
-                views.put(players.get(0), EViewPorts.TOP);
-                views.put(players.get(1), EViewPorts.BOTTOM);
+                views.put(playerNames.get(0), EViewPorts.TOP);
+                views.put(playerNames.get(1), EViewPorts.BOTTOM);
                 break;
             case 3:
-                views.put(players.get(0),EViewPorts.TOP_LEFT);
-                views.put(players.get(1), EViewPorts.TOP_RIGHT);
-                views.put(players.get(2), EViewPorts.BOTTOM);
+                views.put(playerNames.get(0),EViewPorts.TOP_LEFT);
+                views.put(playerNames.get(1), EViewPorts.TOP_RIGHT);
+                views.put(playerNames.get(2), EViewPorts.BOTTOM);
                 break;
             default:
-                views.put(players.get(0), EViewPorts.TOP_LEFT);
-                views.put(players.get(1), EViewPorts.TOP_RIGHT);
-                views.put(players.get(2), EViewPorts.BOTTOM_Left);
-                views.put(players.get(3), EViewPorts.BOTTOM_RIGHT);
+                views.put(playerNames.get(0), EViewPorts.TOP_LEFT);
+                views.put(playerNames.get(1), EViewPorts.TOP_RIGHT);
+                views.put(playerNames.get(2), EViewPorts.BOTTOM_Left);
+                views.put(playerNames.get(3), EViewPorts.BOTTOM_RIGHT);
                 break;
         };
     }
@@ -60,8 +60,8 @@ public enum ViewPortManager {
      * @param p The player which you want the viewport for
      * @return the viewport for the specified player
      */
-    public ViewPort getViewportForPlayer(IPlayer p) {
-        return views.get(p).getViewPort();
+    public ViewPort getViewportForPlayer(String name) {
+        return views.get(name).getViewPort();
     }
     
     /**

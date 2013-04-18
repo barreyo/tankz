@@ -2,7 +2,6 @@ package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
 import GameControllers.TanksFactory;
-import GameModel.Game.TanksGameModel;
 import GameModel.Player.IPlayer;
 import App.TanksAppAdapter;
 import GameModel.Game.ITanks;
@@ -42,6 +41,8 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
      * @inheritdoc
      */
     public void load() {
+        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
+        
         mainScene = new Node("Main Scene");
         TanksAppAdapter.INSTANCE.attachChildToRootNode(mainScene);
         
@@ -74,6 +75,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
      * @inheritdoc
      */
     public void cleanup() {
+        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
         TanksAppAdapter.INSTANCE.detachAllRootChildren();
         TanksAppAdapter.INSTANCE.removeLightFromRootNode(sun);
         
