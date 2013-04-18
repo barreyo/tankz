@@ -26,7 +26,7 @@ public final class TankEntity extends AGameEntity {
     
     private IArmedVehicle armedVehicle;
     private final Collection<ParticleEmitter> shootEffects;
-    //private final Collection<ParticleEmitter> blownUpEffects;
+    private final Collection<ParticleEmitter> blownUpEffects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -37,6 +37,7 @@ public final class TankEntity extends AGameEntity {
         super(EGraphics.TANK);
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
         shootEffects = EEffects.SHOOT.getEmitters();
+        blownUpEffects = EEffects.TANK_BLOWN_UP.getEmitters();
         
         setModel(armedVehicle);
         show();
@@ -68,7 +69,7 @@ public final class TankEntity extends AGameEntity {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
-            showShootEffect();
+            showEffect(shootEffects);
         }
         if (evt.getPropertyName() != null) {
             //Pass on
@@ -77,9 +78,10 @@ public final class TankEntity extends AGameEntity {
         if(evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
             if (spatial.getParent() != null) {
                 //TODO - Respawn tank at different location after some 1-2 seconds 
-                // instead of removing tank.
+                // instead of deleting tank.
                 
                 // Remove tank from world
+                showEffect(blownUpEffects);
                 spatial.removeFromParent();
             }
             //Pass on
@@ -115,9 +117,9 @@ public final class TankEntity extends AGameEntity {
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 
-    private void showShootEffect() {
+    private synchronized void showEffect(Collection<ParticleEmitter> effects) {
         if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : shootEffects) {
+            for (ParticleEmitter effect : effects) {
                 if (effect != null) {
                     effect.setLocalTranslation(armedVehicle.getFirePosition());
                     spatial.getParent().attachChild(effect);
