@@ -54,5 +54,7 @@ public interface ITanks extends IObservable{
     public Collection<ISpawningPoints> getSpawningPoints();
 
     public void update(float tpf);
+
+    public void cleanup();
     
 }

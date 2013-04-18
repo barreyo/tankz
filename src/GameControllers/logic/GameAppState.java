@@ -5,7 +5,6 @@ import App.TanksAppAdapter;
 import GameModel.Game.ITanks;
 import GameView.Map.IGameWorld;
 import GameView.Sounds.ESounds;
-import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.KeyInput;
@@ -31,16 +30,6 @@ public class GameAppState extends AbstractAppState {
         this.gameWorld = gameWorld;
     }
     
-    /**
-     *
-     * @param stateManager
-     * @param app
-     */
-    @Override
-    public void initialize(AppStateManager stateManager, Application app) {
-      super.initialize(stateManager, app); 
-   }
-    
      /**
      * Called when appstate is attached to statemanager.
      * 
@@ -51,6 +40,8 @@ public class GameAppState extends AbstractAppState {
         super.stateAttached(stateManager);
         EGameState.setGameState(EGameState.RUNNING);
         gameWorld.load();
+        
+        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
 
         loadDesktopInputs();
         
@@ -68,6 +59,7 @@ public class GameAppState extends AbstractAppState {
     @Override
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
+        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
         this.cleanup();
     }
     
@@ -78,6 +70,7 @@ public class GameAppState extends AbstractAppState {
     public void cleanup() {
       super.cleanup();
       // unregister all my listeners, detach all my nodes, etc...
+      gameModel.cleanup();
       gameWorld.cleanup();
       removeDesktopInputs();
       GUIManager.INSTANCE.cleanup();
@@ -116,6 +109,7 @@ public class GameAppState extends AbstractAppState {
     }
     
     private ActionListener actionListener = new ActionListener() {
+        @Override
         public void onAction(String name, boolean isPressed, float tpf) {
             System.out.println(EGameState.getGameState().name());
             if (EGameState.getGameState() != EGameState.RUNNING) {

@@ -47,6 +47,7 @@ public class TanksGameModel implements ITanks {
         this.powerups = powerups;
         this.spawningPoints = spawningPoints;
         this.settings = settings;
+        timer = settings.getGameTime();
     }
 
     /**
@@ -137,7 +138,12 @@ public class TanksGameModel implements ITanks {
 
     @Override
     public void update(float tpf) {
-        timer += tpf;
+        timer -= tpf;
         // Check if someone has won
+    }
+
+    @Override
+    public void cleanup() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

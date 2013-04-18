@@ -2,11 +2,8 @@ package GameControllers.logic;
 
 import GameView.Sounds.ESounds;
 import GameModel.Game.ApplicationSettings;
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import App.TanksAppAdapter;
 import com.jme3.audio.AudioNode;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -14,7 +11,7 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
+public enum SoundManager implements IMapRelatedManager{
     INSTANCE;
     
     
@@ -171,11 +168,5 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
     public void cleanup() {
         removeAllMusic();
         soundMap.clear();
-    }
-
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
-            play(ESounds.MISSILI_COLLISION_SOUND);
-        }
     }
 }
