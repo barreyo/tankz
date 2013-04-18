@@ -10,21 +10,21 @@ import java.beans.PropertyChangeSupport;
  * @author Daniel
  */
 public class PowerupSlot implements IObservable {
-    private EPowerup powerup;
+    private IPowerup powerup;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      * @return The powerup contained in this slot.
      */
-    public synchronized EPowerup getPowerup() {
+    public synchronized IPowerup getPowerup() {
         return powerup;
     }
 
     /**
      * @param powerup The powerup to set in this slot.
      */
-    public synchronized void setPowerup(EPowerup powerup) {
+    public synchronized void setPowerup(IPowerup powerup) {
         this.powerup = powerup;
     }
     

@@ -3,12 +3,9 @@ package GameControllers;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.IPowerupBox;
-import GameModel.gameEntity.Powerup.PowerupBox;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import GameModel.gameEntity.Projectile.MissileModel;
 import GameModel.gameEntity.Vehicle.TankModel;
-import App.TanksAppAdapter;
 import App.TanksAppAdapter;
 import GameControllers.entitycontrols.MissileControl;
 import GameControllers.entitycontrols.PowerupControl;
@@ -17,7 +14,8 @@ import GameControllers.logic.GameAppState;
 import GameModel.Game.ITanks;
 import GameModel.Game.TanksGameModel;
 import GameModel.Game.UserSettings;
-import GameModel.Player.Player;
+import GameModel.gameEntity.Powerup.HastePowerup;
+import GameModel.gameEntity.Powerup.IPowerup;
 import GameUtilities.Util;
 import GameView.Map.GameWorld1;
 import GameView.Map.IGameWorld;
@@ -25,7 +23,6 @@ import GameView.gameEntity.MissileProjectileEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
-import com.jme3.app.state.AbstractAppState;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
@@ -35,7 +32,6 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -97,6 +93,8 @@ public final class TanksFactory {
                 TankModel.TANK_WHEEL_REST_LENGTH, wheelRadius, false);
         entity.addControl(vehicle);
         
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
+        
         // Get the right viewport for the player and enable it
         ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player);
         viewPort.setEnabled(true);
@@ -121,7 +119,8 @@ public final class TanksFactory {
     }
     
     public static void createNewPowerup(Vector3f position) {
-        IPowerupBox model = new PowerupBox(position);
+        IPowerup model = new HastePowerup();
+        model.setPosition(position);
         PowerupEntity view = new PowerupEntity(model);
         PowerupControl control = new PowerupControl(view, model);
         

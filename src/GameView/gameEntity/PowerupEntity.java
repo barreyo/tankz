@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameView.gameEntity;
 
-import GameModel.gameEntity.Powerup.IPowerupBox;
 import App.TanksAppAdapter;
+import GameModel.gameEntity.Powerup.IPowerup;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -19,10 +16,10 @@ import java.beans.PropertyChangeSupport;
  */
 public class PowerupEntity extends AGameEntity {
 
-    private IPowerupBox powerup;
+    private IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    public PowerupEntity(IPowerupBox pow) {
+    public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
         setModel(pow);
         spatial.setLocalTranslation(powerup.getPosition());
@@ -58,7 +55,7 @@ public class PowerupEntity extends AGameEntity {
         pcs.removePropertyChangeListener(l);
     }
     
-    public void setModel(IPowerupBox pow) {
+    public void setModel(IPowerup pow) {
         if (powerup != null) {
             this.cleanup();
         }
@@ -76,5 +73,4 @@ public class PowerupEntity extends AGameEntity {
    private void updatePosition() {
         spatial.setLocalTranslation(powerup.getPosition());
     }
-    
 }

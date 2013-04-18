@@ -18,7 +18,7 @@ public class Player implements IPlayer, IObservable {
     private IArmedVehicle vehicle;
     private int kills, deaths;
     private boolean isActive;
-    private EPowerup powerup;
+    private IPowerup powerup;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -122,7 +122,7 @@ public class Player implements IPlayer, IObservable {
      * @inheritdoc
      */
     @Override
-    public EPowerup getPowerup() {
+    public IPowerup getPowerup() {
         return powerup;
     }
 
@@ -130,9 +130,9 @@ public class Player implements IPlayer, IObservable {
      * @inheritdoc
      */
     @Override
-    public void setPowerup(EPowerup powerup) {
+    public void setPowerup(IPowerup powerup) {
         this.powerup = powerup;
-        pcs.firePropertyChange(null, null, null);
+        pcs.firePropertyChange(POWERUP_CHANGED, null, null);
     }
 
     /**
@@ -212,11 +212,9 @@ public class Player implements IPlayer, IObservable {
     @Override
     public void usePowerup() {
         if (powerup != null) {
-            if (powerup.equals(EPowerup.HASTE)) {
-                this.getVehicle().shoot();
-            }
-            powerup = EPowerup.EMPTY;
-            pcs.firePropertyChange(null,null,null);
+            powerup.usePowerup(this);
+            powerup = null;
+            pcs.firePropertyChange(POWERUP_CHANGED, null, null);
         }
     }
     

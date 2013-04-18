@@ -23,31 +23,38 @@ public abstract class APowerup implements IPowerup, IObservable {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    public APowerup(Vector3f position){
-        this.position = position;
+    public APowerup(){
+        position = Vector3f.ZERO;
     }
     
-    public void addPowerup(){
+    @Override
+    public void showPowerupInWorld(){
         isVisible = true;
         pcs.firePropertyChange(null, null, null);
     }
-    public void removePowerup(){
+    
+    @Override
+    public void removeFromWorld() {
         isVisible = false;
         pcs.firePropertyChange(null, null, null);
     }
     
+    @Override
     public float getMASS(){
         return MASS;
     }
 
+    @Override
     public Vector3f getPosition(){
         return position;
     }
     
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
@@ -55,7 +62,4 @@ public abstract class APowerup implements IPowerup, IObservable {
     public void setPosition(Vector3f position) {
         this.position = position;
     }
-    
-    public abstract void usePowerup(IPlayer player);
-    
 }
