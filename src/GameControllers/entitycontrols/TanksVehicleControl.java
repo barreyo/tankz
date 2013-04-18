@@ -319,6 +319,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         } else if (evt.getPropertyName().equals(IArmedVehicle.FRICTION)) {
             // Brake the vehicle according to the friction in model
             this.brake(vehicleModel.getFrictionForce());
+        } else if (evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
+            //TODO - Respawn tank at different location after some 1-2 seconds 
+            
         }
     }
     

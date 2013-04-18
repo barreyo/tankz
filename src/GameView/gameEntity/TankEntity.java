@@ -26,6 +26,7 @@ public final class TankEntity extends AGameEntity {
     
     private IArmedVehicle armedVehicle;
     private final Collection<ParticleEmitter> shootEffects;
+    //private final Collection<ParticleEmitter> blownUpEffects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -71,6 +72,17 @@ public final class TankEntity extends AGameEntity {
             showShootEffect();
         }
         if (evt.getPropertyName() != null) {
+            //Pass on
+            pcs.firePropertyChange(evt);
+        }
+        if(evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
+            if (spatial.getParent() != null) {
+                //TODO - Respawn tank at different location after some 1-2 seconds 
+                // instead of removing tank.
+                
+                // Remove tank from world
+                spatial.removeFromParent();
+            }
             //Pass on
             pcs.firePropertyChange(evt);
         }

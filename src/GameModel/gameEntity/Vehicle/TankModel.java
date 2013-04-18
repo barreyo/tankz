@@ -262,5 +262,9 @@ public final class TankModel implements IArmedVehicle {
     public void gotHitBy(IExplodingProjectile projectile) {
         this.decrementHealth(projectile.getDamageOnImpact());
         System.out.println(projectile.getDamageOnImpact());
+        if (health<=0){
+            setVehicleState(VehicleState.DESTROYED);
+            pcs.firePropertyChange(VEHICLE_DESTROYED, null, null);
+        }
     }
 }
