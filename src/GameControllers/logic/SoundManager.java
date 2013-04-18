@@ -1,8 +1,8 @@
 package GameControllers.logic;
 
 import GameView.Sounds.ESounds;
-import GameModel.Game.ApplicationSettings;
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameModel.ApplicationSettings;
+import GameModel.IExplodingProjectile;
 import App.TanksAppAdapter;
 import com.jme3.audio.AudioNode;
 import java.beans.PropertyChangeEvent;
@@ -109,7 +109,7 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
      * @param sound
      */
     public void play(ESounds sound) {
-        /*AudioNode audio = soundMap.get(sound);
+        AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
             
@@ -124,7 +124,7 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
                 }
                 audio.playInstance();
             }
-        }*/
+        }
     }
 
     // pause the music
@@ -133,11 +133,11 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
      * @param sound
      */
     public void pause(ESounds sound) {
-        AudioNode audio = soundMap.get(sound);
+        /*AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
             TanksAppAdapter.INSTANCE.pauseAudioSource(audio);
-        }
+        }*/
     }
 
     // if paused it will play, if playing it will be paused

@@ -1,8 +1,8 @@
 
-package GameModel.Game;
+package GameModel;
 
-import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.IPlayer;
+import GameModel.IPowerup;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;

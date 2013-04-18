@@ -2,7 +2,7 @@
 package GameView.GUI;
 
 import App.TanksAppAdapter;
-import GameModel.Game.ITanks;
+import GameModel.ITanks;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.ui.Picture;

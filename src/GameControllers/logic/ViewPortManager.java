@@ -1,7 +1,7 @@
 package GameControllers.logic;
 
-import GameModel.Game.ApplicationSettings;
-import GameModel.Player.IPlayer;
+import GameModel.ApplicationSettings;
+import GameModel.IPlayer;
 import GameView.viewPort.EViewPorts;
 import App.TanksAppAdapter;
 import com.jme3.renderer.ViewPort;

@@ -1,4 +1,4 @@
-package GameModel.Player;
+package GameModel;
 
 import com.jme3.input.KeyInput;
 

@@ -1,7 +1,7 @@
 
 package GameView.gameEntity;
 
-import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
 import GameUtilities.Util;
 import GameView.effects.EEffects;

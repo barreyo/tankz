@@ -1,7 +1,7 @@
 package GameControllers.logic;
 
-import GameModel.Player.EPlayerInputs;
-import GameModel.Player.Player;
+import GameModel.EPlayerInputs;
+import GameModel.Player;
 import java.util.HashMap;
 
 /**

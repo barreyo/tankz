@@ -3,11 +3,11 @@ package GameControllers.entitycontrols;
 
 import GameControllers.TanksFactory;
 import GameControllers.logic.SoundManager;
-import GameModel.Game.EGameState;
-import GameModel.Player.EPlayerInputs;
-import GameModel.Player.IPlayer;
+import GameModel.EGameState;
+import GameModel.EPlayerInputs;
+import GameModel.IPlayer;
 import GameView.viewPort.VehicleCamera;
-import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;

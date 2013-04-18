@@ -1,5 +1,5 @@
 
-package GameModel.Game;
+package GameModel;
 
 import GameUtilities.IObservable;
 import java.beans.PropertyChangeListener;

@@ -1,8 +1,8 @@
 
-package GameModel.Player;
+package GameModel;
 
-import GameModel.gameEntity.Powerup.IPowerup;
-import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import GameModel.IPowerup;
+import GameModel.IArmedVehicle;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 

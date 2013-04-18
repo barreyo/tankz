@@ -1,5 +1,5 @@
 
-package GameModel.Game;
+package GameModel;
 
 /**
  * Enum representing the game state.

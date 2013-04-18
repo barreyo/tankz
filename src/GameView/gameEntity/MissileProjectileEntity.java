@@ -1,7 +1,7 @@
 
 package GameView.gameEntity;
 
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameModel.IExplodingProjectile;
 import App.TanksAppAdapter;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
