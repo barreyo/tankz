@@ -1,7 +1,7 @@
 package GameControllers.entitycontrols;
 
 import GameControllers.logic.SoundManager;
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameModel.IExplodingProjectile;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.MissileProjectileEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;

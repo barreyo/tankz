@@ -1,6 +1,6 @@
-package GameModel.gameEntity.Vehicle;
+package GameModel;
 
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
+import GameModel.IExplodingProjectile;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;

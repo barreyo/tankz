@@ -1,6 +1,6 @@
 package GameControllers.logic;
 
-import GameModel.Game.EGameState;
+import GameModel.EGameState;
 import App.TanksAppAdapter;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;

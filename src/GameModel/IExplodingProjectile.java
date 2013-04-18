@@ -1,4 +1,4 @@
-package GameModel.gameEntity.Projectile;
+package GameModel;
 
 import GameUtilities.IObservable;
 import com.jme3.bullet.PhysicsTickListener;

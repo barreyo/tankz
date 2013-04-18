@@ -1,10 +1,10 @@
 
 package GameView.GUI;
 
-import GameModel.Game.ApplicationSettings;
-import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.HastePowerup;
-import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.ApplicationSettings;
+import GameModel.IPlayer;
+import GameModel.HastePowerup;
+import GameModel.IPowerup;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;

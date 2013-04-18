@@ -4,7 +4,7 @@
  */
 package GameControllers.entitycontrols;
 
-import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.IPowerup;
 import GameView.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;

@@ -1,8 +1,8 @@
 
 package GameControllers.logic;
 
-import GameModel.Game.ApplicationSettings;
-import GameModel.Game.EGameState;
+import GameModel.ApplicationSettings;
+import GameModel.EGameState;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
