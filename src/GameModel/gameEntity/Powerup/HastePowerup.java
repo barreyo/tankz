@@ -5,7 +5,6 @@
 package GameModel.gameEntity.Powerup;
 
 import GameModel.Player.IPlayer;
-import com.jme3.math.Vector3f;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,17 +13,8 @@ import java.util.logging.Logger;
  * @author Per
  */
 public class HastePowerup extends APowerup{
-    
-    private static final float resetTime = 5f;
-    private float timer;
-    private float activeTimer;
-    
     private float maxSpeed;
     private float accForce;
-    
-    public HastePowerup(Vector3f position){
-        super(position);
-    }
 
     @Override
     public void usePowerup(IPlayer player) {

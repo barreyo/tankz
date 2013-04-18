@@ -2,7 +2,7 @@
 package GameModel.Game;
 
 import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.IPowerupBox;
+import GameModel.gameEntity.Powerup.IPowerup;
 import java.util.Collection;
 
 /**
@@ -30,7 +30,7 @@ public interface ITanks {
     /**
      * Removes a powerup from the game
      */
-    public void removePowerup(IPowerupBox powerup);
+    public void removePowerup(IPowerup powerup);
     
     /**
      * Adds a random powerup to one of the powerup-spawningpoints
@@ -45,7 +45,7 @@ public interface ITanks {
     /**
      * Returns a list of all the powerups in the game
      */
-    public Collection<IPowerupBox> getPowerups();
+    public Collection<IPowerup> getPowerups();
     
     /**
      * Returns a list of all the spawningpoints in the game

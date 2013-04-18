@@ -2,8 +2,7 @@
 package GameModel.Player;
 
 import GameUtilities.IObservable;
-import GameModel.gameEntity.Powerup.EPowerup;
-import GameModel.gameEntity.Powerup.PowerupSlot;
+import GameModel.gameEntity.Powerup.IPowerup;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -19,7 +18,7 @@ public class Player implements IPlayer, IObservable {
     private IArmedVehicle vehicle;
     private int kills, deaths;
     private boolean isActive;
-    private EPowerup powerup;
+    private IPowerup powerup;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -35,45 +34,55 @@ public class Player implements IPlayer, IObservable {
     }
 
     
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public IArmedVehicle getVehicle() {
         return vehicle;
     }
 
+    @Override
     public int getKills() {
         return kills;
     }
 
+    @Override
     public void incrementKills() {
         kills++;
     }
 
+    @Override
     public int getDeaths() {
         return deaths;
     }
 
+    @Override
     public void incrementDeaths() {
         deaths++;
     }
 
+    @Override
     public void resetStats() {
         deaths = 0;
         kills = 0;
     }
 
+    @Override
     public boolean isActive() {
         return isActive;
     }
 
+    @Override
     public void activatePlayer(){
         if (!isActive) {
             isActive = true;
         }
     }
     
+    @Override
     public void deactivatePlayer() {
         if (isActive) {
             isActive = false;
@@ -84,7 +93,7 @@ public class Player implements IPlayer, IObservable {
      * @inheritdoc
      */
     @Override
-    public EPowerup getPowerup() {
+    public IPowerup getPowerup() {
         return powerup;
     }
 
@@ -92,15 +101,17 @@ public class Player implements IPlayer, IObservable {
      * @inheritdoc
      */
     @Override
-    public void setPowerup(EPowerup powerup) {
+    public void setPowerup(IPowerup powerup) {
         this.powerup = powerup;
-        pcs.firePropertyChange(null, null, null);
+        pcs.firePropertyChange(POWERUP_CHANGED, null, null);
     }
 
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
     
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
@@ -156,11 +167,9 @@ public class Player implements IPlayer, IObservable {
 
     public void usePowerup() {
         if (powerup != null) {
-            if (powerup.equals(EPowerup.HASTE)) {
-                this.getVehicle().shoot();
-            }
-            powerup = EPowerup.EMPTY;
-            pcs.firePropertyChange(null,null,null);
+            powerup.usePowerup(this);
+            powerup = null;
+            pcs.firePropertyChange(POWERUP_CHANGED, null, null);
         }
     }
     

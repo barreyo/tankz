@@ -5,23 +5,24 @@
 package GameModel.gameEntity.Powerup;
 
 import GameModel.Player.IPlayer;
+import GameUtilities.IObservable;
 import com.jme3.math.Vector3f;
 
 /**
  *
  * @author Per
  */
-public interface IPowerup {
+public interface IPowerup extends IObservable{
     
     /**
-     * Adds a powerup to the world.
+     * Adds the powerup to the world.
      */
-    public void addPowerup();
+    public void showPowerupInWorld();
     
     /**
-     * Removes a powerup from the world.
+     * Removes the powerup from the world.
      */
-    public void removePowerup();
+    public void removeFromWorld();
     
     /**
      * 
@@ -34,6 +35,13 @@ public interface IPowerup {
      * @return position of the powerup.
      */
     public Vector3f getPosition();
+    
+    /**
+     * Sets the position of this powerup.
+     * 
+     * @param pos the position to be set.
+     */
+    public void setPosition(Vector3f pos);
     
     /**
      * 

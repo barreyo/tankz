@@ -1,7 +1,7 @@
 
 package GameModel.Player;
 
-import GameModel.gameEntity.Powerup.EPowerup;
+import GameModel.gameEntity.Powerup.IPowerup;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import java.beans.PropertyChangeListener;
 
@@ -77,14 +77,14 @@ public interface IPlayer {
      * 
      * @return The powerup contained in powerupSlot
      */
-    EPowerup getPowerup();
+    IPowerup getPowerup();
 
     /**
      * Sets the powerup in the powerupSlot.
      * 
      * @param powerup The powerup to add in powerupSlot
      */
-    void setPowerup(EPowerup powerup);
+    void setPowerup(IPowerup powerup);
     
     /**
      * Players are considered equal when their names are equal.
@@ -103,4 +103,6 @@ public interface IPlayer {
     public void usePowerup();
     
     public void decrementHealth(int hp);
+    
+    public static final String POWERUP_CHANGED = "POWERUP_CHANGED";
 }

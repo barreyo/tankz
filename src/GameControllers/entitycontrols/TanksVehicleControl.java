@@ -9,10 +9,11 @@ import GameModel.Player.IPlayer;
 import GameView.viewPort.VehicleCamera;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import App.TanksAppAdapter;
-import GameModel.gameEntity.Powerup.EPowerup;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.IGameEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -30,7 +31,7 @@ import java.beans.PropertyChangeListener;
  * 
  * @author Daniel
  */
-public class TanksVehicleControl extends VehicleControl implements ActionListener, PropertyChangeListener {
+public class TanksVehicleControl extends VehicleControl implements ActionListener, PropertyChangeListener, PhysicsCollisionListener {
     
     // The model for the vehicle
     private IArmedVehicle vehicleModel;
@@ -335,18 +336,18 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         if (space == null) {
             return;
         }
-        if (event.getObjectA() instanceof PowerupControl && event.getObjectB() == this) {
-            player.setPowerup(EPowerup.HASTE);
-            
+        PhysicsCollisionObject objA = event.getObjectA();
+        PhysicsCollisionObject objB = event.getObjectB();
+        if (objA instanceof PowerupControl && objB == this) {
+            player.setPowerup(((PowerupControl)event.getObjectA()).getPowerup());
             // We dont have to listen for collisions any more
             isListening = false;
-        } else if (event.getObjectB() instanceof PowerupControl && event.getObjectA() == this) {
-            player.setPowerup(EPowerup.HASTE);
-            
+        } else if (objB instanceof PowerupControl && objA == this) {
+            player.setPowerup(((PowerupControl)event.getObjectB()).getPowerup());
             // We dont have to listen for collisions any more
             isListening = false;
-        } else if (event.getObjectA() instanceof MissileControl && event.getObjectB() == this
-                || event.getObjectB() instanceof MissileControl && event.getObjectA() == this) {
+        } else if (objA instanceof MissileControl && objB == this
+                || objB instanceof MissileControl && objA == this) {
             // Should be changed to variable of how much the projectile damages.
             player.decrementHealth(10);
         }

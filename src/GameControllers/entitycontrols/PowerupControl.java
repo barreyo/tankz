@@ -4,10 +4,7 @@
  */
 package GameControllers.entitycontrols;
 
-import GameModel.gameEntity.Powerup.IPowerupBox;
-import GameModel.gameEntity.Powerup.EPowerup;
-import GameModel.gameEntity.Projectile.IExplodingProjectile;
-import GameView.gameEntity.MissileProjectileEntity;
+import GameModel.gameEntity.Powerup.IPowerup;
 import GameView.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -21,11 +18,11 @@ import java.beans.PropertyChangeListener;
  */
 public class PowerupControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
     private PowerupEntity powerupEntity;
-    private IPowerupBox powerupModel;
+    private IPowerup powerupModel;
     private boolean isListening;
 
     
-   public PowerupControl(PowerupEntity entity, IPowerupBox model) {
+   public PowerupControl(PowerupEntity entity, IPowerup model) {
        super(entity.getCollisionShape(), model.getMASS());
         powerupEntity = entity;
         powerupModel = model;
@@ -42,7 +39,7 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
         }
         if (event.getObjectA() instanceof TanksVehicleControl && event.getObjectB() == this
          || event.getObjectB() instanceof TanksVehicleControl && event.getObjectA() == this) {
-            powerupModel.removePowerup();
+            powerupModel.removeFromWorld();
             
             // We dont have to listen for collisions any more
             isListening = false;
@@ -63,5 +60,9 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
             }
  //           powerupModel.update(tpf);
         } 
+    }
+
+    IPowerup getPowerup() {
+        return powerupModel;
     }
 }

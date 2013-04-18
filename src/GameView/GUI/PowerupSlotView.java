@@ -3,7 +3,8 @@ package GameView.GUI;
 
 import GameModel.Game.UserSettings;
 import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.EPowerup;
+import GameModel.gameEntity.Powerup.HastePowerup;
+import GameModel.gameEntity.Powerup.IPowerup;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
@@ -57,9 +58,15 @@ public class PowerupSlotView extends AHudElement {
      */
     public void propertyChange(PropertyChangeEvent pce) {
         System.out.println("POWERUPSLOT PROPERTY CHANGE");
-        if (player.getPowerup().equals(EPowerup.HASTE)) {
-            picture.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
-        } else if (player.getPowerup().equals(EPowerup.HOMING)) {
+        if (pce.getPropertyName().equals(IPlayer.POWERUP_CHANGED)) {
+            IPowerup powerup = player.getPowerup();
+            if (powerup instanceof HastePowerup) {
+                picture.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
+            } else if (powerup == null) {
+                picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
+            }
+        }
+            /*else if (player.getPowerup().equals(EPowerup.HOMING)) {
             picture.setImage(assetManager, EPowerupIcons.HOMING.getPath(), true);
         } else if (player.getPowerup().equals(EPowerup.BEER)) {
             picture.setImage(assetManager, EPowerupIcons.BEER.getPath(), true);
@@ -67,7 +74,7 @@ public class PowerupSlotView extends AHudElement {
             picture.setImage(assetManager, EPowerupIcons.LANDMINE.getPath(), true);
         } else {
             picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
-        } 
+        } */
     }
 
     /**
