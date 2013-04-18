@@ -36,7 +36,7 @@ public class Main {
         }
 
         // set the start image
-        appSettings.setSettingsDialogImage("Interface/splashscreen.jpg");
+        appSettings.setSettingsDialogImage("Interface/splashscreen.png");
 
         // apply the settings
         TanksAppAdapter.INSTANCE.setSettings(appSettings);

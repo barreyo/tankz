@@ -1,19 +1,15 @@
 package GameControllers.logic;
 
-import GameModel.Game.EGameState;
 import App.TanksAppAdapter;
-import GameControllers.TanksFactory;
+import GameModel.Game.EGameState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.controls.Controller;
 import de.lessvoid.nifty.elements.Element;
-import de.lessvoid.nifty.elements.render.TextRenderer;
 import de.lessvoid.nifty.input.NiftyInputEvent;
 import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
-import de.lessvoid.nifty.tools.SizeValue;
 import de.lessvoid.xml.xpp3.Attributes;
 import java.util.Properties;
 
@@ -21,19 +17,14 @@ import java.util.Properties;
  *
  * @author Daniel
  */
-public final class LoadingScreenAppState extends AbstractAppState implements ScreenController, Controller {
+public final class LoadingScreenAppState extends AbstractAppState implements ScreenController {
     private static LoadingScreenAppState instance;
     
     private Nifty nifty;
-    private Element progressBarElement;
-    private Element progressTextElement;
    
     private int frameCount;
-    private int nbrOfPlayers;
     
     private static final int FRAME_COUNT = 50;
-    
-    private boolean isLoaded = false;
     
     /**
      *
@@ -45,11 +36,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
         // Register as a screen controller and add scree n to Hud handler Nifty
         nifty.registerScreenController(this);
         nifty.addXml("Interface/Nifty/LoadingScreen.xml"); 
-        
-        progressTextElement = nifty.getScreen("loadingScreen").findElementByName("loadingtext");
-        //progressBarElement = nifty.getScreen("loadingScreen").findElementByName("progress");
-        
-        System.out.println("Tjena");
     }
     
     public static synchronized LoadingScreenAppState getInstance() {
@@ -86,7 +72,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
         nifty.gotoScreen("end");
-        isLoaded = true;
     }
     
     /**
@@ -116,7 +101,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
             EGameState.setGameState(EGameState.RUNNING);
             System.out.println("Finished loading game");
         }
-        //this.setProgress((float)frameCount, "Tanks");
         frameCount++;
     }
     
@@ -144,12 +128,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     @Override
     public void bind(Nifty nifty, Screen screen) {
         System.out.println("bind( " + screen.getScreenId() + ")");
-        progressBarElement = nifty.getScreen("loadingScreen").findElementByName("progress");
-    }
-
-    public void bind(Nifty nifty, Screen screen, Element element, Properties parameter, Attributes controlDefinitionAttributes) {
-        progressBarElement = element.findElementByName("progress");
-        progressTextElement = element.findElementByName("progress-text");
     }
 
     public void init(Properties parameter, Attributes controlDefinitionAttributes) {
@@ -162,30 +140,5 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
 
     public boolean inputEvent(NiftyInputEvent inputEvent) {
         return false; // Not supported
-    }
-    
-    /**
-     * Update the progressbar.
-     * 
-     * @param value 
-     * @param nowLoading 
-     */
-    public void setProgress(final float value, final String nowLoading) {
-        float progressTemp = value;
-        
-        // Fixing faulty vaules if such should come through.
-        if (progressTemp < 0.0f) {
-            progressTemp = 0.0f;
-        } else if (progressTemp > 1.0f) {
-            progressTemp = 1.0f;
-        }
-        // Updates the visual part of the progressbar
-        final int MIN_WIDTH = 14;
-        int pixelWidth = (int) (MIN_WIDTH + (progressBarElement.getParent().getWidth() - MIN_WIDTH) * progressTemp);
-        progressBarElement.setConstraintWidth(new SizeValue(pixelWidth + "px"));
-        progressBarElement.getParent().layoutElements();
-        
-        // Sets the text under the progressbar
-        progressTextElement.getRenderer(TextRenderer.class).setText("            Loading " + nowLoading + "... ");
     }
 }
