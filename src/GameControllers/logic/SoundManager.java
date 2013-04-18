@@ -1,8 +1,9 @@
 package GameControllers.logic;
 
-import GameView.Sounds.ESounds;
-import GameModel.Game.ApplicationSettings;
+
 import App.TanksAppAdapter;
+import GameModel.ApplicationSettings;
+import GameView.Sounds.ESounds;
 import com.jme3.audio.AudioNode;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -106,7 +107,7 @@ public enum SoundManager implements IMapRelatedManager{
      * @param sound
      */
     public void play(ESounds sound) {
-        /*AudioNode audio = soundMap.get(sound);
+        AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
             
@@ -121,7 +122,7 @@ public enum SoundManager implements IMapRelatedManager{
                 }
                 audio.playInstance();
             }
-        }*/
+        }
     }
 
     // pause the music
@@ -130,11 +131,11 @@ public enum SoundManager implements IMapRelatedManager{
      * @param sound
      */
     public void pause(ESounds sound) {
-        AudioNode audio = soundMap.get(sound);
+        /*AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
             TanksAppAdapter.INSTANCE.pauseAudioSource(audio);
-        }
+        }*/
     }
 
     // if paused it will play, if playing it will be paused

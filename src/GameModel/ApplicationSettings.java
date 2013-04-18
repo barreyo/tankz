@@ -1,5 +1,5 @@
 
-package GameModel.Game;
+package GameModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,9 @@
 
 package GameView.GUI;
 
-import GameModel.Game.ApplicationSettings;
-import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import GameModel.ApplicationSettings;
+import GameModel.IPlayer;
+import GameModel.IArmedVehicle;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;

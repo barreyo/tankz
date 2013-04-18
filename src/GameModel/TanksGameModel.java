@@ -1,8 +1,6 @@
 
-package GameModel.Game;
+package GameModel;
 
-import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.IPowerup;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
@@ -144,6 +142,6 @@ public class TanksGameModel implements ITanks {
 
     @Override
     public void cleanup() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 }

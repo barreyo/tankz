@@ -2,7 +2,7 @@
 package GameView.gameEntity;
 
 import App.TanksAppAdapter;
-import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.IPowerup;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;

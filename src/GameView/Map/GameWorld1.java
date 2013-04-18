@@ -2,9 +2,9 @@ package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
 import GameControllers.TanksFactory;
-import GameModel.Player.IPlayer;
+import GameModel.IPlayer;
 import App.TanksAppAdapter;
-import GameModel.Game.ITanks;
+import GameModel.ITanks;
 import GameView.graphics.EGraphics;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;

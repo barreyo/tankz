@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameModel.gameEntity.Powerup;
+package GameModel;
 
-import GameModel.Player.IPlayer;
+import GameModel.IPlayer;
 import GameUtilities.IObservable;
 import com.jme3.math.Vector3f;
 

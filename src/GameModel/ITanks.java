@@ -1,8 +1,6 @@
 
-package GameModel.Game;
+package GameModel;
 
-import GameModel.Player.IPlayer;
-import GameModel.gameEntity.Powerup.IPowerup;
 import GameUtilities.IObservable;
 import java.util.Collection;
 
@@ -56,5 +54,4 @@ public interface ITanks extends IObservable{
     public void update(float tpf);
 
     public void cleanup();
-    
 }

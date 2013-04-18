@@ -1,5 +1,5 @@
 
-package GameModel.Game;
+package GameModel;
 
 import com.jme3.math.Vector3f;
 
