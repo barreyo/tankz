@@ -1,8 +1,6 @@
 
 package GameModel;
 
-import GameModel.IPlayer;
-import GameModel.IPowerup;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
@@ -47,6 +45,7 @@ public class TanksGameModel implements ITanks {
         this.powerups = powerups;
         this.spawningPoints = spawningPoints;
         this.settings = settings;
+        timer = settings.getGameTime();
     }
 
     /**
@@ -137,7 +136,12 @@ public class TanksGameModel implements ITanks {
 
     @Override
     public void update(float tpf) {
-        timer += tpf;
+        timer -= tpf;
         // Check if someone has won
+    }
+
+    @Override
+    public void cleanup() {
+        
     }
 }

@@ -13,7 +13,6 @@ import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
 import GameModel.ITanks;
 import GameModel.TanksGameModel;
-import GameModel.ApplicationSettings;
 import GameModel.Player;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;

@@ -1,8 +1,6 @@
 
 package GameModel;
 
-import GameModel.IPlayer;
-import GameModel.IPowerup;
 import GameUtilities.IObservable;
 import java.util.Collection;
 
@@ -54,5 +52,6 @@ public interface ITanks extends IObservable{
     public Collection<ISpawningPoints> getSpawningPoints();
 
     public void update(float tpf);
-    
+
+    public void cleanup();
 }

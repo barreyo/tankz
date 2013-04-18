@@ -1,12 +1,10 @@
 package GameControllers.logic;
 
-import GameView.Sounds.ESounds;
-import GameModel.ApplicationSettings;
-import GameModel.IExplodingProjectile;
+
 import App.TanksAppAdapter;
+import GameModel.ApplicationSettings;
+import GameView.Sounds.ESounds;
 import com.jme3.audio.AudioNode;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -14,7 +12,7 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
+public enum SoundManager implements IMapRelatedManager{
     INSTANCE;
     
     
@@ -109,7 +107,6 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
      * @param sound
      */
     public void play(ESounds sound) {
-        /*
         AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
@@ -125,7 +122,7 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
                 }
                 audio.playInstance();
             }
-        }*/
+        }
     }
 
     // pause the music
@@ -134,11 +131,11 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
      * @param sound
      */
     public void pause(ESounds sound) {
-        AudioNode audio = soundMap.get(sound);
+        /*AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
             TanksAppAdapter.INSTANCE.pauseAudioSource(audio);
-        }
+        }*/
     }
 
     // if paused it will play, if playing it will be paused
@@ -172,11 +169,5 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
     public void cleanup() {
         removeAllMusic();
         soundMap.clear();
-    }
-
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
-            play(ESounds.MISSILI_COLLISION_SOUND);
-        }
     }
 }
