@@ -71,7 +71,7 @@ public final class MissileModel implements IExplodingProjectile {
             }
         } else {
             projectileLifeTimer += tpf;
-            position = position.addLocal(direction.normalizeLocal());
+            position = position.addLocal(direction.mult(0.1f*tpf).normalizeLocal());
             pcs.firePropertyChange(NEW_POS, null, position);
             if (projectileLifeTimer > MissileModel.MAX_LIFE_TIME) {
                 pcs.firePropertyChange(END_OF_LIFETIME, null, null);
