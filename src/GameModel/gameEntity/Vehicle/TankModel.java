@@ -13,6 +13,8 @@ import java.beans.PropertyChangeSupport;
 public class TankModel implements IArmedVehicle {
     
     private int health;
+    private float maxSpeed;
+    private float accelerationForce;
     private IArmedVehicle.VehicleState vehicleState;
     private Vector3f position;
     private Vector3f direction;
@@ -33,9 +35,6 @@ public class TankModel implements IArmedVehicle {
     public static final float TANK_FRICTION_FORCE = 10.0f;
     public static final float TANK_MAX_SUSPENSION_FORCE = 999000.0f;
     public static final float TANK_STEERING_CHANGE_VALUE = 0.4f;
-    
-    private float maxSpeed = 80.0f;
-    private float accelerationForce = 2000.0f;
 
     //Create four wheels and add them at their locations
     public static final Vector3f TANK_WHEEL_DIRECTION = new Vector3f(0, -1, 0); // was 0, -1, 0
@@ -49,6 +48,8 @@ public class TankModel implements IArmedVehicle {
     
     public TankModel() {
         health = 100;
+        maxSpeed = 80.0f;
+        accelerationForce = 2000.0f;
     }
     
     /**
@@ -242,17 +243,18 @@ public class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(FRICTION, null, null);
     }
 
+    @Override
     public synchronized void setMaxSpeed(float maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 
+    @Override
     public synchronized void setAccelerationForce(float accelerationForce) {
         this.accelerationForce = accelerationForce;
     }
     
+    @Override
     public float getMaxSpeed(){
         return maxSpeed;
     }
-    
-    
 }
