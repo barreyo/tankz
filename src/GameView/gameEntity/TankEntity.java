@@ -68,14 +68,11 @@ public final class TankEntity extends AGameEntity {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName() != null &&
-            evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
+        if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
             showShootEffect();
         }
-        if (evt.getPropertyName() != null) {
-            //Pass on
-            pcs.firePropertyChange(evt);
-        }
+        //Pass on
+        pcs.firePropertyChange(evt);
     }
 
     @Override
