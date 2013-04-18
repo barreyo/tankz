@@ -16,13 +16,17 @@ public enum EGraphics {
      */
     SHARK("Models/shark/shark.j3o"),
     /**
-     * The map.
+     * The default map.
      */
     MAP("Scenes/Map1/Map3.j3o"),
     /**
      * Model used for powerup boxes.
      */
-    POWERUP("Models/PUBox/PUBox.j3o");
+    POWERUP("Models/PUBox/PUBox.j3o"),
+    /**
+     * Model used for bomb.
+     */
+    BOMB("Models/bomb/bomb.j3o");
     
     private String fileLocation;
 

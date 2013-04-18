@@ -158,7 +158,17 @@ public final class TanksFactory {
         for (String name : playerNames) {
             // Create one vehicleModel per player
             IArmedVehicle vehicle = new TankModel();
-            players.add(new Player(name, vehicle));
+            Player player = new Player(name, vehicle);
+            
+            // set up gui for each player
+            PowerupSlotView pView = new PowerupSlotView(player, 
+                    ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
+            HealthView v = new HealthView(player, 
+                    ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
+            pView.show();
+            v.show();
+            
+            players.add(player);
         }
         ITanks game = new TanksGameModel(players);
         
@@ -172,25 +182,10 @@ public final class TanksFactory {
                 break;
         }
         
-        // set up gui
-        List<PowerupSlotView> psvList = new ArrayList<PowerupSlotView>();
-        for ( IPlayer p : game.getPlayers()) {
-            PowerupSlotView pView = new PowerupSlotView(p, 
-                    ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), numberOfPlayers);
-            psvList.add(pView);
-            pView.show();
-        }
+        // set up timerView
         TimerView timerView = new TimerView(game);
         timerView.show();
-        
-        List<HealthView> hpvList = new ArrayList<HealthView>();
-        for ( IPlayer p : game.getPlayers()) {
-            HealthView v = new HealthView(p, 
-                    ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), numberOfPlayers);
-            hpvList.add(v);
-            v.show();
-        }
-        
+
         return new GameAppState(game, gameWorld);
     }
 }

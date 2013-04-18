@@ -12,8 +12,8 @@ import java.beans.PropertyChangeSupport;
  */
 public final class MissileModel implements IExplodingProjectile {
     
-    public static final int DAMAGE = 10;
-    public static final float MASS = 10f;
+    private static final int DAMAGE = 10;
+    private static final float MASS = 10f;
     private static final float EXPLOSION_END_TIME = 4f;
     private static final float MAX_LIFE_TIME = 4f;
     
