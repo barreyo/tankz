@@ -92,12 +92,18 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         }  
     }
     
+    /**
+     * Initializes the vehicleControl.
+     */
     private void initControl() {
         addVehicleControl();
         // Please remove this, use factory and apply to the entity
         //spatial.addControl(new FloatingNameControl(spatial,TanksAppAdapter.INSTANCE.getAssetManager()));
     }
-
+    
+    /**
+     * Adds this control to the physicsSpace.
+     */
     private void addVehicleControl() {
         // Add vehicle to physics space
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
@@ -145,8 +151,11 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     private boolean isFirstRightKeyPressDone;
     private boolean isFirstUpKeyPressDone;
     private boolean isFirstDownKeyPressDone;
+    
     /**
      * @inheritdoc
+     * 
+     * Calls for the method in the model, according to the button pressed.
      */
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
@@ -223,6 +232,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         }
     }
 
+    /**
+     * Adds inputmappings for this control, depends on what the variables are set to.
+     */
     private void addInputMappings() {
         // Looks for unused input mappings
         for (EPlayerInputs playerInputs : EPlayerInputs.values()) {
@@ -267,7 +279,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
     }
-
+    
+    /**
+     * Removes the inputmappings for this control.
+     */
     private void removeInputMappings() {
         if (inputs == null) {
             return;
@@ -308,6 +323,14 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     
     private boolean isListening;
     
+    
+    /**
+     * The collision between an IVehicle and an unknown object.
+     * If it is a IPowerup, it uses addPowerup() on the IVehicle.
+     * If it is an IExplodingProjectile, it decrements the health of IPlayers IArmedVehicle.
+     * 
+     * @param event The object that collides with the IVehicle.
+     */
     public void collision(PhysicsCollisionEvent event) {
         if (space == null) {
             return;
