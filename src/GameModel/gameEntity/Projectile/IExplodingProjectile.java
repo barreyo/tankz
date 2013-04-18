@@ -12,6 +12,7 @@ import com.jme3.math.Vector3f;
  * @author Daniel
  */
 public interface IExplodingProjectile extends IObservable {
+    
     /**
      * Returns the damage done on impact.
      *
@@ -25,13 +26,31 @@ public interface IExplodingProjectile extends IObservable {
      * @return the mass of the projectile in kg
      */
     public float getMass();
-   
+    
+    /**
+     * Updates the IExplodingProjectile depending on what happened in the controller.
+     * 
+     * @param tpf times per frame
+     */
     public void update(float tpf);
     
+    /**
+     * Returns the position.
+     * 
+     * @return position
+     */
     public Vector3f getPosition();
     
+    /**
+     * Returns the rotation.
+     * 
+     * @return rotation
+     */
     public Quaternion getRotation();
     
+    /**
+     * Sets exploding to true, and sends event.
+     */
     public void impact();
     
     // Commands

@@ -18,6 +18,17 @@ public enum EPlayerInputs {
     
     private boolean isInUse;
 
+    /**
+     * Instantiates the EPlayerInputs
+     * 
+     * @param l left key
+     * @param r right key
+     * @param u up key
+     * @param d down key
+     * @param re restart key
+     * @param sh shoot key
+     * @param pwr powerup key
+     */
     private EPlayerInputs(int l, int r, int u, int d, int re, int sh, int pwr) {
         left = l;
         right = r;

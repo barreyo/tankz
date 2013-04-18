@@ -95,13 +95,25 @@ public interface IPlayer {
     @Override
     boolean equals(Object obj);
     
+    /**
+     * {@inheritDoc}
+     */
     void removeObserver(PropertyChangeListener l);
     
-    
+    /**
+     * {@inheritDoc}
+     */
     void addObserver(PropertyChangeListener l);
 
+    /**
+     * Uses the powerup that the player holds, removing it from the player.
+     */
     public void usePowerup();
     
+    /**
+     * Uses decrementHealth(int hp) on the IArmedVehicle
+     * @param hp 
+     */
     public void decrementHealth(int hp);
     
     public static final String POWERUP_CHANGED = "POWERUP_CHANGED";
