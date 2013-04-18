@@ -28,9 +28,10 @@ public final class MissileModel implements IExplodingProjectile {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
-     *
-     * @param damage
-     * @param mass
+     * Instantiates the MissileModel.
+     * 
+     * @param damage damage the missile does
+     * @param mass the mass of the missle
      */
     public MissileModel(Vector3f initialPos, Vector3f dir, Quaternion rotation) {
         this.position = initialPos.clone();
@@ -39,21 +40,29 @@ public final class MissileModel implements IExplodingProjectile {
     }
 
     /**
-     *
-     * @return
+     * Returns the damage the missile does.
+     * 
+     * @return damage
      */
+    @Override
     public int getDamageOnImpact() {
         return DAMAGE;
     }
 
     /**
-     *
-     * @return
+     * Returns the mass of the missile.
+     * 
+     * @return mass
      */
+    @Override
     public float getMass() {
         return MASS;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public void update(float tpf) {
         if (exploding) {
             explodingTimer += tpf;
@@ -70,22 +79,42 @@ public final class MissileModel implements IExplodingProjectile {
         }
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public Vector3f getPosition() {
         return position.clone();
     }
     
+    /**
+     * @inheritdoc
+     */
+    @Override
     public Quaternion getRotation() {
         return rotation.clone();
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public void impact() {
         exploding = true;
         pcs.firePropertyChange(IMPACT_MADE, null, null);

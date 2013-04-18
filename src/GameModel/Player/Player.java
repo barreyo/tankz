@@ -1,10 +1,9 @@
 
 package GameModel.Player;
 
-import GameUtilities.IObservable;
 import GameModel.gameEntity.Powerup.EPowerup;
-import GameModel.gameEntity.Powerup.PowerupSlot;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
+import GameUtilities.IObservable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -34,46 +33,85 @@ public class Player implements IPlayer, IObservable {
         this.vehicle = vehicle;
     }
 
-    
+    /**
+     * @inheritdoc
+     */
+    @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public IArmedVehicle getVehicle() {
         return vehicle;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public int getKills() {
         return kills;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public void incrementKills() {
         kills++;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public int getDeaths() {
         return deaths;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public void incrementDeaths() {
         deaths++;
     }
 
+    /**
+     * @inheritdoc
+     */
+    @Override
     public void resetStats() {
         deaths = 0;
         kills = 0;
     }
 
+        /**
+     * @inheritdoc
+     */
+    @Override
     public boolean isActive() {
         return isActive;
     }
 
+        /**
+     * @inheritdoc
+     */
+    @Override
     public void activatePlayer(){
         if (!isActive) {
             isActive = true;
         }
     }
     
+        /**
+     * @inheritdoc
+     */
+    @Override
     public void deactivatePlayer() {
         if (isActive) {
             isActive = false;
@@ -97,14 +135,28 @@ public class Player implements IPlayer, IObservable {
         pcs.firePropertyChange(null, null, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
+    /**
+     * Players are considered equal when their names
+     * 
+     * @param player to be compared.
+     * @return true if they are equal, false if not.
+     */
     public boolean equals(IPlayer player) {
         return false;
         
@@ -154,6 +206,10 @@ public class Player implements IPlayer, IObservable {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void usePowerup() {
         if (powerup != null) {
             if (powerup.equals(EPowerup.HASTE)) {
@@ -164,6 +220,10 @@ public class Player implements IPlayer, IObservable {
         }
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void decrementHealth(int hp) {
         this.getVehicle().decrementHealth(hp);
         //Needs to fire proper event to be handled.
