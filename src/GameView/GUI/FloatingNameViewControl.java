@@ -1,7 +1,7 @@
 package GameView.GUI;
 
 import App.TanksAppAdapter;
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import com.jme3.bounding.BoundingVolume;
@@ -63,11 +63,11 @@ public class FloatingNameViewControl extends AbstractControl {
     
     private void fillPlayersList() {
         players = new ArrayList<IPlayer>();
-        for (IPlayer p : UserSettings.INSTANCE.getPlayers()) {
+        /*for (IPlayer p : ApplicationSettings.INSTANCE.getPlayerNames()) {
             if (!p.equals(player) ) {
                 players.add(p);
             }
-        }
+        }*/
     }
     
     private boolean checkIfInViewPort(Spatial spatial) {

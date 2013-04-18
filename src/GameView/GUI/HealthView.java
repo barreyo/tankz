@@ -1,7 +1,7 @@
 
 package GameView.GUI;
 
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import com.jme3.font.BitmapFont;
@@ -31,7 +31,7 @@ public class HealthView extends AHudElement {
      * @param player player health to display.
      * @param vp viewport of the player.
      */
-    public HealthView(IPlayer player, ViewPort vp) {
+    public HealthView(IPlayer player, ViewPort vp, int numberOfPlayers) {
         this.player = player;
         this.vp = vp;
         
@@ -43,10 +43,8 @@ public class HealthView extends AHudElement {
         mask = new Picture("HealthMask");
         mask.setImage(assetManager, "Interface/healthOverlay.png", true);
         
-        float elementHeight = (screenHeight/15) / UserSettings.INSTANCE.getPlayers().size() *
-                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1);
-        elementWidth = (screenWidth/3) / UserSettings.INSTANCE.getPlayers().size() *
-                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1);
+        float elementHeight = (screenHeight/15) / numberOfPlayers * (numberOfPlayers > 1 ? 2 : 1);
+        elementWidth = (screenWidth/3) / numberOfPlayers * (numberOfPlayers > 1 ? 2 : 1);
         float elementX = vp.getCamera().getViewPortLeft() * screenWidth + (screenWidth * 0.02f);
         float elementY = vp.getCamera().getViewPortTop() * screenHeight - (1.8f * elementHeight);
         
@@ -72,7 +70,7 @@ public class HealthView extends AHudElement {
      * {@inheritdoc}
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(IArmedVehicle.HEALTH)) {
+        if (pce.getPropertyName().equals(IArmedVehicle.TAKEDMG)) {
             mask.setWidth(elementWidth * (player.getVehicle().getHealth() * 0.01f));
             text.setText("" + player.getVehicle().getHealth());
         }

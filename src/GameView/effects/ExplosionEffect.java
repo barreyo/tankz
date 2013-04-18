@@ -17,30 +17,25 @@ import java.util.List;
  *
  * @author Daniel
  */
-public class ExplosionEffect implements IEffect {
+final class ExplosionEffect implements IEffect {
 
-    private AssetManager assetManager;
     private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
     
-    public ExplosionEffect() {
-        assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
-        createFlame();
-        createFlash();
-        createSpark();
-        createRoundSpark();
-        createSmokeTrail();
-        createDebris();
-        createShockwave();
+    ExplosionEffect() {
+        AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+        createFlame(assetManager);
+        createFlash(assetManager);
+        createSpark(assetManager);
+        createRoundSpark(assetManager);
+        createSmokeTrail(assetManager);
+        createDebris(assetManager);
+        createShockwave(assetManager);
     }
-    private static final int COUNT_FACTOR = 1;
-    private static final float COUNT_FACTOR_F = 1f;
-    private static final boolean POINT_SPRITE = true;
-    private static final Type EMITTER_TYPE = POINT_SPRITE ? Type.Point : Type.Triangle;
     
-    private void createFlame() {
-        ParticleEmitter flame = new ParticleEmitter("Flame", EMITTER_TYPE, 32 * COUNT_FACTOR);
+    private void createFlame(AssetManager assetManager) {
+        ParticleEmitter flame = new ParticleEmitter("Flame", Type.Point, 32);
         flame.setSelectRandomImage(true);
-        flame.setStartColor(new ColorRGBA(1f, 0.4f, 0.05f, (float) (1f / COUNT_FACTOR_F)));
+        flame.setStartColor(new ColorRGBA(1f, 0.4f, 0.05f, 1f));
         flame.setEndColor(new ColorRGBA(.4f, .22f, .12f, 0f));
         flame.setStartSize(1.3f);
         flame.setEndSize(2f);
@@ -55,15 +50,15 @@ public class ExplosionEffect implements IEffect {
         flame.setImagesY(2);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/flame.png"));
-        mat.setBoolean("PointSprite", POINT_SPRITE);
+        mat.setBoolean("PointSprite", true);
         flame.setMaterial(mat);
         emitters.add(flame);
     }
     
-    private void createFlash() {
-        ParticleEmitter flash = new ParticleEmitter("Flash", EMITTER_TYPE, 24 * COUNT_FACTOR);
+    private void createFlash(AssetManager assetManager) {
+        ParticleEmitter flash = new ParticleEmitter("Flash", Type.Point, 24);
         flash.setSelectRandomImage(true);
-        flash.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, (float) (1f / COUNT_FACTOR_F)));
+        flash.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
         flash.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
         flash.setStartSize(.1f);
         flash.setEndSize(3.0f);
@@ -78,15 +73,15 @@ public class ExplosionEffect implements IEffect {
         flash.setImagesY(2);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/flash.png"));
-        mat.setBoolean("PointSprite", POINT_SPRITE);
+        mat.setBoolean("PointSprite", true);
         flash.setMaterial(mat);
         emitters.add(flash);
     }
     
-    private void createRoundSpark() {
-        ParticleEmitter roundspark = new ParticleEmitter("RoundSpark", EMITTER_TYPE, 20 * COUNT_FACTOR);
-        roundspark.setStartColor(new ColorRGBA(1f, 0.29f, 0.34f, (float) (1.0 / COUNT_FACTOR_F)));
-        roundspark.setEndColor(new ColorRGBA(0, 0, 0, (float) (0.5f / COUNT_FACTOR_F)));
+    private void createRoundSpark(AssetManager assetManager) {
+        ParticleEmitter roundspark = new ParticleEmitter("RoundSpark", Type.Point, 20);
+        roundspark.setStartColor(new ColorRGBA(1f, 0.29f, 0.34f, 1f));
+        roundspark.setEndColor(new ColorRGBA(0, 0, 0, (float) 1f));
         roundspark.setStartSize(1.2f);
         roundspark.setEndSize(1.8f);
         roundspark.setShape(new EmitterSphereShape(Vector3f.ZERO, 2f));
@@ -100,14 +95,14 @@ public class ExplosionEffect implements IEffect {
         roundspark.setImagesY(1);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/roundspark.png"));
-        mat.setBoolean("PointSprite", POINT_SPRITE);
+        mat.setBoolean("PointSprite", true);
         roundspark.setMaterial(mat);
         emitters.add(roundspark);
     }
     
-    private void createSpark() {
-        ParticleEmitter spark = new ParticleEmitter("Spark", Type.Triangle, 30 * COUNT_FACTOR);
-        spark.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, (float) (1.0f / COUNT_FACTOR_F)));
+    private void createSpark(AssetManager assetManager) {
+        ParticleEmitter spark = new ParticleEmitter("Spark", Type.Triangle, 30);
+        spark.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
         spark.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
         spark.setStartSize(.5f);
         spark.setEndSize(.5f);
@@ -126,9 +121,9 @@ public class ExplosionEffect implements IEffect {
         emitters.add(spark);
     }
     
-    private void createSmokeTrail() {
-        ParticleEmitter smoketrail = new ParticleEmitter("SmokeTrail", Type.Triangle, 22 * COUNT_FACTOR);
-        smoketrail.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, (float) (1.0f / COUNT_FACTOR_F)));
+    private void createSmokeTrail(AssetManager assetManager) {
+        ParticleEmitter smoketrail = new ParticleEmitter("SmokeTrail", Type.Triangle, 22);
+        smoketrail.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
         smoketrail.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
         smoketrail.setStartSize(.2f);
         smoketrail.setEndSize(1f);
@@ -149,12 +144,12 @@ public class ExplosionEffect implements IEffect {
         emitters.add(smoketrail);
     }
     
-    private void createDebris() {
-        ParticleEmitter debris = new ParticleEmitter("Debris", Type.Triangle, 15 * COUNT_FACTOR);
+    private void createDebris(AssetManager assetManager) {
+        ParticleEmitter debris = new ParticleEmitter("Debris", Type.Triangle, 15);
         debris.setSelectRandomImage(true);
         debris.setRandomAngle(true);
         debris.setRotateSpeed(FastMath.TWO_PI * 4);
-        debris.setStartColor(new ColorRGBA(1f, 0.59f, 0.28f, (float) (1.0f / COUNT_FACTOR_F)));
+        debris.setStartColor(new ColorRGBA(1f, 0.59f, 0.28f, 1f));
         debris.setEndColor(new ColorRGBA(.5f, 0.5f, 0.5f, 0f));
         debris.setStartSize(.2f);
         debris.setEndSize(.2f);
@@ -174,11 +169,11 @@ public class ExplosionEffect implements IEffect {
         emitters.add(debris);
     }
     
-    private void createShockwave() {
-        ParticleEmitter shockwave = new ParticleEmitter("Shockwave", Type.Triangle, 1 * COUNT_FACTOR);
+    private void createShockwave(AssetManager assetManager) {
+        ParticleEmitter shockwave = new ParticleEmitter("Shockwave", Type.Triangle, 1);
 //        shockwave.setRandomAngle(true);
         shockwave.setFaceNormal(Vector3f.UNIT_Y);
-        shockwave.setStartColor(new ColorRGBA(.48f, 0.17f, 0.01f, (float) (.8f / COUNT_FACTOR_F)));
+        shockwave.setStartColor(new ColorRGBA(.48f, 0.17f, 0.01f, 1f));
         shockwave.setEndColor(new ColorRGBA(.48f, 0.17f, 0.01f, 0f));
         
         shockwave.setStartSize(0f);

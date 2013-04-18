@@ -1,7 +1,7 @@
 
 package GameView.GUI;
 
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Powerup.HastePowerup;
 import GameModel.gameEntity.Powerup.IPowerup;
@@ -26,7 +26,7 @@ public class PowerupSlotView extends AHudElement {
      * @param player which player's powerup that should be shown.
      * @param vp the viewport of the player.
      */
-    public PowerupSlotView(IPlayer player, ViewPort vp) {
+    public PowerupSlotView(IPlayer player, ViewPort vp, int numberOfPlayers) {
         this.vp = vp;
         this.player = player;
         picture = new Picture("PowerupSlot");
@@ -37,12 +37,12 @@ public class PowerupSlotView extends AHudElement {
         
         // Calculate the height of the picture relative to the ViewPort resolution.
         picture.setHeight((screenHeight/5.3f) / 
-                UserSettings.INSTANCE.getPlayers().size() * 
-                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1));
+                numberOfPlayers * 
+                (numberOfPlayers > 1 ? 2 : 1));
         // Calculate the height of the picture relative to the ViewPort resolution.
         picture.setWidth((screenWidth/9) / 
-                UserSettings.INSTANCE.getPlayers().size() * 
-                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1));
+                numberOfPlayers * 
+                (numberOfPlayers > 1 ? 2 : 1));
         // Sets position relative to ViewPort with offset by width * 0.1.
         picture.setPosition(vp.getCamera().getViewPortLeft() * 
                 screenWidth + (screenWidth * 0.02f), vp.getCamera().getViewPortBottom() 

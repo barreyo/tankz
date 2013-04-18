@@ -13,10 +13,15 @@ import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
 import GameModel.Game.ITanks;
 import GameModel.Game.TanksGameModel;
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
+import GameModel.Player.Player;
 import GameModel.gameEntity.Powerup.HastePowerup;
 import GameModel.gameEntity.Powerup.IPowerup;
+import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameUtilities.Util;
+import GameView.GUI.HealthView;
+import GameView.GUI.PowerupSlotView;
+import GameView.GUI.TimerView;
 import GameView.Map.GameWorld1;
 import GameView.Map.IGameWorld;
 import GameView.gameEntity.MissileProjectileEntity;
@@ -32,6 +37,8 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -96,7 +103,7 @@ public final class TanksFactory {
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
         
         // Get the right viewport for the player and enable it
-        ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player);
+        ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player.getName());
         viewPort.setEnabled(true);
         // Give the tank a refernce to the camera of the viewport
         vehicle.setCamera(viewPort.getCamera());
@@ -145,9 +152,17 @@ public final class TanksFactory {
         return chaseCam;
     }
     
-    public static GameAppState getNewGame(int intWorld) {
-        List<IPlayer> players = UserSettings.INSTANCE.getPlayers();
+    public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
+        int numberOfPlayers = playerNames.size();
+        List<IPlayer> players = new ArrayList<IPlayer>();
+        // Create one player for each name
+        for (String name : playerNames) {
+            // Create one vehicleModel per player
+            IArmedVehicle vehicle = new TankModel();
+            players.add(new Player(name, vehicle));
+        }
         ITanks game = new TanksGameModel(players);
+        
         IGameWorld gameWorld = null;
         switch (intWorld) {
             case 1:
@@ -157,6 +172,26 @@ public final class TanksFactory {
                 gameWorld = new GameWorld1(game);
                 break;
         }
+        
+        // set up gui
+        List<PowerupSlotView> psvList = new ArrayList<PowerupSlotView>();
+        for ( IPlayer p : game.getPlayers()) {
+            PowerupSlotView pView = new PowerupSlotView(p, 
+                    ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), numberOfPlayers);
+            psvList.add(pView);
+            pView.show();
+        }
+        TimerView timerView = new TimerView(game);
+        timerView.show();
+        
+        List<HealthView> hpvList = new ArrayList<HealthView>();
+        for ( IPlayer p : game.getPlayers()) {
+            HealthView v = new HealthView(p, 
+                    ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), numberOfPlayers);
+            hpvList.add(v);
+            v.show();
+        }
+        
         return new GameAppState(game, gameWorld);
     }
 }

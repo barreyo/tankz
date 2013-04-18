@@ -1,8 +1,6 @@
 
 package GameView.gameEntity;
 
-import GameControllers.entitycontrols.EControls;
-import GameControllers.entitycontrols.TanksVehicleControl;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import App.TanksAppAdapter;
 import GameUtilities.Util;
@@ -60,7 +58,7 @@ public final class TankEntity extends AGameEntity {
     @Override
     public void cleanup() {
         // TODO Change
-        ((TanksVehicleControl)spatial.getControl(EControls.VEHICLE_CONTROL.getControl())).cleanup();
+        //((TanksVehicleControl)spatial.getControl(EControls.VEHICLE_CONTROL.getControl())).cleanup();
         //TankAppAdapter.INSTANCE.removeFromPhysicsSpace(vehicle);
         //spatial.removeControl(vehicle);
         //vehicle = null;

@@ -1,5 +1,6 @@
 package GameModel.gameEntity.Vehicle;
 
+import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
@@ -134,15 +135,14 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(STEER, null, null);
     }
 
-    @Override
-    public void decrementHealth(int hp) {
+    private void decrementHealth(int hp) {
         if (hp != 0) {
             if (health - hp < 0) {
                 health = 0;
             } else {
                 health -= hp;
             }
-            pcs.firePropertyChange(HEALTH, null, null);
+            pcs.firePropertyChange(TAKEDMG, null, null);
         }
     }
 
@@ -256,5 +256,11 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public float getMaxSpeed(){
         return maxSpeed;
+    }
+
+    @Override
+    public void gotHitBy(IExplodingProjectile projectile) {
+        this.decrementHealth(projectile.getDamageOnImpact());
+        System.out.println(projectile.getDamageOnImpact());
     }
 }

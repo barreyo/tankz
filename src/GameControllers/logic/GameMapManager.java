@@ -2,6 +2,7 @@ package GameControllers.logic;
 
 import App.TanksAppAdapter;
 import GameControllers.TanksFactory;
+import GameModel.Game.ApplicationSettings;
 import GameView.Map.IGameWorld;
 
 
@@ -52,7 +53,7 @@ public enum GameMapManager implements IMapRelatedManager {
         GraphicManager.INSTANCE.load(gameMap);
         EffectsManager.INSTANCE.load(gameMap);
         
-        currentGame = TanksFactory.getNewGame(gameMap);
+        currentGame = TanksFactory.getNewGame(gameMap, MenuAppState.getInstance().getPlayerNames());
         
         TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }

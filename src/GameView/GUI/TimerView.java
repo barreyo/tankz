@@ -1,8 +1,8 @@
 
 package GameView.GUI;
 
-import GameModel.Game.TanksGameModel;
 import App.TanksAppAdapter;
+import GameModel.Game.ITanks;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.ui.Picture;
@@ -16,7 +16,7 @@ import java.beans.PropertyChangeEvent;
 public class TimerView extends AHudElement {
     
     private BitmapText bitmapText;
-    private TanksGameModel gameModel;
+    private ITanks gameModel;
     
     /**
      * Instatiates a view component of the in game timer. Needs a gameModel to
@@ -24,7 +24,7 @@ public class TimerView extends AHudElement {
      * 
      * @param gameModel the GameModel this view will listen to.
      */
-    public TimerView(TanksGameModel gameModel) {
+    public TimerView(ITanks gameModel) {
         this.gameModel = gameModel;
         
         float screenWidth = TanksAppAdapter.INSTANCE.getScreenWidth();

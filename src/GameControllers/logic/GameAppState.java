@@ -1,14 +1,8 @@
 package GameControllers.logic;
 
 import GameModel.Game.EGameState;
-import GameModel.Game.TanksGameModel;
-import GameModel.Game.UserSettings;
-import GameModel.Player.IPlayer;
 import App.TanksAppAdapter;
 import GameModel.Game.ITanks;
-import GameView.GUI.HealthView;
-import GameView.GUI.PowerupSlotView;
-import GameView.GUI.TimerView;
 import GameView.Map.IGameWorld;
 import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
@@ -18,8 +12,6 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A game app state holding functionality for the game.
@@ -59,9 +51,6 @@ public class GameAppState extends AbstractAppState {
         super.stateAttached(stateManager);
         EGameState.setGameState(EGameState.RUNNING);
         gameWorld.load();
-        showHud();
-        
-        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
 
         loadDesktopInputs();
         
@@ -79,14 +68,7 @@ public class GameAppState extends AbstractAppState {
     @Override
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
-        gameWorld.cleanup();
-        
-        removeDesktopInputs();
-        // deatch all Level States
-        TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
-
-        // TODO: pause any playing music
-        TanksAppAdapter.INSTANCE.detachAllGUIChildren();
+        this.cleanup();
     }
     
     /**
@@ -96,7 +78,9 @@ public class GameAppState extends AbstractAppState {
     public void cleanup() {
       super.cleanup();
       // unregister all my listeners, detach all my nodes, etc...
-      TanksAppAdapter.INSTANCE.detachAllRootChildren(); // modify scene graph...
+      gameWorld.cleanup();
+      removeDesktopInputs();
+      GUIManager.INSTANCE.cleanup();
     }
 
     @Override
@@ -108,37 +92,7 @@ public class GameAppState extends AbstractAppState {
     // Note that update is only called while the state is both attached and enabled.
     @Override
     public void update(float tpf) {
-    }
-    
-    /**
-     * Show all HUD elements of the screen.
-     */
-    private void showHud() {
-        
-        List<PowerupSlotView> psvList = new ArrayList<PowerupSlotView>();
-        int i = 0;
-        for ( IPlayer p : UserSettings.INSTANCE.getPlayers() ) {
-            psvList.add(new PowerupSlotView(p, ViewPortManager.INSTANCE.getViewportForPlayer(p)));
-            psvList.get(i).show();
-            i++;
-        }
-        TimerView timerView = new TimerView(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
-        timerView.show();
-        
-        List<HealthView> hpvList = new ArrayList<HealthView>();
-        i = 0;
-        for ( IPlayer p : UserSettings.INSTANCE.getPlayers() ) {
-            hpvList.add(new HealthView(p, ViewPortManager.INSTANCE.getViewportForPlayer(p)));
-            hpvList.get(i).show();
-            i++;
-        }
-    }
-    
-    /**
-     * Hide all HUD elements of the screen.
-     */
-    private void hideHud() {
-        
+        gameModel.update(tpf);
     }
     
     private void loadDesktopInputs() {

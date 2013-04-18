@@ -15,11 +15,11 @@ import java.util.List;
  *
  * @author Daniel
  */
-public class ShootEffect implements IEffect{
+final class ShootEffect implements IEffect{
     
     private Collection<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
 
-    public ShootEffect() {
+    ShootEffect() {
         createSpark();
     }
     

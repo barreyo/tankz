@@ -3,6 +3,7 @@ package GameModel.Game;
 
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Powerup.IPowerup;
+import GameUtilities.IObservable;
 import java.util.Collection;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Collection;
  * 
  * @author perthoresson
  */
-public interface ITanks {
+public interface ITanks extends IObservable{
     
     /**
      * Starts the game
@@ -51,5 +52,7 @@ public interface ITanks {
      * Returns a list of all the spawningpoints in the game
      */
     public Collection<ISpawningPoints> getSpawningPoints();
+
+    public void update(float tpf);
     
 }

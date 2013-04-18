@@ -338,19 +338,22 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         }
         PhysicsCollisionObject objA = event.getObjectA();
         PhysicsCollisionObject objB = event.getObjectB();
-        if (objA instanceof PowerupControl && objB == this) {
-            player.setPowerup(((PowerupControl)event.getObjectA()).getPowerup());
-            // We dont have to listen for collisions any more
-            isListening = false;
-        } else if (objB instanceof PowerupControl && objA == this) {
-            player.setPowerup(((PowerupControl)event.getObjectB()).getPowerup());
-            // We dont have to listen for collisions any more
-            isListening = false;
-        } else if (objA instanceof MissileControl && objB == this
-                || objB instanceof MissileControl && objA == this) {
-            System.out.println("WOLOLO");
-            // Should be changed to variable of how much the projectile damages.
-            player.decrementHealth(10);
+        if (objA == this) {
+            if (objB instanceof PowerupControl) {
+                player.setPowerup(((PowerupControl) objB).getPowerup());
+                // We dont have to listen for collisions any more
+                isListening = false;
+            } else if (objB instanceof MissileControl) {
+                vehicleModel.gotHitBy(((MissileControl)objB).getProjectile());
+            }
+        } else if (objB == this) {
+            if (objA instanceof PowerupControl) {
+                player.setPowerup(((PowerupControl) objA).getPowerup());
+                // We dont have to listen for collisions any more
+                isListening = false;
+            } else if (objA instanceof MissileControl) {
+                vehicleModel.gotHitBy(((MissileControl)objA).getProjectile());
+            }
         }
     }
 }
