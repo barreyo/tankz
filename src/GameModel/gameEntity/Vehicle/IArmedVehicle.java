@@ -116,6 +116,11 @@ public interface IArmedVehicle extends IObservable{
     }
     
     /**
+     * Decrements the hp of the vehicle by the given amount
+     */
+    public void decrementHealth(int hp);
+    
+    /**
      * Shoots a projectile from the vehicle
      */
     public void shoot();
