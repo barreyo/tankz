@@ -142,7 +142,7 @@ public final class TankModel implements IArmedVehicle {
             } else {
                 health -= hp;
             }
-            pcs.firePropertyChange(HEALTH, null, null);
+            pcs.firePropertyChange(TAKEDMG, null, null);
         }
     }
 

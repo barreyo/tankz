@@ -72,7 +72,7 @@ public class HealthView extends AHudElement {
      * {@inheritdoc}
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(IArmedVehicle.HEALTH)) {
+        if (pce.getPropertyName().equals(IArmedVehicle.TAKEDMG)) {
             mask.setWidth(elementWidth * (player.getVehicle().getHealth() * 0.01f));
             text.setText("" + player.getVehicle().getHealth());
         }
