@@ -348,6 +348,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             isListening = false;
         } else if (objA instanceof MissileControl && objB == this
                 || objB instanceof MissileControl && objA == this) {
+            System.out.println("WOLOLO");
             // Should be changed to variable of how much the projectile damages.
             player.decrementHealth(10);
         }

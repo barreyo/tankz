@@ -1,7 +1,7 @@
 
 package GameModel.Player;
 
-import GameModel.gameEntity.Powerup.EPowerup;
+import GameModel.gameEntity.Powerup.IPowerup;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import GameUtilities.IObservable;
 import java.beans.PropertyChangeListener;
