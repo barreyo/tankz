@@ -1,7 +1,7 @@
 
 package GameView.GUI;
 
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
 import com.jme3.font.BitmapFont;
@@ -43,10 +43,10 @@ public class HealthView extends AHudElement {
         mask = new Picture("HealthMask");
         mask.setImage(assetManager, "Interface/healthOverlay.png", true);
         
-        float elementHeight = (screenHeight/15) / UserSettings.INSTANCE.getPlayers().size() *
-                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1);
-        elementWidth = (screenWidth/3) / UserSettings.INSTANCE.getPlayers().size() *
-                (UserSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1);
+        float elementHeight = (screenHeight/15) / ApplicationSettings.INSTANCE.getPlayers().size() *
+                (ApplicationSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1);
+        elementWidth = (screenWidth/3) / ApplicationSettings.INSTANCE.getPlayers().size() *
+                (ApplicationSettings.INSTANCE.getPlayers().size() > 1 ? 2 : 1);
         float elementX = vp.getCamera().getViewPortLeft() * screenWidth + (screenWidth * 0.02f);
         float elementY = vp.getCamera().getViewPortTop() * screenHeight - (1.8f * elementHeight);
         

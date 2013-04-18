@@ -1,7 +1,7 @@
 package GameControllers.logic;
 
 import GameView.Sounds.ESounds;
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.gameEntity.Projectile.IExplodingProjectile;
 import App.TanksAppAdapter;
 import com.jme3.audio.AudioNode;
@@ -114,12 +114,12 @@ public enum SoundManager implements IMapRelatedManager, PropertyChangeListener {
         if (audio != null) {
             
             if (sound.isMusic()) {
-                if (UserSettings.INSTANCE.isMusicMuted()) {
+                if (ApplicationSettings.INSTANCE.isMusicMuted()) {
                     return;
                 }
                 audio.play();
             } else {
-                if (UserSettings.INSTANCE.isSoundFXMuted()) {
+                if (ApplicationSettings.INSTANCE.isSoundFXMuted()) {
                     return;
                 }
                 audio.playInstance();

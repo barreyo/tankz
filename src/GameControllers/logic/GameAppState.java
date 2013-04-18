@@ -2,7 +2,7 @@ package GameControllers.logic;
 
 import GameModel.Game.EGameState;
 import GameModel.Game.TanksGameModel;
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.Player.IPlayer;
 import App.TanksAppAdapter;
 import GameModel.Game.ITanks;
@@ -117,17 +117,17 @@ public class GameAppState extends AbstractAppState {
         
         List<PowerupSlotView> psvList = new ArrayList<PowerupSlotView>();
         int i = 0;
-        for ( IPlayer p : UserSettings.INSTANCE.getPlayers() ) {
+        for ( IPlayer p : ApplicationSettings.INSTANCE.getPlayers() ) {
             psvList.add(new PowerupSlotView(p, ViewPortManager.INSTANCE.getViewportForPlayer(p)));
             psvList.get(i).show();
             i++;
         }
-        TimerView timerView = new TimerView(new TanksGameModel(UserSettings.INSTANCE.getPlayers()));
+        TimerView timerView = new TimerView(new TanksGameModel(ApplicationSettings.INSTANCE.getPlayers()));
         timerView.show();
         
         List<HealthView> hpvList = new ArrayList<HealthView>();
         i = 0;
-        for ( IPlayer p : UserSettings.INSTANCE.getPlayers() ) {
+        for ( IPlayer p : ApplicationSettings.INSTANCE.getPlayers() ) {
             hpvList.add(new HealthView(p, ViewPortManager.INSTANCE.getViewportForPlayer(p)));
             hpvList.get(i).show();
             i++;

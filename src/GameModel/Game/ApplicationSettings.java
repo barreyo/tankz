@@ -12,9 +12,8 @@ import java.util.List;
  * 
  * @author Daniel
  */
-public enum UserSettings {
+public enum ApplicationSettings {
     INSTANCE;
-    
     private final List<IPlayer> players = new ArrayList<IPlayer>();
     
     // Sound related

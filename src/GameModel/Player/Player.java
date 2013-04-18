@@ -3,7 +3,6 @@ package GameModel.Player;
 
 import GameModel.gameEntity.Powerup.IPowerup;
 import GameModel.gameEntity.Vehicle.IArmedVehicle;
-import GameUtilities.IObservable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -13,7 +12,7 @@ import java.beans.PropertyChangeSupport;
  * @author Albin
  * @author Daniel
  */
-public class Player implements IPlayer, IObservable {
+public class Player implements IPlayer {
     private String name;
     private IArmedVehicle vehicle;
     private int kills, deaths;

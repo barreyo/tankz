@@ -13,7 +13,7 @@ import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
 import GameModel.Game.ITanks;
 import GameModel.Game.TanksGameModel;
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.gameEntity.Powerup.HastePowerup;
 import GameModel.gameEntity.Powerup.IPowerup;
 import GameUtilities.Util;
@@ -146,7 +146,7 @@ public final class TanksFactory {
     }
     
     public static GameAppState getNewGame(int intWorld) {
-        List<IPlayer> players = UserSettings.INSTANCE.getPlayers();
+        List<IPlayer> players = ApplicationSettings.INSTANCE.getPlayers();
         ITanks game = new TanksGameModel(players);
         IGameWorld gameWorld = null;
         switch (intWorld) {

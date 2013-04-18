@@ -3,7 +3,6 @@ package GameModel.Game;
 
 import GameModel.Player.IPlayer;
 import GameModel.gameEntity.Powerup.IPowerup;
-import GameUtilities.IObservable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
@@ -14,11 +13,12 @@ import java.util.List;
  * The model for the game state.
  * @author Daniel
  */
-public class TanksGameModel implements ITanks, IObservable {
+public class TanksGameModel implements ITanks {
     // Can be changed by UserSettings.
     private final List<IPlayer> players;
     private List<IPowerup> powerups;
     private List<ISpawningPoints> spawningPoints;
+    private GameSettings settings;
     
     // Time until game ends
     private float timer;
@@ -42,10 +42,11 @@ public class TanksGameModel implements ITanks, IObservable {
      * @param spawningPoints list of all the ISpawningPoints in the game.
      */
     public TanksGameModel(List<IPlayer> players, List <IPowerup> powerups,
-            List <ISpawningPoints> spawningPoints){
+            List <ISpawningPoints> spawningPoints, GameSettings settings){
         this.players = players;
         this.powerups = powerups;
         this.spawningPoints = spawningPoints;
+        this.settings = settings;
     }
 
     /**

@@ -1,7 +1,7 @@
 
 package GameControllers.logic;
 
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.Game.EGameState;
 import GameModel.gameEntity.Vehicle.TankModel;
 import App.TanksAppAdapter;
@@ -182,7 +182,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadOnePlayerGame() {
-        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
         GUIManager.INSTANCE.showLoadingScreen();
     }
     
@@ -190,8 +190,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadTwoPlayerGame() {
-        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
-        UserSettings.INSTANCE.addPlayer("Player2", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player2", new TankModel());
         GUIManager.INSTANCE.showLoadingScreen();
     }
     
@@ -199,9 +199,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadThreePlayerGame() {
-        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
-        UserSettings.INSTANCE.addPlayer("Player2", new TankModel());
-        UserSettings.INSTANCE.addPlayer("Player3", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player2", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player3", new TankModel());
         GUIManager.INSTANCE.showLoadingScreen();
     }
     
@@ -209,10 +209,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      *
      */
     public void loadFourPlayerGame() {
-        UserSettings.INSTANCE.addPlayer("Player1", new TankModel());
-        UserSettings.INSTANCE.addPlayer("Player2", new TankModel());
-        UserSettings.INSTANCE.addPlayer("Player3", new TankModel());
-        UserSettings.INSTANCE.addPlayer("Player4", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player1", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player2", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player3", new TankModel());
+        ApplicationSettings.INSTANCE.addPlayer("Player4", new TankModel());
         GUIManager.INSTANCE.showLoadingScreen();
     }
 }

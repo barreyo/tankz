@@ -1,6 +1,6 @@
 package GameControllers.logic;
 
-import GameModel.Game.UserSettings;
+import GameModel.Game.ApplicationSettings;
 import GameModel.Player.IPlayer;
 import GameView.viewPort.EViewPorts;
 import App.TanksAppAdapter;
@@ -20,7 +20,7 @@ public enum ViewPortManager {
     private HashMap<IPlayer, EViewPorts> views = new HashMap<IPlayer, EViewPorts>();
 
     private void initViews() {
-        List<IPlayer> players = UserSettings.INSTANCE.getPlayers();
+        List<IPlayer> players = ApplicationSettings.INSTANCE.getPlayers();
         switch(players.size()) {
             case 0:   
             case 1:
