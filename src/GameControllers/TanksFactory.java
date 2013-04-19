@@ -11,12 +11,16 @@ import GameControllers.entitycontrols.MissileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
+import GameModel.GameSettings;
 import GameModel.ITanks;
 import GameModel.TanksGameModel;
 import GameModel.Player;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
+import GameModel.ISpawningPoints;
+import GameModel.PlayerSpawningPoint;
+import GameModel.PowerupSpawningPoint;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
 import GameView.GUI.PowerupSlotView;
@@ -124,9 +128,9 @@ public final class TanksFactory {
         projectileEntity.addControl(control);
     }
     
-    public static void createNewPowerup(Vector3f position) {
+    public static IPowerup getNewPowerup() {
         IPowerup model = new HastePowerup();
-        model.setPosition(position);
+        //model.setPosition(position);
         PowerupEntity view = new PowerupEntity(model);
         PowerupControl control = new PowerupControl(view, model);
         
@@ -136,6 +140,7 @@ public final class TanksFactory {
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
         
         view.addControl(control);
+        return model;
     }
     
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
@@ -152,6 +157,32 @@ public final class TanksFactory {
     }
     
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
+        
+        // temp for testing
+        List<ISpawningPoints> spawningPoints = new ArrayList<ISpawningPoints>();
+        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(10, 3, 10)));
+        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(10, 3, 12)));
+        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(0, 3, 10)));
+        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(12, 3, 9)));
+        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(4, 3, 7)));
+        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(6, 3, 7)));
+        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(8, 3, 7)));
+        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(20, 3, 20)));
+        
+        List<IPowerup> powerups = new ArrayList<IPowerup>();
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        powerups.add(getNewPowerup());
+        
+        GameSettings settings = new GameSettings(100f, 10);
+
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
         // Create one player for each name
@@ -170,7 +201,7 @@ public final class TanksFactory {
             
             players.add(player);
         }
-        ITanks game = new TanksGameModel(players);
+        ITanks game = new TanksGameModel(players, powerups, spawningPoints, settings);
         
         IGameWorld gameWorld = null;
         switch (intWorld) {

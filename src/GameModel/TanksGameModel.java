@@ -32,16 +32,6 @@ public class TanksGameModel implements ITanks {
     /**
      * Instantiates the TanksGameModel.
      * 
-     * @param players list of all the players in the game
-     */
-    public TanksGameModel(List<IPlayer> players) {
-        this.players = players;
-        spawningIntervall = 30f;
-    }
-    
-    /**
-     * Instantiates the TanksGameModel.
-     * 
      * @param players list of all the IPlayers in the game
      * @param powerups list of all th IPowerups in the game
      * @param spawningPoints list of all the ISpawningPoints in the game.
@@ -53,7 +43,8 @@ public class TanksGameModel implements ITanks {
         this.spawningPoints = spawningPoints;
         this.settings = settings;
         gameTimer = settings.getGameTime();
-        spawningIntervall = 30f;
+        spawningIntervall = 5f;  //testing
+        randomGenerator = new Random();
     }
 
     /**
@@ -163,6 +154,7 @@ public class TanksGameModel implements ITanks {
                     IPowerup powerup = getRandomItem(powerups);
                     if (!powerup.isHeldByPlayer()) {
                         powerup.setPosition(spawn.getPosition());
+                        powerup.showPowerupInWorld();
                         spawn.setInUse(true);
                     }
                 }

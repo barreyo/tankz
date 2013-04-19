@@ -25,14 +25,6 @@ public interface ISpawningPoints {
     
     /**
      * 
-     * Sets position of the spawningpoint.
-     * 
-     * @param position 
-     */
-    public void setPosition(Vector3f position);
-    
-    /**
-     * 
      * @return the position of the spawningpoint
      */
     public Vector3f getPosition();

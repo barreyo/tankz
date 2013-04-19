@@ -335,6 +335,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      * 
      * @param event The object that collides with the IVehicle.
      */
+    @Override
     public void collision(PhysicsCollisionEvent event) {
         if (space == null) {
             return;

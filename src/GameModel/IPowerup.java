@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
 import GameModel.IPlayer;
@@ -57,4 +54,7 @@ public interface IPowerup extends IObservable{
     public boolean isHeldByPlayer();
 
     public void cleanup();
+    
+    public static final String SHOW = "SHOW";
+    public static final String HIDE = "HIDE";
 }
