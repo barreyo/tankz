@@ -1,8 +1,6 @@
 
 package GameModel;
 
-import GameModel.IPowerup;
-import GameModel.IArmedVehicle;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -215,5 +213,10 @@ public class Player implements IPlayer {
             powerup = null;
             pcs.firePropertyChange(POWERUP_CHANGED, null, null);
         }
+    }
+
+    @Override
+    public void cleanup() {
+        vehicle.cleanup();
     }
 }

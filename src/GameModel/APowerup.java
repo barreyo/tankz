@@ -13,7 +13,7 @@ import java.beans.PropertyChangeSupport;
 public abstract class APowerup implements IPowerup, IObservable {
     
     private Vector3f position;
-    private boolean isVisible;
+    private boolean isHeldByPlayer;
     
     public static final float MASS = 10f;
     
@@ -25,13 +25,13 @@ public abstract class APowerup implements IPowerup, IObservable {
     
     @Override
     public void showPowerupInWorld(){
-        isVisible = true;
+        isHeldByPlayer = false;
         pcs.firePropertyChange(null, null, null);
     }
     
     @Override
     public void removeFromWorld() {
-        isVisible = false;
+        isHeldByPlayer = true;
         pcs.firePropertyChange(null, null, null);
     }
     
@@ -58,5 +58,15 @@ public abstract class APowerup implements IPowerup, IObservable {
     @Override
     public void setPosition(Vector3f position) {
         this.position = position;
+    }
+    
+    @Override
+    public boolean isHeldByPlayer() {
+        return isHeldByPlayer;
+    }
+    
+    @Override 
+    public void cleanup() {
+        
     }
 }

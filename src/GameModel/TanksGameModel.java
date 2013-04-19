@@ -6,6 +6,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * The model for the game state.
@@ -19,7 +20,12 @@ public class TanksGameModel implements ITanks {
     private GameSettings settings;
     
     // Time until game ends
-    private float timer;
+    private float gameTimer;
+    private float spawningTimer;
+    
+    private final float spawningIntervall;
+    
+    private Random randomGenerator;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -30,6 +36,7 @@ public class TanksGameModel implements ITanks {
      */
     public TanksGameModel(List<IPlayer> players) {
         this.players = players;
+        spawningIntervall = 30f;
     }
     
     /**
@@ -45,7 +52,8 @@ public class TanksGameModel implements ITanks {
         this.powerups = powerups;
         this.spawningPoints = spawningPoints;
         this.settings = settings;
-        timer = settings.getGameTime();
+        gameTimer = settings.getGameTime();
+        spawningIntervall = 30f;
     }
 
     /**
@@ -71,7 +79,7 @@ public class TanksGameModel implements ITanks {
      */
     @Override
     public void endGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pcs.firePropertyChange("End_game", null, null);
     }
 
     /**
@@ -136,12 +144,45 @@ public class TanksGameModel implements ITanks {
 
     @Override
     public void update(float tpf) {
-        timer -= tpf;
+        gameTimer -= tpf;
         // Check if someone has won
+        if (gameTimer <= 0) {
+            endGame();
+        }
+        spawningTimer += tpf;
+        if (spawningTimer >= spawningIntervall) {
+            spawningTimer = 0;
+            spawnPowerups();
+        }
+    }
+
+    private void spawnPowerups() {
+        for (ISpawningPoints spawn : spawningPoints) {
+            if (spawn instanceof PowerupSpawningPoint) {
+                if (!spawn.isInUse()) {
+                    IPowerup powerup = getRandomItem(powerups);
+                    if (!powerup.isHeldByPlayer()) {
+                        powerup.setPosition(spawn.getPosition());
+                        spawn.setInUse(true);
+                    }
+                }
+            }
+        }
     }
 
     @Override
     public void cleanup() {
-        
+        for (IPlayer player : players) {
+            player.cleanup();
+        }
+        for (IPowerup powerup : powerups) {
+            powerup.cleanup();
+        }
+    }
+    
+    private <E> E getRandomItem(List<? extends E> collection) {
+        int index = randomGenerator.nextInt(collection.size());
+        E item = collection.get(index);
+        return item;
     }
 }

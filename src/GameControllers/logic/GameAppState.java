@@ -104,7 +104,6 @@ public class GameAppState extends AbstractAppState {
     
      private void removeDesktopInputs() {
         TanksAppAdapter.INSTANCE.deleteInputMapping(PAUSE);
-
         TanksAppAdapter.INSTANCE.removeInputListener(actionListener);
     }
     

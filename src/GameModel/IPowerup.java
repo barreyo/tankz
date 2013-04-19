@@ -50,4 +50,11 @@ public interface IPowerup extends IObservable{
      * @param player 
      */
     public void usePowerup(IPlayer player);
+    
+    /**
+     * 
+     */
+    public boolean isHeldByPlayer();
+
+    public void cleanup();
 }

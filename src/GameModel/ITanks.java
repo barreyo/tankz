@@ -9,7 +9,7 @@ import java.util.Collection;
  * 
  * @author perthoresson
  */
-public interface ITanks extends IObservable{
+public interface ITanks extends IObservable {
     
     /**
      * Starts the game

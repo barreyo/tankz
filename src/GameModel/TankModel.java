@@ -267,4 +267,9 @@ public final class TankModel implements IArmedVehicle {
             pcs.firePropertyChange(VEHICLE_DESTROYED, null, null);
         }
     }
+
+    @Override
+    public void cleanup() {
+        
+    }
 }

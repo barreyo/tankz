@@ -97,6 +97,8 @@ public interface IArmedVehicle extends IObservable{
 
     public void gotHitBy(IExplodingProjectile projectile);
 
+    public void cleanup();
+
     /**
      * Enum representing different states of the vehicle.
      */

@@ -102,4 +102,6 @@ public interface IPlayer extends IObservable{
     public void usePowerup();
     
     public static final String POWERUP_CHANGED = "POWERUP_CHANGED";
+
+    public void cleanup();
 }
