@@ -22,7 +22,6 @@ public class PowerupEntity extends AGameEntity {
     public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
         setModel(pow);
-        spatial.setLocalTranslation(powerup.getPosition());
     }
     
     @Override
@@ -43,8 +42,12 @@ public class PowerupEntity extends AGameEntity {
     }
 
     public void propertyChange(PropertyChangeEvent pce) {
+        if (pce.getPropertyName().equals(IPowerup.SHOW)) {
+            showInWorld();
+        } else if (pce.getPropertyName().equals(IPowerup.HIDE)) {
+            hideFromWorld();
+        }
         pcs.firePropertyChange(pce);
-        this.cleanup();
     }
 
     public void addObserver(PropertyChangeListener l) {
@@ -63,14 +66,20 @@ public class PowerupEntity extends AGameEntity {
         if (powerup != null) {
             powerup.addObserver(this);
         }
-        attachToRootNode();
     }
         
-    private void attachToRootNode() {
+    private void showInWorld() {
+        spatial.setLocalTranslation(powerup.getPosition());
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
     
    private void updatePosition() {
         spatial.setLocalTranslation(powerup.getPosition());
+    }
+
+    private void hideFromWorld() {
+        if (spatial.getParent() != null) {
+            spatial.removeFromParent();
+        }
     }
 }

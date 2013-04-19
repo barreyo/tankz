@@ -26,13 +26,13 @@ public abstract class APowerup implements IPowerup, IObservable {
     @Override
     public void showPowerupInWorld(){
         isHeldByPlayer = false;
-        pcs.firePropertyChange(null, null, null);
+        pcs.firePropertyChange(SHOW, null, null);
     }
     
     @Override
     public void removeFromWorld() {
         isHeldByPlayer = true;
-        pcs.firePropertyChange(null, null, null);
+        pcs.firePropertyChange(HIDE, null, null);
     }
     
     @Override
@@ -68,5 +68,10 @@ public abstract class APowerup implements IPowerup, IObservable {
     @Override 
     public void cleanup() {
         
+    }
+    
+    @Override
+    public void usePowerup(IPlayer player) {
+        isHeldByPlayer = false;
     }
 }

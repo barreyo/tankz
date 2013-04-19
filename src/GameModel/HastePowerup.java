@@ -19,6 +19,7 @@ public class HastePowerup extends APowerup{
 
     @Override
     public void usePowerup(IPlayer player) {
+        super.usePowerup(player);
         IArmedVehicle vehicle = player.getVehicle();
         maxSpeed = vehicle.getMaxSpeed();
         accForce = vehicle.getAccelerationForce();

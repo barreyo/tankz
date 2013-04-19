@@ -4,28 +4,29 @@ package GameModel;
 import com.jme3.math.Vector3f;
 
 /**
- * An IPlayers spawning point.
+ * An IPowerups spawning point.
  * 
  * @author perthoresson
  */
-public class PlayerSpawningPoint implements ISpawningPoints {
+public class SpawningPoint implements ISpawningPoints {
     
     private boolean inUse;
-
-    private Vector3f position;
     
+    private Vector3f position;
+
     /**
-     * Instantiates the PlayerSpawningPoint.
+     * Instantiates the object.
      * 
      * @param inUse if the spawning point is in use or not.
      */
-    public PlayerSpawningPoint (boolean inUse, Vector3f position){
-        this.inUse = inUse;
-        this.position = position;
+    public SpawningPoint (Vector3f pos){
+        this.position = pos.clone();
+        this.inUse = false;
     }
     
     /**
-     * {@inheritdoc} 
+     * Returns the boolean isInUse.
+     * @return true if it is in use, false if it's not.
      */
     @Override
     public boolean isInUse() {
@@ -45,11 +46,12 @@ public class PlayerSpawningPoint implements ISpawningPoints {
      */
     @Override
     public Vector3f getPosition() {
-        return position;
+        return position.clone();
     }
-
+    
     /**
-     * Returns a string representation of the object, based on inUse and position.
+     * Returns a string representation of the object, based on position and inUse.
+     * 
      * @return inUse and position in the format: PlayerSpawningPoint{inUse=xxxx,
      *  position=xxxf}
      */
@@ -58,9 +60,10 @@ public class PlayerSpawningPoint implements ISpawningPoints {
         return "PlayerSpawningPoint{" + "inUse=" + inUse + ", "
                 + "position=" + position + '}';
     }
-
+    
     /**
      * Returns hash code based on the position.
+     * 
      * @return hash code based on the position.
      */
     @Override
@@ -69,7 +72,7 @@ public class PlayerSpawningPoint implements ISpawningPoints {
         hash = 67 * hash + (this.position != null ? this.position.hashCode() : 0);
         return hash;
     }
-
+    
     /**
      * Equals method that compares the position of the PlayerSpawningPoint.
      *
@@ -77,7 +80,6 @@ public class PlayerSpawningPoint implements ISpawningPoints {
      * @return true if this PlayerSpawningPoint is the same as the obj argument
      * ; false otherwise.
      */
-    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -86,10 +88,10 @@ public class PlayerSpawningPoint implements ISpawningPoints {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PlayerSpawningPoint other = (PlayerSpawningPoint) obj;
+        final SpawningPoint other = (SpawningPoint) obj;
         if (this.position != other.position && (this.position == null || !this.position.equals(other.position))) {
             return false;
         }
         return true;
-    }    
+    }
 }
