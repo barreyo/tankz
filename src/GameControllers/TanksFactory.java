@@ -17,6 +17,7 @@ import GameModel.Player;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
+import GameModel.MapOne;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
 import GameView.GUI.PowerupSlotView;
@@ -175,10 +176,10 @@ public final class TanksFactory {
         IGameWorld gameWorld = null;
         switch (intWorld) {
             case 1:
-                gameWorld = new GameWorld1(game);
+                gameWorld = new GameWorld1(game, new MapOne());
                 break;
             default: 
-                gameWorld = new GameWorld1(game);
+                gameWorld = new GameWorld1(game, new MapOne());
                 break;
         }
         

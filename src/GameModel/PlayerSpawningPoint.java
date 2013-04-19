@@ -19,8 +19,9 @@ public class PlayerSpawningPoint implements ISpawningPoints {
      * 
      * @param inUse if the spawning point is in use or not.
      */
-    public PlayerSpawningPoint (boolean inUse){
+    public PlayerSpawningPoint (boolean inUse, Vector3f position){
         this.inUse = inUse;
+        this.position = position;
     }
     
     /**
@@ -45,14 +46,6 @@ public class PlayerSpawningPoint implements ISpawningPoints {
     @Override
     public Vector3f getPosition() {
         return position;
-    }
-
-    /**
-     * {@inheritdoc} 
-     */
-    @Override
-    public void setPosition(Vector3f position) {
-        this.position = position;
     }
 
     /**

@@ -19,8 +19,9 @@ public class PowerupSpawningPoint implements ISpawningPoints {
      * 
      * @param inUse if the spawning point is in use or not.
      */
-    public PowerupSpawningPoint (boolean inUse){
+    public PowerupSpawningPoint (boolean inUse, Vector3f position){
         this.inUse = inUse;
+        this.position = position;
     }
     
     /**
@@ -46,14 +47,6 @@ public class PowerupSpawningPoint implements ISpawningPoints {
     @Override
     public Vector3f getPosition() {
         return position;
-    }
-
-    /**
-     * {@inheritdoc} 
-     */
-    @Override
-    public void setPosition(Vector3f position) {
-        this.position = position;
     }
     
     /**
