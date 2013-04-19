@@ -19,8 +19,7 @@ import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
 import GameModel.ISpawningPoints;
-import GameModel.PlayerSpawningPoint;
-import GameModel.PowerupSpawningPoint;
+import GameModel.SpawningPoint;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
 import GameView.GUI.PowerupSlotView;
@@ -159,15 +158,17 @@ public final class TanksFactory {
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
         
         // temp for testing
-        List<ISpawningPoints> spawningPoints = new ArrayList<ISpawningPoints>();
-        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(10, 3, 10)));
-        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(10, 3, 12)));
-        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(0, 3, 10)));
-        spawningPoints.add(new PlayerSpawningPoint(new Vector3f(12, 3, 9)));
-        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(4, 3, 7)));
-        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(6, 3, 7)));
-        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(8, 3, 7)));
-        spawningPoints.add(new PowerupSpawningPoint(new Vector3f(20, 3, 20)));
+        List<ISpawningPoints> playerSpawningPoints = new ArrayList<ISpawningPoints>();
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 10)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 12)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(30, 3, 10)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
+        
+        List<ISpawningPoints> powerupSpawningPoints = new ArrayList<ISpawningPoints>();
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(4, 3, 7)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(6, 3, 7)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
         
         List<IPowerup> powerups = new ArrayList<IPowerup>();
         powerups.add(getNewPowerup());
@@ -201,7 +202,7 @@ public final class TanksFactory {
             
             players.add(player);
         }
-        ITanks game = new TanksGameModel(players, powerups, spawningPoints, settings);
+        ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
         
         IGameWorld gameWorld = null;
         switch (intWorld) {

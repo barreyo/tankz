@@ -15,9 +15,10 @@ import java.util.Random;
 public class TanksGameModel implements ITanks {
     // Can be changed by UserSettings.
     private final List<IPlayer> players;
-    private List<IPowerup> powerups;
-    private List<ISpawningPoints> spawningPoints;
-    private GameSettings settings;
+    private final List<IPowerup> powerups;
+    private final List<ISpawningPoints> powerupSpawningPoints;
+    private final List<ISpawningPoints> playerSpawningPoints;
+    private final GameSettings settings;
     
     // Time until game ends
     private float gameTimer;
@@ -25,7 +26,7 @@ public class TanksGameModel implements ITanks {
     
     private final float spawningIntervall;
     
-    private Random randomGenerator;
+    private final Random randomGenerator;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -37,10 +38,12 @@ public class TanksGameModel implements ITanks {
      * @param spawningPoints list of all the ISpawningPoints in the game.
      */
     public TanksGameModel(List<IPlayer> players, List <IPowerup> powerups,
-            List <ISpawningPoints> spawningPoints, GameSettings settings){
+            List <ISpawningPoints> powerupSpawningPoints, List <ISpawningPoints> playerSpawningPoints,
+            GameSettings settings){
         this.players = players;
         this.powerups = powerups;
-        this.spawningPoints = spawningPoints;
+        this.powerupSpawningPoints = powerupSpawningPoints;
+        this.playerSpawningPoints = playerSpawningPoints;
         this.settings = settings;
         gameTimer = settings.getGameTime();
         spawningIntervall = 5f;  //testing
@@ -62,7 +65,7 @@ public class TanksGameModel implements ITanks {
      */
     @Override
     public void startGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        spawnAllPlayers();
     }
 
     /**
@@ -112,7 +115,7 @@ public class TanksGameModel implements ITanks {
      */
     @Override
     public Collection<ISpawningPoints> getSpawningPoints() {
-        List <ISpawningPoints> sp = Collections.unmodifiableList(spawningPoints);
+        List <ISpawningPoints> sp = Collections.unmodifiableList(powerupSpawningPoints);
         // Cast OK PlayerSpawningPoint and PowerupSpawningPoint implements ISpawningPoint
         return (Collection<ISpawningPoints>) sp;
     }
@@ -148,15 +151,13 @@ public class TanksGameModel implements ITanks {
     }
 
     private void spawnPowerups() {
-        for (ISpawningPoints spawn : spawningPoints) {
-            if (spawn instanceof PowerupSpawningPoint) {
-                if (!spawn.isInUse()) {
-                    IPowerup powerup = getRandomItem(powerups);
-                    if (!powerup.isHeldByPlayer()) {
-                        powerup.setPosition(spawn.getPosition());
-                        powerup.showPowerupInWorld();
-                        spawn.setInUse(true);
-                    }
+        for (ISpawningPoints spawn : powerupSpawningPoints) {
+            if (!spawn.isInUse()) {
+                IPowerup powerup = getRandomItem(powerups);
+                if (!powerup.isHeldByPlayer()) {
+                    powerup.setPosition(spawn.getPosition());
+                    powerup.showPowerupInWorld();
+                    spawn.setInUse(true);
                 }
             }
         }
@@ -176,5 +177,17 @@ public class TanksGameModel implements ITanks {
         int index = randomGenerator.nextInt(collection.size());
         E item = collection.get(index);
         return item;
+    }
+
+    private void spawnAllPlayers() {
+        for (IPlayer player : players) {
+            while (true) {
+                ISpawningPoints spawn = getRandomItem(playerSpawningPoints);
+                if (!spawn.isInUse()) {
+                    spawn.setInUse(true);
+                    break;
+                }
+            }
+        }
     }
 }
