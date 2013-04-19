@@ -9,14 +9,14 @@
         font="Interface/Fonts/HandDrawnShapes.fnt"
         align="left"
         height="40px"
-        width="200px"/>
+        width="300px"/>
     </style>
     
     <screen id="start" controller="GameControllers.logic.MenuAppState">
         <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >
-            <panel childLayout="vertical" visibleToMouse="true" >
+            <panel childLayout="vertical" visibleToMouse="true" align="left" >
                 <effect>
                     <onStartScreen name="move" mode="in" direction="bottom" length="260" startDelay="0" inherit="true" />
                     <onEndScreen name="move" mode="out" direction="bottom" length="260" startDelay="0" inherit="true" />
@@ -35,11 +35,20 @@
         <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >
-            <panel childLayout="vertical" visibleToMouse="true" >
+            <panel childLayout="vertical" visibleToMouse="true" align="left" >
                 <effect>
                     <onStartScreen name="move" mode="in" direction="bottom" length="260" startDelay="0" inherit="true" />
                     <onEndScreen name="move" mode="out" direction="bottom" length="260" startDelay="0" inherit="true" />
                 </effect>
+                <control id="spacer" name ="label"  style="main" text="                 ">
+                    <interact onClick="" />
+                </control> 
+                <control id="spacer" name ="label"  style="main" text="                 ">
+                    <interact onClick="" />
+                </control>
+                <control id="spacer" name ="label"  style="main" text="                 ">
+                    <interact onClick="" />
+                </control>
                 <control id="main_1_player" name ="label"  style="main" text="1 PLAYER">
                     <interact onClick="loadOnePlayerGame()" />
                 </control>
