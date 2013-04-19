@@ -10,7 +10,7 @@ import GameView.viewPort.VehicleCamera;
 import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
-import GameView.gameEntity.IGameEntity;
+import GameView.gameEntity.TankEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
@@ -20,7 +20,6 @@ import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
-import com.jme3.scene.Spatial;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -36,7 +35,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     // The model for the vehicle
     private IArmedVehicle vehicleModel;
     // View of the vehicle
-    private IGameEntity entity;
+    private TankEntity tankEntity;
     // The player controlling
     private IPlayer player;
     
@@ -46,17 +45,14 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     /**
      * Creates a control for a tank vehicle.
      */
-    public TanksVehicleControl(IGameEntity entity, IPlayer player) {  
+    public TanksVehicleControl(TankEntity entity, IPlayer player) {  
         super(entity.getCollisionShape(), player.getVehicle().getMass());
-        
         // Save references to model, view and player
-        this.entity = entity;
+        this.tankEntity = entity;
         this.vehicleModel = player.getVehicle();
         this.player = player;
-        
         // Register input mappings
         addInputMappings();
-        
         // Observe view
         entity.addObserver(this);
     }
@@ -83,34 +79,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     }
 
     /**
-     * @inheritdoc
-     */
-    @Override
-    public void setSpatial(Spatial spatial) {
-        super.setSpatial(spatial);
-        if (spatial != null) {
-            initControl();
-        }  
-    }
-    
-    /**
-     * Initializes the vehicleControl.
-     */
-    private void initControl() {
-        addVehicleControl();
-        // Please remove this, use factory and apply to the entity
-        //spatial.addControl(new FloatingNameControl(spatial,TanksAppAdapter.INSTANCE.getAssetManager()));
-    }
-    
-    /**
-     * Adds this control to the physicsSpace.
-     */
-    private void addVehicleControl() {
-        // Add vehicle to physics space
-        TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
-    }
-    
-    /**
      * Sets the camera that will be used to follow the tank.
      * 
      * @param cam the camera that will follow the tank
@@ -133,8 +101,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      */
     public void cleanup() {
         // Remove this as a control and remove inputs
-        spatial.removeControl(this);
-        entity.removeObserver(this);
+        tankEntity.removeControl(this);
+        tankEntity.removeObserver(this);
         removeInputMappings();
     }
     
@@ -322,6 +290,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         } else if (evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
             //TODO - Respawn tank at different location after some 1-2 seconds 
             
+        } else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)){
+            TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
+            TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
+            this.setPhysicsLocation(vehicleModel.getPosition());
         }
     }
     

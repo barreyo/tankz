@@ -51,6 +51,9 @@ public final class TankModel implements IArmedVehicle {
         health = 100;
         maxSpeed = 80.0f;
         accelerationForce = 2000.0f;
+        position = Vector3f.ZERO;
+        direction = Vector3f.ZERO;
+        rotation = Quaternion.ZERO;
     }
     
     /**
@@ -271,5 +274,25 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void cleanup() {
         
+    }
+
+    @Override
+    public void setPosition(Vector3f position) {
+        this.position = position.clone();
+    }
+
+    @Override
+    public void showInWorld() {
+        pcs.firePropertyChange(SHOW, null, null);
+    }
+
+    @Override
+    public void hideFromWorld() {
+        pcs.firePropertyChange(HIDE, null, null);
+    }
+
+    @Override
+    public Vector3f getPosition() {
+        return position.clone();
     }
 }

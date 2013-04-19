@@ -40,7 +40,7 @@ public final class TankEntity extends AGameEntity {
         blownUpEffects = EEffects.TANK_BLOWN_UP.getEmitters();
         
         setModel(armedVehicle);
-        show();
+        showInWorld();
     }
 
     /**
@@ -60,33 +60,25 @@ public final class TankEntity extends AGameEntity {
     @Override
     public void cleanup() {
         // TODO Change
-        //((TanksVehicleControl)spatial.getControl(EControls.VEHICLE_CONTROL.getControl())).cleanup();
-        //TankAppAdapter.INSTANCE.removeFromPhysicsSpace(vehicle);
-        //spatial.removeControl(vehicle);
-        //vehicle = null;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
             showEffect(shootEffects);
-        }
-        if (evt.getPropertyName() != null) {
-            //Pass on
-            pcs.firePropertyChange(evt);
-        }
-        if(evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
-            if (spatial.getParent() != null) {
+        } else if(evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
                 //TODO - Respawn tank at different location after some 1-2 seconds 
                 // instead of deleting tank.
                 
                 // Remove tank from world
-                showEffect(blownUpEffects);
-                spatial.removeFromParent();
-            }
-            //Pass on
-            pcs.firePropertyChange(evt);
+                this.showEffect(blownUpEffects);
+                this.hideFromWorld();
+
+        } else if (evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.SHOW)) {
+            this.showInWorld();
         }
+            
+        pcs.firePropertyChange(evt);
     }
 
     @Override
@@ -113,8 +105,15 @@ public final class TankEntity extends AGameEntity {
         spatial.setLocalTranslation(pos);
     }
 
-    private void show() {
+    private void showInWorld() {
+        spatial.setLocalTranslation(armedVehicle.getPosition());
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+    }
+    
+    private void hideFromWorld() {
+        if (spatial.getParent() != null) {
+            spatial.removeFromParent();
+        }
     }
 
     private synchronized void showEffect(Collection<ParticleEmitter> effects) {

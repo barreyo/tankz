@@ -4,6 +4,7 @@
  */
 package GameControllers.entitycontrols;
 
+import App.TanksAppAdapter;
 import GameModel.IPowerup;
 import GameView.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -50,7 +51,11 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals("CLEANUP")) {
             powerupEntity.cleanup();
+        } else if (pce.getPropertyName().equals(IPowerup.SHOW)) {
+            TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
+            TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
         }
+                
     }
     
     @Override
@@ -60,7 +65,7 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
             if (!isListening && space != null) {
                 space.removeCollisionListener(this);
             }
- //           powerupModel.update(tpf);
+           // powerupModel.
         } 
     }
 

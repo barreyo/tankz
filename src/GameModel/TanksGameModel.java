@@ -184,6 +184,9 @@ public class TanksGameModel implements ITanks {
             while (true) {
                 ISpawningPoints spawn = getRandomItem(playerSpawningPoints);
                 if (!spawn.isInUse()) {
+                    IArmedVehicle vehicle = player.getVehicle();
+                    vehicle.setPosition(spawn.getPosition());
+                    vehicle.showInWorld();
                     spawn.setInUse(true);
                     break;
                 }

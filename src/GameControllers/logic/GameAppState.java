@@ -49,6 +49,8 @@ public class GameAppState extends AbstractAppState {
         //Did not work in stateDetached in MenuAppState
         SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);
         //SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
+        
+        gameModel.startGame();
     }
      
      /**

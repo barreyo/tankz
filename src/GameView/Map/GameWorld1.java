@@ -60,13 +60,6 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         TanksAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
         TanksAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
         //TankAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TankAppAdapter.INSTANCE.getAssetManager());
-        
-        for (IPlayer player : game.getPlayers()) {
-            // Create a tank for each player at startpos
-            TanksFactory.createTank(player, new Vector3f(10, 2, 10));
-        }
-        
-        //TanksFactory.getNewPowerup(new Vector3f(20,1.5f,20));
     }
 
     /**

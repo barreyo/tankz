@@ -99,6 +99,17 @@ public interface IArmedVehicle extends IObservable{
 
     public void cleanup();
 
+    public void setPosition(Vector3f position);
+
+    public void showInWorld();
+    
+    /**
+     * Hides the vehicle from the world.
+     */
+    public void hideFromWorld();
+
+    public Vector3f getPosition();
+
     /**
      * Enum representing different states of the vehicle.
      */
@@ -136,4 +147,6 @@ public interface IArmedVehicle extends IObservable{
     public static String FRICTION = "FRICTION";
     public static String HEALTH = "HEALTH";
     public static String VEHICLE_DESTROYED = "VEHICLE_DESTROYED";
+    public static final String SHOW = "SHOW";
+    public static final String HIDE = "HIDE";
 }
