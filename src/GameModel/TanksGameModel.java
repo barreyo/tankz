@@ -15,10 +15,10 @@ import java.util.Random;
 public class TanksGameModel implements ITanks {
     // Can be changed by UserSettings.
     private final List<IPlayer> players;
-    private final List<IPowerup> powerups;
-    private final List<ISpawningPoints> powerupSpawningPoints;
-    private final List<ISpawningPoints> playerSpawningPoints;
-    private final GameSettings settings;
+    private List<IPowerup> powerups;
+    private List<ISpawningPoints> playerSpawningPoints;
+    private List<ISpawningPoints> powerupSpawningPoints;
+    private GameSettings settings;
     
     // Time until game ends
     private float gameTimer;
