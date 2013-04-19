@@ -9,7 +9,7 @@
         font="Interface/Fonts/HandDrawnShapes.fnt"
         align="left"
         height="40px"
-        width="300px"/>
+        width="38%"/>
     </style>
     
     <screen id="start" controller="GameControllers.logic.MenuAppState">
