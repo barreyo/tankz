@@ -16,9 +16,9 @@ public class TanksGameModel implements ITanks {
     // Can be changed by UserSettings.
     private final List<IPlayer> players;
     private List<IPowerup> powerups;
-    private List<ISpawningPoints> spawningPoints;
+    private List<ISpawningPoints> playerSpawningPoints;
+    private List<ISpawningPoints> powerupSpawningPoints;
     private GameSettings settings;
-    private IMap activeMap;
     
     // Time until game ends
     private float gameTimer;
@@ -151,11 +151,12 @@ public class TanksGameModel implements ITanks {
     }
 
     private void spawnPowerups() {
-        for (ISpawningPoints spawn : spawningPoints) {
-            if (spawn instanceof PowerupSpawningPoint) {
-                if (!spawn.isInUse()) {
-                    IPowerup powerup = getRandomItem(powerups);
+        for (ISpawningPoints spawn : powerupSpawningPoints) {
+            if (!spawn.isInUse()) {
+                IPowerup powerup = getRandomItem(powerups);
+                if (!powerup.isHeldByPlayer()) {
                     powerup.setPosition(spawn.getPosition());
+                    powerup.showPowerupInWorld();
                     spawn.setInUse(true);
                 }
             }

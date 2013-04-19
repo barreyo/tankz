@@ -5,7 +5,6 @@ import GameControllers.TanksFactory;
 import GameModel.IPlayer;
 import App.TanksAppAdapter;
 import GameModel.ITanks;
-import GameModel.MapOne;
 import GameView.graphics.EGraphics;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
@@ -24,7 +23,6 @@ import java.beans.PropertyChangeListener;
 public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     
     private ITanks game;
-    private MapOne mapModel;
     
     private Node mapNode;
     private Node mainScene;
@@ -35,9 +33,8 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     /**
      * Creates a game map.
      */
-    public GameWorld1(ITanks game, MapOne mapModel) {
+    public GameWorld1(ITanks game) {
         this.game = game;
-        this.mapModel = mapModel;
     }
 
     /**

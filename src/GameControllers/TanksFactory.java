@@ -207,10 +207,10 @@ public final class TanksFactory {
         IGameWorld gameWorld = null;
         switch (intWorld) {
             case 1:
-                gameWorld = new GameWorld1(game, new MapOne());
+                gameWorld = new GameWorld1(game);
                 break;
             default: 
-                gameWorld = new GameWorld1(game, new MapOne());
+                gameWorld = new GameWorld1(game);
                 break;
         }
         
