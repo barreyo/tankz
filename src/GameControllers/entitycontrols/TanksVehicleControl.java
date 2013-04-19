@@ -3,7 +3,7 @@ package GameControllers.entitycontrols;
 
 import GameControllers.TanksFactory;
 import GameControllers.logic.SoundManager;
-import GameModel.EGameState;
+import GameModel.EApplicationState;
 import GameModel.EPlayerInputs;
 import GameModel.IPlayer;
 import GameView.viewPort.VehicleCamera;
@@ -62,7 +62,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      */
     @Override
     public void update(float tpf) {
-        if (!enabled || EGameState.getGameState() != EGameState.RUNNING) {
+        if (!enabled || EApplicationState.getGameState() != EApplicationState.RUNNING) {
             return;
         }
         super.update(tpf);
@@ -128,7 +128,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      */
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
-        if (!enabled || EGameState.getGameState() != EGameState.RUNNING) {
+        if (!enabled || EApplicationState.getGameState() != EApplicationState.RUNNING) {
             return;
         }
         // Steering related

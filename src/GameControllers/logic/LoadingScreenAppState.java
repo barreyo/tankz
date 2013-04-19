@@ -1,8 +1,8 @@
 package GameControllers.logic;
 
-import GameModel.EGameState;
+import GameModel.EApplicationState;
 import App.TanksAppAdapter;
-import GameModel.EGameState;
+import GameModel.EApplicationState;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -60,7 +60,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     @Override
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
-        EGameState.setGameState(EGameState.LOADING_MAP);
+        EApplicationState.setGameState(EApplicationState.LOADING_MAP);
         frameCount = 0;
     }
     
@@ -98,7 +98,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
            
             GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
             
-            EGameState.setGameState(EGameState.RUNNING);
+            EApplicationState.setGameState(EApplicationState.RUNNING);
             System.out.println("Finished loading game");
         }
         frameCount++;

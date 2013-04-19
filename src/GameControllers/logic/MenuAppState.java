@@ -2,7 +2,7 @@
 package GameControllers.logic;
 
 import GameModel.ApplicationSettings;
-import GameModel.EGameState;
+import GameModel.EApplicationState;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
@@ -64,7 +64,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     public void stateAttached(AppStateManager stateManager) {
         TanksAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
-        EGameState.setGameState(EGameState.MAIN_MENU);
+        EApplicationState.setGameState(EApplicationState.MAIN_MENU);
         SoundManager.INSTANCE.play(ESounds.MENU_SOUND);
     }
 

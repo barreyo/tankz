@@ -6,7 +6,7 @@ package GameModel;
  * 
  * @author Daniel
  */
-public enum EGameState {
+public enum EApplicationState {
     /**
      * Main menu state.
      */
@@ -36,15 +36,15 @@ public enum EGameState {
      */
     LOADING_MAP;
     
-    private static EGameState currentGameState = EGameState.NONE;
-    private static EGameState previousGameState = EGameState.NONE;
+    private static EApplicationState currentGameState = EApplicationState.NONE;
+    private static EApplicationState previousGameState = EApplicationState.NONE;
 
     /**
      * Returns the current EGameState.
      * 
      * @return the current EGameState
      */
-    public static EGameState getGameState() {
+    public static EApplicationState getGameState() {
         return currentGameState;
     }
 
@@ -52,18 +52,18 @@ public enum EGameState {
      * Sets the current EGameState.
      * @param currentGameState the EGameState to set.
      */
-    public static void setGameState(EGameState currentGameState) {
+    public static void setGameState(EApplicationState currentGameState) {
         //store the currentgamestate into previous
-        previousGameState = EGameState.currentGameState; 
+        previousGameState = EApplicationState.currentGameState; 
         //store new game state into currentgamestate
-        EGameState.currentGameState = currentGameState; 
+        EApplicationState.currentGameState = currentGameState; 
     }
 
     /**
      * Returns the previous EGameState.
      * @return the previous EGameState.
      */
-    public static EGameState getPreviousGameState() {
+    public static EApplicationState getPreviousGameState() {
         return previousGameState;
     }
 }

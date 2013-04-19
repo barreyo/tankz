@@ -1,6 +1,6 @@
 package GameControllers.logic;
 
-import GameModel.EGameState;
+import GameModel.EApplicationState;
 import App.TanksAppAdapter;
 import GameModel.ITanks;
 import GameView.Map.IGameWorld;
@@ -38,7 +38,7 @@ public class GameAppState extends AbstractAppState {
     @Override
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
-        EGameState.setGameState(EGameState.RUNNING);
+        EApplicationState.setGameState(EApplicationState.RUNNING);
         gameWorld.load();
         
         TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(true);
@@ -112,8 +112,8 @@ public class GameAppState extends AbstractAppState {
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void onAction(String name, boolean isPressed, float tpf) {
-            System.out.println(EGameState.getGameState().name());
-            if (EGameState.getGameState() != EGameState.RUNNING) {
+            System.out.println(EApplicationState.getGameState().name());
+            if (EApplicationState.getGameState() != EApplicationState.RUNNING) {
                 return;
             }
             if (name.equals(PAUSE) && !isPressed) {

@@ -58,7 +58,7 @@ public class GameSettings implements IObservable {
      * 
      * @return killsToWin
      */
-    public int killsToWin(){
+    public int getKillsToWin(){
         return killsToWin;
     }
 

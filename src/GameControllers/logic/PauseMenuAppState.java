@@ -1,6 +1,6 @@
 package GameControllers.logic;
 
-import GameModel.EGameState;
+import GameModel.EApplicationState;
 import App.TanksAppAdapter;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
@@ -82,7 +82,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        EGameState.setGameState(EGameState.PAUSED);
+        EApplicationState.setGameState(EApplicationState.PAUSED);
 
         showPauseMenu();
 
@@ -168,7 +168,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *
      */
     public void resume() {
-        EGameState.setGameState(EGameState.RUNNING);
+        EApplicationState.setGameState(EApplicationState.RUNNING);
         TanksAppAdapter.INSTANCE.setCursorVisible(false);
         TanksAppAdapter.INSTANCE.detachAppState(this);
     }
@@ -177,7 +177,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      *
      */
     public void restart() {
-        EGameState.setGameState(EGameState.RUNNING);
+        EApplicationState.setGameState(EApplicationState.RUNNING);
         GameMapManager.INSTANCE.restartMap();
         TanksAppAdapter.INSTANCE.detachAppState(this);
         /* remove this later */

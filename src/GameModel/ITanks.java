@@ -27,16 +27,6 @@ public interface ITanks extends IObservable {
     public void pauseGame();
     
     /**
-     * Removes a powerup from the game
-     */
-    public void removePowerup(IPowerup powerup);
-    
-    /**
-     * Adds a random powerup to one of the powerup-spawningpoints
-     */
-    public void addRandomPowerup();
-    
-    /**
      * Returns a list of all the players in the game
      */
     public Collection<IPlayer> getPlayers();
@@ -54,4 +44,6 @@ public interface ITanks extends IObservable {
     public void update(float tpf);
 
     public void cleanup();
+    
+    public static final String END_GAME = "END_GAME";
 }

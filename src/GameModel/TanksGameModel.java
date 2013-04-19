@@ -13,7 +13,6 @@ import java.util.Random;
  * @author Daniel
  */
 public class TanksGameModel implements ITanks {
-    // Can be changed by UserSettings.
     private final List<IPlayer> players;
     private List<IPowerup> powerups;
     private List<ISpawningPoints> playerSpawningPoints;
@@ -40,6 +39,9 @@ public class TanksGameModel implements ITanks {
     public TanksGameModel(List<IPlayer> players, List <IPowerup> powerups,
             List <ISpawningPoints> powerupSpawningPoints, List <ISpawningPoints> playerSpawningPoints,
             GameSettings settings){
+        if (playerSpawningPoints.size() < players.size()) {
+            throw new IllegalArgumentException("Not allowed to have fever playerspawningpoints than players");
+        }
         this.players = players;
         this.powerups = powerups;
         this.powerupSpawningPoints = powerupSpawningPoints;
@@ -73,7 +75,8 @@ public class TanksGameModel implements ITanks {
      */
     @Override
     public void endGame() {
-        pcs.firePropertyChange("End_game", null, null);
+        // show stats
+        pcs.firePropertyChange(END_GAME, null, null);
     }
 
     /**
@@ -81,22 +84,6 @@ public class TanksGameModel implements ITanks {
      */
     @Override
     public void pauseGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * {@inheritdoc} 
-     */
-    @Override
-    public void removePowerup(IPowerup powerup) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * {@inheritdoc} 
-     */
-    @Override
-    public void addRandomPowerup() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -143,6 +130,12 @@ public class TanksGameModel implements ITanks {
         if (gameTimer <= 0) {
             endGame();
         }
+        for (IPlayer player : players) {
+            if (player.getKills() >= settings.getKillsToWin()) {
+                endGame();
+            }
+        }
+        
         spawningTimer += tpf;
         if (spawningTimer >= spawningIntervall) {
             spawningTimer = 0;
@@ -180,17 +173,14 @@ public class TanksGameModel implements ITanks {
     }
 
     private void spawnAllPlayers() {
+        Collections.shuffle(playerSpawningPoints);
+        int i = 0;
         for (IPlayer player : players) {
-            while (true) {
-                ISpawningPoints spawn = getRandomItem(playerSpawningPoints);
-                if (!spawn.isInUse()) {
-                    IArmedVehicle vehicle = player.getVehicle();
-                    vehicle.setPosition(spawn.getPosition());
-                    vehicle.showInWorld();
-                    spawn.setInUse(true);
-                    break;
-                }
-            }
+            ISpawningPoints spawn = playerSpawningPoints.get(i);
+            IArmedVehicle vehicle = player.getVehicle();
+            vehicle.setPosition(spawn.getPosition());
+            vehicle.showInWorld();
+            i++;
         }
     }
 }

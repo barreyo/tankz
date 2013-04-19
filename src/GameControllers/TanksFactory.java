@@ -70,7 +70,6 @@ public final class TanksFactory {
 
     public static IPowerup getNewPowerup() {
         IPowerup model = new HastePowerup();
-        //model.setPosition(position);
         PowerupEntity view = new PowerupEntity(model);
         PowerupControl control = new PowerupControl(view, model);
 
