@@ -149,4 +149,5 @@ public interface IArmedVehicle extends IObservable{
     public static String VEHICLE_DESTROYED = "VEHICLE_DESTROYED";
     public static final String SHOW = "SHOW";
     public static final String HIDE = "HIDE";
+    public static final String CLEANUP = "CLEANUP";
 }

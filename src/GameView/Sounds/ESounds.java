@@ -17,7 +17,7 @@ public enum ESounds {
     
     MENU_SOUND("Menu.ogg", true),
     
-    GAMEMUSIC_1("ItsLikeThat.ogg", false);
+    GAMEMUSIC_1("ItsLikeThat.ogg", true);
         
         private final String path;
         private final boolean music;

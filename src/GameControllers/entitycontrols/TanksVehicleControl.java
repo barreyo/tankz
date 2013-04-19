@@ -294,6 +294,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
             TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
             this.setPhysicsLocation(vehicleModel.getPosition());
+        } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
+            this.cleanup();
         }
     }
     

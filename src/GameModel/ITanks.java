@@ -46,4 +46,5 @@ public interface ITanks extends IObservable {
     public void cleanup();
     
     public static final String END_GAME = "END_GAME";
+    public static final String CLEANUP = "CLEANUP";
 }

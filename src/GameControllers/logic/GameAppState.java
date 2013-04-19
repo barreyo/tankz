@@ -45,10 +45,7 @@ public class GameAppState extends AbstractAppState {
 
         loadDesktopInputs();
         
-        //Stops the menu sound and plays game sound.
-        //Did not work in stateDetached in MenuAppState
-        SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);
-        //SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
+        SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
         
         gameModel.startGame();
     }
@@ -62,6 +59,7 @@ public class GameAppState extends AbstractAppState {
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
         TanksAppAdapter.INSTANCE.setBulletAppStateEnabled(false);
+        TanksAppAdapter.INSTANCE.removeAllPhysics();
         this.cleanup();
     }
     
@@ -71,7 +69,6 @@ public class GameAppState extends AbstractAppState {
     @Override
     public void cleanup() {
       super.cleanup();
-      // unregister all my listeners, detach all my nodes, etc...
       gameModel.cleanup();
       gameWorld.cleanup();
       removeDesktopInputs();
@@ -105,7 +102,9 @@ public class GameAppState extends AbstractAppState {
     }
     
      private void removeDesktopInputs() {
-        TanksAppAdapter.INSTANCE.deleteInputMapping(PAUSE);
+        if (TanksAppAdapter.INSTANCE.hasInputMapping(PAUSE)) {
+            TanksAppAdapter.INSTANCE.deleteInputMapping(PAUSE);
+        }
         TanksAppAdapter.INSTANCE.removeInputListener(actionListener);
     }
     

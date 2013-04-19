@@ -1,6 +1,7 @@
 package App;
 
 import App.TanksApp;
+import GameControllers.entitycontrols.TanksVehicleControl;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
@@ -206,5 +207,13 @@ public enum TanksAppAdapter {
 
     public void setSettings(AppSettings appSettings) {
         tanksApp.setSettings(appSettings);
+    }
+
+    public void removePhysiscsCollisionListener(PhysicsCollisionListener listener) {
+        tanksApp.getBulletAppState().getPhysicsSpace().removeCollisionListener(listener);
+    }
+
+    public void removeAllPhysics() {
+        tanksApp.getBulletAppState().getPhysicsSpace().removeAll(tanksApp.getRootNode());
     }
 }

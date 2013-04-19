@@ -4,8 +4,10 @@ import GameControllers.logic.GUIManager;
 import GameControllers.logic.SoundManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
+import com.jme3.audio.AudioRenderer;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.system.AppSettings;
+import com.jme3.system.JmeContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,7 +42,6 @@ class TanksApp extends SimpleApplication {
         SoundManager.INSTANCE.preLoad();
         // Show the main menu
         GUIManager.INSTANCE.showMainMenu();
-        
         // Detach the settings window.
         stateManager.detach(stateManager.getState(StatsAppState.class));
         

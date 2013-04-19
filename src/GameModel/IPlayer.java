@@ -1,10 +1,7 @@
 
 package GameModel;
 
-import GameModel.IPowerup;
-import GameModel.IArmedVehicle;
 import GameUtilities.IObservable;
-import java.beans.PropertyChangeListener;
 
 /**
  * A representation of a player.

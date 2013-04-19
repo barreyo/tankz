@@ -5,7 +5,6 @@ import App.TanksAppAdapter;
 import GameModel.ApplicationSettings;
 import GameView.Sounds.ESounds;
 import com.jme3.audio.AudioNode;
-import java.util.ArrayList;
 import java.util.EnumMap;
 
 /**
@@ -34,13 +33,9 @@ public enum SoundManager implements IMapRelatedManager{
     public void load(int map) {
         if (map == 1) {
             loadSoundEffects(new ESounds[]{ESounds.CLICK_SOUND,
-                ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
-             ESounds.GAMEMUSIC_1});
-            /*
-              In-game sounds needs to be effects for now. Otherwise it tries to instansiate
-              it several times, which you cant with a streamed audio.
-              loadMusic(new ESounds[]{ESounds.GAMEMUSIC_1});
-             */
+                ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND});
+            loadMusic(new ESounds[]{ESounds.GAMEMUSIC_1});
+             
         }
     }
     
@@ -52,6 +47,7 @@ public enum SoundManager implements IMapRelatedManager{
     private void loadSoundEffects(ESounds[] sounds) {
         for (ESounds s : sounds) {
             AudioNode soundNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.path());
+            soundNode.setVolume(0.1f);
             soundMap.put(s, soundNode);
         }
     }
@@ -61,14 +57,14 @@ public enum SoundManager implements IMapRelatedManager{
      *
      * @param music
      */
-    public void loadMusic(ESounds[] music) {
+    private void loadMusic(ESounds[] music) {
         for (ESounds s : music) {
             if (s != null) {
                 AudioNode musicNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.path(), true);
                 musicNode.setPositional(false);
                 musicNode.setDirectional(false);
                 musicNode.setVolume(0.5f);
-
+                
                 soundMap.put(s, musicNode);
             }
         }
@@ -76,30 +72,10 @@ public enum SoundManager implements IMapRelatedManager{
 
     /**
      *
-     * @param music
      */
-    public void removeMusic(ESounds[] music) {
-        for (ESounds s : music) {
-            soundMap.remove(s);
-        }
-    }
-
-    /**
-     *
-     */
-    public void removeAllMusic() {
-        ArrayList<ESounds> musicList = new ArrayList<ESounds>();
-
-        for (ESounds s : soundMap.keySet()) {
-            if (soundMap.get(s).isLooping()) {
-                musicList.add(s);
-            }
-        }
-
-        for (ESounds tanksSound : musicList) {
-            soundMap.get(tanksSound).stop();
-            soundMap.remove(tanksSound);
-        }
+    private void removeAllMusic() {
+        stopAllSounds();
+        soundMap.clear();
     }
 
     /**
@@ -107,23 +83,19 @@ public enum SoundManager implements IMapRelatedManager{
      * @param sound
      */
     public void play(ESounds sound) {
+        if (ApplicationSettings.INSTANCE.isMusicMuted()) {
+            return;
+        }
         AudioNode audio = soundMap.get(sound);
-
         if (audio != null) {
-            
             if (sound.isMusic()) {
-                if (ApplicationSettings.INSTANCE.isMusicMuted()) {
-                    return;
-                }
                 audio.play();
             } else {
-                if (ApplicationSettings.INSTANCE.isSoundFXMuted()) {
-                    return;
-                }
                 audio.playInstance();
             }
         }
     }
+ 
 
     // pause the music
     /**
@@ -131,11 +103,11 @@ public enum SoundManager implements IMapRelatedManager{
      * @param sound
      */
     public void pause(ESounds sound) {
-        /*AudioNode audio = soundMap.get(sound);
+        AudioNode audio = soundMap.get(sound);
 
         if (audio != null) {
             TanksAppAdapter.INSTANCE.pauseAudioSource(audio);
-        }*/
+        }
     }
 
     // if paused it will play, if playing it will be paused
@@ -157,9 +129,11 @@ public enum SoundManager implements IMapRelatedManager{
     }
 
     // tries to stop a sound, will probably only work for streaming music though
-    void stop(ESounds sound) {
+    public void stop(ESounds sound) {
         AudioNode toStop = soundMap.get(sound);
-        toStop.stop();
+        if (toStop != null) {
+            toStop.stop();
+        }
     }
 
     /**
@@ -167,7 +141,14 @@ public enum SoundManager implements IMapRelatedManager{
      */
     @Override
     public void cleanup() {
+        stopAllSounds();
         removeAllMusic();
         soundMap.clear();
+    }
+
+    void stopAllSounds() {
+        for (AudioNode audio : soundMap.values()) {
+            audio.stop();
+        }
     }
 }

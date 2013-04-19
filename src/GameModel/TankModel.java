@@ -273,7 +273,7 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void cleanup() {
-        
+        pcs.firePropertyChange(CLEANUP, null, null);
     }
 
     @Override

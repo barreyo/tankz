@@ -3,6 +3,7 @@ package GameControllers.logic;
 import GameModel.EApplicationState;
 import App.TanksAppAdapter;
 import GameModel.EApplicationState;
+import GameView.Sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -91,12 +92,12 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
             showLoadingScreen();
         } else if (frameCount == FRAME_COUNT) { //using 150 as a debug, this is where you load the game
 
-            //at end of loading
-            TanksAppAdapter.INSTANCE.detachAppState(this);
-
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
            
             GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
+            
+            //at end of loading
+            TanksAppAdapter.INSTANCE.detachAppState(this);
             
             EApplicationState.setGameState(EApplicationState.RUNNING);
             System.out.println("Finished loading game");

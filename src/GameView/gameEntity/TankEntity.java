@@ -59,14 +59,14 @@ public final class TankEntity extends AGameEntity {
      */
     @Override
     public void cleanup() {
-        // TODO Change
+        setModel(null);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
             showEffect(shootEffects);
-        } else if(evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
+        } else if(evt.getPropertyName().equals(IArmedVehicle.VEHICLE_DESTROYED)){
                 //TODO - Respawn tank at different location after some 1-2 seconds 
                 // instead of deleting tank.
                 
@@ -74,10 +74,11 @@ public final class TankEntity extends AGameEntity {
                 this.showEffect(blownUpEffects);
                 this.hideFromWorld();
 
-        } else if (evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.SHOW)) {
+        } else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)) {
             this.showInWorld();
+        } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
+            this.cleanup();
         }
-            
         pcs.firePropertyChange(evt);
     }
 
