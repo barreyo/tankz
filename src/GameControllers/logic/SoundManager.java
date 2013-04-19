@@ -1,6 +1,5 @@
 package GameControllers.logic;
 
-
 import App.TanksAppAdapter;
 import GameModel.ApplicationSettings;
 import GameView.Sounds.ESounds;
@@ -11,10 +10,8 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public enum SoundManager implements IMapRelatedManager{
+public enum SoundManager implements IMapRelatedManager {
     INSTANCE;
-    
-    
     private EnumMap<ESounds, AudioNode> soundMap;
 
     /**
@@ -22,7 +19,6 @@ public enum SoundManager implements IMapRelatedManager{
      */
     private SoundManager() {
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
-        
     }
 
     /**
@@ -32,41 +28,27 @@ public enum SoundManager implements IMapRelatedManager{
     @Override
     public void load(int map) {
         if (map == 1) {
-            loadSoundEffects(new ESounds[]{ESounds.CLICK_SOUND,
-                ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND});
-            loadMusic(new ESounds[]{ESounds.GAMEMUSIC_1});
-             
+            loadSound(new ESounds[]{ESounds.CLICK_SOUND,
+                        ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
+                        ESounds.GAMEMUSIC_1});
         }
     }
-    
-    public void preLoad(){
-        loadMusic(new ESounds[]{ESounds.MENU_SOUND});
+
+    public void preLoad() {
+        loadSound(new ESounds[]{ESounds.MENU_SOUND});
     }
 
     // loads all sound effects which will be needed for that map
-    private void loadSoundEffects(ESounds[] sounds) {
+    private void loadSound(ESounds[] sounds) {
         for (ESounds s : sounds) {
-            AudioNode soundNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.path());
-            soundNode.setVolume(0.1f);
-            soundMap.put(s, soundNode);
-        }
-    }
-
-    // load all music which will be streamed
-    /**
-     *
-     * @param music
-     */
-    private void loadMusic(ESounds[] music) {
-        for (ESounds s : music) {
-            if (s != null) {
-                AudioNode musicNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.path(), true);
-                musicNode.setPositional(false);
-                musicNode.setDirectional(false);
-                musicNode.setVolume(0.5f);
-                
-                soundMap.put(s, musicNode);
+            AudioNode soundNode;
+            if (s.isMusic()) {
+                soundNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.getPath(), true);
+            } else {
+                soundNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.getPath());
             }
+            soundNode.setVolume(s.getVolume());
+            soundMap.put(s, soundNode);
         }
     }
 
@@ -95,7 +77,6 @@ public enum SoundManager implements IMapRelatedManager{
             }
         }
     }
- 
 
     // pause the music
     /**

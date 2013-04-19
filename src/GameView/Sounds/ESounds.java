@@ -9,37 +9,39 @@ public enum ESounds {
     /**
      *
      */
-    CLICK_SOUND("click.ogg", false),
+    CLICK_SOUND("click.ogg", false, 0.5f),
+    MISSILE_LAUNCH_SOUND("Explosion.ogg", false, 0.1f),
+    MISSILI_COLLISION_SOUND("MissileCollision.ogg", false, 0.2f),
+    MENU_SOUND("Menu.ogg", true, 0.5f),
+    GAMEMUSIC_1("ItsLikeThat.ogg", true, 0.4f);
     
-    MISSILE_LAUNCH_SOUND("Explosion.ogg", false),
-    
-    MISSILI_COLLISION_SOUND("MissileCollision.ogg", false),
-    
-    MENU_SOUND("Menu.ogg", true),
-    
-    GAMEMUSIC_1("ItsLikeThat.ogg", true);
-        
-        private final String path;
-        private final boolean music;
+    private final String path;
+    private final boolean music;
+    private final float volume;
 
-        ESounds(String filename, boolean isMusic) {
-            path = "Sounds/" + filename;
-            music = isMusic;
-        }
+    ESounds(String filename, boolean isMusic, float volume) {
+        path = "Sounds/" + filename;
+        music = isMusic;
+        this.volume = volume;
+    }
 
-        /**
+    /**
      *
      * @return
      */
-    public String path() {
-            return path;
-        }
+    public String getPath() {
+        return path;
+    }
 
-        /**
+    /**
      *
      * @return
      */
     public boolean isMusic() {
-            return music;
-        }
+        return music;
+    }
+    
+    public float getVolume() {
+        return volume;
+    }
 }

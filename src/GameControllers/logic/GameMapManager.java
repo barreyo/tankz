@@ -55,7 +55,6 @@ public enum GameMapManager implements IMapRelatedManager {
         
         currentGame = TanksFactory.getNewGame(gameMap, MenuAppState.getInstance().getPlayerNames());
         
-        SoundManager.INSTANCE.stopAllSounds();
         TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }
 
