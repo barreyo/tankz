@@ -7,7 +7,7 @@
     <style id="pauseStyle">
         <attributes
         visibleToMouse="true"
-        font="Interface/Fonts/Forte.fnt"
+        font="Interface/Fonts/helvetica.fnt"
         align="center"
         height="90px"
         width="400px"/>

@@ -47,8 +47,8 @@ public class TimerView extends AHudElement {
         if (gameModel.getPlayers().size() == 1) {
             xPic = screenWidth - ((screenWidth/10) * 1.3f);
             yPic = screenHeight - ((screenHeight/14) * 1.5f);
-            xText = screenWidth - (bitmapText.getLineWidth() * 1.58f);
-            yText = screenHeight - (bitmapText.getLineHeight() * 0.8f);
+            xText = screenWidth - (bitmapText.getLineWidth() * 2.3f);
+            yText = screenHeight - (bitmapText.getLineHeight() * 1.35f);
         }
         picture.setPosition(xPic, yPic);
         bitmapText.setLocalTranslation(xText, yText, 1);
