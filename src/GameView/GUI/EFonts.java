@@ -9,19 +9,14 @@ package GameView.GUI;
 public enum EFonts {
     
     /**
-     * Font used on the loading screen.
-     */
-    LOADINGSCREEN("Interface/Fonts/loadingFont.fnt"),
-    
-    /**
      * The main font for the main menu text.
      */
-    MAINMENU("Interface/Fonts/loadingFont.fnt"),
+    HELVETICA("Interface/Fonts/helvetica.fnt"),
     
     /**
      * The main font for in game text.
      */
-    INGAME("Interface/Fonts/loadingFont.fnt"),
+    INGAME("Interface/Fonts/helvetica.fnt"),
     
     /**
      * The main font for HUD elements.
