@@ -43,11 +43,12 @@ public interface IExplodingProjectile extends IWorldObject {
      */
     public void impact();
     
+    public void updatePosition(Vector3f pos);
+    
     // Commands
-    public static final String NEW_POS = "NEW_POS";
     public static final String END_OF_LIFETIME = "END_OF_LIFETIME";
     public static final String IMPACT_MADE = "IMPACT_MADE";
     public static final String EXPLOSION_FINISHED = "EXPLOSION_FINISHED";
 
-    public Vector3f getDirection();
+    public Vector3f getLinearVelocity();
 }

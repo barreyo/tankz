@@ -61,6 +61,7 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
             }
             
             SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+            
         }
     }
 
@@ -72,6 +73,10 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
                 space.removeCollisionListener(this);
             }
             projectileModel.update(tpf);
+            if (spatial != null) {
+                projectileModel.updatePosition(spatial.getWorldTranslation());
+            }
+            this.setLinearVelocity(projectileModel.getLinearVelocity());
         } 
     }
 

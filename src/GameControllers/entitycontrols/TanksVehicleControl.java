@@ -276,7 +276,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
             // Shoot by creating a new missile with the right direction, position and rotation
             TanksFactory.createNewMissile(vehicleModel.getFirePosition(),
-                    vehicleModel.getDirection(), vehicleModel.getRotation());
+                    vehicleModel.getDirection().multLocal(100), vehicleModel.getRotation());
             SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
         } else if (evt.getPropertyName().equals(IArmedVehicle.STEER)) {
             // Steer the vehicle according to the model

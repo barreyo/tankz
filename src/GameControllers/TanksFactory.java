@@ -60,7 +60,7 @@ public final class TanksFactory {
         MissileControl control = new MissileControl(projectileEntity, projectileModel);
 
         control.setCcdMotionThreshold(0.1f);
-        control.setKinematic(true);
+        //control.setKinematic(true);
 
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);

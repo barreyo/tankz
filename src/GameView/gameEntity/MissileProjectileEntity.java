@@ -51,12 +51,9 @@ public final class MissileProjectileEntity extends AGameEntity{
         projectile.removeObserver(this);
     }
 
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.NEW_POS)) {
-            updatePosition();
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
-            // Pass on
-            pcs.firePropertyChange(evt);
+    @Override
+    public synchronized void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
             // Clean up
             cleanup();
         } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
@@ -67,12 +64,11 @@ public final class MissileProjectileEntity extends AGameEntity{
                     effect.removeFromParent();
                 }
             }
-            // Pass on
-            pcs.firePropertyChange(evt);
             projectile.removeObserver(this);
         } else if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
             impact();
         }
+        pcs.firePropertyChange(evt);
     }
     
     private void impact() {
@@ -126,10 +122,12 @@ public final class MissileProjectileEntity extends AGameEntity{
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }

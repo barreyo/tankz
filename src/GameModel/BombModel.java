@@ -64,4 +64,14 @@ public class BombModel implements IExplodingProjectile {
     public void cleanup() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void updatePosition(Vector3f pos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Vector3f getLinearVelocity() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

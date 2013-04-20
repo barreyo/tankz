@@ -15,14 +15,14 @@ import java.beans.PropertyChangeSupport;
 public final class MissileModel implements IExplodingProjectile {
     
     private static final int DAMAGE = 10;
-    private static final float MASS = 10f;
+    private static final float MASS = 0.1f;
     private static final float EXPLOSION_END_TIME = 4f;
     private static final float MAX_LIFE_TIME = 4f;
     
     private float projectileLifeTimer;
     private float explodingTimer;
     private Vector3f position;
-    private Vector3f direction;
+    private Vector3f linearVelocity;
     private Quaternion rotation;
     
     private boolean exploding;
@@ -35,9 +35,9 @@ public final class MissileModel implements IExplodingProjectile {
      * @param damage damage the missile does
      * @param mass the mass of the missle
      */
-    public MissileModel(Vector3f initialPos, Vector3f dir, Quaternion rotation) {
+    public MissileModel(Vector3f initialPos, Vector3f velocity, Quaternion rotation) {
         this.position = initialPos.clone();
-        this.direction = dir.normalizeLocal();
+        this.linearVelocity = velocity.clone();
         this.rotation = rotation.clone();
     }
 
@@ -73,8 +73,6 @@ public final class MissileModel implements IExplodingProjectile {
             }
         } else {
             projectileLifeTimer += tpf;
-            position = position.addLocal(direction.mult(tpf*30));
-            pcs.firePropertyChange(NEW_POS, null, position);
             if (projectileLifeTimer > MissileModel.MAX_LIFE_TIME) {
                 pcs.firePropertyChange(END_OF_LIFETIME, null, null);
             }
@@ -138,7 +136,12 @@ public final class MissileModel implements IExplodingProjectile {
     }
 
     @Override
-    public Vector3f getDirection() {
-        return direction.clone();
+    public Vector3f getLinearVelocity() {
+        return linearVelocity.clone();
+    }
+
+    @Override
+    public void updatePosition(Vector3f pos) {
+        this.position = pos.clone();
     }
 }
