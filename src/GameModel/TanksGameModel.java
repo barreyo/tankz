@@ -1,6 +1,8 @@
 
 package GameModel;
 
+import GameModel.IArmedVehicle.VehicleState;
+import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
@@ -143,6 +145,7 @@ public class TanksGameModel implements ITanks {
             spawningTimer = 0;
             spawnPowerups();
         }
+        respawnDestroyedVehicles();
     }
 
     private void spawnPowerups() {
@@ -202,5 +205,16 @@ public class TanksGameModel implements ITanks {
                 spawn.setOccupier(null);
             }
         }
+    }
+
+    private void respawnDestroyedVehicles() {
+        /*for (IPlayer player : players) {
+            IArmedVehicle vehicle = player.getVehicle();
+            if (vehicle.getVehicleState() == VehicleState.DESTROYED) {
+                ISpawningPoint spawn = getRandomItem(playerSpawningPoints);
+                vehicle.setPosition(spawn.getPosition());
+                vehicle.showInWorld();
+            }
+        }*/
     }
 }

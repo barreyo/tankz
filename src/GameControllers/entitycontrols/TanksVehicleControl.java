@@ -66,6 +66,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             return;
         }
         super.update(tpf);
+        if (!isListening) {
+            TanksAppAdapter.INSTANCE.removePhysiscsCollisionListener(this);
+            this.setEnabled(false);
+        }
         
         vehicleModel.updateCurrentVehicleSpeedKmHour(this.getCurrentVehicleSpeedKmHour());
         vehicleModel.updatePosition(spatial.getWorldTranslation());
@@ -263,7 +267,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TanksAppAdapter.INSTANCE.deleteInputMapping(reset);
         TanksAppAdapter.INSTANCE.deleteInputMapping(shoot);
         TanksAppAdapter.INSTANCE.removeInputListener(this);
-
         inputs.setInUse(false);
     }
     
@@ -287,13 +290,15 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         } else if (evt.getPropertyName().equals(IArmedVehicle.FRICTION)) {
             // Brake the vehicle according to the friction in model
             this.brake(vehicleModel.getFrictionForce());
-        } else if (evt.getPropertyName().equalsIgnoreCase(IArmedVehicle.VEHICLE_DESTROYED)){
-            //TODO - Respawn tank at different location after some 1-2 seconds 
-            
-        } else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)){
+        }  else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)){
+            isListening = true;
+            this.setEnabled(true);
             TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
             TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
             this.setPhysicsLocation(vehicleModel.getPosition());
+        } else if (evt.getPropertyName().equals(IArmedVehicle.HIDE)){
+            isListening = false;
+            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
         } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
             this.cleanup();
         }
@@ -319,16 +324,12 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         if (objA == this) {
             if (objB instanceof PowerupControl) {
                 player.setPowerup(((PowerupControl) objB).getPowerup());
-                // We dont have to listen for collisions any more
-                isListening = false;
             } else if (objB instanceof MissileControl) {
                 vehicleModel.gotHitBy(((MissileControl)objB).getProjectile());
             }
         } else if (objB == this) {
             if (objA instanceof PowerupControl) {
                 player.setPowerup(((PowerupControl) objA).getPowerup());
-                // We dont have to listen for collisions any more
-                isListening = false;
             } else if (objA instanceof MissileControl) {
                 vehicleModel.gotHitBy(((MissileControl)objA).getProjectile());
             }

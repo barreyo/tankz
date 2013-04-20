@@ -175,7 +175,7 @@ public final class TanksFactory {
                     TankModel.TANK_WHEEL_DIRECTION, TankModel.TANK_WHEEL_AXIS,
                     TankModel.TANK_WHEEL_REST_LENGTH, wheelRadius, false);
             entity.addControl(vehicle);
-
+            
             // Get the right viewport for the player and enable it
             ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player.getName());
             viewPort.setEnabled(true);

@@ -6,7 +6,10 @@ import App.TanksAppAdapter;
 import GameUtilities.Util;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
+import GameView.physics.ECollisionShapes;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.Vector3f;
@@ -48,10 +51,7 @@ public final class TankEntity extends AGameEntity {
      */
     @Override
     public CollisionShape getCollisionShape() {
-        Geometry chasis = Util.findGeom(spatial, "Chassi");
-        //Create a hull collision shape for the chassis
-        CollisionShape carHull = CollisionShapeFactory.createDynamicMeshShape(chasis);
-        return carHull;
+        return ECollisionShapes.VEHICLE.createCollisionShape();
     }
 
     /**

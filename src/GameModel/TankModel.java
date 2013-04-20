@@ -104,14 +104,6 @@ public final class TankModel implements IArmedVehicle {
         return accelerationValue;
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public void setVehicleState(IArmedVehicle.VehicleState state) {
-        this.vehicleState = state;
-    }
-
     private void incrementAcceleration(float force) {
         this.acceleration += force;
     }
@@ -218,7 +210,7 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public Vector3f getFirePosition() {
-        return position.addLocal(0, 1.1f, 0).addLocal(direction.multLocal(1f));
+        return position.addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.2f));
     }
 
     @Override
@@ -264,9 +256,8 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void gotHitBy(IExplodingProjectile projectile) {
         this.decrementHealth(projectile.getDamageOnImpact());
-        System.out.println(projectile.getDamageOnImpact());
         if (health<=0){
-            setVehicleState(VehicleState.DESTROYED);
+            this.vehicleState = VehicleState.DESTROYED;
             pcs.firePropertyChange(VEHICLE_DESTROYED, null, null);
         }
     }
@@ -283,6 +274,9 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void showInWorld() {
+        health = 100;
+        pcs.firePropertyChange(HEALTH, null, null);
+        vehicleState = VehicleState.ALIVE;
         pcs.firePropertyChange(SHOW, null, null);
     }
 

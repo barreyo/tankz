@@ -51,13 +51,6 @@ public interface IArmedVehicle extends IWorldObject {
      * @return The steeringvalue of the vehicle
      */
     float getAccelerationValue();
-    
-    /**
-     * Sets the state of the vehicle.
-     * 
-     * @param state The state of the vehicle
-     */
-    void setVehicleState(IArmedVehicle.VehicleState state);
 
     public void accelerateForward();
 
@@ -104,13 +97,9 @@ public interface IArmedVehicle extends IWorldObject {
      */
     public enum VehicleState {
         /**
-         * Vehicle is in moving state.
+         * Vehicle is in living state.
          */
-        MOVING,
-        /**
-         * Vehicle is in idle state.
-         */
-        IDLE,
+        ALIVE,
         /**
          * Vehicle is in destroyed state.
          */

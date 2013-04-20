@@ -10,6 +10,7 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.input.InputManager;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.Trigger;
 import com.jme3.light.Light;
 import com.jme3.material.Material;
@@ -93,11 +94,11 @@ public enum TanksAppAdapter {
         tanksApp.getInputManager().addMapping(mapping, triggers);
     }
 
-    public void addInputListener(ActionListener actionListener, String... mappingNames) {
+    public void addInputListener(InputListener actionListener, String... mappingNames) {
         tanksApp.getInputManager().addListener(actionListener, mappingNames);
     }
 
-    public void removeInputListener(ActionListener actionListener) {
+    public void removeInputListener(InputListener actionListener) {
         tanksApp.getInputManager().removeListener(actionListener);
     }
     
