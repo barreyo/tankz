@@ -98,7 +98,7 @@ public enum SoundManager implements IMapRelatedManager {
      */
     public void togglePlayPause(ESounds sound) {
         AudioNode toToggle = soundMap.get(sound);
-
+        
         if (toToggle != null) {
             if (toToggle.getStatus() == AudioNode.Status.Paused
                     || toToggle.getStatus() == AudioNode.Status.Stopped) {
@@ -122,7 +122,6 @@ public enum SoundManager implements IMapRelatedManager {
      */
     @Override
     public void cleanup() {
-        stopAllSounds();
         removeAllMusic();
         soundMap.clear();
     }

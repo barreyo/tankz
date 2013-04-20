@@ -57,7 +57,6 @@ public class PowerupSlotView extends AHudElement {
      * @param pce change event.
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        System.out.println("POWERUPSLOT PROPERTY CHANGE");
         if (pce.getPropertyName().equals(IPlayer.POWERUP_CHANGED)) {
             IPowerup powerup = player.getPowerup();
             if (powerup instanceof HastePowerup) {

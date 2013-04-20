@@ -18,7 +18,7 @@ public class BombControl extends RigidBodyControl implements PhysicsCollisionLis
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public synchronized void propertyChange(PropertyChangeEvent evt) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

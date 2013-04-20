@@ -8,10 +8,10 @@ import com.jme3.math.Vector3f;
  * 
  * @author perthoresson
  */
-public class SpawningPoint implements ISpawningPoints {
+public class SpawningPoint implements ISpawningPoint {
     
-    private boolean inUse;
-    
+    private boolean isOccupied;
+    private IWorldObject occupier;
     private Vector3f position;
 
     /**
@@ -21,7 +21,7 @@ public class SpawningPoint implements ISpawningPoints {
      */
     public SpawningPoint (Vector3f pos){
         this.position = pos.clone();
-        this.inUse = false;
+        this.isOccupied = false;
     }
     
     /**
@@ -29,16 +29,16 @@ public class SpawningPoint implements ISpawningPoints {
      * @return true if it is in use, false if it's not.
      */
     @Override
-    public boolean isInUse() {
-        return inUse;
+    public boolean isOccupied() {
+        return isOccupied;
     }
     
     /**
      * {@inheritdoc} 
      */
     @Override
-    public void setInUse(boolean inUse){
-        this.inUse = inUse;
+    public void setOccupied(boolean inUse){
+        this.isOccupied = inUse;
     }
 
     /**
@@ -57,7 +57,7 @@ public class SpawningPoint implements ISpawningPoints {
      */
     @Override
     public String toString() {
-        return "PlayerSpawningPoint{" + "inUse=" + inUse + ", "
+        return "PlayerSpawningPoint{" + "inUse=" + isOccupied + ", "
                 + "position=" + position + '}';
     }
     
@@ -93,5 +93,15 @@ public class SpawningPoint implements ISpawningPoints {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public void setOccupier(IWorldObject occupier) {
+        this.occupier = occupier;
+    }
+
+    @Override
+    public IWorldObject getOccupier() {
+        return occupier;
     }
 }

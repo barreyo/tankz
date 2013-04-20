@@ -1,7 +1,5 @@
 package GameModel;
 
-import GameModel.IPlayer;
-import GameUtilities.IObservable;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -10,10 +8,11 @@ import java.beans.PropertyChangeSupport;
  *
  * @author Per
  */
-public abstract class APowerup implements IPowerup, IObservable {
+public abstract class APowerup implements IPowerup {
     
     private Vector3f position;
     private boolean isHeldByPlayer;
+    private boolean isInWorld;
     
     public static final float MASS = 10f;
     
@@ -24,15 +23,21 @@ public abstract class APowerup implements IPowerup, IObservable {
     }
     
     @Override
-    public void showPowerupInWorld(){
-        isHeldByPlayer = false;
+    public void showInWorld(){
+        isInWorld = true;
         pcs.firePropertyChange(SHOW, null, null);
     }
     
     @Override
-    public void removeFromWorld() {
-        isHeldByPlayer = true;
+    public void hideFromWorld() {
+        isInWorld = false;
         pcs.firePropertyChange(HIDE, null, null);
+    }
+    
+    @Override
+    public void playerPickedUpPowerup() {
+        this.setHeldByPlayer(true);
+        hideFromWorld();
     }
     
     @Override
@@ -42,7 +47,7 @@ public abstract class APowerup implements IPowerup, IObservable {
 
     @Override
     public Vector3f getPosition(){
-        return position;
+        return position.clone();
     }
     
     @Override
@@ -57,12 +62,22 @@ public abstract class APowerup implements IPowerup, IObservable {
 
     @Override
     public void setPosition(Vector3f position) {
-        this.position = position;
+        this.position = position.clone();
     }
     
     @Override
     public boolean isHeldByPlayer() {
         return isHeldByPlayer;
+    }
+    
+    @Override
+    public boolean isInWorld() {
+        return isInWorld;
+    }
+    
+    @Override
+    public void setHeldByPlayer(boolean held) {
+        isHeldByPlayer = held;
     }
     
     @Override 
@@ -71,7 +86,12 @@ public abstract class APowerup implements IPowerup, IObservable {
     }
     
     @Override
+    public void update(float tpf) {
+        
+    }      
+    
+    @Override
     public void usePowerup(IPlayer player) {
-        isHeldByPlayer = false;
+        setHeldByPlayer(false);
     }
 }

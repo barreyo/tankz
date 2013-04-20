@@ -39,12 +39,13 @@ public interface ITanks extends IObservable {
     /**
      * Returns a list of all the spawningpoints in the game
      */
-    public Collection<ISpawningPoints> getSpawningPoints();
-
-    public void update(float tpf);
-
-    public void cleanup();
+    public Collection<ISpawningPoint> getSpawningPoints();
+    
+    void update(float tpf);
+    void cleanup();
     
     public static final String END_GAME = "END_GAME";
     public static final String CLEANUP = "CLEANUP";
+
+    public void powerupPickedUp(IPowerup powerup);
 }

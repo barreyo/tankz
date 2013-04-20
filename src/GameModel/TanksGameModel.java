@@ -15,8 +15,8 @@ import java.util.Random;
 public class TanksGameModel implements ITanks {
     private final List<IPlayer> players;
     private List<IPowerup> powerups;
-    private List<ISpawningPoints> playerSpawningPoints;
-    private List<ISpawningPoints> powerupSpawningPoints;
+    private List<ISpawningPoint> playerSpawningPoints;
+    private List<ISpawningPoint> powerupSpawningPoints;
     private GameSettings settings;
     
     // Time until game ends
@@ -37,7 +37,7 @@ public class TanksGameModel implements ITanks {
      * @param spawningPoints list of all the ISpawningPoints in the game.
      */
     public TanksGameModel(List<IPlayer> players, List <IPowerup> powerups,
-            List <ISpawningPoints> powerupSpawningPoints, List <ISpawningPoints> playerSpawningPoints,
+            List <ISpawningPoint> powerupSpawningPoints, List <ISpawningPoint> playerSpawningPoints,
             GameSettings settings){
         if (playerSpawningPoints.size() < players.size()) {
             throw new IllegalArgumentException("Not allowed to have fever playerspawningpoints than players");
@@ -101,10 +101,10 @@ public class TanksGameModel implements ITanks {
      * {@inheritdoc} 
      */
     @Override
-    public Collection<ISpawningPoints> getSpawningPoints() {
-        List <ISpawningPoints> sp = Collections.unmodifiableList(powerupSpawningPoints);
+    public Collection<ISpawningPoint> getSpawningPoints() {
+        List <ISpawningPoint> sp = Collections.unmodifiableList(powerupSpawningPoints);
         // Cast OK PlayerSpawningPoint and PowerupSpawningPoint implements ISpawningPoint
-        return (Collection<ISpawningPoints>) sp;
+        return (Collection<ISpawningPoint>) sp;
     }
 
     /**
@@ -123,6 +123,9 @@ public class TanksGameModel implements ITanks {
         pcs.removePropertyChangeListener(l);
     }
 
+    /**
+     * {@inheritdoc} 
+     */
     @Override
     public void update(float tpf) {
         gameTimer -= tpf;
@@ -135,7 +138,6 @@ public class TanksGameModel implements ITanks {
                 endGame();
             }
         }
-        
         spawningTimer += tpf;
         if (spawningTimer >= spawningIntervall) {
             spawningTimer = 0;
@@ -144,18 +146,26 @@ public class TanksGameModel implements ITanks {
     }
 
     private void spawnPowerups() {
-        for (ISpawningPoints spawn : powerupSpawningPoints) {
-            if (!spawn.isInUse()) {
-                IPowerup powerup = getRandomItem(powerups);
-                if (!powerup.isHeldByPlayer()) {
-                    powerup.setPosition(spawn.getPosition());
-                    powerup.showPowerupInWorld();
-                    spawn.setInUse(true);
+        for (ISpawningPoint spawn : powerupSpawningPoints) {
+            if (!spawn.isOccupied()) {
+                boolean foundAvaiblePowerup = false;
+                while (!foundAvaiblePowerup) {
+                    IPowerup powerup = getRandomItem(powerups);
+                    if (!powerup.isHeldByPlayer() && !powerup.isInWorld()) {
+                        powerup.setPosition(spawn.getPosition());
+                        powerup.showInWorld();
+                        spawn.setOccupied(true);
+                        spawn.setOccupier(powerup);
+                        foundAvaiblePowerup = true;
+                    }
                 }
             }
         }
     }
 
+    /**
+     * {@inheritdoc} 
+     */
     @Override
     public void cleanup() {
         for (IPlayer player : players) {
@@ -176,11 +186,21 @@ public class TanksGameModel implements ITanks {
         Collections.shuffle(playerSpawningPoints);
         int i = 0;
         for (IPlayer player : players) {
-            ISpawningPoints spawn = playerSpawningPoints.get(i);
+            ISpawningPoint spawn = playerSpawningPoints.get(i);
             IArmedVehicle vehicle = player.getVehicle();
             vehicle.setPosition(spawn.getPosition());
             vehicle.showInWorld();
             i++;
+        }
+    }
+
+    @Override
+    public void powerupPickedUp(IPowerup powerup) {
+        for (ISpawningPoint spawn : powerupSpawningPoints) {
+            if (spawn.isOccupied() && spawn.getOccupier() == powerup) {
+                spawn.setOccupied(false);
+                spawn.setOccupier(null);
+            }
         }
     }
 }

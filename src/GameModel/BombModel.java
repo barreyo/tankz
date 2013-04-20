@@ -49,5 +49,19 @@ public class BombModel implements IExplodingProjectile {
     public void removeObserver(PropertyChangeListener l) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
+    @Override
+    public void showInWorld() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void hideFromWorld() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void cleanup() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

@@ -17,7 +17,7 @@ import GameModel.Player;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
-import GameModel.ISpawningPoints;
+import GameModel.ISpawningPoint;
 import GameModel.SpawningPoint;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
@@ -95,15 +95,15 @@ public final class TanksFactory {
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
 
         // temp for testing
-        List<ISpawningPoints> playerSpawningPoints = new ArrayList<ISpawningPoints>();
+        List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 10)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 12)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 12)));
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(30, 3, 10)));
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
 
-        List<ISpawningPoints> powerupSpawningPoints = new ArrayList<ISpawningPoints>();
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(4, 3, 7)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(6, 3, 7)));
+        List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 7)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(80, 3, 7)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
 

@@ -119,7 +119,7 @@ public class Player implements IPlayer {
      * @inheritdoc
      */
     @Override
-    public IPowerup getPowerup() {
+    public synchronized IPowerup getPowerup() {
         return powerup;
     }
 
@@ -127,7 +127,10 @@ public class Player implements IPlayer {
      * @inheritdoc
      */
     @Override
-    public void setPowerup(IPowerup powerup) {
+    public synchronized void setPowerup(IPowerup powerup) {
+        if (this.powerup != null) {
+            this.powerup.setHeldByPlayer(false);
+        }
         this.powerup = powerup;
         pcs.firePropertyChange(POWERUP_CHANGED, null, null);
     }
@@ -207,7 +210,7 @@ public class Player implements IPlayer {
      * {@inheritDoc}
      */
     @Override
-    public void usePowerup() {
+    public synchronized void usePowerup() {
         if (powerup != null) {
             powerup.usePowerup(this);
             powerup = null;

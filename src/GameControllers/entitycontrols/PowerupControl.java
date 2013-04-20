@@ -24,36 +24,37 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
 
     
    public PowerupControl(PowerupEntity entity, IPowerup model) {
-       super(entity.getCollisionShape(), model.getMASS());
+        super(entity.getCollisionShape(), model.getMASS());
         powerupEntity = entity;
         powerupModel = model;
-        
-        isListening = true;
-        
+
         // We observe view
         entity.addObserver(this);
     }
-    
+
+    @Override
     public void collision(PhysicsCollisionEvent event) {
         if (space == null) {
             return;
         }
         if (event.getObjectA() instanceof TanksVehicleControl && event.getObjectB() == this
          || event.getObjectB() instanceof TanksVehicleControl && event.getObjectA() == this) {
-            powerupModel.removeFromWorld();
-            
-            // We dont have to listen for collisions any more
-            isListening = false;
-            space.remove(this);
+            powerupModel.playerPickedUpPowerup();
         }
     }
 
-    public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals("CLEANUP")) {
+    @Override
+    public synchronized void propertyChange(PropertyChangeEvent pce) {
+        if (pce.getPropertyName().equals(IPowerup.CLEANUP)) {
             powerupEntity.cleanup();
         } else if (pce.getPropertyName().equals(IPowerup.SHOW)) {
             TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
             TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
+            isListening = true;
+            this.setEnabled(true);
+        } else if (pce.getPropertyName().equals(IPowerup.HIDE)) {
+            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
+            isListening = false;
         }
                 
     }
@@ -62,14 +63,15 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
     public void update(float tpf) {
         super.update(tpf);
         if (enabled) {
-            if (!isListening && space != null) {
-                space.removeCollisionListener(this);
+            if (!isListening) {
+                TanksAppAdapter.INSTANCE.removePhysiscsCollisionListener(this);
+                this.setEnabled(false);
             }
-           // powerupModel.
+            spatial.rotate(tpf * 0.8f, tpf * 0.7f, tpf * 0.5f);
         } 
     }
 
-    IPowerup getPowerup() {
+    public IPowerup getPowerup() {
         return powerupModel;
     }
 }

@@ -41,7 +41,7 @@ public class PowerupEntity extends AGameEntity {
         powerup.removeObserver(this);
     }
 
-    public void propertyChange(PropertyChangeEvent pce) {
+    public synchronized void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(IPowerup.SHOW)) {
             showInWorld();
         } else if (pce.getPropertyName().equals(IPowerup.HIDE)) {
@@ -67,19 +67,16 @@ public class PowerupEntity extends AGameEntity {
             powerup.addObserver(this);
         }
     }
-        
+
     private void showInWorld() {
+        spatial.removeFromParent();
         spatial.setLocalTranslation(powerup.getPosition());
-        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
-    }
-    
-   private void updatePosition() {
-        spatial.setLocalTranslation(powerup.getPosition());
+        if (spatial.getParent() == null) {
+            TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+        }
     }
 
     private void hideFromWorld() {
-        if (spatial.getParent() != null) {
-            spatial.removeFromParent();
-        }
+        spatial.removeFromParent();
     }
 }

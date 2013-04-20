@@ -2,11 +2,17 @@ package GameControllers.logic;
 
 import GameModel.EApplicationState;
 import App.TanksAppAdapter;
+import GameControllers.entitycontrols.PowerupControl;
+import GameControllers.entitycontrols.TanksVehicleControl;
+import GameModel.IPowerup;
 import GameModel.ITanks;
 import GameView.Map.IGameWorld;
 import GameView.Sounds.ESounds;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -17,7 +23,7 @@ import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
  * 
  * @author Daniel
  */
-public class GameAppState extends AbstractAppState {
+public class GameAppState extends AbstractAppState implements PhysicsCollisionListener{
     // Input mapping command
     private static final String PAUSE = "PAUSE";
     
@@ -48,6 +54,7 @@ public class GameAppState extends AbstractAppState {
         SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
         
         gameModel.startGame();
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
     }
      
      /**
@@ -120,4 +127,17 @@ public class GameAppState extends AbstractAppState {
             }
         }
     };
+
+    @Override
+    public void collision(PhysicsCollisionEvent event) {
+        PhysicsCollisionObject objA = event.getObjectA();
+        PhysicsCollisionObject objB = event.getObjectB();
+        if (objA instanceof TanksVehicleControl && objB instanceof PowerupControl) {
+            IPowerup powerup = ((PowerupControl) objB).getPowerup();
+            gameModel.powerupPickedUp(powerup);
+        } else if (objB instanceof TanksVehicleControl && objA instanceof PowerupControl) {
+            IPowerup powerup = ((PowerupControl) objA).getPowerup();
+            gameModel.powerupPickedUp(powerup);
+        }
+    }
 }

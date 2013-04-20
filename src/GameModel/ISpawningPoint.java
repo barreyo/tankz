@@ -8,25 +8,35 @@ import com.jme3.math.Vector3f;
  * 
  * @author perthoresson
  */
-public interface ISpawningPoints {
+public interface ISpawningPoint {
     
     /**
      * 
      * @return if the spawning point is in use or not.
      */
-    public boolean isInUse();
+    boolean isOccupied();
     
     /**
      * Sets if spawning point is in use or not.
      * 
      * @param inUse 
      */
-    public void setInUse(boolean inUse);
+    void setOccupied(boolean inUse);
     
     /**
      * 
      * @return the position of the spawningpoint
      */
-    public Vector3f getPosition();
+    Vector3f getPosition();
     
+    /**
+     * 
+     */
+    void setOccupier(IWorldObject occupier);
+    
+    /**
+     * 
+     * @return 
+     */
+    IWorldObject getOccupier();
 }

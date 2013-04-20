@@ -1,8 +1,6 @@
 
 package GameModel;
 
-import GameModel.IExplodingProjectile;
-import GameUtilities.IObservable;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
@@ -11,7 +9,7 @@ import com.jme3.math.Vector3f;
  *
  * @author Daniel
  */
-public interface IArmedVehicle extends IObservable{
+public interface IArmedVehicle extends IWorldObject {
     /**
      * Gets the current health of the vehicle.
      *
@@ -97,16 +95,7 @@ public interface IArmedVehicle extends IObservable{
 
     public void gotHitBy(IExplodingProjectile projectile);
 
-    public void cleanup();
-
     public void setPosition(Vector3f position);
-
-    public void showInWorld();
-    
-    /**
-     * Hides the vehicle from the world.
-     */
-    public void hideFromWorld();
 
     public Vector3f getPosition();
 
@@ -137,8 +126,6 @@ public interface IArmedVehicle extends IObservable{
      * Shoots a projectile from the vehicle
      */
     public void shoot();
-    
-    public void update(float tpf);
     
     //commands
     public static String SHOOT = "SHOOT";

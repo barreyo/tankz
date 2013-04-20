@@ -1,25 +1,18 @@
 
 package GameModel;
 
-import GameModel.IPlayer;
-import GameUtilities.IObservable;
 import com.jme3.math.Vector3f;
 
 /**
  *
  * @author Per
  */
-public interface IPowerup extends IObservable{
+public interface IPowerup extends IWorldObject {
     
     /**
-     * Adds the powerup to the world.
+     * 
      */
-    public void showPowerupInWorld();
-    
-    /**
-     * Removes the powerup from the world.
-     */
-    public void removeFromWorld();
+    public void playerPickedUpPowerup();
     
     /**
      * 
@@ -48,14 +41,16 @@ public interface IPowerup extends IObservable{
      */
     public void usePowerup(IPlayer player);
     
+    public void setHeldByPlayer(boolean held);
+    
     /**
      * 
      */
     public boolean isHeldByPlayer();
-
-    public void cleanup();
     
     public static final String SHOW = "SHOW";
     public static final String HIDE = "HIDE";
     public static final String CLEANUP = "CLEANUP";
+
+    public boolean isInWorld();
 }

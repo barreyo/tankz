@@ -272,7 +272,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public synchronized void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
             // Shoot by creating a new missile with the right direction, position and rotation
             TanksFactory.createNewMissile(vehicleModel.getFirePosition(),

@@ -8,7 +8,7 @@ import GameUtilities.IObservable;
  *
  * @author perthoresson
  */
-public interface IPlayer extends IObservable{
+public interface IPlayer extends IObservable {
     
     /**
      * Returns the name of the player.

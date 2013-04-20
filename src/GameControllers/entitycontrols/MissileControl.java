@@ -75,7 +75,7 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
         } 
     }
 
-    public void propertyChange(PropertyChangeEvent evt) {
+    public synchronized void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
             if (space != null) {
                 space.removeCollisionListener(this);
