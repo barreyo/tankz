@@ -11,7 +11,8 @@ import java.util.Collection;
 public enum EEffects {
     EXPLOSION(new ExplosionEffect()),
     SHOOT(new ShootEffect()),
-    TANK_BLOWN_UP(new DestroyedEffect());
+    TANK_BLOWN_UP(new DestroyedEffect()),
+    SMOKE(new SmokeEffect());
     
     
     private IEffect effect;

@@ -166,6 +166,7 @@ public final class TankModel implements IArmedVehicle {
         if (oldAcceleration != accelerationValue) {
             pcs.firePropertyChange(ACCELERATE, oldAcceleration, accelerationValue);
         }
+        pcs.firePropertyChange(SMOKE, null, null);
     }
 
     @Override

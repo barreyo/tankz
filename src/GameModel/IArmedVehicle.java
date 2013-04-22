@@ -126,4 +126,5 @@ public interface IArmedVehicle extends IWorldObject {
     public static final String SHOW = "SHOW";
     public static final String HIDE = "HIDE";
     public static final String CLEANUP = "CLEANUP";
+    public static final String SMOKE = "SMOKE";
 }

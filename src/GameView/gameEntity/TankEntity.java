@@ -30,6 +30,7 @@ public final class TankEntity extends AGameEntity {
     private IArmedVehicle armedVehicle;
     private final Collection<ParticleEmitter> shootEffects;
     private final Collection<ParticleEmitter> blownUpEffects;
+    private final Collection<ParticleEmitter> smokeEffects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -41,6 +42,7 @@ public final class TankEntity extends AGameEntity {
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
         shootEffects = EEffects.SHOOT.getEmitters();
         blownUpEffects = EEffects.TANK_BLOWN_UP.getEmitters();
+        smokeEffects = EEffects.SMOKE.getEmitters();
         
         setModel(armedVehicle);
         showInWorld();
@@ -78,6 +80,9 @@ public final class TankEntity extends AGameEntity {
             this.showInWorld();
         } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
             this.cleanup();
+        }
+        if (evt.getPropertyName().equals(IArmedVehicle.SMOKE)) {
+            showEffect(smokeEffects);
         }
         pcs.firePropertyChange(evt);
     }
