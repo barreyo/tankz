@@ -3,7 +3,7 @@ package GameControllers.entitycontrols;
 import GameControllers.logic.SoundManager;
 import GameModel.IExplodingProjectile;
 import GameView.Sounds.ESounds;
-import GameView.gameEntity.MissileProjectileEntity;
+import GameView.gameEntity.CanonBallEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -16,8 +16,8 @@ import java.util.Collection;
  *
  * @author Daniel
  */
-public class MissileControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
-    private MissileProjectileEntity entity;
+public class LinearProjectileControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
+    private CanonBallEntity entity;
     private IExplodingProjectile projectileModel;
     private Collection<ParticleEmitter> effects;
     
@@ -26,7 +26,7 @@ public class MissileControl extends RigidBodyControl implements PhysicsCollision
     /**
      * Creates a tank projectile control.
      */
-    public MissileControl(MissileProjectileEntity entity, IExplodingProjectile projModel) {
+    public LinearProjectileControl(CanonBallEntity entity, IExplodingProjectile projModel) {
         super(entity.getCollisionShape(), projModel.getMass());
 
         this.entity = entity;

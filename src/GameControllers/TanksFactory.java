@@ -3,10 +3,10 @@ package GameControllers;
 import GameControllers.logic.ViewPortManager;
 import GameModel.IPlayer;
 import GameModel.IExplodingProjectile;
-import GameModel.MissileModel;
+import GameModel.CanonBallModel;
 import GameModel.TankModel;
 import App.TanksAppAdapter;
-import GameControllers.entitycontrols.MissileControl;
+import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
@@ -25,7 +25,7 @@ import GameView.GUI.PowerupSlotView;
 import GameView.GUI.TimerView;
 import GameView.Map.GameWorld1;
 import GameView.Map.IGameWorld;
-import GameView.gameEntity.MissileProjectileEntity;
+import GameView.gameEntity.CanonBallEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
@@ -53,11 +53,11 @@ public final class TanksFactory {
     }
 
     public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation) {
-        IExplodingProjectile projectileModel = new MissileModel(position, direction, rotation);
+        IExplodingProjectile projectileModel = new CanonBallModel(position, direction, rotation);
 
-        MissileProjectileEntity projectileEntity = new MissileProjectileEntity(projectileModel);
+        CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
-        MissileControl control = new MissileControl(projectileEntity, projectileModel);
+        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel);
 
         control.setCcdMotionThreshold(0.1f);
         //control.setKinematic(true);
