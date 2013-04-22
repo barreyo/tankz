@@ -18,14 +18,14 @@ import java.util.Collection;
  *
  * @author Daniel
  */
-public final class MissileProjectileEntity extends AGameEntity{
+public final class CanonBallEntity extends AGameEntity{
     private IExplodingProjectile projectile;
     private final Collection<ParticleEmitter> effects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public MissileProjectileEntity(IExplodingProjectile proj) {
-        super(EGraphics.SHARK);
+    public CanonBallEntity(IExplodingProjectile proj) {
+        super(EGraphics.BOMB);
         effects = EEffects.EXPLOSION.getEmitters();
         
         setModel(proj);

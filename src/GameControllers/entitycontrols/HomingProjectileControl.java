@@ -10,7 +10,7 @@ import java.beans.PropertyChangeListener;
  *
  * @author Daniel
  */
-public class BombControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
+public class HomingProjectileControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
 
     @Override
     public void collision(PhysicsCollisionEvent event) {

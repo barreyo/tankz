@@ -324,14 +324,14 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         if (objA == this) {
             if (objB instanceof PowerupControl) {
                 player.setPowerup(((PowerupControl) objB).getPowerup());
-            } else if (objB instanceof MissileControl) {
-                vehicleModel.gotHitBy(((MissileControl)objB).getProjectile());
+            } else if (objB instanceof LinearProjectileControl) {
+                vehicleModel.gotHitBy(((LinearProjectileControl)objB).getProjectile());
             }
         } else if (objB == this) {
             if (objA instanceof PowerupControl) {
                 player.setPowerup(((PowerupControl) objA).getPowerup());
-            } else if (objA instanceof MissileControl) {
-                vehicleModel.gotHitBy(((MissileControl)objA).getProjectile());
+            } else if (objA instanceof LinearProjectileControl) {
+                vehicleModel.gotHitBy(((LinearProjectileControl)objA).getProjectile());
             }
         }
     }

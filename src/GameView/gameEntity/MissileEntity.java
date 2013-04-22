@@ -15,13 +15,13 @@ import java.util.Collection;
  *
  * @author Daniel
  */
-public final class BombProjectileEntity extends AGameEntity {
+public final class MissileEntity extends AGameEntity {
     private IExplodingProjectile projectile;
     private final Collection<ParticleEmitter> effects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public BombProjectileEntity(IExplodingProjectile proj) {
+    public MissileEntity(IExplodingProjectile proj) {
         super(EGraphics.BOMB);
         effects = EEffects.EXPLOSION.getEmitters();
         
