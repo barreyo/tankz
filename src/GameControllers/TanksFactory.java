@@ -94,31 +94,6 @@ public final class TanksFactory {
 
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
 
-        // temp for testing
-        List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 10)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 12)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(30, 3, 10)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
-
-        List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 7)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(80, 3, 7)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
-
-        List<IPowerup> powerups = new ArrayList<IPowerup>();
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-        powerups.add(getNewPowerup());
-
         GameSettings settings = new GameSettings(100f, 10);
 
         int numberOfPlayers = playerNames.size();
@@ -192,9 +167,47 @@ public final class TanksFactory {
 
             players.add(player);
         }
-        ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
+        
+        // Setting spawningpoints, different on each map
+        List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
+        List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
+        List<IPowerup> powerups = new ArrayList<IPowerup>();
+        
+        switch (intWorld) {
+            case 1:
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 10)));
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 12)));
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(30, 3, 10)));
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
 
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 7)));
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(80, 3, 7)));
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
+                
+                for (int i = 0; i < powerupSpawningPoints.size(); i++) {
+                    powerups.add(getNewPowerup());
+                }
+            default:
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 10)));
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 12)));
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(30, 3, 10)));
+                playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
+
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 7)));
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(80, 3, 7)));
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
+                powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
+                
+                for (int i = 0; i < powerupSpawningPoints.size(); i++) {
+                    powerups.add(getNewPowerup());
+                }
+        }
+        
+        // Creating model and view of the game, view depending on which map it is
+        ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
         IGameWorld gameWorld = null;
+        
         switch (intWorld) {
             case 1:
                 gameWorld = new GameWorld1(game);
