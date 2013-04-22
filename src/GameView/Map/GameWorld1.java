@@ -59,7 +59,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
         TanksAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
         TanksAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
-        //TanksAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TanksAppAdapter.INSTANCE.getAssetManager());
+        TanksAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TanksAppAdapter.INSTANCE.getAssetManager());
     }
 
     /**

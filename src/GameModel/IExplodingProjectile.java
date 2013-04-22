@@ -49,6 +49,11 @@ public interface IExplodingProjectile extends IWorldObject {
     public static final String END_OF_LIFETIME = "END_OF_LIFETIME";
     public static final String IMPACT_MADE = "IMPACT_MADE";
     public static final String EXPLOSION_FINISHED = "EXPLOSION_FINISHED";
+    public static final String MOVE = "MOVE";
+    public static final String ROTATE = "ROTATE";
+    public static final String SHOW = "SHOW";
+    public static final String HIDE = "HIDE";
+    public static final String CLEANUP = "CLEANUP";
 
     public Vector3f getLinearVelocity();
 }

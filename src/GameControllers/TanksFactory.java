@@ -6,6 +6,7 @@ import GameModel.IExplodingProjectile;
 import GameModel.CanonBallModel;
 import GameModel.TankModel;
 import App.TanksAppAdapter;
+import GameControllers.entitycontrols.HomingProjectileControl;
 import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
@@ -18,6 +19,7 @@ import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
 import GameModel.ISpawningPoint;
+import GameModel.MissileModel;
 import GameModel.SpawningPoint;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
@@ -26,10 +28,12 @@ import GameView.GUI.TimerView;
 import GameView.Map.GameWorld1;
 import GameView.Map.IGameWorld;
 import GameView.gameEntity.CanonBallEntity;
+import GameView.gameEntity.MissileEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -52,7 +56,7 @@ public final class TanksFactory {
     private TanksFactory() {
     }
 
-    public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation) {
+    public static void createNewCanonBall(Vector3f position, Vector3f direction, Quaternion rotation) {
         IExplodingProjectile projectileModel = new CanonBallModel(position, direction, rotation);
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
@@ -60,6 +64,26 @@ public final class TanksFactory {
         LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel);
 
         control.setCcdMotionThreshold(0.1f);
+        control.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        control.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
+        //control.setKinematic(true);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
+
+        projectileEntity.addControl(control);
+    }
+    
+    public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation, TanksVehicleControl sender) {
+        MissileModel projectileModel = new MissileModel(position, direction, rotation);
+
+        MissileEntity projectileEntity = new MissileEntity(projectileModel);
+
+        HomingProjectileControl control = new HomingProjectileControl(projectileEntity, projectileModel, sender);
+
+        control.setCcdMotionThreshold(0.1f);
+        control.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        control.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
         //control.setKinematic(true);
 
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
@@ -98,6 +122,7 @@ public final class TanksFactory {
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
+        
         // Create one player for each name
         for (String name : playerNames) {
             // Create one vehicleModel per player
@@ -156,6 +181,9 @@ public final class TanksFactory {
             viewPort.setEnabled(true);
             // Give the tank a refernce to the camera of the viewport
             vehicle.setCamera(viewPort.getCamera());
+            
+            vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_02);
+            vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
 
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,
