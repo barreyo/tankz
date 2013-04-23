@@ -270,7 +270,7 @@ public final class TanksFactory {
         timerView.show();
         
         ScoreboardView sbv = new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(players.get(0).getName()), players.size());
-        sbv.show();
+//        sbv.show();
         
         return new GameAppState(game, gameWorld);
     }
