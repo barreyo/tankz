@@ -5,6 +5,7 @@ import GameModel.ApplicationSettings;
 import GameModel.IPlayer;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;
+import GameModel.MissilePowerup;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
@@ -61,6 +62,8 @@ public class PowerupSlotView extends AHudElement {
             IPowerup powerup = player.getPowerup();
             if (powerup instanceof HastePowerup) {
                 picture.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
+            } else if (powerup instanceof MissilePowerup) {
+                picture.setImage(assetManager, EPowerupIcons.HOMING.getPath(), true);
             } else if (powerup == null) {
                 picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
             }

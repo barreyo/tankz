@@ -18,6 +18,7 @@ import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Matrix3f;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import java.beans.PropertyChangeEvent;
@@ -280,7 +281,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             // Shoot by creating a new missile with the right direction, position and rotation
             TanksFactory.createNewCanonBall(vehicleModel.getFirePosition(),
                     vehicleModel.getDirection().multLocal(100), vehicleModel.getRotation());
-            SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
         } else if (evt.getPropertyName().equals(IArmedVehicle.STEER)) {
             // Steer the vehicle according to the model
             this.steer(vehicleModel.getSteeringValue());
@@ -301,6 +301,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
         } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
             this.cleanup();
+        } else if (evt.getPropertyName().equals(IArmedVehicle.MISSILE)) {
+            TanksFactory.createNewMissile(vehicleModel.getFirePosition().addLocal(0, 5f, 0),
+            vehicleModel.getDirection().multLocal(100), vehicleModel.getRotation(), this);
+            SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
         }
     }
     

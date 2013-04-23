@@ -104,7 +104,7 @@ public class MissileModel implements IExplodingProjectile {
     }
 
     private void move(float tpf) {
-        linearVelocity = target.subtractLocal(position).normalizeLocal().multLocal(20f);
+        linearVelocity = target.subtractLocal(position).normalizeLocal().multLocal(50f);
         pcs.firePropertyChange(MOVE, null, null);
     }
 

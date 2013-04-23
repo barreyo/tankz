@@ -146,6 +146,10 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(SHOOT, null, null);
     }
   
+    public void shootMissile() {
+        pcs.firePropertyChange(MISSILE, health, health);
+    }
+    
     @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
