@@ -57,6 +57,21 @@ public final class TanksFactory {
 
     private TanksFactory() {
     }
+    
+    public static CanonBallModel getNewCanonBall() {
+        CanonBallModel projectileModel = new CanonBallModel();
+
+        CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
+
+        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel);
+
+        control.setCcdMotionThreshold(0.1f);
+        control.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        control.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
+        //control.setKinematic(true);
+
+        return projectileModel;
+    }
 
     public static CanonBallModel createNewCanonBall(Vector3f position, Vector3f direction, Quaternion rotation) {
         CanonBallModel projectileModel = new CanonBallModel(position, direction, rotation);
@@ -156,13 +171,13 @@ public final class TanksFactory {
             List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
             
             for (int i = 0; i < 10; i++) {
-               
+              //canonBalls.add(getNewCanonBall());
             }
             
             List<MissileModel> missiles = new ArrayList<MissileModel>();
             
             for (int i = 0; i < 10; i++) {
-                
+         
             }
             
             // Create one vehicleModel per player

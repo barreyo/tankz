@@ -1,9 +1,6 @@
 
 package GameModel;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author Per
@@ -11,32 +8,38 @@ import java.util.logging.Logger;
 public class HastePowerup extends APowerup{
     private float maxSpeed;
     private float accForce;
+    
+    private boolean isActive;
+    
+    private float activateTimer;
+    private static final float END_TIME = 5f;
+    
+    private IPlayer player;
 
     @Override
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
+        this.player = player;
         IArmedVehicle vehicle = player.getVehicle();
         maxSpeed = vehicle.getMaxSpeed();
         accForce = vehicle.getAccelerationForce();
         
-        vehicle.setMaxSpeed(maxSpeed * 5f);
-        vehicle.setAccelerationForce(accForce * 5f);
-        
-        startPowerupActiveThreadForPlayer(player);
+        vehicle.setMaxSpeed(maxSpeed * 2f);
+        vehicle.setAccelerationForce(accForce * 2f);
+        isActive = true;
     }
     
-    private void startPowerupActiveThreadForPlayer(final IPlayer player){
-        new Thread(new Runnable(){
-            public void run(){
-                try {
-                    Thread.sleep(5000);
-                    IArmedVehicle vehicle = player.getVehicle();
-                    vehicle.setMaxSpeed(maxSpeed);
-                    vehicle.setAccelerationForce(accForce);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(HastePowerup.class.getName()).log(Level.SEVERE, "Powerup thread interrupted", ex);
-                }
+    @Override
+    public void update(float tpf) {
+        super.update(tpf);
+        if (isActive) {
+            activateTimer += tpf;
+            if (activateTimer >= END_TIME) {
+                isActive = false;
+                IArmedVehicle vehicle = player.getVehicle();
+                vehicle.setMaxSpeed(maxSpeed);
+                vehicle.setAccelerationForce(accForce);
             }
-        }).start();
-    }
+        }
+    } 
 }

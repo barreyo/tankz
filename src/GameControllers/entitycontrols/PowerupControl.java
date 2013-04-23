@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
@@ -54,7 +50,6 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
             this.setEnabled(true);
         } else if (pce.getPropertyName().equals(IPowerup.HIDE)) {
             TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
-            isListening = false;
         }
                 
     }
@@ -65,8 +60,8 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
         if (enabled) {
             if (!isListening) {
                 TanksAppAdapter.INSTANCE.removePhysiscsCollisionListener(this);
-                this.setEnabled(false);
             }
+            powerupModel.update(tpf);
             spatial.rotate(tpf * 0.8f, tpf * 0.7f, tpf * 0.5f);
         } 
     }

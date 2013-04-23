@@ -23,6 +23,10 @@ public final class CanonBallModel extends AExplodingProjectile {
         super(initialPos, velocity, rotation);
     }
 
+    public CanonBallModel() {
+        super(null, null, null);
+    }
+
     /**
      * Returns the damage the missile does.
      * 

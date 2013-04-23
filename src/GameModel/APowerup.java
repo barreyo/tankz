@@ -1,5 +1,6 @@
 package GameModel;
 
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -11,6 +12,7 @@ import java.beans.PropertyChangeSupport;
 public abstract class APowerup implements IPowerup {
     
     private Vector3f position;
+    private Quaternion rotation;
     private boolean isHeldByPlayer;
     private boolean isInWorld;
     
