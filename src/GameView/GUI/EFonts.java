@@ -14,6 +14,11 @@ public enum EFonts {
     HELVETICA("Interface/Fonts/helvetica.fnt"),
     
     /**
+     * Scorboard text style.
+     */
+    HELVETICABOLD("Interface/Fonts/helveticaBold.fnt"),
+    
+    /**
      * The main font for in game text.
      */
     INGAME("Interface/Fonts/helvetica.fnt"),
