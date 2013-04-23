@@ -2,6 +2,8 @@
 package GameView.GUI;
 
 import App.TanksAppAdapter;
+import GameModel.IArmedVehicle;
+import GameModel.IArmedVehicle.VehicleState;
 import GameModel.IPlayer;
 import GameModel.Player;
 import com.jme3.font.BitmapFont;
@@ -21,13 +23,16 @@ import java.util.List;
 public class ScoreboardView extends AHudElement {
     
     private List<BitmapText> playerNames, playerKills, playerDeaths, playerStatus;
-    private boolean enabled = true;
     private List<IPlayer> players;
+    private BitmapText killsText, deathsText;
     
     public ScoreboardView(ViewPort vp, List<IPlayer> players) {
         this.players = players;
         
         playerNames = new ArrayList<BitmapText>();
+        playerKills = new ArrayList<BitmapText>();
+        playerDeaths = new ArrayList<BitmapText>();
+        playerStatus = new ArrayList<BitmapText>();
         
         float screenWidth = TanksAppAdapter.INSTANCE.getScreenWidth();
         float screenHeight = TanksAppAdapter.INSTANCE.getScreenHeight();
@@ -54,11 +59,44 @@ public class ScoreboardView extends AHudElement {
         
         BitmapFont font = assetManager.loadFont(EFonts.HELVETICABOLD.getPath());
         
+        killsText = new BitmapText(font, false);
+        deathsText = new BitmapText(font, false);
+        killsText.setText("Score");
+        deathsText.setText("Death");
+        killsText.setLocalTranslation(picX + (picWidth * 0.6f), 
+                (picY + picHeight) - ((picHeight * 0.1f)), 1);
+        deathsText.setLocalTranslation(picX + (picWidth * 0.8f), 
+                (picY + picHeight) - ((picHeight * 0.1f)), 1);
+        
         for (int i = 0; i < players.size(); i++) {
             playerNames.add(new BitmapText(font, false));
             playerNames.get(i).setText(players.get(i).getName());
             playerNames.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerNames.get(i).setLocalTranslation(picX + (picWidth * 0.05f), (picY + picHeight) - ((picHeight * 0.1f) * (i+2)) , 1);
+            playerNames.get(i).setLocalTranslation(picX + (picWidth * 0.05f), 
+                    (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
+            
+            playerKills.add(new BitmapText(font, false));
+            playerKills.get(i).setText("" + players.get(i).getKills());
+            playerKills.get(i).setSize(font.getCharSet().getRenderedSize());
+            playerKills.get(i).setLocalTranslation((picX + (picWidth * 0.6f)) + 
+                    ((killsText.getLineWidth()/2) - (font.getLineWidth("9")/2)), 
+                    (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
+        
+            playerDeaths.add(new BitmapText(font, false));
+            playerDeaths.get(i).setText("" + players.get(i).getDeaths());
+            playerDeaths.get(i).setSize(font.getCharSet().getRenderedSize());
+            playerDeaths.get(i).setLocalTranslation((picX + (picWidth * 0.8f)) + 
+                    ((deathsText.getLineWidth()/2) - (font.getLineWidth("9")/2)), 
+                    (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
+            
+            playerStatus.add(new BitmapText(font, false));
+            playerStatus.get(i).setText("Dead");
+            playerStatus.get(i).setSize(font.getCharSet().getRenderedSize());
+            playerStatus.get(i).setLocalTranslation((picX + (picWidth * 0.3f)) + 
+                    (deathsText.getLineWidth()/2), (picY + picHeight) - 
+                    ((picHeight * 0.1f) * (i+2.4f)) , 1);
+            
+            players.get(i).addObserver(this);
         }
     }
     
@@ -66,7 +104,9 @@ public class ScoreboardView extends AHudElement {
      * {@inheritdoc} 
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        
+        if (pce.getPropertyName().equals("ScoreUpdate")) {
+            updateText();
+        }
     }
         
     /**
@@ -78,7 +118,17 @@ public class ScoreboardView extends AHudElement {
         for (BitmapText bmt : playerNames) {
             guiNode.detachChild(bmt);
         }
-        // HIDE MORE STUFF
+        for (BitmapText bmt : playerDeaths) {
+            bmt.detachChild(bmt);
+        }
+        for (BitmapText bmt : playerKills) {
+            bmt.detachChild(bmt);
+        }
+        for (BitmapText bmt : playerStatus) {
+            bmt.detachChild(bmt);
+        }
+        guiNode.detachChild(killsText);
+        guiNode.detachChild(deathsText);
     }
     
     /**
@@ -89,6 +139,32 @@ public class ScoreboardView extends AHudElement {
         super.show();
         for (BitmapText bmt : playerNames) {
             guiNode.attachChild(bmt);
+        }
+        for (BitmapText bmt : playerKills) {
+            guiNode.attachChild(bmt);
+        }
+        for (BitmapText bmt : playerDeaths) {
+            guiNode.attachChild(bmt);
+        }
+        for (BitmapText bmt : playerStatus) {
+            guiNode.attachChild(bmt);
+        }
+        guiNode.attachChild(killsText);
+        guiNode.attachChild(deathsText);
+    }
+    
+    
+    private void updateText() {
+        for (int i = 0; i < players.size(); i++) {
+            
+            playerKills.get(i).setText("" + players.get(i).getKills());
+            playerDeaths.get(i).setText("" + players.get(i).getDeaths());
+            
+            if (players.get(i).getVehicle().getVehicleState() == VehicleState.DESTROYED) {
+                playerStatus.get(i).setText("Dead");
+            } else {
+                playerStatus.get(i).setText("");
+            }
         }
     }
 }
