@@ -58,8 +58,8 @@ public final class TanksFactory {
     private TanksFactory() {
     }
 
-    public static void createNewCanonBall(Vector3f position, Vector3f direction, Quaternion rotation) {
-        IExplodingProjectile projectileModel = new CanonBallModel(position, direction, rotation);
+    public static CanonBallModel createNewCanonBall(Vector3f position, Vector3f direction, Quaternion rotation) {
+        CanonBallModel projectileModel = new CanonBallModel(position, direction, rotation);
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
@@ -74,6 +74,7 @@ public final class TanksFactory {
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
 
         projectileEntity.addControl(control);
+        return projectileModel;
     }
     
     public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation, TanksVehicleControl sender) {

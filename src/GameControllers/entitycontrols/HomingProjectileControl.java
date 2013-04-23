@@ -120,7 +120,7 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
             }
             projectileModel.update(tpf);
             if (hasLosAggro) {
-                projectileModel.moveTo(losTarget.getWorldTranslation().clone(), 30f);
+                projectileModel.moveTo(losTarget.getWorldTranslation().clone());
             }
             //this.setLinearVelocity(projectileModel.getLinearVelocity());
         } 

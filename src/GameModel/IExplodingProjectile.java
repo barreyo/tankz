@@ -45,6 +45,10 @@ public interface IExplodingProjectile extends IWorldObject {
     
     public void updatePosition(Vector3f pos);
     
+    public void updateRotation(Quaternion rotation);
+    
+    public void updateLinearVelocity(Vector3f velocity);
+    
     // Commands
     public static final String END_OF_LIFETIME = "END_OF_LIFETIME";
     public static final String IMPACT_MADE = "IMPACT_MADE";
