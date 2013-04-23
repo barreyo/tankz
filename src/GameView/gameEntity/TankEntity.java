@@ -67,13 +67,13 @@ public final class TankEntity extends AGameEntity {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
-            showEffect(shootEffects);
+            showShootingEffects(shootEffects);
         } else if(evt.getPropertyName().equals(IArmedVehicle.VEHICLE_DESTROYED)){
                 //TODO - Respawn tank at different location after some 1-2 seconds 
                 // instead of deleting tank.
                 
                 // Remove tank from world
-                this.showEffect(blownUpEffects);
+                this.showShootingEffects(blownUpEffects);
                 this.hideFromWorld();
 
         } else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)) {
@@ -82,7 +82,7 @@ public final class TankEntity extends AGameEntity {
             this.cleanup();
         }
         if (evt.getPropertyName().equals(IArmedVehicle.SMOKE)) {
-            showEffect(smokeEffects);
+            showSmokeEffects(smokeEffects);
         }
         pcs.firePropertyChange(evt);
     }
@@ -122,15 +122,25 @@ public final class TankEntity extends AGameEntity {
         }
     }
 
-    private synchronized void showEffect(Collection<ParticleEmitter> effects) {
+    private synchronized void showShootingEffects(Collection<ParticleEmitter> effects) {
         if (spatial.getParent() != null) {
             for (ParticleEmitter effect : effects) {
                 if (effect != null) {
-                    if (effects.size() == 1) {
-                        effect.setLocalTranslation(armedVehicle.getFirePosition());
-                        spatial.getParent().attachChild(effect);
-                        effect.emitAllParticles();
-                    }
+                    effect.setLocalTranslation(armedVehicle.getFirePosition());
+                    spatial.getParent().attachChild(effect);
+                    effect.emitAllParticles();
+                }
+            }
+        }
+    }
+    
+    private synchronized void showSmokeEffects(Collection<ParticleEmitter> effects) {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : effects) {
+                if (effect != null) {
+                    effect.setLocalTranslation(armedVehicle.getSmokePosition());
+                    spatial.getParent().attachChild(effect);
+                    effect.emitAllParticles();
                 }
             }
         }

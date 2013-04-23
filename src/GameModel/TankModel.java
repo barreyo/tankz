@@ -219,7 +219,7 @@ public final class TankModel implements IArmedVehicle {
     }
     
     public Vector3f getSmokePosition() {
-        return position.addLocal(0, 0.9f, 0).subtractLocal(direction.multLocal(1.3f));
+        return position.addLocal(0.79f, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
     }
 
     @Override
