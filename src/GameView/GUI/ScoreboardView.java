@@ -63,9 +63,9 @@ public class ScoreboardView extends AHudElement {
         deathsText = new BitmapText(font, false);
         killsText.setText("Score");
         deathsText.setText("Death");
-        killsText.setLocalTranslation(picX + (picWidth * 0.6f), 
+        killsText.setLocalTranslation(picX + (picWidth * 0.65f), 
                 (picY + picHeight) - ((picHeight * 0.1f)), 1);
-        deathsText.setLocalTranslation(picX + (picWidth * 0.8f), 
+        deathsText.setLocalTranslation(picX + (picWidth * 0.85f), 
                 (picY + picHeight) - ((picHeight * 0.1f)), 1);
         
         for (int i = 0; i < players.size(); i++) {
@@ -78,21 +78,21 @@ public class ScoreboardView extends AHudElement {
             playerKills.add(new BitmapText(font, false));
             playerKills.get(i).setText("" + players.get(i).getKills());
             playerKills.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerKills.get(i).setLocalTranslation((picX + (picWidth * 0.6f)) + 
+            playerKills.get(i).setLocalTranslation((picX + (picWidth * 0.65f)) + 
                     ((killsText.getLineWidth()/2) - (font.getLineWidth("9")/2)), 
                     (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
         
             playerDeaths.add(new BitmapText(font, false));
             playerDeaths.get(i).setText("" + players.get(i).getDeaths());
             playerDeaths.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerDeaths.get(i).setLocalTranslation((picX + (picWidth * 0.8f)) + 
+            playerDeaths.get(i).setLocalTranslation((picX + (picWidth * 0.85f)) + 
                     ((deathsText.getLineWidth()/2) - (font.getLineWidth("9")/2)), 
                     (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
             
             playerStatus.add(new BitmapText(font, false));
             playerStatus.get(i).setText("Dead");
             playerStatus.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerStatus.get(i).setLocalTranslation((picX + (picWidth * 0.3f)) + 
+            playerStatus.get(i).setLocalTranslation((picX + (picWidth * 0.4f)) + 
                     (deathsText.getLineWidth()/2), (picY + picHeight) - 
                     ((picHeight * 0.1f) * (i+2.4f)) , 1);
             
