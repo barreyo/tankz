@@ -5,6 +5,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 /**
  * Model for a tank vehicle.
@@ -20,6 +21,8 @@ public final class TankModel implements IArmedVehicle {
     private Vector3f position;
     private Vector3f direction;
     private Quaternion rotation;
+    
+    private boolean isInWorld;
     
     private float steeringValue;
     private float accelerationValue;
@@ -47,7 +50,12 @@ public final class TankModel implements IArmedVehicle {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    public TankModel() {
+    private List<CanonBallModel> canonBalls;
+    private List<MissileModel> missiles;
+    
+    public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
+        this.canonBalls = canonBalls;
+        this.missiles = missiles;
         health = 100;
         maxSpeed = 80.0f;
         accelerationForce = 2000.0f;
@@ -143,6 +151,9 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void shoot() {
+        for (CanonBallModel canonBall : canonBalls) {
+            
+        }
         pcs.firePropertyChange(SHOOT, null, null);
     }
   
@@ -219,7 +230,7 @@ public final class TankModel implements IArmedVehicle {
     }
     
     public Vector3f getSmokePosition() {
-        return position.addLocal(0, 0.9f, 0).subtractLocal(direction.multLocal(1.3f));
+        return position.addLocal(0.79f, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
     }
 
     @Override
@@ -286,16 +297,23 @@ public final class TankModel implements IArmedVehicle {
         health = 100;
         pcs.firePropertyChange(HEALTH, null, null);
         vehicleState = VehicleState.ALIVE;
+        isInWorld = true;
         pcs.firePropertyChange(SHOW, null, null);
     }
 
     @Override
     public void hideFromWorld() {
+        isInWorld = false;
         pcs.firePropertyChange(HIDE, null, null);
     }
 
     @Override
     public Vector3f getPosition() {
         return position.clone();
+    }
+
+    @Override
+    public boolean isInWorld() {
+        return this.isInWorld;
     }
 }

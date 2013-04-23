@@ -51,6 +51,4 @@ public interface IPowerup extends IWorldObject {
     public static final String SHOW = "SHOW";
     public static final String HIDE = "HIDE";
     public static final String CLEANUP = "CLEANUP";
-
-    public boolean isInWorld();
 }

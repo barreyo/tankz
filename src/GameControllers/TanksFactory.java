@@ -58,8 +58,8 @@ public final class TanksFactory {
     private TanksFactory() {
     }
 
-    public static void createNewCanonBall(Vector3f position, Vector3f direction, Quaternion rotation) {
-        IExplodingProjectile projectileModel = new CanonBallModel(position, direction, rotation);
+    public static CanonBallModel createNewCanonBall(Vector3f position, Vector3f direction, Quaternion rotation) {
+        CanonBallModel projectileModel = new CanonBallModel(position, direction, rotation);
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
@@ -74,9 +74,10 @@ public final class TanksFactory {
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
 
         projectileEntity.addControl(control);
+        return projectileModel;
     }
     
-    public static void createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation, TanksVehicleControl sender) {
+    public static MissileModel createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation, TanksVehicleControl sender) {
         MissileModel projectileModel = new MissileModel(position, direction, rotation);
 
         MissileEntity projectileEntity = new MissileEntity(projectileModel);
@@ -92,6 +93,7 @@ public final class TanksFactory {
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
 
         projectileEntity.addControl(control);
+        return projectileModel;
     }
 
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
@@ -150,8 +152,21 @@ public final class TanksFactory {
         
         // Create one player for each name
         for (String name : playerNames) {
+            
+            List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
+            
+            for (int i = 0; i < 10; i++) {
+               
+            }
+            
+            List<MissileModel> missiles = new ArrayList<MissileModel>();
+            
+            for (int i = 0; i < 10; i++) {
+                
+            }
+            
             // Create one vehicleModel per player
-            IArmedVehicle vehicleModel = new TankModel();
+            IArmedVehicle vehicleModel = new TankModel(canonBalls, missiles);
             Player player = new Player(name, vehicleModel);
 
             // Set up vehicle
@@ -270,7 +285,7 @@ public final class TanksFactory {
         timerView.show();
         
         ScoreboardView sbv = new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(players.get(0).getName()), players);
-        sbv.show();
+//        sbv.show();
         
         return new GameAppState(game, gameWorld);
     }
