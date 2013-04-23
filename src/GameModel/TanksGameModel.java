@@ -125,6 +125,8 @@ public class TanksGameModel implements ITanks {
         pcs.removePropertyChangeListener(l);
     }
 
+    float fireIndicator = 0;
+    
     /**
      * {@inheritdoc} 
      */
@@ -146,6 +148,12 @@ public class TanksGameModel implements ITanks {
             spawnPowerups();
         }
         respawnDestroyedVehicles();
+        
+        fireIndicator += tpf;
+        if (fireIndicator >= 1.0f) {
+            pcs.firePropertyChange("Timer", null, null);
+            fireIndicator = 0;
+        }
     }
 
     private void spawnPowerups() {
@@ -216,5 +224,12 @@ public class TanksGameModel implements ITanks {
                 vehicle.showInWorld();
             }
         }*/
+    }
+
+    /**
+     * {@inheritdoc} 
+     */
+    public float getGameTime() {
+        return gameTimer;
     }
 }

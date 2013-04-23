@@ -37,7 +37,7 @@ public class TimerView extends AHudElement {
         
         BitmapFont font = assetManager.loadFont(EFonts.HANDDRAWNSHAPES.getPath());
         bitmapText = new BitmapText(font, false);
-        bitmapText.setSize(font.getCharSet().getRenderedSize() * ((screenHeight/screenWidth) + 0.7f));
+        bitmapText.setSize(font.getCharSet().getRenderedSize() * ((screenWidth/screenHeight) * 0.85f));
         bitmapText.setText("99:99");
         
         float xText = (screenWidth/2) - (bitmapText.getLineWidth() * 0.5f);
@@ -47,18 +47,34 @@ public class TimerView extends AHudElement {
         if (gameModel.getPlayers().size() == 1) {
             xPic = screenWidth - ((screenWidth/10) * 1.3f);
             yPic = screenHeight - ((screenHeight/14) * 1.5f);
-            xText = screenWidth - (bitmapText.getLineWidth() * 2.3f);
-            yText = screenHeight - (bitmapText.getLineHeight() * 1.35f);
+            xText = screenWidth - ((screenWidth/10) * 1.3f);
+            yText = screenHeight - ((screenHeight/14) * 1.5f);
         }
         picture.setPosition(xPic, yPic);
         bitmapText.setLocalTranslation(xText, yText, 1);
+        
+        gameModel.addObserver(this);
     }
 
     /**
      * {@inheritdoc}
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        bitmapText.setText("13:37");
+        int seconds = (int) (gameModel.getGameTime() % 60);
+        int minutes = (int) (gameModel.getGameTime() / 60);
+        String formattedTime;
+        
+        if (minutes < 10) {
+            formattedTime = "0" + minutes + ":";
+        } else {
+            formattedTime = minutes + ":";
+        }
+        if (seconds < 10) {
+            formattedTime += "0" + seconds;
+        } else {
+            formattedTime += "" + seconds;
+        }
+        bitmapText.setText(formattedTime);
     }
     
     /**

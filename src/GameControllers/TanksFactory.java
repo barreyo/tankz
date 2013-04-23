@@ -24,6 +24,7 @@ import GameModel.SpawningPoint;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
 import GameView.GUI.PowerupSlotView;
+import GameView.GUI.ScoreboardView;
 import GameView.GUI.TimerView;
 import GameView.Map.GameWorld1;
 import GameView.Map.IGameWorld;
@@ -248,7 +249,10 @@ public final class TanksFactory {
         // set up timerView
         TimerView timerView = new TimerView(game);
         timerView.show();
-
+        
+        ScoreboardView sbv = new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(players.get(0).getName()), players.size());
+        sbv.show();
+        
         return new GameAppState(game, gameWorld);
     }
 }

@@ -48,4 +48,11 @@ public interface ITanks extends IObservable {
     public static final String CLEANUP = "CLEANUP";
 
     public void powerupPickedUp(IPowerup powerup);
+    
+    /**
+     * Returns the current game time.
+     * 
+     * @return game time.
+     */
+    public float getGameTime();
 }
