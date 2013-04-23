@@ -112,5 +112,4 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
-    
 }
