@@ -22,6 +22,8 @@ public final class TankModel implements IArmedVehicle {
     private Vector3f direction;
     private Quaternion rotation;
     
+    private boolean isInWorld;
+    
     private float steeringValue;
     private float accelerationValue;
     private float acceleration;
@@ -149,6 +151,9 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void shoot() {
+        for (CanonBallModel canonBall : canonBalls) {
+            
+        }
         pcs.firePropertyChange(SHOOT, null, null);
     }
   
@@ -292,16 +297,23 @@ public final class TankModel implements IArmedVehicle {
         health = 100;
         pcs.firePropertyChange(HEALTH, null, null);
         vehicleState = VehicleState.ALIVE;
+        isInWorld = true;
         pcs.firePropertyChange(SHOW, null, null);
     }
 
     @Override
     public void hideFromWorld() {
+        isInWorld = false;
         pcs.firePropertyChange(HIDE, null, null);
     }
 
     @Override
     public Vector3f getPosition() {
         return position.clone();
+    }
+
+    @Override
+    public boolean isInWorld() {
+        return this.isInWorld;
     }
 }

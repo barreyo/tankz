@@ -19,6 +19,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     private static final float MAX_LIFE_TIME = 4f;
     private float projectileLifeTimer;
     private float explodingTimer;
+    private boolean isInWorld;
     
     boolean exploding;
     
@@ -90,11 +91,13 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
 
     @Override
     public void showInWorld() {
+        isInWorld = true;
         pcs.firePropertyChange(SHOW, null, null);
     }
 
     @Override
     public void hideFromWorld() {
+        isInWorld = false;
         pcs.firePropertyChange(HIDE, null, null);
     }
 
@@ -111,5 +114,10 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
+    }
+    
+    @Override
+    public boolean isInWorld() {
+        return this.isInWorld;
     }
 }
