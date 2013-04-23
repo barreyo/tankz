@@ -5,6 +5,7 @@ import App.TanksAppAdapter;
 import GameModel.ITanks;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
+import com.jme3.math.ColorRGBA;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
 
