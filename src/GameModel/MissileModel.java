@@ -1,6 +1,5 @@
 package GameModel;
 
-import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
@@ -112,7 +111,6 @@ public class MissileModel implements IExplodingProjectile {
     private void turn(float tpf) {
         Vector3f targetVec = new Vector3f(target);
         targetVec.subtractLocal(position);
-        turnTo.lookAt(targetVec, Vector3f.UNIT_Y);
         turnTo.lookAt(targetVec, Vector3f.UNIT_Y);
         Quaternion newRotation = turnTo;
         pcs.firePropertyChange(ROTATE, rotation, newRotation);

@@ -8,9 +8,7 @@ import App.TanksAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
-import com.jme3.effect.shapes.EmitterBoxShape;
 import com.jme3.effect.shapes.EmitterPointShape;
-import com.jme3.effect.shapes.EmitterShape;
 import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
@@ -30,31 +28,31 @@ public class SmokeEffect implements IEffect {
     
     SmokeEffect() {
         AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
-        createFlame(assetManager);
+//        createFlame(assetManager);
 //        createFlash(assetManager);
 //        createSpark(assetManager);
 //        createRoundSpark(assetManager);
-//        createSmokeTrail(assetManager);
+        createSmokeTrail(assetManager);
 //        createDebris(assetManager);
 //        createShockwave(assetManager);
     }
     
     private void createFlame(AssetManager assetManager) {
-        ParticleEmitter flame = new ParticleEmitter("Flame", ParticleMesh.Type.Point, 5);
+        ParticleEmitter flame = new ParticleEmitter("Flame", ParticleMesh.Type.Point, 32);
         flame.setSelectRandomImage(true);
-        flame.setStartColor(new ColorRGBA(20f, 20f, 20f, 1f));
-        flame.setEndColor(new ColorRGBA(20f, 20f, 20f, 0f));
-        flame.setStartSize(0.2f);
-        flame.setEndSize(0.2f);
-        flame.setShape(new EmitterPointShape(new Vector3f(0.5f,0.5f,0.5f)));;
+        flame.setStartColor(new ColorRGBA(1f, 0.4f, 0.05f, 1f));
+        flame.setEndColor(new ColorRGBA(.4f, .22f, .12f, 0f));
+        flame.setStartSize(1.3f);
+        flame.setEndSize(2f);
+        flame.setShape(new EmitterSphereShape(Vector3f.ZERO, 1f));
         flame.setParticlesPerSec(0);
         flame.setGravity(0, -5, 0);
-        flame.setLowLife(.5f);
+        flame.setLowLife(.4f);
         flame.setHighLife(.5f);
-        flame.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 3, 0));
+        flame.getParticleInfluencer().setInitialVelocity(new Vector3f(0, 7, 0));
         flame.getParticleInfluencer().setVelocityVariation(1f);
-        flame.setImagesX(1);
-        flame.setImagesY(1);
+        flame.setImagesX(2);
+        flame.setImagesY(2);
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/flame.png"));
         mat.setBoolean("PointSprite", true);
@@ -130,6 +128,26 @@ public class SmokeEffect implements IEffect {
     
     private void createSmokeTrail(AssetManager assetManager) {
         ParticleEmitter smoketrail = new ParticleEmitter("SmokeTrail", ParticleMesh.Type.Triangle, 22);
+        smoketrail.setNumParticles(100);
+        smoketrail.setParticlesPerSec(100);
+        smoketrail.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
+        smoketrail.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
+        smoketrail.setStartSize(.2f);
+        smoketrail.setEndSize(1f);
+        smoketrail.getParticleInfluencer().setInitialVelocity(new Vector3f(1f,1f,1f));
+        smoketrail.setFacingVelocity(true);
+        smoketrail.setHighLife(10);
+        smoketrail.setLowLife(5);
+        smoketrail.setRotateSpeed(0);
+        smoketrail.setRandomAngle(false);
+        smoketrail.setGravity(new Vector3f(1f,1f,1f));
+        smoketrail.setShape(new EmitterPointShape(new Vector3f(1f,1f,1f)));
+        Material mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
+        mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/smoketrail.png"));
+        smoketrail.setMaterial(mat);
+        emitters.add(smoketrail);
+        
+        /*
         smoketrail.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
         smoketrail.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
         smoketrail.setStartSize(.2f);
@@ -149,6 +167,7 @@ public class SmokeEffect implements IEffect {
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/smoketrail.png"));
         smoketrail.setMaterial(mat);
         emitters.add(smoketrail);
+        */
     }
     
     private void createDebris(AssetManager assetManager) {
