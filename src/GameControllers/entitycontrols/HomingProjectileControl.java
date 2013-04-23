@@ -2,8 +2,6 @@ package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
-import GameModel.CircleAggroArea;
-import GameModel.IAggroArea;
 import GameModel.IExplodingProjectile;
 import GameModel.MissileModel;
 import GameView.Sounds.ESounds;
