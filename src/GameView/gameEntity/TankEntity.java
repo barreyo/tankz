@@ -126,9 +126,11 @@ public final class TankEntity extends AGameEntity {
         if (spatial.getParent() != null) {
             for (ParticleEmitter effect : effects) {
                 if (effect != null) {
-                    effect.setLocalTranslation(armedVehicle.getFirePosition());
-                    spatial.getParent().attachChild(effect);
-                    effect.emitAllParticles();
+                    if (effects.size() == 1) {
+                        effect.setLocalTranslation(armedVehicle.getFirePosition());
+                        spatial.getParent().attachChild(effect);
+                        effect.emitAllParticles();
+                    }
                 }
             }
         }

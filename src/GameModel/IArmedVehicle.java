@@ -91,6 +91,8 @@ public interface IArmedVehicle extends IWorldObject {
     public void setPosition(Vector3f position);
 
     public Vector3f getPosition();
+    
+    public Vector3f getSmokePosition();
 
     /**
      * Enum representing different states of the vehicle.
@@ -127,4 +129,5 @@ public interface IArmedVehicle extends IWorldObject {
     public static final String HIDE = "HIDE";
     public static final String CLEANUP = "CLEANUP";
     public static final String SMOKE = "SMOKE";
+    public static final String MISSILE = "MISSILE";
 }

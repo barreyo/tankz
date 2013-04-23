@@ -146,6 +146,10 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(SHOOT, null, null);
     }
   
+    public void shootMissile() {
+        pcs.firePropertyChange(MISSILE, health, health);
+    }
+    
     @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
@@ -212,6 +216,10 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public Vector3f getFirePosition() {
         return position.addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.3f));
+    }
+    
+    public Vector3f getSmokePosition() {
+        return position.addLocal(0, 0.9f, 0).subtractLocal(direction.multLocal(1.3f));
     }
 
     @Override
