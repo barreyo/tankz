@@ -11,6 +11,7 @@ import com.jme3.effect.ParticleMesh;
 import com.jme3.effect.shapes.EmitterPointShape;
 import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
+import com.jme3.material.RenderState.BlendMode;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
@@ -127,23 +128,23 @@ public class SmokeEffect implements IEffect {
     }
     
     private void createSmokeTrail(AssetManager assetManager) {
-        ParticleEmitter smoketrail = new ParticleEmitter("SmokeTrail", ParticleMesh.Type.Triangle, 22);
-        smoketrail.setNumParticles(100);
-        smoketrail.setParticlesPerSec(100);
-        smoketrail.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
-        smoketrail.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
-        smoketrail.setStartSize(.2f);
-        smoketrail.setEndSize(1f);
+        ParticleEmitter smoketrail = new ParticleEmitter("SmokeTrail", ParticleMesh.Type.Triangle, 30);
+        smoketrail.setNumParticles(1000);
+        smoketrail.setParticlesPerSec(500);
+        smoketrail.setStartColor(ColorRGBA.Black);
+        smoketrail.setEndColor(ColorRGBA.Black);
+        smoketrail.setStartSize(0.09f);
+        smoketrail.setEndSize(0.15f);
         smoketrail.getParticleInfluencer().setInitialVelocity(new Vector3f(1f,1f,1f));
         smoketrail.setFacingVelocity(true);
-        smoketrail.setHighLife(10);
-        smoketrail.setLowLife(5);
+        smoketrail.setHighLife(0.3f);
+        smoketrail.setLowLife(0.01f);
         smoketrail.setRotateSpeed(0);
         smoketrail.setRandomAngle(false);
-        smoketrail.setGravity(new Vector3f(1f,1f,1f));
-        smoketrail.setShape(new EmitterPointShape(new Vector3f(1f,1f,1f)));
+        smoketrail.setGravity(new Vector3f(0f,-1f,0f));
         Material mat = new Material(assetManager, "Common/MatDefs/Misc/Particle.j3md");
-        mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/smoketrail.png"));
+        mat.setTexture("Texture", assetManager.loadTexture("Effects/Smoke/Smoke.png"));
+        mat.getAdditionalRenderState().setBlendMode(BlendMode.Alpha);
         smoketrail.setMaterial(mat);
         emitters.add(smoketrail);
         
@@ -199,8 +200,8 @@ public class SmokeEffect implements IEffect {
         ParticleEmitter shockwave = new ParticleEmitter("Shockwave", ParticleMesh.Type.Triangle, 1);
 //        shockwave.setRandomAngle(true);
         shockwave.setFaceNormal(Vector3f.UNIT_Y);
-        shockwave.setStartColor(new ColorRGBA(.48f, 0.17f, 0.01f, 1f));
-        shockwave.setEndColor(new ColorRGBA(.48f, 0.17f, 0.01f, 0f));
+        shockwave.setStartColor(new ColorRGBA(0.01f, 0.01f, 0.01f, 1f));
+        shockwave.setEndColor(new ColorRGBA(0.01f, 0.01f, 0.01f, 1f));
         
         shockwave.setStartSize(0f);
         shockwave.setEndSize(7f);
