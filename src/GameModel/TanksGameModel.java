@@ -157,15 +157,13 @@ public class TanksGameModel implements ITanks {
     private void spawnPowerups() {
         for (ISpawningPoint spawn : powerupSpawningPoints) {
             if (!spawn.isOccupied()) {
-                boolean foundAvaiblePowerup = false;
-                while (!foundAvaiblePowerup) {
-                    IPowerup powerup = getRandomItem(powerups);
+                Collections.shuffle(powerups);
+                    for (IPowerup powerup : powerups) {
                     if (!powerup.isHeldByPlayer() && !powerup.isInWorld()) {
                         powerup.setPosition(spawn.getPosition());
                         powerup.showInWorld();
                         spawn.setOccupied(true);
                         spawn.setOccupier(powerup);
-                        foundAvaiblePowerup = true;
                     }
                 }
             }
@@ -183,12 +181,6 @@ public class TanksGameModel implements ITanks {
         for (IPowerup powerup : powerups) {
             powerup.cleanup();
         }
-    }
-    
-    private <E> E getRandomItem(List<? extends E> collection) {
-        int index = randomGenerator.nextInt(collection.size());
-        E item = collection.get(index);
-        return item;
     }
 
     private void spawnAllPlayers() {
