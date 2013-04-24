@@ -46,6 +46,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -55,6 +56,8 @@ import java.util.List;
  */
 public final class TanksFactory {
 
+    private static HashMap<IPlayer, ScoreboardView> scoreboardHash;
+    
     private TanksFactory() {
     }
     
@@ -157,6 +160,15 @@ public final class TanksFactory {
         chaseCam.setDefaultVerticalRotation(0.3f);
         return chaseCam;
     }
+    
+    // TESTING SCOREBOARD VIEWIING
+    public static void showScoreboard(IPlayer player) {
+        scoreboardHash.get(player).show();
+    }
+    
+    public static void hideScoreboard(IPlayer player) {
+        scoreboardHash.get(player).hide();
+    }
 
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
 
@@ -164,6 +176,8 @@ public final class TanksFactory {
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
+        
+        scoreboardHash = new HashMap<IPlayer, ScoreboardView>();
         
         // Create one player for each name
         for (String name : playerNames) {
@@ -251,6 +265,11 @@ public final class TanksFactory {
             players.add(player);
         }
         
+        for(IPlayer p : players) {
+            // set up scoreboard for each player
+            scoreboardHash.put(p, new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer("Player3"), players));
+        }
+        
         // Setting spawningpoints, different on each map
         List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
         List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
@@ -298,9 +317,6 @@ public final class TanksFactory {
         // set up timerView
         TimerView timerView = new TimerView(game);
         timerView.show();
-        
-        ScoreboardView sbv = new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(players.get(0).getName()), players);
-        sbv.show();
         
         return new GameAppState(game, gameWorld);
     }
