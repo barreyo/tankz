@@ -117,6 +117,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     private String reset;
     private String shoot;
     private String powerup;
+    private String scoreboard;
 
     private boolean isFirstLeftKeyPressDone;
     private boolean isFirstRightKeyPressDone;
@@ -200,6 +201,12 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             if (!isPressed) {
                 player.usePowerup();
             }
+        } else if (name.equals(scoreboard)) {
+            if (isPressed) {
+                TanksFactory.showScoreboard(player);
+            } else {
+                TanksFactory.hideScoreboard(player);
+            }
         }
     }
 
@@ -226,6 +233,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         int resetI = inputs.getResetKey();
         int shootI = inputs.getShootKey();
         int powerupI = inputs.getPowerupKey();
+        int scoreboardI = inputs.getScoreboardKey();
         
         // Specifies mappingnames for input
         turnLeft = "" + left;
@@ -235,6 +243,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         reset = "" + resetI;
         shoot = "" + shootI;
         powerup = "" + powerupI;
+        scoreboard = "" + scoreboardI;
         
         // Adds the mappings to inputmanager
         TanksAppAdapter.INSTANCE.addInputMapping(turnLeft, new KeyTrigger(left));
@@ -244,8 +253,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TanksAppAdapter.INSTANCE.addInputMapping(reset, new KeyTrigger(resetI));
         TanksAppAdapter.INSTANCE.addInputMapping(shoot, new KeyTrigger(shootI));
         TanksAppAdapter.INSTANCE.addInputMapping(powerup, new KeyTrigger(powerupI));
+        TanksAppAdapter.INSTANCE.addInputMapping(scoreboard, new KeyTrigger(scoreboardI));
         // Registers this as an listener for the specified mappingnames
-        TanksAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot, powerup);
+        TanksAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, 
+                accelerateForward, accelerateBack, reset, shoot, powerup, scoreboard);
         
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
@@ -264,6 +275,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TanksAppAdapter.INSTANCE.deleteInputMapping(accelerateBack);
         TanksAppAdapter.INSTANCE.deleteInputMapping(reset);
         TanksAppAdapter.INSTANCE.deleteInputMapping(shoot);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(powerup);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(scoreboard);
         TanksAppAdapter.INSTANCE.removeInputListener(this);
         inputs.setInUse(false);
     }

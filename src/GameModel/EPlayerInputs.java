@@ -9,12 +9,12 @@ import com.jme3.input.KeyInput;
  */
 public enum EPlayerInputs {
 
-    Player1(KeyInput.KEY_A, KeyInput.KEY_D, KeyInput.KEY_W, KeyInput.KEY_S, KeyInput.KEY_RETURN, KeyInput.KEY_Q, KeyInput.KEY_E),
-    Player2(KeyInput.KEY_H, KeyInput.KEY_K, KeyInput.KEY_U, KeyInput.KEY_J, KeyInput.KEY_O, KeyInput.KEY_Y, KeyInput.KEY_I),
-    Player3(KeyInput.KEY_LEFT, KeyInput.KEY_RIGHT, KeyInput.KEY_UP, KeyInput.KEY_DOWN, KeyInput.KEY_NUMPAD0, KeyInput.KEY_NUMPAD1, KeyInput.KEY_RSHIFT),
-    Player4(KeyInput.KEY_NUMPAD4, KeyInput.KEY_NUMPAD6, KeyInput.KEY_NUMPAD8, KeyInput.KEY_NUMPAD5, KeyInput.KEY_NUMPAD9, KeyInput.KEY_NUMPAD7, KeyInput.KEY_X);
+    Player1(KeyInput.KEY_A, KeyInput.KEY_D, KeyInput.KEY_W, KeyInput.KEY_S, KeyInput.KEY_RETURN, KeyInput.KEY_Q, KeyInput.KEY_E, KeyInput.KEY_1),
+    Player2(KeyInput.KEY_H, KeyInput.KEY_K, KeyInput.KEY_U, KeyInput.KEY_J, KeyInput.KEY_O, KeyInput.KEY_Y, KeyInput.KEY_I, KeyInput.KEY_2),
+    Player3(KeyInput.KEY_LEFT, KeyInput.KEY_RIGHT, KeyInput.KEY_UP, KeyInput.KEY_DOWN, KeyInput.KEY_NUMPAD0, KeyInput.KEY_NUMPAD1, KeyInput.KEY_RSHIFT, KeyInput.KEY_3),
+    Player4(KeyInput.KEY_NUMPAD4, KeyInput.KEY_NUMPAD6, KeyInput.KEY_NUMPAD8, KeyInput.KEY_NUMPAD5, KeyInput.KEY_NUMPAD9, KeyInput.KEY_NUMPAD7, KeyInput.KEY_X, KeyInput.KEY_4);
     
-    private final int left, right, up, down, reset, shoot, powerup;
+    private final int left, right, up, down, reset, shoot, powerup, showScoreboard;
     
     private boolean isInUse;
 
@@ -29,7 +29,7 @@ public enum EPlayerInputs {
      * @param sh shoot key
      * @param pwr powerup key
      */
-    private EPlayerInputs(int l, int r, int u, int d, int re, int sh, int pwr) {
+    private EPlayerInputs(int l, int r, int u, int d, int re, int sh, int pwr, int shscb) {
         left = l;
         right = r;
         up = u;
@@ -37,6 +37,7 @@ public enum EPlayerInputs {
         reset = re;
         shoot = sh;
         powerup = pwr;
+        showScoreboard = shscb;
     }
 
     /**
@@ -100,6 +101,15 @@ public enum EPlayerInputs {
      */
     public int getPowerupKey() {
         return powerup;
+    }
+    
+    /**
+     * Returns an integer representing the show scoreboard key.
+     * 
+     * @return an integer respresenting the show scoreboard key.
+     */
+    public int getScoreboardKey() {
+        return showScoreboard;
     }
     
     /**

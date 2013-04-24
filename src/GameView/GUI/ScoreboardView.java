@@ -110,6 +110,7 @@ public class ScoreboardView extends AHudElement {
     /**
      * {@inheritdoc} 
      */
+    @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals("ScoreUpdate")) {
             updateText();
@@ -126,13 +127,13 @@ public class ScoreboardView extends AHudElement {
             guiNode.detachChild(bmt);
         }
         for (BitmapText bmt : playerDeaths) {
-            bmt.detachChild(bmt);
+            guiNode.detachChild(bmt);
         }
         for (BitmapText bmt : playerKills) {
-            bmt.detachChild(bmt);
+            guiNode.detachChild(bmt);
         }
         for (BitmapText bmt : playerStatus) {
-            bmt.detachChild(bmt);
+            guiNode.detachChild(bmt);
         }
         guiNode.detachChild(killsText);
         guiNode.detachChild(deathsText);
@@ -159,7 +160,6 @@ public class ScoreboardView extends AHudElement {
         guiNode.attachChild(killsText);
         guiNode.attachChild(deathsText);
     }
-    
     
     private void updateText() {
         for (int i = 0; i < players.size(); i++) {
