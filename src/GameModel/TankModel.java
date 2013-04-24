@@ -53,6 +53,10 @@ public final class TankModel implements IArmedVehicle {
     private List<CanonBallModel> canonBalls;
     private List<MissileModel> missiles;
     
+    public TankModel() {
+        this(null, null);
+    }
+    
     public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
