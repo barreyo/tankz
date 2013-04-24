@@ -89,7 +89,6 @@ public abstract class APowerup implements IPowerup {
     
     @Override
     public void update(float tpf) {
-        
     }      
     
     @Override

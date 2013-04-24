@@ -18,7 +18,6 @@ import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.Matrix3f;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import java.beans.PropertyChangeEvent;
@@ -67,10 +66,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             return;
         }
         super.update(tpf);
-        if (!isListening) {
-            TanksAppAdapter.INSTANCE.removePhysiscsCollisionListener(this);
-            this.setEnabled(false);
-        }
         
         vehicleModel.updateCurrentVehicleSpeedKmHour(this.getCurrentVehicleSpeedKmHour());
         vehicleModel.updatePosition(spatial.getWorldTranslation());
@@ -108,6 +103,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         // Remove this as a control and remove inputs
         tankEntity.removeControl(this);
         tankEntity.removeObserver(this);
+        TanksAppAdapter.INSTANCE.removePhysiscsCollisionListener(this);
         removeInputMappings();
     }
     
@@ -291,13 +287,11 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             // Brake the vehicle according to the friction in model
             this.brake(vehicleModel.getFrictionForce());
         }  else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)){
-            isListening = true;
             this.setEnabled(true);
-            TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
             TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
             this.setPhysicsLocation(vehicleModel.getPosition());
         } else if (evt.getPropertyName().equals(IArmedVehicle.HIDE)){
-            isListening = false;
+            this.setEnabled(false);
             TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
         } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
             this.cleanup();
@@ -307,8 +301,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
         }
     }
-    
-    private boolean isListening;
     
     
     /**

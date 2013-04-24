@@ -1,7 +1,5 @@
 package App;
 
-import App.TanksApp;
-import GameControllers.entitycontrols.TanksVehicleControl;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.asset.AssetManager;
 import com.jme3.audio.AudioNode;
@@ -9,7 +7,6 @@ import com.jme3.audio.AudioRenderer;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.input.InputManager;
-import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.InputListener;
 import com.jme3.input.controls.Trigger;
 import com.jme3.light.Light;

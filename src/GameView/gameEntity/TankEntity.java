@@ -3,18 +3,13 @@ package GameView.gameEntity;
 
 import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
-import GameUtilities.Util;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import GameView.physics.ECollisionShapes;
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
-import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
-import com.jme3.scene.Geometry;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -68,14 +63,10 @@ public final class TankEntity extends AGameEntity {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
             showShootingEffects(shootEffects);
-        } else if(evt.getPropertyName().equals(IArmedVehicle.VEHICLE_DESTROYED)){
-                //TODO - Respawn tank at different location after some 1-2 seconds 
-                // instead of deleting tank.
-                
+        } else if(evt.getPropertyName().equals(IArmedVehicle.HIDE)){
                 // Remove tank from world
                 this.showShootingEffects(blownUpEffects);
                 this.hideFromWorld();
-
         } else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)) {
             this.showInWorld();
         } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {

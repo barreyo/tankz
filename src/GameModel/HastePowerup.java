@@ -26,6 +26,7 @@ public class HastePowerup extends APowerup{
         
         vehicle.setMaxSpeed(maxSpeed * 2f);
         vehicle.setAccelerationForce(accForce * 2f);
+        activateTimer = 0;
         isActive = true;
     }
     

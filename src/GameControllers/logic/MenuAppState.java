@@ -17,6 +17,7 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
+import de.lessvoid.nifty.tools.SizeValue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -151,6 +152,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      * @param nifty
      * @param screen
      */
+    @Override
     public void bind(Nifty nifty, Screen screen) {
         popupElement = nifty.createPopup("popupExit");
     }

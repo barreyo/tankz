@@ -2,8 +2,6 @@ package GameControllers.logic;
 
 import App.TanksAppAdapter;
 import GameControllers.TanksFactory;
-import GameModel.ApplicationSettings;
-import GameView.Map.IGameWorld;
 
 
 /**

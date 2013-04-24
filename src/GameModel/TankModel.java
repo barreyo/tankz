@@ -226,11 +226,11 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public Vector3f getFirePosition() {
-        return position.addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.3f));
+        return new Vector3f(position).addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.3f));
     }
     
     public Vector3f getSmokePosition() {
-        return position.addLocal(0.79f, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
+        return new Vector3f(position).addLocal(0, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
     }
 
     @Override
@@ -278,7 +278,7 @@ public final class TankModel implements IArmedVehicle {
         this.decrementHealth(projectile.getDamageOnImpact());
         if (health<=0){
             this.vehicleState = VehicleState.DESTROYED;
-            pcs.firePropertyChange(VEHICLE_DESTROYED, null, null);
+            pcs.firePropertyChange(HIDE, null, null);
         }
     }
 

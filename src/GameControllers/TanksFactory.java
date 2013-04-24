@@ -2,7 +2,6 @@ package GameControllers;
 
 import GameControllers.logic.ViewPortManager;
 import GameModel.IPlayer;
-import GameModel.IExplodingProjectile;
 import GameModel.CanonBallModel;
 import GameModel.TankModel;
 import App.TanksAppAdapter;
@@ -239,7 +238,8 @@ public final class TanksFactory {
             
             vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_02);
             vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
-
+            TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
+         
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,
                     ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
