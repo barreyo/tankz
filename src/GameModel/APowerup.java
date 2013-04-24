@@ -41,7 +41,6 @@ public abstract class APowerup implements IPowerup {
     @Override
     public void playerPickedUpPowerup() {
         this.setHeldByPlayer(true);
-        hideFromWorld();
     }
     
     @Override

@@ -66,20 +66,15 @@ public final class MissileEntity extends AGameEntity {
                 }
             }
             projectile.removeObserver(this);
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
-            impact();
         } else if (evt.getPropertyName().equals(IExplodingProjectile.ROTATE)) {
             spatial.setLocalRotation((Quaternion)evt.getNewValue());
         }
         pcs.firePropertyChange(evt);
     }
     
-    private void impact() {
+    public void impact() {
         showEffect();
-        if (spatial.getParent() != null) {
-            // Remove projectile from world
-            spatial.removeFromParent();
-        }
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
     }
 
     private void showEffect() {

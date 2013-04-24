@@ -55,6 +55,4 @@ public interface ITanks extends IObservable {
      * @return game time.
      */
     public float getGameTime();
-    
-    public void collision(IWorldObject objA, IWorldObject objB);
 }

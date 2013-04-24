@@ -131,12 +131,10 @@ public class Player implements IPlayer {
      */
     @Override
     public synchronized void setPowerup(IPowerup powerup) {
-        if (this.powerup != null) {
-            this.powerup.setHeldByPlayer(false);
+        if (this.powerup == null) {
+            this.powerup = powerup;
+            pcs.firePropertyChange(POWERUP_CHANGED, null, null);
         }
-        this.powerup = powerup;
-        this.powerup.playerPickedUpPowerup();
-        pcs.firePropertyChange(POWERUP_CHANGED, null, null);
     }
 
     /**

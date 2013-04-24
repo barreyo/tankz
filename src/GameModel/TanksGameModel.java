@@ -157,15 +157,13 @@ public class TanksGameModel implements ITanks {
     private void spawnPowerups() {
         for (ISpawningPoint spawn : powerupSpawningPoints) {
             if (!spawn.isOccupied()) {
-                boolean foundAvaiblePowerup = false;
-                while (!foundAvaiblePowerup) {
-                    IPowerup powerup = getRandomItem(powerups);
+                Collections.shuffle(powerups);
+                    for (IPowerup powerup : powerups) {
                     if (!powerup.isHeldByPlayer() && !powerup.isInWorld()) {
                         powerup.setPosition(spawn.getPosition());
                         powerup.showInWorld();
                         spawn.setOccupied(true);
                         spawn.setOccupier(powerup);
-                        foundAvaiblePowerup = true;
                     }
                 }
             }
@@ -183,12 +181,6 @@ public class TanksGameModel implements ITanks {
         for (IPowerup powerup : powerups) {
             powerup.cleanup();
         }
-    }
-    
-    private <E> E getRandomItem(List<? extends E> collection) {
-        int index = randomGenerator.nextInt(collection.size());
-        E item = collection.get(index);
-        return item;
     }
 
     private void spawnAllPlayers() {
@@ -231,42 +223,5 @@ public class TanksGameModel implements ITanks {
      */
     public float getGameTime() {
         return gameTimer;
-    }
-
-    @Override
-    public void collision(IWorldObject objA, IWorldObject objB) {
-        if (objA instanceof IExplodingProjectile) {
-            IExplodingProjectile projectile = (IExplodingProjectile) objA;
-            projectile.impact();
-            if (objB instanceof IArmedVehicle) {
-                IArmedVehicle vehicle = (IArmedVehicle)objB;
-                vehicle.gotHitBy(projectile);
-            }
-        } else if (objB instanceof IExplodingProjectile) {
-            IExplodingProjectile projectile = (IExplodingProjectile) objB;
-            projectile.impact();
-            if (objA instanceof IArmedVehicle) {
-                IArmedVehicle vehicle = (IArmedVehicle)objA;
-                vehicle.gotHitBy(projectile);
-            }
-        } else if (objA instanceof IArmedVehicle && objB instanceof IPowerup) {
-            IPowerup powerup = (IPowerup) objB;
-            powerupPickedUp(powerup);
-            IArmedVehicle vehicle = (IArmedVehicle)objA;
-            for (IPlayer player : players) {
-                if (player.getVehicle() == vehicle) {
-                    player.setPowerup(powerup);
-                }
-            }
-        } else if (objB instanceof IArmedVehicle && objA instanceof IPowerup) {
-            IPowerup powerup = (IPowerup) objA;
-            powerupPickedUp(powerup);
-            IArmedVehicle vehicle = (IArmedVehicle)objB;
-            for (IPlayer player : players) {
-                if (player.getVehicle() == vehicle) {
-                    player.setPowerup(powerup);
-                }
-            }
-        }
     }
 }

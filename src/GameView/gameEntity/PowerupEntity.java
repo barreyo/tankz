@@ -16,15 +16,15 @@ import java.beans.PropertyChangeSupport;
  * @author Garpetun
  */
 public class PowerupEntity extends AGameEntity {
-
-    private IPowerup powerup;
+    private final IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
         
         spatial.setUserData("Model", pow);
-        setModel(pow);
+        powerup = pow;
+        powerup.addObserver(this);
     }
     
     @Override
@@ -37,40 +37,28 @@ public class PowerupEntity extends AGameEntity {
      */
     @Override
     public void cleanup() {
-        if (spatial.getParent() != null) {
-            // Remove ourself from world
-            spatial.removeFromParent();
-        }
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
         powerup.removeObserver(this);
     }
 
-    public synchronized void propertyChange(PropertyChangeEvent pce) {
+    @Override
+    public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(IPowerup.SHOW)) {
             showInWorld();
-        } else if (pce.getPropertyName().equals(IPowerup.HIDE)) {
-            hideFromWorld();
         } else if (pce.getPropertyName().equals(IPowerup.CLEANUP)) {
             cleanup();
         }
         pcs.firePropertyChange(pce);
     }
 
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
-    }
-    
-    public void setModel(IPowerup pow) {
-        if (powerup != null) {
-            this.cleanup();
-        }
-        powerup = pow;
-        if (powerup != null) {
-            powerup.addObserver(this);
-        }
     }
 
     private void showInWorld() {
@@ -80,7 +68,7 @@ public class PowerupEntity extends AGameEntity {
         }
     }
 
-    private void hideFromWorld() {
-        spatial.removeFromParent();
+    public void hideFromWorld() {
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
     }
 }
