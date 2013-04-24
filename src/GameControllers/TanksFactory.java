@@ -259,7 +259,7 @@ public final class TanksFactory {
         
         for(IPlayer p : players) {
             // set up scoreboard for each player
-            scoreboardHash.put(p, new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer("Player3"), players));
+            scoreboardHash.put(p, new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players));
         }
         
         // Setting spawningpoints, different on each map
