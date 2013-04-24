@@ -26,6 +26,13 @@ public class ScoreboardView extends AHudElement {
     private List<IPlayer> players;
     private BitmapText killsText, deathsText;
     
+    /**
+     * Instatiates a scoreboardview that can be displayed in the given viewport.
+     * Displays deaths, kills and vehicle status in a table format.
+     * 
+     * @param vp ViewPort where the scoreboard should be shown.
+     * @param players all the players that should be shown in the scoreboard.
+     */
     public ScoreboardView(ViewPort vp, List<IPlayer> players) {
         this.players = players;
         
