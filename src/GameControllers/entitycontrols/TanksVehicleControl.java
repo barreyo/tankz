@@ -296,8 +296,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
             this.cleanup();
         } else if (evt.getPropertyName().equals(IArmedVehicle.MISSILE)) {
-            TanksFactory.createNewMissile(vehicleModel.getFirePosition().addLocal(0, 5f, 0),
-            vehicleModel.getDirection().multLocal(100), vehicleModel.getRotation(), this);
+            TanksFactory.createNewMissile(vehicleModel.getPosition().addLocal(0, 3, 0),
+            new Vector3f(0, 20, 0), vehicleModel.getRotation(), this);
             SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
         }
     }

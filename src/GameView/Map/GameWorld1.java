@@ -1,8 +1,6 @@
 package GameView.Map;
 
 import GameControllers.logic.GraphicManager;
-import GameControllers.TanksFactory;
-import GameModel.IPlayer;
 import App.TanksAppAdapter;
 import GameModel.ITanks;
 import GameView.graphics.EGraphics;
@@ -68,15 +66,6 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     public void cleanup() {
         TanksAppAdapter.INSTANCE.detachAllRootChildren();
         TanksAppAdapter.INSTANCE.removeLightFromRootNode(sun);
-        
-        /*for (IGameEntity gameEntity : allGameEntities) {
-            gameEntity.cleanup(); // should remove all physics and controls
-            gameEntity.getSpatial().removeFromParent(); // remove from scene graph
-        }
-        TankAppAdapter.INSTANCE.detachChildFromRootNode(mapNode);
-
-        allGameEntities.clear();
-        allGameEntities = null;*/
     }
 
     public void propertyChange(PropertyChangeEvent evt) {

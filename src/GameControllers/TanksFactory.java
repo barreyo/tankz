@@ -72,8 +72,8 @@ public final class TanksFactory {
         return projectileModel;
     }
 
-    public static CanonBallModel createNewCanonBall(Vector3f position, Vector3f direction, Quaternion rotation) {
-        CanonBallModel projectileModel = new CanonBallModel(position, direction, rotation);
+    public static CanonBallModel createNewCanonBall(Vector3f position, Vector3f velocity, Quaternion rotation) {
+        CanonBallModel projectileModel = new CanonBallModel(position, velocity, rotation);
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
@@ -91,8 +91,8 @@ public final class TanksFactory {
         return projectileModel;
     }
     
-    public static MissileModel createNewMissile(Vector3f position, Vector3f direction, Quaternion rotation, TanksVehicleControl sender) {
-        MissileModel projectileModel = new MissileModel(position, direction, rotation);
+    public static MissileModel createNewMissile(Vector3f position, Vector3f velocity, Quaternion rotation, TanksVehicleControl sender) {
+        MissileModel projectileModel = new MissileModel(position, velocity, rotation);
 
         MissileEntity projectileEntity = new MissileEntity(projectileModel);
 

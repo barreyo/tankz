@@ -30,10 +30,9 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
     
     private boolean isListening;
     
-    private boolean hasLosAggro;
-    private Spatial losTarget;
-    
-    private GhostControl losGhost;
+    private boolean hasAggro;
+    private Spatial target;
+    private GhostControl aggroGhost;
     
        // temp solution
     private TanksVehicleControl sender;
@@ -62,14 +61,14 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
         super.setSpatial(spatial);
 
         if (spatial != null) {
-            losGhost = new GhostControl(new SphereCollisionShape(100));
-            losGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
-            losGhost.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_02);
-            spatial.addControl(losGhost);
-            TanksAppAdapter.INSTANCE.addToPhysicsSpace(losGhost);
+            aggroGhost = new GhostControl(new SphereCollisionShape(100));
+            aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
+            aggroGhost.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_02);
+            spatial.addControl(aggroGhost);
+            TanksAppAdapter.INSTANCE.addToPhysicsSpace(aggroGhost);
         }
     }
-
+    
     public void collision(PhysicsCollisionEvent event) {
         if (spatial == null || space == null || event.getNodeA() == null || event.getNodeB() == null) {
             return;
@@ -94,17 +93,20 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
 
         PhysicsCollisionObject object = null;
         Spatial target = null;
-        if (event.getObjectA() == losGhost && event.getObjectB() != sender) {
+        if (event.getObjectA() == aggroGhost && event.getObjectB() != sender) {
             object = event.getObjectA();
             target = event.getNodeB();
         }
-        if (event.getObjectB() == losGhost && event.getObjectA() != sender) {
+        if (event.getObjectB() == aggroGhost && event.getObjectA() != sender) {
             object = event.getObjectB();
             target = event.getNodeA();
         }
-        if (object != null && target != null && object == losGhost) {
-            hasLosAggro = true;
-            losTarget = target;
+        if (object != null && target != null && object == aggroGhost) {
+            if (this.target == null || target.getWorldTranslation().distance(projectileModel.getPosition())
+                    < this.target.getWorldTranslation().distance(projectileModel.getPosition())) {
+                hasAggro = true;
+                this.target = target;
+            }
         }
     }
 
@@ -119,10 +121,10 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
                 projectileModel.updatePosition(spatial.getWorldTranslation().clone());
             }
             projectileModel.update(tpf);
-            if (hasLosAggro) {
-                projectileModel.moveTo(losTarget.getWorldTranslation().clone());
+            if (hasAggro && target != null) {
+                projectileModel.moveTo(target.getWorldTranslation().clone());
             }
-            //this.setLinearVelocity(projectileModel.getLinearVelocity());
+            this.setLinearVelocity(projectileModel.getLinearVelocity());
         } 
     }
 
@@ -139,9 +141,7 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
                 effect.removeControl(this);
             }
             entity.removeObserver(this);
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.MOVE)) {
-           this.setLinearVelocity(projectileModel.getLinearVelocity().clone());
-        }
+        } 
     }
 
     IExplodingProjectile getProjectile() {

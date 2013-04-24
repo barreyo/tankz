@@ -11,14 +11,17 @@ public final class MissileModel extends AExplodingProjectile {
     private static final int DAMAGE = 20;
     private static final float MASS = 0.1f;
     
+    private float launchingTimer;
+    private static final float LAUNCH_END_TIME = 1f;
+    
     /**
      * Instantiates the MissileModel.
      * 
      * @param damage damage the missile does
      * @param mass the mass of the missle
      */
-    public MissileModel(Vector3f initialPos, Vector3f velocity, Quaternion rotation) {
-        super(initialPos, velocity, rotation);
+    public MissileModel(Vector3f initialPos, Vector3f initialVelocity, Quaternion rotation) {
+        super(initialPos, initialVelocity, rotation);
     }
 
     /**
@@ -47,9 +50,12 @@ public final class MissileModel extends AExplodingProjectile {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-        if (!exploding && isMoving) {
-            turn(tpf);
-            move(tpf);
+        launchingTimer += tpf;
+        if (launchingTimer >= LAUNCH_END_TIME) {
+            if (!exploding && isMoving) {
+                turn(tpf);
+                move(tpf);
+            }
         }
     }
     
@@ -65,7 +71,6 @@ public final class MissileModel extends AExplodingProjectile {
 
     private void move(float tpf) {
         linearVelocity = target.subtractLocal(position).normalizeLocal().multLocal(50f);
-        pcs.firePropertyChange(MOVE, null, null);
     }
 
     private void turn(float tpf) {
