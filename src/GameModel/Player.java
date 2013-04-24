@@ -60,6 +60,7 @@ public class Player implements IPlayer {
     @Override
     public void incrementKills() {
         kills++;
+        pcs.firePropertyChange("ScoreUpdate", null, null);
     }
 
     /**
@@ -76,6 +77,7 @@ public class Player implements IPlayer {
     @Override
     public void incrementDeaths() {
         deaths++;
+        pcs.firePropertyChange("ScoreUpdate", null, null);
     }
 
     /**
@@ -85,6 +87,7 @@ public class Player implements IPlayer {
     public void resetStats() {
         deaths = 0;
         kills = 0;
+        pcs.firePropertyChange("ScoreUpdate", null, null);
     }
 
         /**

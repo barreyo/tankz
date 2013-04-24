@@ -33,23 +33,23 @@ public class TimerView extends AHudElement {
         
         picture = new Picture("GameTimer");
         picture.setImage(assetManager, "Interface/TimerBG.png", true);
-        picture.setWidth(screenWidth/10);
-        picture.setHeight(screenHeight/14);
+        picture.setWidth(screenWidth/12);
+        picture.setHeight(screenHeight/16);
         
         BitmapFont font = assetManager.loadFont(EFonts.HANDDRAWNSHAPES.getPath());
         bitmapText = new BitmapText(font, false);
-        bitmapText.setSize(font.getCharSet().getRenderedSize() * ((screenWidth/screenHeight) * 0.85f));
+        bitmapText.setSize(font.getCharSet().getRenderedSize() * ((screenWidth/screenHeight) * 0.65f));
         bitmapText.setText("99:99");
         
         float xText = (screenWidth/2) - (bitmapText.getLineWidth() * 0.5f);
         float yText = (screenHeight/2) + (bitmapText.getLineHeight() * 0.32f);
-        float xPic = (screenWidth/2) - (screenWidth/10) * 0.5f;
-        float yPic = (screenHeight/2) - (screenHeight/14) * 0.5f;
+        float xPic = (screenWidth/2) - (screenWidth/12) * 0.5f;
+        float yPic = (screenHeight/2) - (screenHeight/16) * 0.5f;
         if (gameModel.getPlayers().size() == 1) {
-            xPic = screenWidth - ((screenWidth/10) * 1.3f);
-            yPic = screenHeight - ((screenHeight/14) * 1.5f);
-            xText = screenWidth - ((screenWidth/10) * 1.3f);
-            yText = screenHeight - ((screenHeight/14) * 1.5f);
+            xPic = screenWidth - ((screenWidth/12) * 1.3f);
+            yPic = screenHeight - ((screenHeight/16) * 1.5f);
+            xText = screenWidth - ((screenWidth/12) * 1.3f);
+            yText = screenHeight - ((screenHeight/16) * 1.5f);
         }
         picture.setPosition(xPic, yPic);
         bitmapText.setLocalTranslation(xText, yText, 1);
@@ -61,21 +61,23 @@ public class TimerView extends AHudElement {
      * {@inheritdoc}
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        int seconds = (int) (gameModel.getGameTime() % 60);
-        int minutes = (int) (gameModel.getGameTime() / 60);
-        String formattedTime;
-        
-        if (minutes < 10) {
-            formattedTime = "0" + minutes + ":";
-        } else {
-            formattedTime = minutes + ":";
+        if (pce.getPropertyName().equals("Timer")) {
+            int seconds = (int) (gameModel.getGameTime() % 60);
+            int minutes = (int) (gameModel.getGameTime() / 60);
+            String formattedTime;
+
+            if (minutes < 10) {
+                formattedTime = "0" + minutes + ":";
+            } else {
+                formattedTime = minutes + ":";
+            }
+            if (seconds < 10) {
+                formattedTime += "0" + seconds;
+            } else {
+                formattedTime += "" + seconds;
+            }
+            bitmapText.setText(formattedTime);
         }
-        if (seconds < 10) {
-            formattedTime += "0" + seconds;
-        } else {
-            formattedTime += "" + seconds;
-        }
-        bitmapText.setText(formattedTime);
     }
     
     /**

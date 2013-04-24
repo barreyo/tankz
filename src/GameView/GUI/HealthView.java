@@ -60,7 +60,7 @@ public class HealthView extends AHudElement {
         text = new BitmapText(font, false);
         text.setText("" + player.getVehicle().getHealth());
         text.setColor(ColorRGBA.White);
-        text.setSize(font.getCharSet().getRenderedSize() * 1.3f);
+        text.setSize(font.getCharSet().getRenderedSize() * 1.1f);
         text.setLocalTranslation(elementX, elementY - 5.0f, 0);
         
         player.getVehicle().addObserver(this);
