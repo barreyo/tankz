@@ -45,7 +45,7 @@ public abstract class APowerup implements IPowerup {
     }
     
     @Override
-    public float getMASS(){
+    public float getMass(){
         return MASS;
     }
 
@@ -100,6 +100,10 @@ public abstract class APowerup implements IPowerup {
     
     public boolean isActivated() {
         return isActive;
+    }
+    
+    public void setActivated(boolean act) {
+        isActive = act;
     }
     
     public float getTimer() {

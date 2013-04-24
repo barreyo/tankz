@@ -20,7 +20,7 @@ public class PowerupControl extends RigidBodyControl implements PhysicsCollision
 
     
    public PowerupControl(PowerupEntity entity, IPowerup model) {
-        super(entity.getCollisionShape(), model.getMASS());
+        super(entity.getCollisionShape(), model.getMass());
         powerupEntity = entity;
         powerupModel = model;
 
