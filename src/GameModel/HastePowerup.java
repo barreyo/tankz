@@ -9,9 +9,6 @@ public class HastePowerup extends APowerup{
     private float maxSpeed;
     private float accForce;
     
-    private boolean isActive;
-    
-    private float activateTimer;
     private static final float END_TIME = 5f;
     
     private IPlayer player;
@@ -42,5 +39,5 @@ public class HastePowerup extends APowerup{
                 vehicle.setAccelerationForce(accForce);
             }
         }
-    } 
+    }
 }

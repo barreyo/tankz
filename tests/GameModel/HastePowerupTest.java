@@ -17,36 +17,33 @@ import static org.junit.Assert.*;
  */
 public class HastePowerupTest {
     
-    public HastePowerupTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+    private IPlayer player;
+    private IArmedVehicle vehicle;
+    private HastePowerup instance;
+    private float tmpSpeed;
+    private float tmpForce;
+
     @Before
     public void setUp() {
+        player = new Player("TestName", new TankModel(null,null));
+        vehicle = player.getVehicle();
+        instance = new HastePowerup();
+        tmpSpeed = player.getVehicle().getMaxSpeed();
+        tmpForce = player.getVehicle().getAccelerationForce();
     }
     
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of usePowerup method, of class HastePowerup.
      */
     @Test
     public void testUsePowerup() {
         System.out.println("usePowerup");
-        IPlayer player = null;
-        HastePowerup instance = new HastePowerup();
         instance.usePowerup(player);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        assertTrue(instance.isActivated() == true);
+        assertTrue(instance.getTimer() == 0);
+        assertTrue(vehicle.getMaxSpeed() == tmpSpeed * 3f);
+        assertTrue(vehicle.getAccelerationForce() == tmpForce * 10f);
     }
 
     /**
@@ -55,10 +52,16 @@ public class HastePowerupTest {
     @Test
     public void testUpdate() {
         System.out.println("update");
-        float tpf = 0.0F;
-        HastePowerup instance = new HastePowerup();
-        instance.update(tpf);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        float tpf = 1f;
+        instance.usePowerup(player);
+        
+        for (int i = 0; i < 5; i++) {
+            instance.update(tpf);
+        }
+        
+        assertTrue(instance.getTimer() == 5);
+        assertTrue(instance.isActive == false);
+        assertTrue(vehicle.getMaxSpeed() == tmpSpeed);
+        assertTrue(vehicle.getAccelerationForce() == tmpForce);
     }
 }
