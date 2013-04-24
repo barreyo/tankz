@@ -123,7 +123,7 @@ public class TanksGameModel implements ITanks {
         pcs.removePropertyChangeListener(l);
     }
 
-    float fireIndicator = 0;
+    private float secondTimer = 0;
     
     /**
      * {@inheritdoc} 
@@ -131,6 +131,11 @@ public class TanksGameModel implements ITanks {
     @Override
     public void update(float tpf) {
         gameTimer -= tpf;
+        secondTimer += tpf;
+        if (secondTimer >= 1.0f) {
+            pcs.firePropertyChange("Timer", null, null);
+            secondTimer = 0;
+        }
         // Check if someone has won
         if (gameTimer <= 0) {
             endGame();
@@ -146,19 +151,13 @@ public class TanksGameModel implements ITanks {
             spawnPowerups();
         }
         respawnDestroyedVehicles();
-        
-        fireIndicator += tpf;
-        if (fireIndicator >= 1.0f) {
-            pcs.firePropertyChange("Timer", null, null);
-            fireIndicator = 0;
-        }
     }
 
     private void spawnPowerups() {
         for (ISpawningPoint spawn : powerupSpawningPoints) {
             if (!spawn.isOccupied()) {
                 Collections.shuffle(powerups);
-                    for (IPowerup powerup : powerups) {
+                for (IPowerup powerup : powerups) {
                     if (!powerup.isHeldByPlayer() && !powerup.isInWorld()) {
                         powerup.setPosition(spawn.getPosition());
                         powerup.showInWorld();
