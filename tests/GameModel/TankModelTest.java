@@ -10,6 +10,8 @@ import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,6 +24,7 @@ import static org.junit.Assert.*;
  * @author Per
  */
 public class TankModelTest {
+    TankModel instance;
     
     public TankModelTest() {
     }
@@ -36,6 +39,7 @@ public class TankModelTest {
     
     @Before
     public void setUp() {
+        instance = new TankModel(new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>());
     }
     
     @After
@@ -48,12 +52,9 @@ public class TankModelTest {
     @Test
     public void testGetHealth() {
         System.out.println("getHealth");
-        TankModel instance = null;
-        int expResult = 0;
+        int expResult = 100;
         int result = instance.getHealth();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
