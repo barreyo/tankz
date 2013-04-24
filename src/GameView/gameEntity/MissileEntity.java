@@ -69,8 +69,6 @@ public final class MissileEntity extends AGameEntity {
             impact();
         } else if (evt.getPropertyName().equals(IExplodingProjectile.ROTATE)) {
             spatial.setLocalRotation((Quaternion)evt.getNewValue());
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.MOVE)) {
-            //spatial.move((float)evt.getOldValue(), 0f, (float)evt.getNewValue());
         }
         pcs.firePropertyChange(evt);
     }
