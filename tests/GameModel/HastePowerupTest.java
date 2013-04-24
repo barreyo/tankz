@@ -17,41 +17,33 @@ import static org.junit.Assert.*;
  */
 public class HastePowerupTest {
     
-    public HastePowerupTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+    private IPlayer player;
+    private IArmedVehicle vehicle;
+    private HastePowerup instance;
+    private float tmpSpeed;
+    private float tmpForce;
+
     @Before
     public void setUp() {
+        player = new Player("TestName", new TankModel(null,null));
+        vehicle = player.getVehicle();
+        instance = new HastePowerup();
+        tmpSpeed = player.getVehicle().getMaxSpeed();
+        tmpForce = player.getVehicle().getAccelerationForce();
     }
     
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of usePowerup method, of class HastePowerup.
      */
     @Test
     public void testUsePowerup() {
         System.out.println("usePowerup");
-        IPlayer player = new Player("TestName", new TankModel(null,null));
-        float tmpSpeed = player.getVehicle().getMaxSpeed();
-        float tmpForce = player.getVehicle().getAccelerationForce();
-        HastePowerup instance = new HastePowerup();
         instance.usePowerup(player);
         
         assertTrue(instance.isActivated() == true);
         assertTrue(instance.getTimer() == 0);
-        assertTrue(player.getVehicle().getMaxSpeed() == tmpSpeed * 3f);
-        assertTrue(player.getVehicle().getAccelerationForce() == tmpForce * 10f);
+        assertTrue(vehicle.getMaxSpeed() == tmpSpeed * 3f);
+        assertTrue(vehicle.getAccelerationForce() == tmpForce * 10f);
     }
 
     /**
@@ -61,12 +53,6 @@ public class HastePowerupTest {
     public void testUpdate() {
         System.out.println("update");
         float tpf = 1f;
-        HastePowerup instance = new HastePowerup();
-        IPlayer player = new Player("TestName", new TankModel(null,null));
-        float tmpSpeed = player.getVehicle().getMaxSpeed();
-        float tmpForce = player.getVehicle().getAccelerationForce();
-        player.getVehicle().setAccelerationForce(0);
-        player.getVehicle().setMaxSpeed(0);
         instance.usePowerup(player);
         
         for (int i = 0; i < 5; i++) {
@@ -75,7 +61,7 @@ public class HastePowerupTest {
         
         assertTrue(instance.getTimer() == 5);
         assertTrue(instance.isActive == false);
-        assertTrue(player.getVehicle().getMaxSpeed() == tmpSpeed);
-        assertTrue(player.getVehicle().getAccelerationForce() == tmpForce);
+        assertTrue(vehicle.getMaxSpeed() == tmpSpeed);
+        assertTrue(vehicle.getAccelerationForce() == tmpForce);
     }
 }
