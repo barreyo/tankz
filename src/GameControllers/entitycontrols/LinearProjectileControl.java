@@ -3,9 +3,11 @@ package GameControllers.entitycontrols;
 import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
 import GameModel.IExplodingProjectile;
+import GameModel.IWorldObject;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.CanonBallEntity;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
@@ -19,7 +21,7 @@ import java.beans.PropertyChangeListener;
  *
  * @author Daniel
  */
-public class LinearProjectileControl extends AbstractControl implements PropertyChangeListener {
+public class LinearProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
     private CanonBallEntity entity;
     private IExplodingProjectile projectileModel;
 
@@ -36,17 +38,12 @@ public class LinearProjectileControl extends AbstractControl implements Property
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
         
         // We observe Model
-        projModel.addObserver(this);
+        entity.addObserver(this);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
-            // Remove ourself as a rigid body control from physics space
-            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
-      
-            SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
+        if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
             TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
         } 
     }
@@ -70,5 +67,17 @@ public class LinearProjectileControl extends AbstractControl implements Property
     @Override
     public Control cloneForSpatial(Spatial spatial) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void collision(PhysicsCollisionEvent event) {
+        IWorldObject objA = event.getNodeA().getUserData("Model");
+        IWorldObject objB = event.getNodeB().getUserData("Model");
+        if (objA == projectileModel || objB == projectileModel) {
+            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
+            projectileModel.impact();
+            entity.impact();
+            SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+        }
     }
 }

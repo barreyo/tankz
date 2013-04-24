@@ -9,8 +9,13 @@ import GameModel.IPlayer;
 import GameView.viewPort.VehicleCamera;
 import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
+import GameModel.IExplodingProjectile;
+import GameModel.IPowerup;
+import GameModel.IWorldObject;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.TankEntity;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -27,7 +32,7 @@ import java.beans.PropertyChangeListener;
  * 
  * @author Daniel
  */
-public class TanksVehicleControl extends VehicleControl implements ActionListener, PropertyChangeListener {
+public class TanksVehicleControl extends VehicleControl implements ActionListener, PhysicsCollisionListener, PropertyChangeListener {
     
     // The model for the vehicle
     private IArmedVehicle vehicleModel;
@@ -295,6 +300,25 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             TanksFactory.createNewMissile(vehicleModel.getPosition().addLocal(0, 3, 0),
             new Vector3f(0, 20, 0), vehicleModel.getRotation(), this);
             SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
+        }
+    }
+
+    @Override
+    public void collision(PhysicsCollisionEvent event) {
+        IWorldObject objA = event.getNodeA().getUserData("Model");
+        IWorldObject objB = event.getNodeB().getUserData("Model");
+        if (objA == vehicleModel) {
+            if (objB instanceof IPowerup) {
+                player.setPowerup((IPowerup)objB);
+            } else if (objB instanceof IExplodingProjectile) {
+                vehicleModel.gotHitBy((IExplodingProjectile)objB);
+            }
+        } else if (objB == vehicleModel) {
+            if (objA instanceof IPowerup) {
+                player.setPowerup((IPowerup)objB);
+            } else if (objA instanceof IExplodingProjectile) {
+                vehicleModel.gotHitBy((IExplodingProjectile)objB);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package GameControllers.entitycontrols;
 import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
 import GameModel.IExplodingProjectile;
+import GameModel.IWorldObject;
 import GameModel.MissileModel;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.MissileEntity;
@@ -69,25 +70,13 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
     }
     
     public void collision(PhysicsCollisionEvent event) {
-        if (spatial == null || space == null || event.getNodeA() == null || event.getNodeB() == null) {
-            return;
-        }
-        if (event.getObjectA() == this || event.getObjectB() == this) {
-            // Impact made, alert model
+        IWorldObject objA = event.getNodeA().getUserData("Model");
+        IWorldObject objB = event.getNodeB().getUserData("Model");
+        if (objA == projectileModel || objB == projectileModel) {
+            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
             projectileModel.impact();
-            
-            // We dont have to listen for collisions any more
-            isListening = false;
-     
-            // Remove ourself as a rigid body control from physics space
-            space.remove(this);
-            
-            // Now we control the effects instead
-            for (ParticleEmitter effect : effects) {
-                effect.addControl(this);
-            }
-            
-            SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);  
+            entity.impact();
+            SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
         }
 
         PhysicsCollisionObject object = null;

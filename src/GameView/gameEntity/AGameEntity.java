@@ -3,7 +3,6 @@ package GameView.gameEntity;
 import GameControllers.logic.GraphicManager;
 import GameView.graphics.EGraphics;
 import com.jme3.bounding.BoundingBox;
-import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
@@ -26,13 +25,6 @@ public abstract class AGameEntity implements IGameEntity {
     AGameEntity(EGraphics graphic) {
         spatial = GraphicManager.INSTANCE.createSpatial(graphic);
     }
-
-    /**
-     * Returns a collisionshape of this game entity.
-     *
-     * @return a collisionshape of this game entity
-     */
-    public abstract CollisionShape getCollisionShape();
 
     /**
      * Adds an material to the spatial.
@@ -59,15 +51,11 @@ public abstract class AGameEntity implements IGameEntity {
     }
 
     /**
-     * Releases all occupied resources of this instance.
-     */
-    public abstract void cleanup();
-
-    /**
      * Returns the spatial of this game entity.
      * 
      * @return The spatial of this game entity.
      */
+    @Override
     public Spatial getSpatial() {
         return spatial;
     }
@@ -75,6 +63,7 @@ public abstract class AGameEntity implements IGameEntity {
     /**
      * Help metohd used to get the boundingbox of the spatial.
      */
+    @Override
     public Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
     }

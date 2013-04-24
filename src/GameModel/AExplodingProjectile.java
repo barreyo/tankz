@@ -66,7 +66,6 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     @Override
     public void impact() {
         exploding = true;
-        pcs.firePropertyChange(IMPACT_MADE, null, null);
     }
 
     @Override
@@ -77,12 +76,12 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     @Override
     public void updateRotation(Quaternion rotation) {
         this.rotation = rotation;
-    };
+    }
     
     @Override
     public void updateLinearVelocity(Vector3f velocity) {
         this.linearVelocity = velocity;
-    };
+    }
 
     @Override
     public Vector3f getLinearVelocity() {

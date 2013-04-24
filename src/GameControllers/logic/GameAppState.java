@@ -5,6 +5,8 @@ import App.TanksAppAdapter;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameModel.IArmedVehicle;
+import GameModel.IExplodingProjectile;
+import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.ITanks;
 import GameModel.IWorldObject;
@@ -104,8 +106,6 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
         TanksAppAdapter.INSTANCE.addInputMapping(PAUSE, new KeyTrigger(KeyInput.KEY_ESCAPE),
                               new KeyTrigger(KeyboardInputEvent.KEY_PAUSE),
                               new KeyTrigger(KeyboardInputEvent.KEY_P));
-        /*inputManager.addMapping(NEXT_LEVEL, new KeyTrigger(KeyInput.KEY_F2));
-        inputManager.addMapping(PREVIOUS_LEVEL, new KeyTrigger(KeyInput.KEY_F1));*/
 
         TanksAppAdapter.INSTANCE.addInputListener(actionListener, PAUSE);
     }
@@ -134,6 +134,12 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
     public void collision(PhysicsCollisionEvent event) {
         IWorldObject objA = event.getNodeA().getUserData("Model");
         IWorldObject objB = event.getNodeB().getUserData("Model");
-        gameModel.collision(objA, objB);
+        if (objA instanceof IArmedVehicle && objB instanceof IPowerup) {
+            IPowerup powerup = (IPowerup) objB;
+            gameModel.powerupPickedUp(powerup);
+        } else if (objB instanceof IArmedVehicle && objA instanceof IPowerup) {
+            IPowerup powerup = (IPowerup) objA;
+            gameModel.powerupPickedUp(powerup);
+        }
     }
 }

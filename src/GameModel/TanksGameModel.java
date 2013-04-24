@@ -232,41 +232,4 @@ public class TanksGameModel implements ITanks {
     public float getGameTime() {
         return gameTimer;
     }
-
-    @Override
-    public void collision(IWorldObject objA, IWorldObject objB) {
-        if (objA instanceof IExplodingProjectile) {
-            IExplodingProjectile projectile = (IExplodingProjectile) objA;
-            projectile.impact();
-            if (objB instanceof IArmedVehicle) {
-                IArmedVehicle vehicle = (IArmedVehicle)objB;
-                vehicle.gotHitBy(projectile);
-            }
-        } else if (objB instanceof IExplodingProjectile) {
-            IExplodingProjectile projectile = (IExplodingProjectile) objB;
-            projectile.impact();
-            if (objA instanceof IArmedVehicle) {
-                IArmedVehicle vehicle = (IArmedVehicle)objA;
-                vehicle.gotHitBy(projectile);
-            }
-        } else if (objA instanceof IArmedVehicle && objB instanceof IPowerup) {
-            IPowerup powerup = (IPowerup) objB;
-            powerupPickedUp(powerup);
-            IArmedVehicle vehicle = (IArmedVehicle)objA;
-            for (IPlayer player : players) {
-                if (player.getVehicle() == vehicle) {
-                    player.setPowerup(powerup);
-                }
-            }
-        } else if (objB instanceof IArmedVehicle && objA instanceof IPowerup) {
-            IPowerup powerup = (IPowerup) objA;
-            powerupPickedUp(powerup);
-            IArmedVehicle vehicle = (IArmedVehicle)objB;
-            for (IPlayer player : players) {
-                if (player.getVehicle() == vehicle) {
-                    player.setPowerup(powerup);
-                }
-            }
-        }
-    }
 }
