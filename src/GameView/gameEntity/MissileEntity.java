@@ -28,6 +28,7 @@ public final class MissileEntity extends AGameEntity {
         super(EGraphics.SHARK);
         effects = EEffects.EXPLOSION.getEmitters();
         
+        spatial.setUserData("Model", proj);
         setModel(proj);
     }
     

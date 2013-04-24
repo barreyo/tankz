@@ -28,6 +28,7 @@ public final class CanonBallEntity extends AGameEntity{
         super(EGraphics.BOMB);
         effects = EEffects.EXPLOSION.getEmitters();
         
+        spatial.setUserData("Model", proj);
         setModel(proj);
     }
     

@@ -4,8 +4,10 @@ import GameModel.EApplicationState;
 import App.TanksAppAdapter;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
+import GameModel.IArmedVehicle;
 import GameModel.IPowerup;
 import GameModel.ITanks;
+import GameModel.IWorldObject;
 import GameView.Map.IGameWorld;
 import GameView.Sounds.ESounds;
 import com.jme3.app.state.AbstractAppState;
@@ -130,14 +132,8 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
 
     @Override
     public void collision(PhysicsCollisionEvent event) {
-        PhysicsCollisionObject objA = event.getObjectA();
-        PhysicsCollisionObject objB = event.getObjectB();
-        if (objA instanceof TanksVehicleControl && objB instanceof PowerupControl) {
-            IPowerup powerup = ((PowerupControl) objB).getPowerup();
-            gameModel.powerupPickedUp(powerup);
-        } else if (objB instanceof TanksVehicleControl && objA instanceof PowerupControl) {
-            IPowerup powerup = ((PowerupControl) objA).getPowerup();
-            gameModel.powerupPickedUp(powerup);
-        }
+        IWorldObject objA = event.getNodeA().getUserData("Model");
+        IWorldObject objB = event.getNodeB().getUserData("Model");
+        gameModel.collision(objA, objB);
     }
 }

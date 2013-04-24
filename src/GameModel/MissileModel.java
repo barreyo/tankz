@@ -1,7 +1,10 @@
 package GameModel;
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import java.io.IOException;
 
 /**
  *
@@ -79,5 +82,15 @@ public final class MissileModel extends AExplodingProjectile {
         turnTo.lookAt(targetVec, Vector3f.UNIT_Y);
         Quaternion newRotation = turnTo;
         pcs.firePropertyChange(ROTATE, rotation, newRotation);
+    }
+
+    @Override
+    public void write(JmeExporter ex) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void read(JmeImporter im) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

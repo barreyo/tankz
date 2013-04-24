@@ -1,6 +1,10 @@
 
 package GameModel;
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
+import java.io.IOException;
+
 /**
  *
  * @author Per
@@ -23,9 +27,8 @@ public class HastePowerup extends APowerup{
         IArmedVehicle vehicle = player.getVehicle();
         maxSpeed = vehicle.getMaxSpeed();
         accForce = vehicle.getAccelerationForce();
-        
         vehicle.setMaxSpeed(maxSpeed * 3f);
-        vehicle.setAccelerationForce(accForce * 10f);
+        vehicle.setAccelerationForce(accForce * 5f);
         activateTimer = 0;
         isActive = true;
     }
@@ -38,9 +41,18 @@ public class HastePowerup extends APowerup{
             if (activateTimer >= END_TIME) {
                 isActive = false;
                 IArmedVehicle vehicle = player.getVehicle();
-                vehicle.setMaxSpeed(maxSpeed);
-                vehicle.setAccelerationForce(accForce);
+                vehicle.resetSpeedValues();
             }
         }
     } 
+
+    @Override
+    public void write(JmeExporter ex) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void read(JmeImporter im) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

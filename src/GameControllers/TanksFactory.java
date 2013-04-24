@@ -35,6 +35,7 @@ import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -62,12 +63,12 @@ public final class TanksFactory {
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
-        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel);
-
-        control.setCcdMotionThreshold(0.1f);
-        control.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        control.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
-        //control.setKinematic(true);
+        RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
+        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
+        
+        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel, physicsControl);
 
         return projectileModel;
     }
@@ -77,17 +78,15 @@ public final class TanksFactory {
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
-        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel);
-
-        control.setCcdMotionThreshold(0.1f);
-        control.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        control.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
-        //control.setKinematic(true);
-
-        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-        TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
+        RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
+        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
+        
+        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel, physicsControl);
 
         projectileEntity.addControl(control);
+        projectileEntity.addControl(physicsControl);
         return projectileModel;
     }
     
@@ -105,7 +104,7 @@ public final class TanksFactory {
 
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
-
+        
         projectileEntity.addControl(control);
         return projectileModel;
     }
@@ -125,22 +124,24 @@ public final class TanksFactory {
     private static HastePowerup getNewHastePowerup() {
         HastePowerup model = new HastePowerup();
         PowerupEntity view = new PowerupEntity(model);
-        PowerupControl control = new PowerupControl(view, model);
-
-        control.setKinematic(true);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMASS());
+        physicsControl.setKinematic(true);
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
 
         view.addControl(control);
+        view.addControl(physicsControl);
         return model;
     }
     
     private static MissilePowerup getNewMissilePowerup() {
         MissilePowerup model = new MissilePowerup();
         PowerupEntity view = new PowerupEntity(model);
-        PowerupControl control = new PowerupControl(view, model);
-
-        control.setKinematic(true);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMASS());
+        physicsControl.setKinematic(true);
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
 
         view.addControl(control);
+        view.addControl(physicsControl);
         return model;
     }
 
@@ -238,7 +239,6 @@ public final class TanksFactory {
             
             vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_02);
             vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
-            TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
          
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,

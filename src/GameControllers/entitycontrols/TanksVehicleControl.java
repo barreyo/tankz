@@ -11,9 +11,6 @@ import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.TankEntity;
-import com.jme3.bullet.collision.PhysicsCollisionEvent;
-import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -30,7 +27,7 @@ import java.beans.PropertyChangeListener;
  * 
  * @author Daniel
  */
-public class TanksVehicleControl extends VehicleControl implements ActionListener, PropertyChangeListener, PhysicsCollisionListener {
+public class TanksVehicleControl extends VehicleControl implements ActionListener, PropertyChangeListener {
     
     // The model for the vehicle
     private IArmedVehicle vehicleModel;
@@ -103,7 +100,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         // Remove this as a control and remove inputs
         tankEntity.removeControl(this);
         tankEntity.removeObserver(this);
-        TanksAppAdapter.INSTANCE.removePhysiscsCollisionListener(this);
         removeInputMappings();
     }
     
@@ -299,36 +295,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             TanksFactory.createNewMissile(vehicleModel.getPosition().addLocal(0, 3, 0),
             new Vector3f(0, 20, 0), vehicleModel.getRotation(), this);
             SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
-        }
-    }
-    
-    
-    /**
-     * The collision between an IVehicle and an unknown object.
-     * If it is a IPowerup, it uses addPowerup() on the IVehicle.
-     * If it is an IExplodingProjectile, it decrements the health of IPlayers IArmedVehicle.
-     * 
-     * @param event The object that collides with the IVehicle.
-     */
-    @Override
-    public void collision(PhysicsCollisionEvent event) {
-        if (space == null) {
-            return;
-        }
-        PhysicsCollisionObject objA = event.getObjectA();
-        PhysicsCollisionObject objB = event.getObjectB();
-        if (objA == this) {
-            if (objB instanceof PowerupControl) {
-                player.setPowerup(((PowerupControl) objB).getPowerup());
-            } else if (objB instanceof LinearProjectileControl) {
-                vehicleModel.gotHitBy(((LinearProjectileControl)objB).getProjectile());
-            }
-        } else if (objB == this) {
-            if (objA instanceof PowerupControl) {
-                player.setPowerup(((PowerupControl) objA).getPowerup());
-            } else if (objA instanceof LinearProjectileControl) {
-                vehicleModel.gotHitBy(((LinearProjectileControl)objA).getProjectile());
-            }
         }
     }
 }

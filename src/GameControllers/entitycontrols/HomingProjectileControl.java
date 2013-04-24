@@ -59,7 +59,6 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
     @Override
     public void setSpatial(Spatial spatial) {
         super.setSpatial(spatial);
-
         if (spatial != null) {
             aggroGhost = new GhostControl(new SphereCollisionShape(100));
             aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);

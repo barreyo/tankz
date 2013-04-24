@@ -6,6 +6,7 @@ import GameModel.IPowerup;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.scene.Node;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -21,6 +22,8 @@ public class PowerupEntity extends AGameEntity {
     
     public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
+        
+        spatial.setUserData("Model", pow);
         setModel(pow);
     }
     
@@ -46,6 +49,8 @@ public class PowerupEntity extends AGameEntity {
             showInWorld();
         } else if (pce.getPropertyName().equals(IPowerup.HIDE)) {
             hideFromWorld();
+        } else if (pce.getPropertyName().equals(IPowerup.CLEANUP)) {
+            cleanup();
         }
         pcs.firePropertyChange(pce);
     }
@@ -69,9 +74,8 @@ public class PowerupEntity extends AGameEntity {
     }
 
     private void showInWorld() {
-        spatial.removeFromParent();
-        spatial.setLocalTranslation(powerup.getPosition());
-        if (spatial.getParent() == null) {
+        if (!TanksAppAdapter.INSTANCE.isAttachedToRootNode(spatial)) {
+            spatial.setLocalTranslation(powerup.getPosition());
             TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
         }
     }

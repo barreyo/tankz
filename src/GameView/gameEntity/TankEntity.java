@@ -34,6 +34,9 @@ public final class TankEntity extends AGameEntity {
      */
     public TankEntity(IArmedVehicle armedVehicle) {
         super(EGraphics.TANK);
+        
+        spatial.setUserData("Model", armedVehicle);
+        
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
         shootEffects = EEffects.SHOOT.getEmitters();
         blownUpEffects = EEffects.TANK_BLOWN_UP.getEmitters();

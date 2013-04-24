@@ -135,6 +135,7 @@ public class Player implements IPlayer {
             this.powerup.setHeldByPlayer(false);
         }
         this.powerup = powerup;
+        this.powerup.playerPickedUpPowerup();
         pcs.firePropertyChange(POWERUP_CHANGED, null, null);
     }
 

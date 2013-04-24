@@ -214,4 +214,8 @@ public enum TanksAppAdapter {
     public void removeAllPhysics() {
         tanksApp.getBulletAppState().getPhysicsSpace().removeAll(tanksApp.getRootNode());
     }
+
+    public boolean isAttachedToRootNode(Spatial spatial) {
+        return tanksApp.getRootNode().hasChild(spatial);
+    }
 }
