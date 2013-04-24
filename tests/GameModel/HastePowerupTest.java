@@ -42,7 +42,7 @@ public class HastePowerupTest {
     @Test
     public void testUsePowerup() {
         System.out.println("usePowerup");
-        IPlayer player = new Player("TestName", new TankModel());
+        IPlayer player = new Player("TestName", new TankModel(null,null));
         float tmpSpeed = player.getVehicle().getMaxSpeed();
         float tmpForce = player.getVehicle().getAccelerationForce();
         HastePowerup instance = new HastePowerup();
@@ -62,7 +62,7 @@ public class HastePowerupTest {
         System.out.println("update");
         float tpf = 1f;
         HastePowerup instance = new HastePowerup();
-        IPlayer player = new Player("TestName", new TankModel());
+        IPlayer player = new Player("TestName", new TankModel(null,null));
         float tmpSpeed = player.getVehicle().getMaxSpeed();
         float tmpForce = player.getVehicle().getAccelerationForce();
         player.getVehicle().setAccelerationForce(0);
