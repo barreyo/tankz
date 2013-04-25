@@ -103,6 +103,7 @@ public class ScoreboardView extends AHudElement {
             
             players.get(i).addObserver(this);
         }
+        updateText();
     }
     
     /**
