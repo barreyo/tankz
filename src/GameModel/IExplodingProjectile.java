@@ -45,9 +45,9 @@ public interface IExplodingProjectile extends IWorldObject {
     
     public void updatePosition(Vector3f pos);
     
-    public void updateRotation(Quaternion rotation);
-    
-    public void updateLinearVelocity(Vector3f velocity);
+    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation);
 
     public Vector3f getLinearVelocity();
+
+    public Vector3f getInitialPosition();
 }

@@ -284,11 +284,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Commands.SHOOT)) {
-            // Shoot by creating a new missile with the right direction, position and rotation
-            TanksFactory.createNewCanonBall(vehicleModel.getFirePosition(),
-                    vehicleModel.getDirection().multLocal(100), vehicleModel.getRotation());
-        } else if (evt.getPropertyName().equals(Commands.STEER)) {
+        if (evt.getPropertyName().equals(Commands.STEER)) {
             // Steer the vehicle according to the model
             this.steer(vehicleModel.getSteeringValue());
         } else if (evt.getPropertyName().equals(Commands.ACCELERATE)) {
@@ -307,27 +303,29 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             this.cleanup();
         } else if (evt.getPropertyName().equals(Commands.MISSILE)) {
-            TanksFactory.createNewMissile(vehicleModel.getPosition().addLocal(0, 3, 0),
-            new Vector3f(0, 20, 0), vehicleModel.getRotation(), this);
-            SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
+            //TanksFactory.createNewMissile(vehicleModel.getPosition().addLocal(0, 3, 0),
+            //new Vector3f(0, 20, 0), vehicleModel.getRotation(), this);
+            //SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
         }
     }
 
     @Override
     public void collision(PhysicsCollisionEvent event) {
-        IWorldObject objA = event.getNodeA().getUserData("Model");
-        IWorldObject objB = event.getNodeB().getUserData("Model");
-        if (objA == vehicleModel) {
-            if (objB instanceof IPowerup) {
-                player.setPowerup((IPowerup)objB);
-            } else if (objB instanceof IExplodingProjectile) {
-                vehicleModel.gotHitBy((IExplodingProjectile)objB);
-            }
-        } else if (objB == vehicleModel) {
-            if (objA instanceof IPowerup) {
-                player.setPowerup((IPowerup)objB);
-            } else if (objA instanceof IExplodingProjectile) {
-                vehicleModel.gotHitBy((IExplodingProjectile)objB);
+        if (event.getNodeA() != null && event.getNodeB() != null) {
+            IWorldObject objA = event.getNodeA().getUserData("Model");
+            IWorldObject objB = event.getNodeB().getUserData("Model");
+            if (objA == vehicleModel) {
+                if (objB instanceof IPowerup) {
+                    player.setPowerup((IPowerup) objB);
+                } else if (objB instanceof IExplodingProjectile) {
+                    vehicleModel.gotHitBy((IExplodingProjectile) objB);
+                }
+            } else if (objB == vehicleModel) {
+                if (objA instanceof IPowerup) {
+                    player.setPowerup((IPowerup) objB);
+                } else if (objA instanceof IExplodingProjectile) {
+                    vehicleModel.gotHitBy((IExplodingProjectile) objB);
+                }
             }
         }
     }

@@ -48,6 +48,7 @@ import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -62,8 +63,8 @@ public final class TanksFactory {
     private TanksFactory() {
     }
     
-    public static CanonBallModel createNewCanonBall(Vector3f position, Vector3f velocity, Quaternion rotation) {
-        CanonBallModel projectileModel = new CanonBallModel(position, velocity, rotation);
+    private static CanonBallModel getNewCanonBall() {
+        CanonBallModel projectileModel = new CanonBallModel();
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
@@ -81,8 +82,8 @@ public final class TanksFactory {
         return projectileModel;
     }
     
-    public static MissileModel createNewMissile(Vector3f position, Vector3f velocity, Quaternion rotation, TanksVehicleControl sender) {
-        MissileModel projectileModel = new MissileModel(position, velocity, rotation);
+    public static MissileModel getNewMissile(TanksVehicleControl sender) {
+        MissileModel projectileModel = new MissileModel();
 
         MissileEntity projectileEntity = new MissileEntity(projectileModel);
 
@@ -174,10 +175,10 @@ public final class TanksFactory {
         // Create one player for each name
         for (String name : playerNames) {
             
-            List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
+            LinkedList<CanonBallModel> canonBalls = new LinkedList<CanonBallModel>();
             
             for (int i = 0; i < 10; i++) {
-              //canonBalls.add(getNewCanonBall());
+                canonBalls.add(getNewCanonBall());
             }
             
             List<MissileModel> missiles = new ArrayList<MissileModel>();

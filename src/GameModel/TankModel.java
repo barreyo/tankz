@@ -9,6 +9,7 @@ import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -43,10 +44,10 @@ public final class TankModel implements IArmedVehicle {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    private List<CanonBallModel> canonBalls;
+    private LinkedList<CanonBallModel> canonBalls;
     private List<MissileModel> missiles;
     
-    public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
+    public TankModel(LinkedList<CanonBallModel> canonBalls, List<MissileModel> missiles) {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
         mass = 600.0f;
@@ -150,13 +151,16 @@ public final class TankModel implements IArmedVehicle {
     }
 
     @Override
-    public void shoot() {
-        for (CanonBallModel canonBall : canonBalls) {
-            
+    public synchronized void shoot() {
+        CanonBallModel canonBall = canonBalls.poll();
+        if (!canonBall.isInWorld()) {
+            canonBall.launchProjectile(getFirePosition(),
+                    direction.multLocal(100), rotation);
+            pcs.firePropertyChange(Commands.SHOOT, null, null);
         }
-        pcs.firePropertyChange(Commands.SHOOT, null, null);
+        canonBalls.addLast(canonBall);
     }
-  
+    
     public void shootMissile() {
         pcs.firePropertyChange(Commands.MISSILE, health, health);
     }
@@ -221,14 +225,15 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void updatePosition(Vector3f pos) {
-        this.position = pos.clone();
+        this.position = new Vector3f(pos);
     }
 
     @Override
-    public Vector3f getFirePosition() {
+    public synchronized Vector3f getFirePosition() {
         return new Vector3f(position).addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.3f));
     }
     
+    @Override
     public Vector3f getSmokePosition() {
         return new Vector3f(position).addLocal(0, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
     }
@@ -309,7 +314,7 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public Vector3f getPosition() {
-        return position.clone();
+        return new Vector3f(position);
     }
 
     @Override

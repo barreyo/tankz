@@ -63,13 +63,15 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
 
     @Override
     public void collision(PhysicsCollisionEvent event) {
-        IWorldObject objA = event.getNodeA().getUserData("Model");
-        IWorldObject objB = event.getNodeB().getUserData("Model");
-        if (objA == powerupModel && objB instanceof IArmedVehicle ||
-            objB == powerupModel && objA instanceof IArmedVehicle) {
-            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
-            powerupModel.playerPickedUpPowerup();
-            powerupEntity.hideFromWorld();
+        if (event.getNodeA() != null && event.getNodeB() != null) {
+            IWorldObject objA = event.getNodeA().getUserData("Model");
+            IWorldObject objB = event.getNodeB().getUserData("Model");
+            if (objA == powerupModel && objB instanceof IArmedVehicle
+                    || objB == powerupModel && objA instanceof IArmedVehicle) {
+                TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
+                powerupModel.playerPickedUpPowerup();
+                powerupEntity.hideFromWorld();
+            }
         }
     }
 }

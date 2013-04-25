@@ -132,14 +132,16 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
 
     @Override
     public void collision(PhysicsCollisionEvent event) {
-        IWorldObject objA = event.getNodeA().getUserData("Model");
-        IWorldObject objB = event.getNodeB().getUserData("Model");
-        if (objA instanceof IArmedVehicle && objB instanceof IPowerup) {
-            IPowerup powerup = (IPowerup) objB;
-            gameModel.powerupPickedUp(powerup);
-        } else if (objB instanceof IArmedVehicle && objA instanceof IPowerup) {
-            IPowerup powerup = (IPowerup) objA;
-            gameModel.powerupPickedUp(powerup);
+        if (event.getNodeA() != null && event.getNodeB() != null) {
+            IWorldObject objA = event.getNodeA().getUserData("Model");
+            IWorldObject objB = event.getNodeB().getUserData("Model");
+            if (objA instanceof IArmedVehicle && objB instanceof IPowerup) {
+                IPowerup powerup = (IPowerup) objB;
+                gameModel.powerupPickedUp(powerup);
+            } else if (objB instanceof IArmedVehicle && objA instanceof IPowerup) {
+                IPowerup powerup = (IPowerup) objA;
+                gameModel.powerupPickedUp(powerup);
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;
+import com.jme3.scene.Spatial;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -30,7 +31,11 @@ public final class CanonBallEntity extends AGameEntity{
         effects = EEffects.EXPLOSION.getEmitters();
         
         spatial.setUserData("Model", proj);
-        setModel(proj);
+        projectile = proj;
+        
+        proj.addObserver(this);
+        hideFromWorld();
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
     
     /**
@@ -51,8 +56,12 @@ public final class CanonBallEntity extends AGameEntity{
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
+    public synchronized void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(Commands.SHOW)) {
+            showInWorld();
+            updatePosition();
+            updateRotation();
+        } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             // Clean up
             cleanup();
         } else if (evt.getPropertyName().equals(Commands.EXPLOSION_FINISHED)) {
@@ -63,49 +72,42 @@ public final class CanonBallEntity extends AGameEntity{
                     effect.removeFromParent();
                 }
             }
-            projectile.removeObserver(this);
+        } else if (evt.getPropertyName().equals(Commands.HIDE)) {
+            hideFromWorld();
         }
-        pcs.firePropertyChange(evt);
+        pcs.firePropertyChange(evt.getPropertyName(), evt.getNewValue(), evt.getOldValue());
     }
     
     public void impact() {
+        hideFromWorld();
         showEffect();
-        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
     }
 
     private void showEffect() {
         for (ParticleEmitter effect : effects) {
-            if (effect != null && spatial.getParent() != null) {
-                effect.setLocalTranslation(spatial.getLocalTranslation());
-                spatial.getParent().attachChild(effect);
+            if (effect != null) {
+                effect.setLocalTranslation(spatial.getWorldTranslation());
+                TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
                 effect.emitAllParticles();
             }
         }
     }
 
-    public void setModel(IExplodingProjectile proj) {
-        if (projectile != null) {
-            this.cleanup();
-        }
-        projectile = proj;
-        if (projectile != null) {
-            projectile.addObserver(this);
-        }
-        updatePosition();
-        updateRotation();
-        attachToRootNode();
-    }
-    
     private void updatePosition() {
-        spatial.setLocalTranslation(projectile.getPosition());
+        spatial.setLocalTranslation(projectile.getInitialPosition());
     }
     
     private void updateRotation() {
         spatial.setLocalRotation(projectile.getRotation());
     }
-    
-    private void attachToRootNode() {
-        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
+  
+    private void showInWorld() {
+        spatial.setCullHint(Spatial.CullHint.Dynamic);
+        System.out.println(spatial.getCullHint().equals(Spatial.CullHint.Dynamic));
+    }
+
+    public void hideFromWorld() {
+        spatial.setCullHint(Spatial.CullHint.Always);
     }
 
     @Override

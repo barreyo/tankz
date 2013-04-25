@@ -18,7 +18,7 @@ public interface IPowerup extends IWorldObject {
      * 
      * @return mass of the powerup.
      */
-    public float getMASS();
+    public float getMass();
 
     /**
      * 

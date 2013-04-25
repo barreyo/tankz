@@ -12,13 +12,15 @@ import java.beans.PropertyChangeSupport;
  */
 public abstract class AExplodingProjectile implements IExplodingProjectile {
     
+    Vector3f initialPos;
     Vector3f position;
     Vector3f linearVelocity;
     Quaternion rotation;
     
     private static final float EXPLOSION_END_TIME = 4f;
-    private static final float MAX_LIFE_TIME = 4f;
-    private float projectileLifeTimer;
+    private static final long MAX_LIFE_TIME = 4000;
+    private long lifeTimerStart;
+    private long projectileLifeTimer;
     private float explodingTimer;
     private boolean isInWorld;
     
@@ -26,10 +28,11 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     
     final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
-    public AExplodingProjectile(Vector3f initialPos, Vector3f velocity, Quaternion rotation) {
-        this.position = initialPos.clone();
-        this.linearVelocity = velocity.clone();
-        this.rotation = rotation.clone();
+    public AExplodingProjectile() {
+        this.position = Vector3f.ZERO;
+        this.linearVelocity = Vector3f.ZERO;
+        this.rotation = Quaternion.ZERO;
+        isInWorld = false;
     }
     
     
@@ -48,15 +51,20 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
      */
     @Override
     public void update(float tpf) {
-        if (exploding) {
-            explodingTimer += tpf;
-            if (explodingTimer > EXPLOSION_END_TIME) {
-                pcs.firePropertyChange(Commands.EXPLOSION_FINISHED, null, null);
-            }
-        } else {
-            projectileLifeTimer += tpf;
-            if (projectileLifeTimer > MAX_LIFE_TIME) {
-                pcs.firePropertyChange(Commands.END_OF_LIFETIME, null, null);
+        if (isInWorld) {
+            if (exploding) {
+                explodingTimer += tpf;
+                if (explodingTimer > EXPLOSION_END_TIME) {
+                    explodingTimer = 0;
+                    exploding = false;
+                    pcs.firePropertyChange(Commands.EXPLOSION_FINISHED, null, null);
+                }
+            } else {
+                projectileLifeTimer = System.currentTimeMillis();
+                if (projectileLifeTimer - lifeTimerStart >= MAX_LIFE_TIME) {
+                    projectileLifeTimer = 0;
+                    hideFromWorld();
+                }
             }
         }
     }
@@ -67,6 +75,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     @Override
     public void impact() {
         exploding = true;
+        hideFromWorld();
     }
 
     @Override
@@ -75,13 +84,16 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     }
     
     @Override
-    public void updateRotation(Quaternion rotation) {
-        this.rotation = rotation;
+    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
+        this.initialPos = new Vector3f(initialPos);
+        this.linearVelocity =  new Vector3f(initialVelocity);
+        this.rotation =  new Quaternion(initialRotation);
+        showInWorld();
     }
     
     @Override
-    public void updateLinearVelocity(Vector3f velocity) {
-        this.linearVelocity = velocity;
+    public Vector3f getInitialPosition() {
+        return new Vector3f(initialPos);
     }
 
     @Override
@@ -92,6 +104,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     @Override
     public void showInWorld() {
         isInWorld = true;
+        lifeTimerStart = System.currentTimeMillis();
         pcs.firePropertyChange(Commands.SHOW, null, null);
     }
 

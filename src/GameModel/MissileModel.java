@@ -18,15 +18,6 @@ public final class MissileModel extends AExplodingProjectile {
     private float launchingTimer;
     private static final float LAUNCH_END_TIME = 1f;
     
-    /**
-     * Instantiates the MissileModel.
-     * 
-     * @param damage damage the missile does
-     * @param mass the mass of the missle
-     */
-    public MissileModel(Vector3f initialPos, Vector3f initialVelocity, Quaternion rotation) {
-        super(initialPos, initialVelocity, rotation);
-    }
 
     /**
      * Returns the damage the missile does.

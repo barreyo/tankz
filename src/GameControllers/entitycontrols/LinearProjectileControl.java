@@ -10,6 +10,7 @@ import GameView.gameEntity.CanonBallEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
@@ -35,7 +36,8 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         this.entity = entity;
         this.projectileModel = projModel;
         this.physicsControl = physicsControl;
-       
+        
+        physicsControl.setEnabled(false);
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
         
         // We observe Model
@@ -46,17 +48,24 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
             TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
-        } 
+        } else if (evt.getPropertyName().equals(Commands.SHOW)) {
+            physicsControl.setEnabled(true);
+            physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
+        } else if (evt.getPropertyName().equals(Commands.HIDE)) {
+            physicsControl.setEnabled(false);
+        }
     }
 
     @Override
     protected void controlUpdate(float tpf) {
-        if (enabled) {
+        if (projectileModel.isInWorld()) {
             projectileModel.update(tpf);
             if (spatial != null) {
-                projectileModel.updatePosition(spatial.getWorldTranslation());
+                projectileModel.updatePosition((spatial.getWorldTranslation()));
             }
-            physicsControl.setLinearVelocity(projectileModel.getLinearVelocity());
+            if (physicsControl.isEnabled()) {
+                physicsControl.setLinearVelocity((projectileModel.getLinearVelocity()));
+            }
         }
     }
 
@@ -72,13 +81,15 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
 
     @Override
     public void collision(PhysicsCollisionEvent event) {
-        IWorldObject objA = event.getNodeA().getUserData("Model");
-        IWorldObject objB = event.getNodeB().getUserData("Model");
-        if (objA == projectileModel || objB == projectileModel) {
-            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
-            projectileModel.impact();
-            entity.impact();
-            SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+        if (event.getNodeA() != null && event.getNodeB() != null) {
+            IWorldObject objA = event.getNodeA().getUserData("Model");
+            IWorldObject objB = event.getNodeB().getUserData("Model");
+            if (objA == projectileModel || objB == projectileModel) {
+                physicsControl.setEnabled(false);
+                entity.impact();
+                projectileModel.impact();
+                SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+            }
         }
     }
 }

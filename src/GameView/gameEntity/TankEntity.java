@@ -110,21 +110,17 @@ public final class TankEntity extends AGameEntity {
         spatial.setLocalTranslation(armedVehicle.getPosition());
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
-    
+
     private void hideFromWorld() {
-        if (spatial.getParent() != null) {
-            spatial.removeFromParent();
-        }
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
     }
 
     private synchronized void showShootingEffects(Collection<ParticleEmitter> effects) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    effect.setLocalTranslation(armedVehicle.getFirePosition());
-                    spatial.getParent().attachChild(effect);
-                    effect.emitAllParticles();
-                }
+         for (ParticleEmitter effect : effects) {
+            if (effect != null) {
+                effect.setLocalTranslation(armedVehicle.getFirePosition());
+                TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
+                effect.emitAllParticles();
             }
         }
     }
