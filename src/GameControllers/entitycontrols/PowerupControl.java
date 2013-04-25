@@ -43,15 +43,10 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
         }
     }
 
-    public IPowerup getPowerup() {
-        return powerupModel;
-    }
     @Override
     protected void controlUpdate(float tpf) {
-        if (enabled) {
-            powerupModel.update(tpf);
-            spatial.rotate(tpf * 0.8f, tpf * 0.7f, tpf * 0.5f);
-        }
+        powerupModel.update(tpf);
+        spatial.rotate(tpf * 0.8f, tpf * 0.7f, tpf * 0.5f);
     }
 
 

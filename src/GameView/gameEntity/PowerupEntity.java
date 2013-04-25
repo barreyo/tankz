@@ -7,6 +7,8 @@ import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import com.jme3.scene.Spatial.CullHint;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -25,6 +27,10 @@ public class PowerupEntity extends AGameEntity {
         spatial.setUserData("Model", pow);
         powerup = pow;
         powerup.addObserver(this);
+        
+        // Always start out hidden
+        hideFromWorld();
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
     
     @Override
@@ -62,13 +68,11 @@ public class PowerupEntity extends AGameEntity {
     }
 
     private void showInWorld() {
-        if (!TanksAppAdapter.INSTANCE.isAttachedToRootNode(spatial)) {
-            spatial.setLocalTranslation(powerup.getPosition());
-            TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
-        }
+        spatial.setLocalTranslation(powerup.getPosition());
+        spatial.setCullHint(CullHint.Dynamic);
     }
 
     public void hideFromWorld() {
-        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
+        spatial.setCullHint(CullHint.Always);
     }
 }

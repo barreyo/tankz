@@ -80,8 +80,7 @@ public final class MissileModel extends AExplodingProjectile {
         Vector3f targetVec = new Vector3f(target);
         targetVec.subtractLocal(position);
         turnTo.lookAt(targetVec, Vector3f.UNIT_Y);
-        Quaternion newRotation = turnTo;
-        pcs.firePropertyChange(ROTATE, rotation, newRotation);
+        pcs.firePropertyChange(ROTATE, rotation, turnTo);
     }
 
     @Override
