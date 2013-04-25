@@ -79,7 +79,7 @@ public class TankModelTest {
         System.out.println("getAccelerationForce");
         TankModel instance = null;
         float expResult = 0.0F;
-        float result = instance.getAccelerationForce();
+        float result = instance.getDefaultAccelerationForce();
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -433,7 +433,7 @@ public class TankModelTest {
         System.out.println("getMaxSpeed");
         TankModel instance = null;
         float expResult = 0.0F;
-        float result = instance.getMaxSpeed();
+        float result = instance.getDefaultMaxSpeed();
         assertEquals(expResult, result, 0.0);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

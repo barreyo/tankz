@@ -29,7 +29,7 @@ public interface IArmedVehicle extends IWorldObject {
      *
      * @return The accelerationforce of the vehicle
      */
-    float getAccelerationForce();
+    float getDefaultAccelerationForce();
     
     /**
      * Gets the brakeforce applied when braking.
@@ -84,7 +84,7 @@ public interface IArmedVehicle extends IWorldObject {
     
     public void setAccelerationForce(float accelerationForce);
     
-    public float getMaxSpeed();
+    public float getDefaultMaxSpeed();
 
     public void gotHitBy(IExplodingProjectile projectile);
 
@@ -119,16 +119,5 @@ public interface IArmedVehicle extends IWorldObject {
     public void shoot();
     
     void resetSpeedValues();
-    
-    //commands
-    public static String SHOOT = "SHOOT";
-    public static String STEER = "STEER";
-    public static String ACCELERATE = "ACCELERATE";
-    public static String FRICTION = "FRICTION";
-    public static String HEALTH = "HEALTH";
-    public static final String SHOW = "SHOW";
-    public static final String HIDE = "HIDE";
-    public static final String CLEANUP = "CLEANUP";
-    public static final String SMOKE = "SMOKE";
-    public static final String MISSILE = "MISSILE";
+   
 }

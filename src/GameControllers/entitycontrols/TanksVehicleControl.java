@@ -12,6 +12,7 @@ import App.TanksAppAdapter;
 import GameModel.IExplodingProjectile;
 import GameModel.IPowerup;
 import GameModel.IWorldObject;
+import GameUtilities.Commands;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.TankEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -280,36 +281,32 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TanksAppAdapter.INSTANCE.removeInputListener(this);
         inputs.setInUse(false);
     }
-    
-    public IPlayer getPlayer() {
-        return player;
-    }
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
+        if (evt.getPropertyName().equals(Commands.SHOOT)) {
             // Shoot by creating a new missile with the right direction, position and rotation
             TanksFactory.createNewCanonBall(vehicleModel.getFirePosition(),
                     vehicleModel.getDirection().multLocal(100), vehicleModel.getRotation());
-        } else if (evt.getPropertyName().equals(IArmedVehicle.STEER)) {
+        } else if (evt.getPropertyName().equals(Commands.STEER)) {
             // Steer the vehicle according to the model
             this.steer(vehicleModel.getSteeringValue());
-        } else if (evt.getPropertyName().equals(IArmedVehicle.ACCELERATE)) {
+        } else if (evt.getPropertyName().equals(Commands.ACCELERATE)) {
             // Accelerate the vehicle accordning to the model
             this.accelerate(vehicleModel.getAccelerationValue());
-        } else if (evt.getPropertyName().equals(IArmedVehicle.FRICTION)) {
+        } else if (evt.getPropertyName().equals(Commands.FRICTION)) {
             // Brake the vehicle according to the friction in model
             this.brake(vehicleModel.getFrictionForce());
-        }  else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)){
+        }  else if (evt.getPropertyName().equals(Commands.SHOW)){
             this.setEnabled(true);
             TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
             this.setPhysicsLocation(vehicleModel.getPosition());
-        } else if (evt.getPropertyName().equals(IArmedVehicle.HIDE)){
+        } else if (evt.getPropertyName().equals(Commands.HIDE)){
             this.setEnabled(false);
             TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
-        } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
+        } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             this.cleanup();
-        } else if (evt.getPropertyName().equals(IArmedVehicle.MISSILE)) {
+        } else if (evt.getPropertyName().equals(Commands.MISSILE)) {
             TanksFactory.createNewMissile(vehicleModel.getPosition().addLocal(0, 3, 0),
             new Vector3f(0, 20, 0), vehicleModel.getRotation(), this);
             SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);

@@ -1,5 +1,6 @@
 package GameModel;
 
+import GameUtilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
@@ -80,7 +81,7 @@ public final class MissileModel extends AExplodingProjectile {
         Vector3f targetVec = new Vector3f(target);
         targetVec.subtractLocal(position);
         turnTo.lookAt(targetVec, Vector3f.UNIT_Y);
-        pcs.firePropertyChange(ROTATE, rotation, turnTo);
+        pcs.firePropertyChange(Commands.ROTATE, rotation, turnTo);
     }
 
     @Override

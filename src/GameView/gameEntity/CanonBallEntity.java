@@ -3,6 +3,7 @@ package GameView.gameEntity;
 
 import GameModel.IExplodingProjectile;
 import App.TanksAppAdapter;
+import GameUtilities.Commands;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -51,10 +52,10 @@ public final class CanonBallEntity extends AGameEntity{
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
+        if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
             // Clean up
             cleanup();
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
+        } else if (evt.getPropertyName().equals(Commands.EXPLOSION_FINISHED)) {
             for (ParticleEmitter effect : effects) {
                 if (effect.getParent() != null) {
                     // Remove effect from world
