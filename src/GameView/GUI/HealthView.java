@@ -4,6 +4,7 @@ package GameView.GUI;
 import GameModel.ApplicationSettings;
 import GameModel.IPlayer;
 import GameModel.IArmedVehicle;
+import GameUtilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
@@ -71,7 +72,7 @@ public class HealthView extends AHudElement {
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(IArmedVehicle.HEALTH)) {
+        if (pce.getPropertyName().equals(Commands.HEALTH)) {
             mask.setWidth(elementWidth * (player.getVehicle().getHealth() * 0.01f));
             text.setText("" + player.getVehicle().getHealth());
         }

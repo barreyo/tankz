@@ -5,6 +5,7 @@ import GameModel.IArmedVehicle;
 import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.IWorldObject;
+import GameUtilities.Commands;
 import GameView.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -38,7 +39,7 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(IPowerup.SHOW)) {
+        if (pce.getPropertyName().equals(Commands.SHOW)) {
             TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
         }
     }

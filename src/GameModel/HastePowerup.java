@@ -24,8 +24,8 @@ public class HastePowerup extends APowerup{
         super.usePowerup(player);
         this.player = player;
         IArmedVehicle vehicle = player.getVehicle();
-        maxSpeed = vehicle.getMaxSpeed();
-        accForce = vehicle.getAccelerationForce();
+        maxSpeed = vehicle.getDefaultMaxSpeed();
+        accForce = vehicle.getDefaultAccelerationForce();
         vehicle.setMaxSpeed(maxSpeed * 3f);
         vehicle.setAccelerationForce(accForce * 5f);
         activateTimer = 0;

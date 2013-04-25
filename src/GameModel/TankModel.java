@@ -1,6 +1,7 @@
 package GameModel;
 
 import GameModel.IExplodingProjectile;
+import GameUtilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
@@ -18,40 +19,27 @@ import java.util.List;
 public final class TankModel implements IArmedVehicle {
     
     private int health;
-    private float maxSpeed;
-    private float accelerationForce;
     private IArmedVehicle.VehicleState vehicleState;
     private Vector3f position;
     private Vector3f direction;
     private Quaternion rotation;
     
     private boolean isInWorld;
-    
+   
     private float steeringValue;
     private float accelerationValue;
+    private float steeringChangeValue;
     private float acceleration;
     private float currentVehicleSpeedKmHour;
-    
-    // This is physics-related information about the Tank
-    public static final float TANK_MASS = 600.0f;
-    public static final float TANK_STIFFNESS = 80.0f;//200=f1 car
-    public static final float TANK_COMP_VALUE = 0.2f; //(should be lower than damp)
-    public static final float TANK_DAMP_VALUE = 0.5f; 
-    public static final float TANK_MAX_BACK_SPEED = 30.0f;
-    public static final float TANK_BRAKE_FORCE = 10000.0f;
-    public static final float TANK_FRICTION_FORCE = 10.0f;
-    public static final float TANK_MAX_SUSPENSION_FORCE = 999000.0f;
-    public static final float TANK_STEERING_CHANGE_VALUE = 0.4f;
-    public static final float TANK_MAX_SPEED = 80.0f;
-    public static final float TANK_ACCELERATION_FORCE = 2000.0f;
-
-    //Create four wheels and add them at their locations
-    public static final Vector3f TANK_WHEEL_DIRECTION = new Vector3f(0, -1, 0); // was 0, -1, 0
-    public static final Vector3f TANK_WHEEL_AXIS = new Vector3f(-1, 0, 0); // was -1, 0, 0
-    public static final float TANK_WHEEL_REST_LENGTH = 0.2f;
-    public static final float TANK_WHEEL_Y_OFF = 0.7f;
-    public static final float TANK_WHEEL_X_OFF = 0.9f;
-    public static final float TANK_WHEEL_Z_OFF = 0.7f;
+   
+    private final float mass;
+    private float currentMaxSpeed;
+    private float currentAccelerationForce;
+    private final float defaultMaxSpeed;
+    private final float defaultAccelerationForce;
+    private final float brakeForce;
+    private final float frictionForce;
+    private final float backMaxSpeed;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -61,9 +49,16 @@ public final class TankModel implements IArmedVehicle {
     public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
+        mass = 600.0f;
         health = 100;
-        maxSpeed = TANK_MAX_SPEED;
-        accelerationForce = TANK_ACCELERATION_FORCE;
+        defaultMaxSpeed = 80.0f;
+        currentMaxSpeed = defaultMaxSpeed;
+        backMaxSpeed = 30.0f;
+        defaultAccelerationForce = 2000.0f;
+        currentAccelerationForce = defaultAccelerationForce;
+        brakeForce = 10000.0f;
+        frictionForce = 10.0f;
+        steeringChangeValue = 0.4f;
         position = Vector3f.ZERO;
         direction = Vector3f.ZERO;
         rotation = Quaternion.ZERO;
@@ -89,8 +84,8 @@ public final class TankModel implements IArmedVehicle {
      * @inheritdoc
      */
     @Override
-    public float getAccelerationForce() {
-        return TANK_ACCELERATION_FORCE;
+    public float getDefaultAccelerationForce() {
+        return defaultAccelerationForce;
     }
 
     /**
@@ -98,7 +93,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public float getBrakeForce() {
-        return TANK_BRAKE_FORCE;
+        return brakeForce;
     }
 
     /**
@@ -140,7 +135,7 @@ public final class TankModel implements IArmedVehicle {
     }
     
     private void steeringValueChanged() {
-        pcs.firePropertyChange(STEER, null, null);
+        pcs.firePropertyChange(Commands.STEER, null, null);
     }
 
     public void decrementHealth(int hp) {
@@ -150,7 +145,7 @@ public final class TankModel implements IArmedVehicle {
             } else {
                 health -= hp;
             }
-            pcs.firePropertyChange(HEALTH, null, null);
+            pcs.firePropertyChange(Commands.HEALTH, null, null);
         }
     }
 
@@ -159,11 +154,11 @@ public final class TankModel implements IArmedVehicle {
         for (CanonBallModel canonBall : canonBalls) {
             
         }
-        pcs.firePropertyChange(SHOOT, null, null);
+        pcs.firePropertyChange(Commands.SHOOT, null, null);
     }
   
     public void shootMissile() {
-        pcs.firePropertyChange(MISSILE, health, health);
+        pcs.firePropertyChange(Commands.MISSILE, health, health);
     }
     
     @Override
@@ -180,38 +175,38 @@ public final class TankModel implements IArmedVehicle {
     public void update(float tpf) {
         // Keep vehicle within max speeds
         float oldAcceleration = accelerationValue;
-        float maxSpeed = (acceleration >= 0 ? this.maxSpeed : -TANK_MAX_BACK_SPEED);
+        float maxSpeed = (acceleration >= 0 ? this.currentMaxSpeed : -backMaxSpeed);
         float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
         accelerationValue = acceleration * speedFactor;
         if (oldAcceleration != accelerationValue) {
-            pcs.firePropertyChange(ACCELERATE, oldAcceleration, accelerationValue);
+            pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
         }
-        pcs.firePropertyChange(SMOKE, null, null);
+        pcs.firePropertyChange(Commands.SMOKE, null, null);
     }
 
     @Override
     public void accelerateForward() {
-        incrementAcceleration(accelerationForce);
+        incrementAcceleration(currentAccelerationForce);
     }
 
     @Override
     public void accelerateBack() {
-        decrementAcceleration(accelerationForce);
+        decrementAcceleration(currentAccelerationForce);
     }
 
     @Override
     public void steerLeft() {
-        incrementSteeringValue(TANK_STEERING_CHANGE_VALUE);
+        incrementSteeringValue(steeringChangeValue);
     }
 
     @Override
     public void steerRight() {
-        decrementSteeringValue(TANK_STEERING_CHANGE_VALUE);
+        decrementSteeringValue(steeringChangeValue);
     }
 
     @Override
     public float getFrictionForce() {
-        return TANK_FRICTION_FORCE;
+        return frictionForce;
     }
 
     @Override
@@ -221,7 +216,7 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public float getMass() {
-        return TANK_MASS;
+        return mass;
     }
 
     @Override
@@ -260,22 +255,22 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void applyFriction() {
-        pcs.firePropertyChange(FRICTION, null, null);
+        pcs.firePropertyChange(Commands.FRICTION, null, null);
     }
 
     @Override
     public synchronized void setMaxSpeed(float maxSpeed) {
-        this.maxSpeed = maxSpeed;
+        this.currentMaxSpeed = maxSpeed;
     }
 
     @Override
     public synchronized void setAccelerationForce(float accelerationForce) {
-        this.accelerationForce = accelerationForce;
+        this.currentAccelerationForce = accelerationForce;
     }
     
     @Override
-    public float getMaxSpeed(){
-        return TANK_MAX_SPEED;
+    public float getDefaultMaxSpeed(){
+        return defaultMaxSpeed;
     }
 
     @Override
@@ -283,13 +278,13 @@ public final class TankModel implements IArmedVehicle {
         this.decrementHealth(projectile.getDamageOnImpact());
         if (health<=0){
             this.vehicleState = VehicleState.DESTROYED;
-            pcs.firePropertyChange(HIDE, null, null);
+            pcs.firePropertyChange(Commands.HIDE, null, null);
         }
     }
 
     @Override
     public void cleanup() {
-        pcs.firePropertyChange(CLEANUP, null, null);
+        pcs.firePropertyChange(Commands.CLEANUP, null, null);
     }
 
     @Override
@@ -300,16 +295,16 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void showInWorld() {
         health = 100;
-        pcs.firePropertyChange(HEALTH, null, null);
+        pcs.firePropertyChange(Commands.HEALTH, null, null);
         vehicleState = VehicleState.ALIVE;
         isInWorld = true;
-        pcs.firePropertyChange(SHOW, null, null);
+        pcs.firePropertyChange(Commands.SHOW, null, null);
     }
 
     @Override
     public void hideFromWorld() {
         isInWorld = false;
-        pcs.firePropertyChange(HIDE, null, null);
+        pcs.firePropertyChange(Commands.HIDE, null, null);
     }
 
     @Override
@@ -324,8 +319,8 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void resetSpeedValues() {
-        maxSpeed = TANK_MAX_SPEED;
-        accelerationForce = TANK_ACCELERATION_FORCE;
+        currentMaxSpeed = defaultMaxSpeed;
+        currentAccelerationForce = defaultAccelerationForce;
     }
 
     @Override

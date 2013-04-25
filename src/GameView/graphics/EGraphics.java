@@ -26,7 +26,12 @@ public enum EGraphics {
     /**
      * Model used for bomb.
      */
-    BOMB("Models/bomb/bomb.j3o");
+    BOMB("Models/bomb/bomb.j3o"),
+    
+    /**
+     * Model used for landmine.
+     */
+    LANDMINE("Models/landmine/landmine.j3o");
     
     private String fileLocation;
 

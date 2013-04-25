@@ -1,5 +1,6 @@
 package GameModel;
 
+import GameUtilities.Commands;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
@@ -50,12 +51,12 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
         if (exploding) {
             explodingTimer += tpf;
             if (explodingTimer > EXPLOSION_END_TIME) {
-                pcs.firePropertyChange(EXPLOSION_FINISHED, null, null);
+                pcs.firePropertyChange(Commands.EXPLOSION_FINISHED, null, null);
             }
         } else {
             projectileLifeTimer += tpf;
             if (projectileLifeTimer > MAX_LIFE_TIME) {
-                pcs.firePropertyChange(END_OF_LIFETIME, null, null);
+                pcs.firePropertyChange(Commands.END_OF_LIFETIME, null, null);
             }
         }
     }
@@ -91,18 +92,18 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     @Override
     public void showInWorld() {
         isInWorld = true;
-        pcs.firePropertyChange(SHOW, null, null);
+        pcs.firePropertyChange(Commands.SHOW, null, null);
     }
 
     @Override
     public void hideFromWorld() {
         isInWorld = false;
-        pcs.firePropertyChange(HIDE, null, null);
+        pcs.firePropertyChange(Commands.HIDE, null, null);
     }
 
     @Override
     public void cleanup() {
-        pcs.firePropertyChange(CLEANUP, null, null);
+        pcs.firePropertyChange(Commands.CLEANUP, null, null);
     }
 
     @Override

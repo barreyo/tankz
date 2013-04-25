@@ -6,6 +6,7 @@ import GameModel.IPlayer;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.MissilePowerup;
+import GameUtilities.Commands;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
@@ -56,7 +57,7 @@ public class PowerupSlotView extends AHudElement {
      * @param pce change event.
      */
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(IPlayer.POWERUP_CHANGED)) {
+        if (pce.getPropertyName().equals(Commands.POWERUP_CHANGED)) {
             IPowerup powerup = player.getPowerup();
             if (powerup instanceof HastePowerup) {
                 picture.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);

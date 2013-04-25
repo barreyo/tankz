@@ -5,6 +5,7 @@ import GameControllers.logic.SoundManager;
 import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
 import GameModel.MissileModel;
+import GameUtilities.Commands;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.MissileEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -118,13 +119,13 @@ public class HomingProjectileControl extends RigidBodyControl implements Physics
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
+        if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
             if (space != null) {
                 space.removeCollisionListener(this);
                 space.remove(this);
                 entity.removeObserver(this);
             }
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
+        } else if (evt.getPropertyName().equals(Commands.EXPLOSION_FINISHED)) {
             for (ParticleEmitter effect : effects) {
                 effect.removeControl(this);
             }
