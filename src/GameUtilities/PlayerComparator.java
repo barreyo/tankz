@@ -21,9 +21,9 @@ public class PlayerComparator implements Comparator {
         IPlayer p2 = (IPlayer) t1;
         
         if (p1.getKills() == p2.getKills()) {
-            return p2.getDeaths() - p1.getDeaths();
+            return p1.getDeaths() - p2.getDeaths();
         }
-        return p1.getKills() - p2.getKills();
+        return p2.getKills() - p1.getKills();
     }
     
 }
