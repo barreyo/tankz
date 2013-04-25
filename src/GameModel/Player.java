@@ -1,6 +1,7 @@
 
 package GameModel;
 
+import GameModel.IArmedVehicle.VehicleState;
 import GameUtilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
