@@ -37,14 +37,12 @@ public class PowerupSlotView extends AHudElement {
         float screenWidth = vp.getCamera().getWidth();
         
         // Calculate the height of the picture relative to the ViewPort resolution.
-        picture.setHeight((screenHeight/5.3f) / 
-                numberOfPlayers * 
+        picture.setHeight((screenHeight/5.3f) / numberOfPlayers * 
                 (numberOfPlayers > 1 ? 2 : 1));
         // Calculate the height of the picture relative to the ViewPort resolution.
-        picture.setWidth((screenWidth/9) / 
-                numberOfPlayers * 
+        picture.setWidth((screenWidth/9) / numberOfPlayers * 
                 (numberOfPlayers > 1 ? 2 : 1));
-        // Sets position relative to ViewPort with offset by width * 0.1.
+        // Sets position relative to ViewPort with offset by width * 0.2.
         picture.setPosition(vp.getCamera().getViewPortLeft() * 
                 screenWidth + (screenWidth * 0.02f), vp.getCamera().getViewPortBottom() 
                 * screenHeight + (screenWidth * 0.02f));
