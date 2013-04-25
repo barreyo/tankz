@@ -94,16 +94,4 @@ public abstract class APowerup implements IPowerup {
     public void usePowerup(IPlayer player) {
         setHeldByPlayer(false);
     }
-    
-    public boolean isActivated() {
-        return isActive;
-    }
-    
-    public void setActivated(boolean act) {
-        isActive = act;
-    }
-    
-    public float getTimer() {
-        return activateTimer;
-    }
 }

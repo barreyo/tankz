@@ -39,7 +39,7 @@ public class HastePowerup extends APowerup{
             System.out.println("vajs");
             activateTimer += tpf;
             if (activateTimer >= END_TIME) {
-                this.setActivated(false);
+                isActive = false;
                 IArmedVehicle vehicle = player.getVehicle();
                 vehicle.resetSpeedValues();
             }

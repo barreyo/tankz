@@ -4,8 +4,11 @@
  */
 package GameModel;
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -143,41 +146,16 @@ public class APowerupTest {
         assertTrue(instance.isHeldByPlayer() == false);
     }
 
-    /**
-     * Test of isActivated method, of class APowerup.
-     */
-    @Test
-    public void testIsActivated() {
-        System.out.println("isActivated");
-        instance.setActivated(false);
-        boolean result = instance.isActivated();
-        
-        assertEquals(false, result);
-    }
-    
-    /**
-     * Test of setActivated method, of class APowerup.
-     */
-    @Test
-    public void testSetActivated() {
-        System.out.println("setActivated");
-        instance.setActivated(false);
-        
-        assertTrue(instance.isActivated() == false);
-    }
-
-    /**
-     * Test of getTimer method, of class APowerup.
-     */
-    @Test
-    public void testGetTimer() {
-        System.out.println("getTimer");
-        float expResult = 0.0F;
-        float result = instance.getTimer();
-        
-        assertEquals(expResult, result, 0.0);
-    }
-
     public class APowerupImpl extends APowerup {
+
+        @Override
+        public void write(JmeExporter ex) throws IOException {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
+        @Override
+        public void read(JmeImporter im) throws IOException {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
     }
 }
