@@ -43,9 +43,6 @@ public interface ITanks extends IObservable {
     
     void update(float tpf);
     void cleanup();
-    
-    public static final String END_GAME = "END_GAME";
-    public static final String CLEANUP = "CLEANUP";
 
     public void powerupPickedUp(IPowerup powerup);
     

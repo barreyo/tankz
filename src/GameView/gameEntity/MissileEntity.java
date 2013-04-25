@@ -2,6 +2,7 @@ package GameView.gameEntity;
 
 import App.TanksAppAdapter;
 import GameModel.IExplodingProjectile;
+import GameUtilities.Commands;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -54,10 +55,10 @@ public final class MissileEntity extends AGameEntity {
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
+        if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
             // Clean up
             cleanup();
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.EXPLOSION_FINISHED)) {
+        } else if (evt.getPropertyName().equals(Commands.EXPLOSION_FINISHED)) {
             for (ParticleEmitter effect : effects) {
                 if (effect.getParent() != null) {
                     // Remove effect from world
@@ -66,7 +67,7 @@ public final class MissileEntity extends AGameEntity {
                 }
             }
             projectile.removeObserver(this);
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.ROTATE)) {
+        } else if (evt.getPropertyName().equals(Commands.ROTATE)) {
             spatial.setLocalRotation((Quaternion)evt.getNewValue());
         }
         pcs.firePropertyChange(evt);

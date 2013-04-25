@@ -1,5 +1,6 @@
 package GameModel;
 
+import GameUtilities.Commands;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
@@ -27,13 +28,13 @@ public abstract class APowerup implements IPowerup {
     @Override
     public void showInWorld(){
         isInWorld = true;
-        pcs.firePropertyChange(SHOW, null, null);
+        pcs.firePropertyChange(Commands.SHOW, null, null);
     }
     
     @Override
     public void hideFromWorld() {
         isInWorld = false;
-        pcs.firePropertyChange(HIDE, null, null);
+        pcs.firePropertyChange(Commands.HIDE, null, null);
     }
     
     @Override

@@ -1,6 +1,7 @@
 
 package GameModel;
 
+import GameUtilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
@@ -76,7 +77,7 @@ public class TanksGameModel implements ITanks {
     @Override
     public void endGame() {
         // show stats
-        pcs.firePropertyChange(END_GAME, null, null);
+        pcs.firePropertyChange(Commands.END_GAME, null, null);
     }
 
     /**
