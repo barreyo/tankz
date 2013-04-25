@@ -3,6 +3,7 @@ package GameView.gameEntity;
 
 import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
+import GameUtilities.Commands;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import GameView.physics.ECollisionShapes;
@@ -64,18 +65,18 @@ public final class TankEntity extends AGameEntity {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IArmedVehicle.SHOOT)) {
+        if (evt.getPropertyName().equals(Commands.SHOOT)) {
             showShootingEffects(shootEffects);
-        } else if(evt.getPropertyName().equals(IArmedVehicle.HIDE)){
+        } else if(evt.getPropertyName().equals(Commands.HIDE)){
                 // Remove tank from world
                 this.showShootingEffects(blownUpEffects);
                 this.hideFromWorld();
-        } else if (evt.getPropertyName().equals(IArmedVehicle.SHOW)) {
+        } else if (evt.getPropertyName().equals(Commands.SHOW)) {
             this.showInWorld();
-        } else if (evt.getPropertyName().equals(IArmedVehicle.CLEANUP)) {
+        } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             this.cleanup();
         }
-        if (evt.getPropertyName().equals(IArmedVehicle.SMOKE)) {
+        if (evt.getPropertyName().equals(Commands.SMOKE)) {
             showSmokeEffects(smokeEffects);
         }
         pcs.firePropertyChange(evt);

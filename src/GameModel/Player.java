@@ -1,7 +1,7 @@
 
 package GameModel;
 
-import GameModel.IArmedVehicle.VehicleState;
+import GameUtilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -134,7 +134,7 @@ public class Player implements IPlayer {
     public synchronized void setPowerup(IPowerup powerup) {
         if (this.powerup == null) {
             this.powerup = powerup;
-            pcs.firePropertyChange(POWERUP_CHANGED, null, null);
+            pcs.firePropertyChange(Commands.POWERUP_CHANGED, null, null);
         }
     }
 
@@ -217,7 +217,7 @@ public class Player implements IPlayer {
         if (powerup != null) {
             powerup.usePowerup(this);
             powerup = null;
-            pcs.firePropertyChange(POWERUP_CHANGED, null, null);
+            pcs.firePropertyChange(Commands.POWERUP_CHANGED, null, null);
         }
     }
 

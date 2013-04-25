@@ -4,6 +4,7 @@ import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
 import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
+import GameUtilities.Commands;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.CanonBallEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -43,7 +44,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
+        if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
             TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
         } 
     }

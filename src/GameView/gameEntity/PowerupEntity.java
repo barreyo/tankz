@@ -3,11 +3,10 @@ package GameView.gameEntity;
 
 import App.TanksAppAdapter;
 import GameModel.IPowerup;
+import GameUtilities.Commands;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
 import com.jme3.scene.Spatial.CullHint;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -49,9 +48,9 @@ public class PowerupEntity extends AGameEntity {
 
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(IPowerup.SHOW)) {
+        if (pce.getPropertyName().equals(Commands.SHOW)) {
             showInWorld();
-        } else if (pce.getPropertyName().equals(IPowerup.CLEANUP)) {
+        } else if (pce.getPropertyName().equals(Commands.CLEANUP)) {
             cleanup();
         }
         pcs.firePropertyChange(pce);

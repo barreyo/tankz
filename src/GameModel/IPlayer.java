@@ -97,8 +97,6 @@ public interface IPlayer extends IObservable {
      * Uses the powerup that the player holds, removing it from the player.
      */
     public void usePowerup();
-    
-    public static final String POWERUP_CHANGED = "POWERUP_CHANGED";
 
     public void cleanup();
     
