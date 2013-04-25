@@ -40,8 +40,6 @@ public class HastePowerupTest {
         System.out.println("usePowerup");
         instance.usePowerup(player);
         
-        assertTrue(instance.isActivated() == true);
-        assertTrue(instance.getTimer() == 0);
         assertTrue(vehicle.getMaxSpeed() == tmpSpeed * 3f);
         assertTrue(vehicle.getAccelerationForce() == tmpForce * 10f);
     }
@@ -59,8 +57,6 @@ public class HastePowerupTest {
             instance.update(tpf);
         }
         
-        assertTrue(instance.getTimer() == 5);
-        assertTrue(instance.isActive == false);
         assertTrue(vehicle.getMaxSpeed() == tmpSpeed);
         assertTrue(vehicle.getAccelerationForce() == tmpForce);
     }
