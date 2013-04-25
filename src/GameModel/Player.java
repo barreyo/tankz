@@ -1,6 +1,7 @@
 
 package GameModel;
 
+import GameModel.IArmedVehicle.VehicleState;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -223,5 +224,16 @@ public class Player implements IPlayer {
     @Override
     public void cleanup() {
         vehicle.cleanup();
+    }
+    
+    private boolean hasDiedThisDeath = false;
+    
+    public void update(float tpf) {
+        if (vehicle.getVehicleState() == VehicleState.DESTROYED && !hasDiedThisDeath) {
+            this.incrementDeaths();
+            hasDiedThisDeath = true;
+        } else if (vehicle.getVehicleState() == VehicleState.ALIVE) {
+            hasDiedThisDeath = false;
+        }
     }
 }

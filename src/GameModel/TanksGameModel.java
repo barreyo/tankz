@@ -150,6 +150,9 @@ public class TanksGameModel implements ITanks {
             spawningTimer = 0;
             spawnPowerups();
         }
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).update(tpf);
+        }
         respawnDestroyedVehicles();
     }
 

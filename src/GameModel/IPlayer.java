@@ -101,4 +101,6 @@ public interface IPlayer extends IObservable {
     public static final String POWERUP_CHANGED = "POWERUP_CHANGED";
 
     public void cleanup();
+    
+    public void update(float tpf);
 }

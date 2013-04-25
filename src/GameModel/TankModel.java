@@ -309,6 +309,7 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void hideFromWorld() {
         isInWorld = false;
+        vehicleState = VehicleState.DESTROYED;
         pcs.firePropertyChange(HIDE, null, null);
     }
 
