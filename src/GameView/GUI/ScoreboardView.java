@@ -27,7 +27,6 @@ public class ScoreboardView extends AHudElement {
     private List<BitmapText> playerNames, playerKills, playerDeaths, playerStatus;
     private List<IPlayer> players;
     private BitmapText killsText, deathsText;
-    private float firstPos, secondPos, thirdPos, fourthPos;
     
     /**
      * Instatiates a scoreboardview that can be displayed in the given viewport.
@@ -72,14 +71,9 @@ public class ScoreboardView extends AHudElement {
         killsText.setText("Score");
         deathsText.setText("Death");
         killsText.setLocalTranslation(picX + (picWidth * 0.65f), 
-                (picY + picHeight) - ((picHeight * 0.1f)), 1);
+                (picY + picHeight) - ((picHeight * 0.13f)), 1);
         deathsText.setLocalTranslation(picX + (picWidth * 0.85f), 
-                (picY + picHeight) - ((picHeight * 0.1f)), 1);
-        
-        firstPos = (picY + picHeight) - ((picHeight * 0.1f) * (2.4f));
-        secondPos = (picY + picHeight) - ((picHeight * 0.1f) * (1 + 2.4f));
-        thirdPos = (picY + picHeight) - ((picHeight * 0.1f) * (2 + 2.4f));
-        fourthPos = (picY + picHeight) - ((picHeight * 0.1f) * (2 + 2.4f));
+                (picY + picHeight) - ((picHeight * 0.13f)), 1);
         
         for (int i = 0; i < players.size(); i++) {
             playerNames.add(new BitmapText(font, false));
@@ -168,17 +162,25 @@ public class ScoreboardView extends AHudElement {
         guiNode.attachChild(deathsText);
     }
     
+    // Updates text values and position in the table.
     private void updateText() {
         PlayerComparator pCompare = new PlayerComparator();
-        Collections.sort(players, pCompare);
+        List<IPlayer> playersClone = new ArrayList<IPlayer>();
         
-        for (int i = 0; i < players.size(); i++) {
+        // Cloning players list just in case since we mess with the order.
+        for(IPlayer p : players) {
+            playersClone.add(p);
+        }
+        
+        Collections.sort(playersClone, pCompare);
+        
+        for (int i = 0; i < playersClone.size(); i++) {
             
-            playerNames.get(i).setText(players.get(i).getName());
-            playerKills.get(i).setText("" + players.get(i).getKills());
-            playerDeaths.get(i).setText("" + players.get(i).getDeaths());
+            playerNames.get(i).setText(playersClone.get(i).getName());
+            playerKills.get(i).setText("" + playersClone.get(i).getKills());
+            playerDeaths.get(i).setText("" + playersClone.get(i).getDeaths());
             
-            if (players.get(i).getVehicle().getVehicleState() == VehicleState.DESTROYED) {
+            if (playersClone.get(i).getVehicle().getVehicleState() == VehicleState.DESTROYED) {
                 playerStatus.get(i).setText("Dead");
             } else {
                 playerStatus.get(i).setText("");
