@@ -1,8 +1,6 @@
 
 package GameModel;
 
-import GameModel.IArmedVehicle.VehicleState;
-import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
@@ -125,7 +123,7 @@ public class TanksGameModel implements ITanks {
         pcs.removePropertyChangeListener(l);
     }
 
-    float fireIndicator = 0;
+    private float secondTimer = 0;
     
     /**
      * {@inheritdoc} 
@@ -133,6 +131,11 @@ public class TanksGameModel implements ITanks {
     @Override
     public void update(float tpf) {
         gameTimer -= tpf;
+        secondTimer += tpf;
+        if (secondTimer >= 1.0f) {
+            pcs.firePropertyChange("Timer", null, null);
+            secondTimer = 0;
+        }
         // Check if someone has won
         if (gameTimer <= 0) {
             endGame();
@@ -148,26 +151,19 @@ public class TanksGameModel implements ITanks {
             spawnPowerups();
         }
         respawnDestroyedVehicles();
-        
-        fireIndicator += tpf;
-        if (fireIndicator >= 1.0f) {
-            pcs.firePropertyChange("Timer", null, null);
-            fireIndicator = 0;
-        }
     }
 
     private void spawnPowerups() {
+        Collections.shuffle(powerups);
         for (ISpawningPoint spawn : powerupSpawningPoints) {
             if (!spawn.isOccupied()) {
-                boolean foundAvaiblePowerup = false;
-                while (!foundAvaiblePowerup) {
-                    IPowerup powerup = getRandomItem(powerups);
+                for (IPowerup powerup : powerups) {
                     if (!powerup.isHeldByPlayer() && !powerup.isInWorld()) {
                         powerup.setPosition(spawn.getPosition());
                         powerup.showInWorld();
                         spawn.setOccupied(true);
                         spawn.setOccupier(powerup);
-                        foundAvaiblePowerup = true;
+                        break;
                     }
                 }
             }
@@ -185,12 +181,6 @@ public class TanksGameModel implements ITanks {
         for (IPowerup powerup : powerups) {
             powerup.cleanup();
         }
-    }
-    
-    private <E> E getRandomItem(List<? extends E> collection) {
-        int index = randomGenerator.nextInt(collection.size());
-        E item = collection.get(index);
-        return item;
     }
 
     private void spawnAllPlayers() {
@@ -214,6 +204,8 @@ public class TanksGameModel implements ITanks {
             }
         }
     }
+    
+    
 
     private void respawnDestroyedVehicles() {
         /*for (IPlayer player : players) {

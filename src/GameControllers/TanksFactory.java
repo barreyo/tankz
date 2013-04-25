@@ -35,6 +35,7 @@ import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -45,6 +46,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -54,40 +56,27 @@ import java.util.List;
  */
 public final class TanksFactory {
 
+    private static HashMap<IPlayer, ScoreboardView> scoreboardHash;
+    
     private TanksFactory() {
     }
     
-    public static CanonBallModel getNewCanonBall() {
-        CanonBallModel projectileModel = new CanonBallModel();
-
-        CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
-
-        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel);
-
-        control.setCcdMotionThreshold(0.1f);
-        control.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        control.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
-        //control.setKinematic(true);
-
-        return projectileModel;
-    }
-
     public static CanonBallModel createNewCanonBall(Vector3f position, Vector3f velocity, Quaternion rotation) {
         CanonBallModel projectileModel = new CanonBallModel(position, velocity, rotation);
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
-        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel);
-
-        control.setCcdMotionThreshold(0.1f);
-        control.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        control.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
-        //control.setKinematic(true);
+        RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
+        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
+        
+        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel, physicsControl);
 
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-        TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
-
+        
         projectileEntity.addControl(control);
+        projectileEntity.addControl(physicsControl);
         return projectileModel;
     }
     
@@ -105,7 +94,7 @@ public final class TanksFactory {
 
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(control);
-
+        
         projectileEntity.addControl(control);
         return projectileModel;
     }
@@ -125,22 +114,28 @@ public final class TanksFactory {
     private static HastePowerup getNewHastePowerup() {
         HastePowerup model = new HastePowerup();
         PowerupEntity view = new PowerupEntity(model);
-        PowerupControl control = new PowerupControl(view, model);
-
-        control.setKinematic(true);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMASS());
+        physicsControl.setKinematic(true);
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
+        
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
 
         view.addControl(control);
+        view.addControl(physicsControl);
         return model;
     }
     
     private static MissilePowerup getNewMissilePowerup() {
         MissilePowerup model = new MissilePowerup();
         PowerupEntity view = new PowerupEntity(model);
-        PowerupControl control = new PowerupControl(view, model);
-
-        control.setKinematic(true);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMASS());
+        physicsControl.setKinematic(true);
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
+        
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
 
         view.addControl(control);
+        view.addControl(physicsControl);
         return model;
     }
 
@@ -156,6 +151,15 @@ public final class TanksFactory {
         chaseCam.setDefaultVerticalRotation(0.3f);
         return chaseCam;
     }
+    
+    // TESTING SCOREBOARD VIEWIING
+    public static void showScoreboard(IPlayer player) {
+        scoreboardHash.get(player).show();
+    }
+    
+    public static void hideScoreboard(IPlayer player) {
+        scoreboardHash.get(player).hide();
+    }
 
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
 
@@ -163,6 +167,8 @@ public final class TanksFactory {
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
+        
+        scoreboardHash = new HashMap<IPlayer, ScoreboardView>();
         
         // Create one player for each name
         for (String name : playerNames) {
@@ -239,7 +245,7 @@ public final class TanksFactory {
             vehicle.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_02);
             vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01 | PhysicsCollisionObject.COLLISION_GROUP_02);
             TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
-         
+            
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,
                     ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
@@ -249,6 +255,11 @@ public final class TanksFactory {
             v.show();
 
             players.add(player);
+        }
+        
+        for(IPlayer p : players) {
+            // set up scoreboard for each player
+            scoreboardHash.put(p, new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players));
         }
         
         // Setting spawningpoints, different on each map
@@ -298,9 +309,6 @@ public final class TanksFactory {
         // set up timerView
         TimerView timerView = new TimerView(game);
         timerView.show();
-        
-        ScoreboardView sbv = new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(players.get(0).getName()), players);
-        sbv.show();
         
         return new GameAppState(game, gameWorld);
     }

@@ -48,8 +48,8 @@ public class TimerView extends AHudElement {
         if (gameModel.getPlayers().size() == 1) {
             xPic = screenWidth - ((screenWidth/12) * 1.3f);
             yPic = screenHeight - ((screenHeight/16) * 1.5f);
-            xText = screenWidth - ((screenWidth/12) * 1.3f);
-            yText = screenHeight - ((screenHeight/16) * 1.5f);
+            xText = screenWidth - ((screenWidth/12) * 1.1f);
+            yText = screenHeight - ((screenHeight/16) * 0.8f);
         }
         picture.setPosition(xPic, yPic);
         bitmapText.setLocalTranslation(xText, yText, 1);
@@ -60,6 +60,7 @@ public class TimerView extends AHudElement {
     /**
      * {@inheritdoc}
      */
+    @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals("Timer")) {
             int seconds = (int) (gameModel.getGameTime() % 60);

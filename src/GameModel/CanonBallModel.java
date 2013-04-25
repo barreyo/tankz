@@ -1,7 +1,10 @@
 package GameModel;
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import java.io.IOException;
 
 /**
  * Models a basic projectile that can damage at impact.
@@ -23,10 +26,6 @@ public final class CanonBallModel extends AExplodingProjectile {
         super(initialPos, velocity, rotation);
     }
 
-    public CanonBallModel() {
-        super(null, null, null);
-    }
-
     /**
      * Returns the damage the missile does.
      * 
@@ -45,5 +44,15 @@ public final class CanonBallModel extends AExplodingProjectile {
     @Override
     public float getMass() {
         return MASS;
+    }
+
+    @Override
+    public void write(JmeExporter ex) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void read(JmeImporter im) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

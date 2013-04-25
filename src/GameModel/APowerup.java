@@ -15,8 +15,6 @@ public abstract class APowerup implements IPowerup {
     private Quaternion rotation;
     private boolean isHeldByPlayer;
     private boolean isInWorld;
-    protected boolean isActive;
-    protected float activateTimer;
     
     public static final float MASS = 10f;
     
@@ -41,7 +39,6 @@ public abstract class APowerup implements IPowerup {
     @Override
     public void playerPickedUpPowerup() {
         this.setHeldByPlayer(true);
-        hideFromWorld();
     }
     
     @Override

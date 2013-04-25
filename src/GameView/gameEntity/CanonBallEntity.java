@@ -28,6 +28,7 @@ public final class CanonBallEntity extends AGameEntity{
         super(EGraphics.BOMB);
         effects = EEffects.EXPLOSION.getEmitters();
         
+        spatial.setUserData("Model", proj);
         setModel(proj);
     }
     
@@ -44,15 +45,12 @@ public final class CanonBallEntity extends AGameEntity{
      */
     @Override
     public void cleanup() {
-        if (spatial.getParent() != null) {
-            // Remove ourself from world
-            spatial.removeFromParent();
-        }
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
         projectile.removeObserver(this);
     }
 
     @Override
-    public synchronized void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(IExplodingProjectile.END_OF_LIFETIME)) {
             // Clean up
             cleanup();
@@ -65,18 +63,13 @@ public final class CanonBallEntity extends AGameEntity{
                 }
             }
             projectile.removeObserver(this);
-        } else if (evt.getPropertyName().equals(IExplodingProjectile.IMPACT_MADE)) {
-            impact();
         }
         pcs.firePropertyChange(evt);
     }
     
-    private void impact() {
+    public void impact() {
         showEffect();
-        if (spatial.getParent() != null) {
-            // Remove projectile from world
-            spatial.removeFromParent();
-        }
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
     }
 
     private void showEffect() {
@@ -87,14 +80,6 @@ public final class CanonBallEntity extends AGameEntity{
                 effect.emitAllParticles();
             }
         }
-    }
-
-    public IExplodingProjectile getModel() {
-       return projectile;
-    }
-    
-    public Collection<ParticleEmitter> getEffects() {
-        return effects;
     }
 
     public void setModel(IExplodingProjectile proj) {

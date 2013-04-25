@@ -6,6 +6,9 @@ import GameModel.IPowerup;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import com.jme3.scene.Spatial.CullHint;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -15,13 +18,19 @@ import java.beans.PropertyChangeSupport;
  * @author Garpetun
  */
 public class PowerupEntity extends AGameEntity {
-
-    private IPowerup powerup;
+    private final IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
-        setModel(pow);
+        
+        spatial.setUserData("Model", pow);
+        powerup = pow;
+        powerup.addObserver(this);
+        
+        // Always start out hidden
+        hideFromWorld();
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
     
     @Override
@@ -34,49 +43,36 @@ public class PowerupEntity extends AGameEntity {
      */
     @Override
     public void cleanup() {
-        if (spatial.getParent() != null) {
-            // Remove ourself from world
-            spatial.removeFromParent();
-        }
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
         powerup.removeObserver(this);
     }
 
-    public synchronized void propertyChange(PropertyChangeEvent pce) {
+    @Override
+    public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(IPowerup.SHOW)) {
             showInWorld();
-        } else if (pce.getPropertyName().equals(IPowerup.HIDE)) {
-            hideFromWorld();
+        } else if (pce.getPropertyName().equals(IPowerup.CLEANUP)) {
+            cleanup();
         }
         pcs.firePropertyChange(pce);
     }
 
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
-    
-    public void setModel(IPowerup pow) {
-        if (powerup != null) {
-            this.cleanup();
-        }
-        powerup = pow;
-        if (powerup != null) {
-            powerup.addObserver(this);
-        }
-    }
 
     private void showInWorld() {
-        spatial.removeFromParent();
         spatial.setLocalTranslation(powerup.getPosition());
-        if (spatial.getParent() == null) {
-            TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
-        }
+        spatial.setCullHint(CullHint.Dynamic);
     }
 
-    private void hideFromWorld() {
-        spatial.removeFromParent();
+    public void hideFromWorld() {
+        spatial.setCullHint(CullHint.Always);
     }
 }

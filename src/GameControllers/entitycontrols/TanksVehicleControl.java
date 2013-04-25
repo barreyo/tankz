@@ -9,11 +9,13 @@ import GameModel.IPlayer;
 import GameView.viewPort.VehicleCamera;
 import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
+import GameModel.IExplodingProjectile;
+import GameModel.IPowerup;
+import GameModel.IWorldObject;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.TankEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -30,7 +32,7 @@ import java.beans.PropertyChangeListener;
  * 
  * @author Daniel
  */
-public class TanksVehicleControl extends VehicleControl implements ActionListener, PropertyChangeListener, PhysicsCollisionListener {
+public class TanksVehicleControl extends VehicleControl implements ActionListener, PhysicsCollisionListener, PropertyChangeListener {
     
     // The model for the vehicle
     private IArmedVehicle vehicleModel;
@@ -103,7 +105,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         // Remove this as a control and remove inputs
         tankEntity.removeControl(this);
         tankEntity.removeObserver(this);
-        TanksAppAdapter.INSTANCE.removePhysiscsCollisionListener(this);
         removeInputMappings();
     }
     
@@ -116,6 +117,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     private String reset;
     private String shoot;
     private String powerup;
+    private String scoreboard;
 
     private boolean isFirstLeftKeyPressDone;
     private boolean isFirstRightKeyPressDone;
@@ -199,6 +201,12 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             if (!isPressed) {
                 player.usePowerup();
             }
+        } else if (name.equals(scoreboard)) {
+            if (isPressed) {
+                TanksFactory.showScoreboard(player);
+            } else {
+                TanksFactory.hideScoreboard(player);
+            }
         }
     }
 
@@ -225,6 +233,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         int resetI = inputs.getResetKey();
         int shootI = inputs.getShootKey();
         int powerupI = inputs.getPowerupKey();
+        int scoreboardI = inputs.getScoreboardKey();
         
         // Specifies mappingnames for input
         turnLeft = "" + left;
@@ -234,6 +243,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         reset = "" + resetI;
         shoot = "" + shootI;
         powerup = "" + powerupI;
+        scoreboard = "" + scoreboardI;
         
         // Adds the mappings to inputmanager
         TanksAppAdapter.INSTANCE.addInputMapping(turnLeft, new KeyTrigger(left));
@@ -243,8 +253,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TanksAppAdapter.INSTANCE.addInputMapping(reset, new KeyTrigger(resetI));
         TanksAppAdapter.INSTANCE.addInputMapping(shoot, new KeyTrigger(shootI));
         TanksAppAdapter.INSTANCE.addInputMapping(powerup, new KeyTrigger(powerupI));
+        TanksAppAdapter.INSTANCE.addInputMapping(scoreboard, new KeyTrigger(scoreboardI));
         // Registers this as an listener for the specified mappingnames
-        TanksAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, accelerateForward, accelerateBack, reset, shoot, powerup);
+        TanksAppAdapter.INSTANCE.addInputListener(this, turnLeft, turnRight, 
+                accelerateForward, accelerateBack, reset, shoot, powerup, scoreboard);
         
         // These mappings are now in use and cant be used by other players
         inputs.setInUse(true);
@@ -263,6 +275,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TanksAppAdapter.INSTANCE.deleteInputMapping(accelerateBack);
         TanksAppAdapter.INSTANCE.deleteInputMapping(reset);
         TanksAppAdapter.INSTANCE.deleteInputMapping(shoot);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(powerup);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(scoreboard);
         TanksAppAdapter.INSTANCE.removeInputListener(this);
         inputs.setInUse(false);
     }
@@ -301,33 +315,22 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
         }
     }
-    
-    
-    /**
-     * The collision between an IVehicle and an unknown object.
-     * If it is a IPowerup, it uses addPowerup() on the IVehicle.
-     * If it is an IExplodingProjectile, it decrements the health of IPlayers IArmedVehicle.
-     * 
-     * @param event The object that collides with the IVehicle.
-     */
+
     @Override
     public void collision(PhysicsCollisionEvent event) {
-        if (space == null) {
-            return;
-        }
-        PhysicsCollisionObject objA = event.getObjectA();
-        PhysicsCollisionObject objB = event.getObjectB();
-        if (objA == this) {
-            if (objB instanceof PowerupControl) {
-                player.setPowerup(((PowerupControl) objB).getPowerup());
-            } else if (objB instanceof LinearProjectileControl) {
-                vehicleModel.gotHitBy(((LinearProjectileControl)objB).getProjectile());
+        IWorldObject objA = event.getNodeA().getUserData("Model");
+        IWorldObject objB = event.getNodeB().getUserData("Model");
+        if (objA == vehicleModel) {
+            if (objB instanceof IPowerup) {
+                player.setPowerup((IPowerup)objB);
+            } else if (objB instanceof IExplodingProjectile) {
+                vehicleModel.gotHitBy((IExplodingProjectile)objB);
             }
-        } else if (objB == this) {
-            if (objA instanceof PowerupControl) {
-                player.setPowerup(((PowerupControl) objA).getPowerup());
-            } else if (objA instanceof LinearProjectileControl) {
-                vehicleModel.gotHitBy(((LinearProjectileControl)objA).getProjectile());
+        } else if (objB == vehicleModel) {
+            if (objA instanceof IPowerup) {
+                player.setPowerup((IPowerup)objB);
+            } else if (objA instanceof IExplodingProjectile) {
+                vehicleModel.gotHitBy((IExplodingProjectile)objB);
             }
         }
     }

@@ -118,6 +118,8 @@ public interface IArmedVehicle extends IWorldObject {
      */
     public void shoot();
     
+    void resetSpeedValues();
+    
     //commands
     public static String SHOOT = "SHOOT";
     public static String STEER = "STEER";

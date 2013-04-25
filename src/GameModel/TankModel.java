@@ -1,10 +1,13 @@
 package GameModel;
 
 import GameModel.IExplodingProjectile;
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -39,6 +42,8 @@ public final class TankModel implements IArmedVehicle {
     public static final float TANK_FRICTION_FORCE = 10.0f;
     public static final float TANK_MAX_SUSPENSION_FORCE = 999000.0f;
     public static final float TANK_STEERING_CHANGE_VALUE = 0.4f;
+    public static final float TANK_MAX_SPEED = 80.0f;
+    public static final float TANK_ACCELERATION_FORCE = 2000.0f;
 
     //Create four wheels and add them at their locations
     public static final Vector3f TANK_WHEEL_DIRECTION = new Vector3f(0, -1, 0); // was 0, -1, 0
@@ -57,8 +62,8 @@ public final class TankModel implements IArmedVehicle {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
         health = 100;
-        maxSpeed = 80.0f;
-        accelerationForce = 2000.0f;
+        maxSpeed = TANK_MAX_SPEED;
+        accelerationForce = TANK_ACCELERATION_FORCE;
         position = Vector3f.ZERO;
         direction = Vector3f.ZERO;
         rotation = Quaternion.ZERO;
@@ -85,7 +90,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public float getAccelerationForce() {
-        return accelerationForce;
+        return TANK_ACCELERATION_FORCE;
     }
 
     /**
@@ -270,7 +275,7 @@ public final class TankModel implements IArmedVehicle {
     
     @Override
     public float getMaxSpeed(){
-        return maxSpeed;
+        return TANK_MAX_SPEED;
     }
 
     @Override
@@ -315,5 +320,21 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public boolean isInWorld() {
         return this.isInWorld;
+    }
+
+    @Override
+    public void resetSpeedValues() {
+        maxSpeed = TANK_MAX_SPEED;
+        accelerationForce = TANK_ACCELERATION_FORCE;
+    }
+
+    @Override
+    public void write(JmeExporter ex) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void read(JmeImporter im) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
