@@ -230,7 +230,7 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public synchronized Vector3f getFirePosition() {
-        return new Vector3f(position).addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.3f));
+        return new Vector3f(position).addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.5f));
     }
     
     @Override

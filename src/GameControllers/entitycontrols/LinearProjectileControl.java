@@ -37,8 +37,8 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         this.projectileModel = projModel;
         this.physicsControl = physicsControl;
         
-        physicsControl.setEnabled(false);
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
+        physicsControl.setEnabled(false);
         
         // We observe Model
         entity.addObserver(this);
