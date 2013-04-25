@@ -1,8 +1,10 @@
 nbproject
-nbprojects/private/private.properties
+nbproject/private/private.properties
 
 build.xml
 master-application.jnlp
 .DS_Store
 /build/
 /dist/
+.project
+.classpath
