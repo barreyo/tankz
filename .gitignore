@@ -1,5 +1,10 @@
 nbproject
 nbproject/private/private.properties
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+nbproject/project.properties
+nbproject/project.xml
+
 
 build.xml
 master-application.jnlp

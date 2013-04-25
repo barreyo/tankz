@@ -225,4 +225,15 @@ public class Player implements IPlayer {
     public void cleanup() {
         vehicle.cleanup();
     }
+    
+    private boolean hasDiedThisDeath = false;
+    
+    public void update(float tpf) {
+        if (vehicle.getVehicleState() == VehicleState.DESTROYED && !hasDiedThisDeath) {
+            this.incrementDeaths();
+            hasDiedThisDeath = true;
+        } else if (vehicle.getVehicleState() == VehicleState.ALIVE) {
+            hasDiedThisDeath = false;
+        }
+    }
 }

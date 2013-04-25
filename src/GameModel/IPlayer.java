@@ -99,4 +99,6 @@ public interface IPlayer extends IObservable {
     public void usePowerup();
 
     public void cleanup();
+    
+    public void update(float tpf);
 }
