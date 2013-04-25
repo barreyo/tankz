@@ -11,3 +11,5 @@ master-application.jnlp
 .DS_Store
 /build/
 /dist/
+.project
+.classpath

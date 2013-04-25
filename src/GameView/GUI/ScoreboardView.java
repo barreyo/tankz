@@ -6,12 +6,14 @@ import GameModel.IArmedVehicle;
 import GameModel.IArmedVehicle.VehicleState;
 import GameModel.IPlayer;
 import GameModel.Player;
+import GameUtilities.PlayerComparator;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class ScoreboardView extends AHudElement {
     private List<BitmapText> playerNames, playerKills, playerDeaths, playerStatus;
     private List<IPlayer> players;
     private BitmapText killsText, deathsText;
+    private float firstPos, secondPos, thirdPos, fourthPos;
     
     /**
      * Instatiates a scoreboardview that can be displayed in the given viewport.
@@ -73,6 +76,11 @@ public class ScoreboardView extends AHudElement {
         deathsText.setLocalTranslation(picX + (picWidth * 0.85f), 
                 (picY + picHeight) - ((picHeight * 0.1f)), 1);
         
+        firstPos = (picY + picHeight) - ((picHeight * 0.1f) * (2.4f));
+        secondPos = (picY + picHeight) - ((picHeight * 0.1f) * (1 + 2.4f));
+        thirdPos = (picY + picHeight) - ((picHeight * 0.1f) * (2 + 2.4f));
+        fourthPos = (picY + picHeight) - ((picHeight * 0.1f) * (2 + 2.4f));
+        
         for (int i = 0; i < players.size(); i++) {
             playerNames.add(new BitmapText(font, false));
             playerNames.get(i).setText(players.get(i).getName());
@@ -95,7 +103,7 @@ public class ScoreboardView extends AHudElement {
                     (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
             
             playerStatus.add(new BitmapText(font, false));
-            playerStatus.get(i).setText("Dead");
+            playerStatus.get(i).setText("");
             playerStatus.get(i).setSize(font.getCharSet().getRenderedSize());
             playerStatus.get(i).setLocalTranslation((picX + (picWidth * 0.4f)) + 
                     (deathsText.getLineWidth()/2), (picY + picHeight) - 
@@ -161,8 +169,12 @@ public class ScoreboardView extends AHudElement {
     }
     
     private void updateText() {
+        PlayerComparator pCompare = new PlayerComparator();
+        Collections.sort(players, pCompare);
+        
         for (int i = 0; i < players.size(); i++) {
             
+            playerNames.get(i).setText(players.get(i).getName());
             playerKills.get(i).setText("" + players.get(i).getKills());
             playerDeaths.get(i).setText("" + players.get(i).getDeaths());
             
