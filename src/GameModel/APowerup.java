@@ -43,7 +43,7 @@ public abstract class APowerup implements IPowerup {
     }
     
     @Override
-    public float getMASS(){
+    public float getMass(){
         return MASS;
     }
 

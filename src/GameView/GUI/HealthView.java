@@ -70,6 +70,7 @@ public class HealthView extends AHudElement {
     /**
      * {@inheritdoc}
      */
+    @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(Commands.HEALTH)) {
             mask.setWidth(elementWidth * (player.getVehicle().getHealth() * 0.01f));

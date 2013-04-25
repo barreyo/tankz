@@ -115,7 +115,7 @@ public final class TanksFactory {
     private static HastePowerup getNewHastePowerup() {
         HastePowerup model = new HastePowerup();
         PowerupEntity view = new PowerupEntity(model);
-        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMASS());
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);
         PowerupControl control = new PowerupControl(view, model, physicsControl);
         
@@ -129,7 +129,7 @@ public final class TanksFactory {
     private static MissilePowerup getNewMissilePowerup() {
         MissilePowerup model = new MissilePowerup();
         PowerupEntity view = new PowerupEntity(model);
-        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMASS());
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);
         PowerupControl control = new PowerupControl(view, model, physicsControl);
         

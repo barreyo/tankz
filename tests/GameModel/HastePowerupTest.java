@@ -28,8 +28,8 @@ public class HastePowerupTest {
         player = new Player("TestName", new TankModel(null,null));
         vehicle = player.getVehicle();
         instance = new HastePowerup();
-        tmpSpeed = player.getVehicle().getDefaultMaxSpeed();
-        tmpForce = player.getVehicle().getDefaultAccelerationForce();
+        tmpSpeed = player.getVehicle().getMaxSpeed();
+        tmpForce = player.getVehicle().getAccelerationForce();
     }
     
     /**
@@ -40,10 +40,8 @@ public class HastePowerupTest {
         System.out.println("usePowerup");
         instance.usePowerup(player);
         
-        assertTrue(instance.isActivated() == true);
-        assertTrue(instance.getTimer() == 0);
-        assertTrue(vehicle.getDefaultMaxSpeed() == tmpSpeed * 3f);
-        assertTrue(vehicle.getDefaultAccelerationForce() == tmpForce * 10f);
+        assertTrue(vehicle.getMaxSpeed() == tmpSpeed * 3f);
+        assertTrue(vehicle.getAccelerationForce() == tmpForce * 10f);
     }
 
     /**
@@ -59,9 +57,7 @@ public class HastePowerupTest {
             instance.update(tpf);
         }
         
-        assertTrue(instance.getTimer() == 5);
-        assertTrue(instance.isActive == false);
-        assertTrue(vehicle.getDefaultMaxSpeed() == tmpSpeed);
-        assertTrue(vehicle.getDefaultAccelerationForce() == tmpForce);
+        assertTrue(vehicle.getMaxSpeed() == tmpSpeed);
+        assertTrue(vehicle.getAccelerationForce() == tmpForce);
     }
 }

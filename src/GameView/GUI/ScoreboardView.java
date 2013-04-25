@@ -54,13 +54,11 @@ public class ScoreboardView extends AHudElement {
         picture.setHeight(picHeight);
         
         // Calculate x-pos in relation to the screen size and player settings.
-        float picX = vp.getCamera().getViewPortLeft() + 
-                (screenWidth/(players.size() > 1 ? 2 : 1)) * 
-                (players.size() > 1 ? 0.1f : 0.3f);
+        float picX = (vp.getCamera().getViewPortLeft() * screenWidth) + 
+                ((screenWidth/players.size()) * (players.size() > 1 ? 0.2f : 0.3f));   
         // Calculate y-pos in relation to the screen size and player settings.
-        float picY = vp.getCamera().getViewPortBottom() 
-                + ((screenHeight/(players.size() > 1 ? 2 : 1)) * 
-                (players.size() > 1 ? 0.1f : 0.3f));
+        float picY = (vp.getCamera().getViewPortBottom() * screenHeight) + 
+                ((screenHeight/players.size()) * (players.size() > 1 ? 0.2f : 0.3f));
         // Set position
         picture.setPosition(picX, picY);
         
@@ -105,6 +103,7 @@ public class ScoreboardView extends AHudElement {
             
             players.get(i).addObserver(this);
         }
+        updateText();
     }
     
     /**
