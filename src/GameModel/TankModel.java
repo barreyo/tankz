@@ -44,10 +44,10 @@ public final class TankModel implements IArmedVehicle {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    private LinkedList<CanonBallModel> canonBalls;
+    private List<CanonBallModel> canonBalls;
     private List<MissileModel> missiles;
     
-    public TankModel(LinkedList<CanonBallModel> canonBalls, List<MissileModel> missiles) {
+    public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
         mass = 600.0f;
@@ -152,13 +152,14 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public synchronized void shoot() {
-        CanonBallModel canonBall = canonBalls.poll();
-        if (!canonBall.isInWorld()) {
-            canonBall.launchProjectile(getFirePosition(),
-                    direction.multLocal(100), rotation);
-            pcs.firePropertyChange(Commands.SHOOT, null, null);
+        for (CanonBallModel canonBall : canonBalls) {
+            if (!canonBall.isInWorld()) {
+                canonBall.launchProjectile(getFirePosition(),
+                        direction.multLocal(100), rotation);
+                pcs.firePropertyChange(Commands.SHOOT, null, null);
+                return;
+            }
         }
-        canonBalls.addLast(canonBall);
     }
     
     public void shootMissile() {

@@ -103,7 +103,6 @@ public final class CanonBallEntity extends AGameEntity{
   
     private void showInWorld() {
         spatial.setCullHint(Spatial.CullHint.Dynamic);
-        System.out.println(spatial.getCullHint().equals(Spatial.CullHint.Dynamic));
     }
 
     public void hideFromWorld() {
