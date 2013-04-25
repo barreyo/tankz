@@ -6,12 +6,14 @@ import com.jme3.export.JmeImporter;
 import java.io.IOException;
 
 /**
- *
+ * Is broken
  * @author Per
  */
 public class HastePowerup extends APowerup{
     private float maxSpeed;
     private float accForce;
+    private float activateTimer;
+    private boolean isActive;
     
     private static final float END_TIME = 5f;
     
@@ -34,6 +36,7 @@ public class HastePowerup extends APowerup{
     public void update(float tpf) {
         super.update(tpf);
         if (isActive) {
+            System.out.println("vajs");
             activateTimer += tpf;
             if (activateTimer >= END_TIME) {
                 isActive = false;

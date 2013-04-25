@@ -15,8 +15,6 @@ public abstract class APowerup implements IPowerup {
     private Quaternion rotation;
     private boolean isHeldByPlayer;
     private boolean isInWorld;
-    protected boolean isActive;
-    protected float activateTimer;
     
     public static final float MASS = 10f;
     
@@ -95,13 +93,5 @@ public abstract class APowerup implements IPowerup {
     @Override
     public void usePowerup(IPlayer player) {
         setHeldByPlayer(false);
-    }
-    
-    public boolean isActivated() {
-        return isActive;
-    }
-    
-    public float getTimer() {
-        return activateTimer;
     }
 }
