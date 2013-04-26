@@ -175,7 +175,7 @@ public final class TanksFactory {
         // Create one player for each name
         for (String name : playerNames) {
             
-            LinkedList<CanonBallModel> canonBalls = new LinkedList<CanonBallModel>();
+            List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
             
             for (int i = 0; i < 10; i++) {
                 canonBalls.add(getNewCanonBall());
