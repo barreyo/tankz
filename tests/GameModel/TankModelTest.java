@@ -36,12 +36,12 @@ public class TankModelTest {
     @AfterClass
     public static void tearDownClass() {
     }
-    
+/*    
     @Before
     public void setUp() {
         instance = new TankModel(new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>());
     }
-    
+*/    
     @After
     public void tearDown() {
     }

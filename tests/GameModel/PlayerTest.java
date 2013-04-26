@@ -32,13 +32,13 @@ public class PlayerTest {
     @AfterClass
     public static void tearDownClass() {
     }
-    
+/*    
     @Before
     public void setUp() {
         player = new Player("Spelare 1", new TankModel
                 (new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>()));
     }
-    
+ */   
     @After
     public void tearDown() {
     }

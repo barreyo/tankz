@@ -1,6 +1,7 @@
 
 package GameModel;
 
+import GameModel.IArmedVehicle.VehicleState;
 import GameUtilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -149,6 +150,7 @@ public class TanksGameModel implements ITanks {
         spawningTimer += tpf;
         if (spawningTimer >= spawningIntervall) {
             spawningTimer = 0;
+            respawnDestroyedVehicles();
             spawnPowerups();
         }
         for (int i = 0; i < players.size(); i++) {
@@ -212,14 +214,17 @@ public class TanksGameModel implements ITanks {
     
 
     private void respawnDestroyedVehicles() {
-        /*for (IPlayer player : players) {
+        Collections.shuffle(playerSpawningPoints);
+        int i = 0;
+        for (IPlayer player : players) {
             IArmedVehicle vehicle = player.getVehicle();
             if (vehicle.getVehicleState() == VehicleState.DESTROYED) {
-                ISpawningPoint spawn = getRandomItem(playerSpawningPoints);
+                ISpawningPoint spawn = playerSpawningPoints.get(i);
                 vehicle.setPosition(spawn.getPosition());
                 vehicle.showInWorld();
+                i++;
             }
-        }*/
+        }
     }
 
     /**
