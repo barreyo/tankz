@@ -50,7 +50,7 @@ public class TanksGameModel implements ITanks {
         this.playerSpawningPoints = playerSpawningPoints;
         this.settings = settings;
         gameTimer = settings.getGameTime();
-        spawningIntervall = 5f;  //testing
+        spawningIntervall = 25f;  //testing
         randomGenerator = new Random();
     }
 
@@ -156,7 +156,6 @@ public class TanksGameModel implements ITanks {
         for (int i = 0; i < players.size(); i++) {
             players.get(i).update(tpf);
         }
-        respawnDestroyedVehicles();
     }
 
     private void spawnPowerups() {
