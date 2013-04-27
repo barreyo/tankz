@@ -116,13 +116,14 @@ public class ScoreboardView extends AHudElement {
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals("ScoreUpdate") || pce.getPropertyName().equals(Commands.HIDE)) {
+        String propertyName = pce.getPropertyName();
+        if (propertyName.equals("ScoreUpdate") || propertyName.equals(Commands.SHOW)) {
             updateText();
         }
-        if (pce.getPropertyName().equals("show=" + player.getName())) {
+        if (propertyName.equals("show=" + player.getName())) {
             show();
         }
-        if (pce.getPropertyName().equals("hide=" + player.getName())) {
+        if (propertyName.equals("hide=" + player.getName())) {
             hide();
         }
     }
