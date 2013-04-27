@@ -98,11 +98,25 @@ public interface IPlayer extends IObservable {
      */
     public void usePowerup();
 
+    /**
+     * Clear objects in the class.
+     */
     public void cleanup();
     
+    /**
+     * Connect to the update loop of JMonkeyEngine.
+     * 
+     * @param tpf time per frame.
+     */
     public void update(float tpf);
     
+    /**
+     * Show the scoreboard for the player.
+     */
     public void showScoreboard();
     
+    /**
+     * Hide the scoreboard for the player.
+     */
     public void hideScoreboard();
 }

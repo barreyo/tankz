@@ -4,8 +4,8 @@ package GameView.GUI;
 import App.TanksAppAdapter;
 import GameModel.IArmedVehicle.VehicleState;
 import GameModel.IPlayer;
-import GameModel.Player;
 import GameModel.PlayerComparator;
+import GameUtilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.renderer.ViewPort;
@@ -106,6 +106,7 @@ public class ScoreboardView extends AHudElement {
                     ((picHeight * 0.1f) * (i+2.4f)) , 1);
             
             players.get(i).addObserver(this);
+            players.get(i).getVehicle().addObserver(this);
         }
         updateText();
     }
@@ -115,7 +116,7 @@ public class ScoreboardView extends AHudElement {
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals("ScoreUpdate")) {
+        if (pce.getPropertyName().equals("ScoreUpdate") || pce.getPropertyName().equals(Commands.HIDE)) {
             updateText();
         }
         if (pce.getPropertyName().equals("show=" + player.getName())) {
@@ -180,10 +181,10 @@ public class ScoreboardView extends AHudElement {
             playersClone.add(p);
         }
         
+        // sort after kills and deaths
         Collections.sort(playersClone, pCompare);
         
         for (int i = 0; i < playersClone.size(); i++) {
-            
             playerNames.get(i).setText(playersClone.get(i).getName());
             playerKills.get(i).setText("" + playersClone.get(i).getKills());
             playerDeaths.get(i).setText("" + playersClone.get(i).getDeaths());
