@@ -4,6 +4,7 @@ package GameView.GUI;
 import App.TanksAppAdapter;
 import GameModel.IArmedVehicle.VehicleState;
 import GameModel.IPlayer;
+import GameModel.Player;
 import GameModel.PlayerComparator;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
@@ -25,6 +26,7 @@ public class ScoreboardView extends AHudElement {
     private List<BitmapText> playerNames, playerKills, playerDeaths, playerStatus;
     private List<IPlayer> players;
     private BitmapText killsText, deathsText;
+    private IPlayer player;
     
     /**
      * Instatiates a scoreboardview that can be displayed in the given viewport.
@@ -32,9 +34,11 @@ public class ScoreboardView extends AHudElement {
      * 
      * @param vp ViewPort where the scoreboard should be shown.
      * @param players all the players that should be shown in the scoreboard.
+     * @param player the player that the scoreboard is connected to.
      */
-    public ScoreboardView(ViewPort vp, List<IPlayer> players) {
+    public ScoreboardView(ViewPort vp, List<IPlayer> players, IPlayer player) {
         this.players = players;
+        this.player = player;
         
         playerNames = new ArrayList<BitmapText>();
         playerKills = new ArrayList<BitmapText>();
@@ -113,6 +117,12 @@ public class ScoreboardView extends AHudElement {
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals("ScoreUpdate")) {
             updateText();
+        }
+        if (pce.getPropertyName().equals("show=" + player.getName())) {
+            show();
+        }
+        if (pce.getPropertyName().equals("hide=" + player.getName())) {
+            hide();
         }
     }
         

@@ -57,8 +57,6 @@ import java.util.List;
  * @author Daniel
  */
 public final class TanksFactory {
-
-    private static HashMap<IPlayer, ScoreboardView> scoreboardHash;
     
     private TanksFactory() {
     }
@@ -153,15 +151,6 @@ public final class TanksFactory {
         chaseCam.setDefaultVerticalRotation(0.3f);
         return chaseCam;
     }
-    
-    // TESTING SCOREBOARD VIEWIING
-    public static void showScoreboard(IPlayer player) {
-        scoreboardHash.get(player).show();
-    }
-    
-    public static void hideScoreboard(IPlayer player) {
-        scoreboardHash.get(player).hide();
-    }
 
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
 
@@ -169,8 +158,6 @@ public final class TanksFactory {
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
-        
-        scoreboardHash = new HashMap<IPlayer, ScoreboardView>();
         
         // Create one player for each name
         for (String name : playerNames) {
@@ -261,7 +248,7 @@ public final class TanksFactory {
         
         for(IPlayer p : players) {
             // set up scoreboard for each player
-            scoreboardHash.put(p, new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players));
+            new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players, p);
         }
         
         // Setting spawningpoints, different on each map

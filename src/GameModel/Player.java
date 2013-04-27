@@ -237,4 +237,22 @@ public class Player implements IPlayer {
             hasDiedThisDeath = false;
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    @Override
+    public void showScoreboard() {
+        // Pass on to the view
+        pcs.firePropertyChange("show=" + name, null, null);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    @Override
+    public void hideScoreboard() {
+        // Pass on to the view
+        pcs.firePropertyChange("hide=" + name, null, null);
+    }
 }

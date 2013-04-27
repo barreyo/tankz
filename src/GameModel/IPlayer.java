@@ -101,4 +101,8 @@ public interface IPlayer extends IObservable {
     public void cleanup();
     
     public void update(float tpf);
+    
+    public void showScoreboard();
+    
+    public void hideScoreboard();
 }

@@ -204,9 +204,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             }
         } else if (name.equals(scoreboard)) {
             if (isPressed) {
-                TanksFactory.showScoreboard(player);
+                player.showScoreboard();
             } else {
-                TanksFactory.hideScoreboard(player);
+                player.hideScoreboard();
             }
         }
     }
