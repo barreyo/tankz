@@ -246,6 +246,7 @@ public final class TanksFactory {
             players.add(player);
         }
         
+        // this can't be done in the loop above since the players list need to be fully filled.
         for(IPlayer p : players) {
             // set up scoreboard for each player
             new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players, p);
