@@ -7,6 +7,7 @@ import GameView.graphics.EGraphics;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.util.SkyFactory;
@@ -55,9 +56,10 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         
         // Load, attach map to root node, and add nodes and geoms in the map to physicsspace
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP);
+        mapNode.setShadowMode(RenderQueue.ShadowMode.Receive);
         TanksAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
         TanksAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
-        TanksAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TanksAppAdapter.INSTANCE.getAssetManager());
+        //TanksAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TanksAppAdapter.INSTANCE.getAssetManager());
     }
 
     /**

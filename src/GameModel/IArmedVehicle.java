@@ -94,6 +94,8 @@ public interface IArmedVehicle extends IWorldObject {
     
     public Vector3f getSmokePosition();
 
+    public void shootMissile();
+
     /**
      * Enum representing different states of the vehicle.
      */

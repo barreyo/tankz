@@ -11,129 +11,125 @@ import GameView.gameEntity.MissileEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.effect.ParticleEmitter;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.RenderManager;
+import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
+import com.jme3.scene.control.AbstractControl;
+import com.jme3.scene.control.Control;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.Collection;
 
 /**
  *
  * @author Daniel
  */
-public class HomingProjectileControl extends RigidBodyControl implements PhysicsCollisionListener, PropertyChangeListener {
+public class HomingProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
 
     private MissileEntity entity;
     private MissileModel projectileModel;
-    private Collection<ParticleEmitter> effects;
-    
-    private boolean isListening;
-    
+    private RigidBodyControl physicsControl;
     private boolean hasAggro;
     private Spatial target;
     private GhostControl aggroGhost;
-    
-       // temp solution
-    private TanksVehicleControl sender;
 
     /**
      * Creates a tank projectile control.
      */
-    public HomingProjectileControl(MissileEntity entity, MissileModel projModel, TanksVehicleControl sender) {
-        super(entity.getCollisionShape(), projModel.getMass());
+    public HomingProjectileControl(MissileEntity entity, MissileModel projModel,
+            RigidBodyControl physicsControl, GhostControl aggroControl) {
 
         this.entity = entity;
         this.projectileModel = projModel;
-        this.sender = sender;
+        this.physicsControl = physicsControl;
+        this.aggroGhost = aggroControl;
+
+        entity.addControl(physicsControl);
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
+        physicsControl.setEnabled(false);
         
-        isListening = true;
-        
+        entity.addControl(aggroControl);
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(aggroControl);
+        aggroGhost.setEnabled(false);
+
         // We observe view
         entity.addObserver(this);
+    }
 
-        // Get effect
-        effects = entity.getEffects();
-    }
-    
     @Override
-    public void setSpatial(Spatial spatial) {
-        super.setSpatial(spatial);
-        if (spatial != null) {
-            aggroGhost = new GhostControl(new SphereCollisionShape(100));
-            aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_03);
-            aggroGhost.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_02);
-            spatial.addControl(aggroGhost);
-            TanksAppAdapter.INSTANCE.addToPhysicsSpace(aggroGhost);
-        }
-    }
-    
     public void collision(PhysicsCollisionEvent event) {
-        IWorldObject objA = event.getNodeA().getUserData("Model");
-        IWorldObject objB = event.getNodeB().getUserData("Model");
-        if (objA == projectileModel || objB == projectileModel) {
-            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
-            projectileModel.impact();
-            entity.impact();
-            SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
-        }
-
-        PhysicsCollisionObject object = null;
-        Spatial target = null;
-        if (event.getObjectA() == aggroGhost && event.getObjectB() != sender) {
-            object = event.getObjectA();
-            target = event.getNodeB();
-        }
-        if (event.getObjectB() == aggroGhost && event.getObjectA() != sender) {
-            object = event.getObjectB();
-            target = event.getNodeA();
-        }
-        if (object != null && target != null && object == aggroGhost) {
-            if (this.target == null || target.getWorldTranslation().distance(projectileModel.getPosition())
-                    < this.target.getWorldTranslation().distance(projectileModel.getPosition())) {
-                hasAggro = true;
-                this.target = target;
+        if (event.getNodeA() != null && event.getNodeB() != null) {
+            IWorldObject objA = event.getNodeA().getUserData("Model");
+            IWorldObject objB = event.getNodeB().getUserData("Model");
+            if (objA == projectileModel || objB == projectileModel) {
+                Spatial targetSpat = null;
+                if (event.getObjectA() == aggroGhost) {
+                    targetSpat = event.getNodeB();
+                }
+                if (event.getObjectB() == aggroGhost) {
+                    targetSpat = event.getNodeA();
+                }
+                if (targetSpat != null) {
+                    if (this.target == null || targetSpat.getWorldTranslation().distance(projectileModel.getPosition())
+                            < this.target.getWorldTranslation().distance(projectileModel.getPosition())) {
+                        hasAggro = true;
+                        this.target = targetSpat;
+                        projectileModel.setAttackTarget(target.getWorldTranslation().clone());
+                    }
+                    return;
+                }
+                physicsControl.setEnabled(false);
+                aggroGhost.setEnabled(false);
+                projectileModel.impact();
+                entity.impact();
+                SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
             }
         }
-    }
-
-    @Override
-    public void update(float tpf) {
-        super.update(tpf);
-        if (enabled) {
-            if (!isListening && space != null) {
-                space.removeCollisionListener(this);
-            }
-            if (spatial != null) {
-                projectileModel.updatePosition(spatial.getWorldTranslation().clone());
-            }
-            projectileModel.update(tpf);
-            if (hasAggro && target != null) {
-                projectileModel.moveTo(target.getWorldTranslation().clone());
-            }
-            this.setLinearVelocity(projectileModel.getLinearVelocity());
-        } 
     }
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
-            if (space != null) {
-                space.removeCollisionListener(this);
-                space.remove(this);
-                entity.removeObserver(this);
-            }
-        } else if (evt.getPropertyName().equals(Commands.EXPLOSION_FINISHED)) {
-            for (ParticleEmitter effect : effects) {
-                effect.removeControl(this);
-            }
-            entity.removeObserver(this);
-        } 
+        if (evt.getPropertyName().equals(Commands.SHOW)) {
+            this.target = null;
+            hasAggro = false;
+            physicsControl.setEnabled(true);
+            aggroGhost.setEnabled(true);
+            physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
+        } else if (evt.getPropertyName().equals(Commands.HIDE)) {
+            physicsControl.setEnabled(false);
+            aggroGhost.setEnabled(false);
+        }
     }
 
     IExplodingProjectile getProjectile() {
         return projectileModel;
+    }
+
+    @Override
+    protected void controlUpdate(float tpf) {
+        if (projectileModel.isInWorld()) {
+            projectileModel.update(tpf);
+            if (spatial != null) {
+                projectileModel.updatePosition((spatial.getWorldTranslation()));
+            }
+            if (hasAggro && target != null) {
+                projectileModel.setAttackTarget(target.getWorldTranslation().clone());
+            }
+            if (physicsControl.isEnabled()) {
+                physicsControl.setLinearVelocity((projectileModel.getLinearVelocity()));
+            }
+        }
+    }
+
+    @Override
+    protected void controlRender(RenderManager rm, ViewPort vp) {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Control cloneForSpatial(Spatial spatial) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

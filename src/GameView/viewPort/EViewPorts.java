@@ -1,12 +1,18 @@
 package GameView.viewPort;
 
 import App.TanksAppAdapter;
+import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.CartoonEdgeFilter;
 import com.jme3.post.filters.DepthOfFieldFilter;
+import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.Caps;
 import com.jme3.renderer.ViewPort;
+import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.renderer.queue.RenderQueue.ShadowMode;
+import com.jme3.shadow.BasicShadowRenderer;
+import com.jme3.shadow.PssmShadowRenderer;
 
 /**
  * Enum holding the different kind of viewports used in Tanks.
@@ -32,10 +38,18 @@ public enum EViewPorts {
         view.setClearFlags(true, true, true);
         view.setEnabled(false);
        
+        TanksAppAdapter.INSTANCE.getRootNode().setShadowMode(ShadowMode.Off);
+        
         FilterPostProcessor fpp = new FilterPostProcessor(TanksAppAdapter.INSTANCE.getAssetManager());
         
-        /*
-        DepthOfFieldFilter dof = new DepthOfFieldFilter();
+        PssmShadowRenderer pssmRenderer = new PssmShadowRenderer(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 6);
+        pssmRenderer.setDirection(new Vector3f(0.01f, -0.01f, 0.01f).normalizeLocal());
+        pssmRenderer.setShadowIntensity(0.35f);
+        
+        //SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
+        //fpp.addFilter(ssaoFilter);
+        
+        /*DepthOfFieldFilter dof = new DepthOfFieldFilter();
         dof.setFocusDistance(0);
         dof.setFocusRange(100);
         fpp.addFilter(dof);
@@ -44,9 +58,10 @@ public enum EViewPorts {
         // uncomment this for cartoon, trees gets fucked up though
         if (TanksAppAdapter.INSTANCE.rendererContains(Caps.GLSL100)){
             fpp.addFilter(new CartoonEdgeFilter());
-        }*/
+        } */
         
         view.addProcessor(fpp);
+        view.addProcessor(pssmRenderer);
     }
 
     /**

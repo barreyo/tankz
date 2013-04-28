@@ -16,7 +16,7 @@ public class MissilePowerup extends APowerup {
         super.usePowerup(player);
 
         
-        player.getVehicle().shoot();
+        player.getVehicle().shootMissile();
     }
 
     @Override

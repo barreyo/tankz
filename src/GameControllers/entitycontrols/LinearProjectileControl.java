@@ -37,6 +37,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         this.projectileModel = projModel;
         this.physicsControl = physicsControl;
         
+        entity.addControl(physicsControl);
         TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
         physicsControl.setEnabled(false);
         
@@ -46,9 +47,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Commands.END_OF_LIFETIME)) {
-            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
-        } else if (evt.getPropertyName().equals(Commands.SHOW)) {
+        if (evt.getPropertyName().equals(Commands.SHOW)) {
             physicsControl.setEnabled(true);
             physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
         } else if (evt.getPropertyName().equals(Commands.HIDE)) {
