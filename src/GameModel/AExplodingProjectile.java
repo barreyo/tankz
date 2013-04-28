@@ -17,12 +17,11 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     Vector3f linearVelocity;
     Quaternion rotation;
     
-    private static final float EXPLOSION_END_TIME = 4f;
+    private static final long EXPLOSION_END_TIME = 2000;
     private static final long MAX_LIFE_TIME = 4000;
     private long lifeTimerStart;
-    private long projectileLifeTimer;
-    private float explodingTimer;
-    private boolean isInWorld;
+    private float explodingTimerStart;
+    boolean isInWorld;
     
     boolean exploding;
     
@@ -53,16 +52,12 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     public void update(float tpf) {
         if (isInWorld) {
             if (exploding) {
-                explodingTimer += tpf;
-                if (explodingTimer > EXPLOSION_END_TIME) {
-                    explodingTimer = 0;
+                if (System.currentTimeMillis() - explodingTimerStart >= EXPLOSION_END_TIME) {
                     exploding = false;
                     pcs.firePropertyChange(Commands.EXPLOSION_FINISHED, null, null);
                 }
             } else {
-                projectileLifeTimer = System.currentTimeMillis();
-                if (projectileLifeTimer - lifeTimerStart >= MAX_LIFE_TIME) {
-                    projectileLifeTimer = 0;
+                if (System.currentTimeMillis() - lifeTimerStart >= MAX_LIFE_TIME) {
                     hideFromWorld();
                 }
             }
@@ -75,6 +70,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     @Override
     public void impact() {
         exploding = true;
+        explodingTimerStart = System.currentTimeMillis();
         hideFromWorld();
     }
 
@@ -103,6 +99,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
 
     @Override
     public void showInWorld() {
+        exploding = false;
         isInWorld = true;
         lifeTimerStart = System.currentTimeMillis();
         pcs.firePropertyChange(Commands.SHOW, null, null);

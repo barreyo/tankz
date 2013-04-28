@@ -19,6 +19,8 @@ public class PlayerComparator implements Comparator {
      * @param t1 second player.
      * @return an int less than one if t is lesser than t1, zero if equal and a
      *         value greater than zero if t is greater than t1.
+     * 
+     * Order is screwed up?
      */
     @Override
     public int compare(Object t, Object t1) {

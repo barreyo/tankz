@@ -17,6 +17,7 @@ import GameView.Sounds.ESounds;
 import GameView.gameEntity.TankEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
+import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -318,13 +319,17 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 if (objB instanceof IPowerup) {
                     player.setPowerup((IPowerup) objB);
                 } else if (objB instanceof IExplodingProjectile) {
-                    vehicleModel.gotHitBy((IExplodingProjectile) objB);
+                    if (!(event.getObjectB() instanceof GhostControl)) {
+                        vehicleModel.gotHitBy((IExplodingProjectile) objB);
+                    }
                 }
             } else if (objB == vehicleModel) {
                 if (objA instanceof IPowerup) {
                     player.setPowerup((IPowerup) objB);
                 } else if (objA instanceof IExplodingProjectile) {
-                    vehicleModel.gotHitBy((IExplodingProjectile) objB);
+                    if (!(event.getObjectA() instanceof GhostControl)) {
+                        vehicleModel.gotHitBy((IExplodingProjectile) objA);
+                    }
                 }
             }
         }

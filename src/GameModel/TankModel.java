@@ -162,8 +162,16 @@ public final class TankModel implements IArmedVehicle {
         }
     }
     
-    public void shootMissile() {
-        pcs.firePropertyChange(Commands.MISSILE, health, health);
+    @Override
+    public synchronized void shootMissile() {
+        for (MissileModel missile : missiles) {
+            if (!missile.isInWorld()) {
+                missile.launchProjectile(new Vector3f(position).addLocal(0, 4, 0),
+                        new Vector3f(0, 10, 0), rotation);
+                pcs.firePropertyChange(Commands.SHOOT, null, null);
+                return;
+            }
+        }
     }
     
     @Override

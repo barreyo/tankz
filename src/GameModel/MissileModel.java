@@ -14,10 +14,13 @@ import java.io.IOException;
 public final class MissileModel extends AExplodingProjectile {
     private static final int DAMAGE = 20;
     private static final float MASS = 0.1f;
+        
+    private boolean hasAttackTarget;
+    private Vector3f attackTarget = new Vector3f();
+    private Vector3f launchTarget = new Vector3f();
     
-    private float launchingTimer;
-    private static final float LAUNCH_END_TIME = 1f;
-    
+    private long launchTimerStart;
+    private static final long LAUNCH_END_TIME = 1000;
 
     /**
      * Returns the damage the missile does.
@@ -44,35 +47,45 @@ public final class MissileModel extends AExplodingProjectile {
      */
     @Override
     public void update(float tpf) {
-        super.update(tpf);
-        launchingTimer += tpf;
-        if (launchingTimer >= LAUNCH_END_TIME) {
-            if (!exploding && isMoving) {
-                turn(tpf);
-                move(tpf);
+        if (isInWorld) {
+            super.update(tpf);
+            if (!exploding) {
+                if (System.currentTimeMillis() - launchTimerStart >= LAUNCH_END_TIME) {
+                    if (hasAttackTarget) {
+                        turn(attackTarget);
+                        move(attackTarget);
+                    }
+                } else {
+                    turn(launchTarget);
+                    move(launchTarget);
+                }
             }
         }
     }
     
-    private boolean isMoving;
-   
-    private Vector3f target;
-    private Quaternion turnTo = new Quaternion();
-
-    public void moveTo(Vector3f target) {
-        isMoving = true;
-        this.target = target;
+    @Override
+    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
+        super.launchProjectile(initialPos, initialVelocity, initialRotation);
+        launchTarget = new Vector3f(initialPos).addLocal(0f, 100f, 0f);
+        launchTimerStart = System.currentTimeMillis();
+        attackTarget = new Vector3f();
+        hasAttackTarget = false;
     }
 
-    private void move(float tpf) {
-        linearVelocity = target.subtractLocal(position).normalizeLocal().multLocal(50f);
+    public void setAttackTarget(Vector3f target) {
+        hasAttackTarget = true;
+        this.attackTarget = target;
     }
 
-    private void turn(float tpf) {
+    private void move(Vector3f target) {
+        linearVelocity = new Vector3f(target).subtractLocal(position).normalizeLocal().multLocal(20f);
+    }
+
+    private void turn(Vector3f target) {
         Vector3f targetVec = new Vector3f(target);
         targetVec.subtractLocal(position);
-        turnTo.lookAt(targetVec, Vector3f.UNIT_Y);
-        pcs.firePropertyChange(Commands.ROTATE, rotation, turnTo);
+        rotation.lookAt(targetVec, Vector3f.UNIT_Y);
+        pcs.firePropertyChange(Commands.ROTATE, null, rotation);
     }
 
     @Override

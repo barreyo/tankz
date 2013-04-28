@@ -75,7 +75,7 @@ public final class CanonBallEntity extends AGameEntity{
         } else if (evt.getPropertyName().equals(Commands.HIDE)) {
             hideFromWorld();
         }
-        pcs.firePropertyChange(evt.getPropertyName(), evt.getNewValue(), evt.getOldValue());
+        pcs.firePropertyChange(evt);
     }
     
     public void impact() {
