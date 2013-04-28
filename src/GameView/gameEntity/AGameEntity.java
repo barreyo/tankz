@@ -5,6 +5,7 @@ import GameView.graphics.EGraphics;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
 
@@ -24,6 +25,7 @@ public abstract class AGameEntity implements IGameEntity {
      */
     AGameEntity(EGraphics graphic) {
         spatial = GraphicManager.INSTANCE.createSpatial(graphic);
+        spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
     }
 
     /**
