@@ -61,7 +61,7 @@ public enum EViewPorts {
         } */
         
         view.addProcessor(fpp);
-        view.addProcessor(pssmRenderer);
+//        view.addProcessor(pssmRenderer);
     }
 
     /**

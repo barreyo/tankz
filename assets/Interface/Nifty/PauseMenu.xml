@@ -21,10 +21,13 @@
                 <control id="pause_resume" name ="label"  style="pauseStyle" text="RESUME">
                     <interact onClick="resume()" />
                 </control>
-                <control id="pause_restart" name ="label" style="pauseStyle" text="RESTART LEVEL">
+                <control id="pause_restart" name ="label" style="pauseStyle" text="RESTART">
                     <interact onClick="restart()" />
                 </control>
-                <control id="pause_exit" name ="label" style="pauseStyle" text="LEAVE">
+                <control id="pause_menu" name ="label" style="pauseStyle" text="MENU">
+                    <interact onClick="menu()" />
+                </control>
+                <control id="pause_exit" name ="label" style="pauseStyle" text="EXIT">
                     <interact onClick="exit()"/>
                 </control>
             </panel>

@@ -132,8 +132,18 @@ public class TanksGameModel implements ITanks {
      */
     @Override
     public void update(float tpf) {
-        gameTimer -= tpf;
-        secondTimer += tpf;
+        if (EApplicationState.getGameState() == EApplicationState.RUNNING) {
+            gameTimer -= tpf;
+            secondTimer += tpf;
+        }
+        if (gameTimer <= 0) {
+            for (IPlayer player: players) {
+                player.showScoreboard();
+            }
+            this.cleanup();
+            return;
+        }
+        
         if (secondTimer >= 1.0f) {
             pcs.firePropertyChange("Timer", null, null);
             secondTimer = 0;
