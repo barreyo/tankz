@@ -63,19 +63,23 @@ public class TimerView extends AHudElement {
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals("Timer")) {
-            int seconds = (int) (gameModel.getGameTime() % 60);
-            int minutes = (int) (gameModel.getGameTime() / 60);
             String formattedTime;
+            if (gameModel.getGameTime() <= 0) {
+                formattedTime = "00:00";
+            } else {
+                int seconds = (int) (gameModel.getGameTime() % 60);
+                int minutes = (int) (gameModel.getGameTime() / 60);
 
-            if (minutes < 10) {
-                formattedTime = "0" + minutes + ":";
-            } else {
-                formattedTime = minutes + ":";
-            }
-            if (seconds < 10) {
-                formattedTime += "0" + seconds;
-            } else {
-                formattedTime += "" + seconds;
+                if (minutes < 10) {
+                    formattedTime = "0" + minutes + ":";
+                } else {
+                    formattedTime = minutes + ":";
+                }
+                if (seconds < 10) {
+                    formattedTime += "0" + seconds;
+                } else {
+                    formattedTime += "" + seconds;
+                }
             }
             bitmapText.setText(formattedTime);
         }
