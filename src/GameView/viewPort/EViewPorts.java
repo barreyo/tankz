@@ -42,7 +42,7 @@ public enum EViewPorts {
         
         FilterPostProcessor fpp = new FilterPostProcessor(TanksAppAdapter.INSTANCE.getAssetManager());
         
-        PssmShadowRenderer pssmRenderer = new PssmShadowRenderer(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 6);
+        PssmShadowRenderer pssmRenderer = new PssmShadowRenderer(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 5);
         pssmRenderer.setDirection(new Vector3f(0.01f, -0.01f, 0.01f).normalizeLocal());
         pssmRenderer.setShadowIntensity(0.35f);
         
