@@ -21,7 +21,7 @@ public class Player implements IPlayer {
     private IPowerup powerup;
     
     private boolean respawn;
-    private static final long DEATHTIME = 5000;
+    private static final long DEATHTIME = 5;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -205,6 +205,7 @@ public class Player implements IPlayer {
         if (vehicle.getVehicleState() == VehicleState.DESTROYED && !hasDiedThisDeath) {
             this.incrementDeaths();
             hasDiedThisDeath = true;
+            showScoreboard();
         } else if (vehicle.getVehicleState() == VehicleState.ALIVE) {
             hasDiedThisDeath = false;
         }
@@ -213,13 +214,14 @@ public class Player implements IPlayer {
             deathTimer -= tpf;
             secondTimer += tpf;
             if(secondTimer >= 1.0f){
-                pcs.firePropertyChange("respawnTimerUpdate", null, null);
+                pcs.firePropertyChange(Commands.SCORE_RESPAWN_UPDATE, null, null);
                 secondTimer = 0;
             }
             
             if(deathTimer <= 0){
                 respawn = true;
                 deathTimer = DEATHTIME;
+                hideScoreboard();
             }
         }
     }
