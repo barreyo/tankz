@@ -287,28 +287,28 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Commands.STEER)) {
-            // Steer the vehicle according to the model
-            this.steer(vehicleModel.getSteeringValue());
-        } else if (evt.getPropertyName().equals(Commands.ACCELERATE)) {
-            // Accelerate the vehicle accordning to the model
-            this.accelerate(vehicleModel.getAccelerationValue());
-        } else if (evt.getPropertyName().equals(Commands.FRICTION)) {
-            // Brake the vehicle according to the friction in model
-            this.brake(vehicleModel.getFrictionForce());
-        }  else if (evt.getPropertyName().equals(Commands.SHOW)){
-            this.setEnabled(true);
-            TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
-            this.setPhysicsLocation(vehicleModel.getPosition());
-        } else if (evt.getPropertyName().equals(Commands.HIDE)){
-            this.setEnabled(false);
-            TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
-        } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
-            this.cleanup();
-        } else if (evt.getPropertyName().equals(Commands.MISSILE)) {
-            //TanksFactory.createNewMissile(vehicleModel.getPosition().addLocal(0, 3, 0),
-            //new Vector3f(0, 20, 0), vehicleModel.getRotation(), this);
-            //SoundManager.INSTANCE.play(ESounds.MISSILE_LAUNCH_SOUND);
+        String command = evt.getPropertyName();
+        Object source = evt.getSource();
+        if (source == vehicleModel) {
+            if (command.equals(Commands.STEER)) {
+                // Steer the vehicle according to the model
+                this.steer(vehicleModel.getSteeringValue());
+            } else if (command.equals(Commands.ACCELERATE)) {
+                // Accelerate the vehicle accordning to the model
+                this.accelerate(vehicleModel.getAccelerationValue());
+            } else if (command.equals(Commands.FRICTION)) {
+                // Brake the vehicle according to the friction in model
+                this.brake(vehicleModel.getFrictionForce());
+            } else if (command.equals(Commands.SHOW)) {
+                this.setEnabled(true);
+                TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
+                this.setPhysicsLocation(vehicleModel.getPosition());
+            } else if (command.equals(Commands.HIDE)) {
+                this.setEnabled(false);
+                TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
+            } else if (command.equals(Commands.CLEANUP)) {
+                this.cleanup();
+            }
         }
     }
 

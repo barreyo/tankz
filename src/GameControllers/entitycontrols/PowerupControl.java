@@ -45,7 +45,7 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(Commands.SHOW)) {
+        if (pce.getSource() == powerupModel && pce.getPropertyName().equals(Commands.SHOW)) {
             TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
         }
     }

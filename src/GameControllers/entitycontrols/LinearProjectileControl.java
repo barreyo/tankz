@@ -50,11 +50,15 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Commands.SHOW)) {
-            physicsControl.setEnabled(true);
-            physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
-        } else if (evt.getPropertyName().equals(Commands.HIDE)) {
-            physicsControl.setEnabled(false);
+        String command = evt.getPropertyName();
+        Object source = evt.getSource();
+        if (source == projectileModel) {
+            if (command.equals(Commands.SHOW)) {
+                physicsControl.setEnabled(true);
+                physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
+            } else if (command.equals(Commands.HIDE)) {
+                physicsControl.setEnabled(false);
+            }
         }
     }
 
