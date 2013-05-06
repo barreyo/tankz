@@ -148,6 +148,12 @@ public interface IArmedVehicle extends IWorldObject {
      * @param projectile
      */
     public void gotHitBy(IExplodingProjectile projectile);
+
+    /**
+     *
+     * @param position
+     */
+    public void setPosition(Vector3f position);
     
     /**
      *

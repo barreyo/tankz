@@ -96,6 +96,7 @@ public class LandmineModel implements IWorldObject {
      * 
      * @return the mass of the missile
      */
+    @Override
     public float getMass() {
         return MASS;
     }

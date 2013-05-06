@@ -52,11 +52,4 @@ public interface IWorldObject extends IObservable, Savable{
      * @return the position of the world object
      */
     public Vector3f getPosition();
-    
-    /**
-     * Sets the position of this world object.
-     * 
-     * @param pos the position to be set
-     */
-    public void setPosition(Vector3f pos);
 }

@@ -16,6 +16,13 @@ public interface IPowerup extends IWorldObject {
     public void powerupWasPickedUp();
     
     /**
+     * Sets the position of this powerup.
+     * 
+     * @param pos the position to be set.
+     */
+    public void setPosition(Vector3f pos);
+    
+    /**
      * 
      * Activates the powerup.
      * 
