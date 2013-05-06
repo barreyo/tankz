@@ -5,6 +5,7 @@ import GameModel.IArmedVehicle.VehicleState;
 import GameUtilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Collections;
 
 /**
  * A representation of a player.
@@ -18,6 +19,7 @@ public class Player implements IPlayer {
     private int kills, deaths;
     private boolean isActive;
     private IPowerup powerup;
+    private boolean respawn;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -228,13 +230,30 @@ public class Player implements IPlayer {
     }
     
     private boolean hasDiedThisDeath = false;
+    private float deathTimer = 5f;
+    private float secondTimer = 0;
     
     public void update(float tpf) {
+        
+        
         if (vehicle.getVehicleState() == VehicleState.DESTROYED && !hasDiedThisDeath) {
             this.incrementDeaths();
             hasDiedThisDeath = true;
         } else if (vehicle.getVehicleState() == VehicleState.ALIVE) {
             hasDiedThisDeath = false;
+        }
+        
+        if(vehicle.getVehicleState() == VehicleState.DESTROYED){
+            deathTimer -= tpf;
+            secondTimer += tpf;
+            if(secondTimer >= 1.0f){
+                pcs.firePropertyChange("respawnTimerUpdate", null, null);
+                secondTimer = 0;
+            }
+            
+            if(deathTimer <= 0){
+                respawn = true;
+            }
         }
     }
 
@@ -254,5 +273,17 @@ public class Player implements IPlayer {
     public void hideScoreboard() {
         // Pass on to the view
         pcs.firePropertyChange("hide=" + name, null, null);
+    }
+    
+    public void setRespawn(boolean respawn){
+        this.respawn = respawn;
+    }
+    
+    public boolean shouldRespawn(){
+        return respawn;
+    }
+    
+    public float getDeathTime(){
+        return deathTimer;
     }
 }
