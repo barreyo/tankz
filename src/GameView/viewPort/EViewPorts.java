@@ -52,7 +52,7 @@ public enum EViewPorts {
         /*DepthOfFieldFilter dof = new DepthOfFieldFilter();
         dof.setFocusDistance(0);
         dof.setFocusRange(100);
-        fpp.addFilter(dof);
+        fpp.addFilter(dof); 
         
        
         // uncomment this for cartoon, trees gets fucked up though
@@ -61,7 +61,7 @@ public enum EViewPorts {
         } */
         
         view.addProcessor(fpp);
-//        view.addProcessor(pssmRenderer);
+        view.addProcessor(pssmRenderer);
     }
 
     /**
