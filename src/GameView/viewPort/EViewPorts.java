@@ -20,12 +20,33 @@ import com.jme3.shadow.PssmShadowRenderer;
  * @author Daniel
  */
 public enum EViewPorts {
+    /**
+     *
+     */
     CENTER(0f, 1f, 0f, 1f, "Center"),
+    /**
+     *
+     */
     TOP(0f, 1f, 0.5f, 1f, "Top"),
+    /**
+     *
+     */
     BOTTOM(0f, 1f, 0f, 0.5f, "Bottom"),
+    /**
+     *
+     */
     TOP_LEFT(0f, 0.5f, 0.5f, 1f, "TopLeft"),
+    /**
+     *
+     */
     TOP_RIGHT(0.5f, 1f, 0.5f, 1f, "TopRight"),
+    /**
+     *
+     */
     BOTTOM_Left(0f, 0.5f, 0f, 0.5f, "BottomLeft"),
+    /**
+     *
+     */
     BOTTOM_RIGHT(0.5f, 1f, 0f, 0.5f, "BottomRight");
     
     private final ViewPort view;
@@ -66,6 +87,7 @@ public enum EViewPorts {
 
     /**
      * Returns the viewport of this enum.
+     * @return 
      */
     public ViewPort getViewPort() {
         return view;

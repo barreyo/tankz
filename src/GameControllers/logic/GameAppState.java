@@ -35,6 +35,11 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
     private IGameWorld gameWorld;
     
     // This will be our game controller, ie will get a game model and a gameworld
+    /**
+     *
+     * @param game
+     * @param gameWorld
+     */
     public GameAppState(ITanks game, IGameWorld gameWorld) { 
         this.gameModel = game;
         this.gameWorld = gameWorld;
@@ -131,6 +136,10 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
         }
     };
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {

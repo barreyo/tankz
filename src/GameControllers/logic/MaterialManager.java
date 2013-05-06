@@ -11,6 +11,9 @@ import java.util.EnumMap;
  * @author Daniel
  */
 public enum MaterialManager implements IMapRelatedManager {
+    /**
+     *
+     */
     INSTANCE;
     
     private EnumMap<EMaterials, Material> materialMap = new EnumMap<EMaterials, Material>(EMaterials.class);

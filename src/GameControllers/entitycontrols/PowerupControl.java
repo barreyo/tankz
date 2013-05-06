@@ -27,6 +27,12 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     private IPowerup powerupModel;
     private RigidBodyControl physicsControl;
     
+    /**
+     *
+     * @param entity
+     * @param model
+     * @param physicsControl
+     */
     public PowerupControl(PowerupEntity entity, IPowerup model, RigidBodyControl physicsControl) {
         powerupEntity = entity;
         powerupModel = model;
@@ -51,16 +57,30 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     }
 
 
+    /**
+     *
+     * @param rm
+     * @param vp
+     */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
        // Should only be used by advance users
     }
 
+    /**
+     *
+     * @param spatial
+     * @return
+     */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
         throw new UnsupportedOperationException("Not supported");
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {

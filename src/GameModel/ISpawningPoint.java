@@ -31,6 +31,7 @@ public interface ISpawningPoint {
     
     /**
      * 
+     * @param occupier 
      */
     void setOccupier(IWorldObject occupier);
     

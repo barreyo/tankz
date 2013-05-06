@@ -47,6 +47,11 @@ public final class TankModel implements IArmedVehicle {
     private List<CanonBallModel> canonBalls;
     private List<MissileModel> missiles;
     
+    /**
+     *
+     * @param canonBalls
+     * @param missiles
+     */
     public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
@@ -162,6 +167,9 @@ public final class TankModel implements IArmedVehicle {
         }
     }
     
+    /**
+     *
+     */
     @Override
     public synchronized void shootMissile() {
         for (MissileModel missile : missiles) {
@@ -184,6 +192,10 @@ public final class TankModel implements IArmedVehicle {
         pcs.removePropertyChangeListener(l);
     }
 
+    /**
+     *
+     * @param tpf
+     */
     @Override
     public void update(float tpf) {
         // Keep vehicle within max speeds
@@ -197,96 +209,167 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(Commands.SMOKE, null, null);
     }
 
+    /**
+     *
+     */
     @Override
     public void accelerateForward() {
         incrementAcceleration(currentAccelerationForce);
     }
 
+    /**
+     *
+     */
     @Override
     public void accelerateBack() {
         decrementAcceleration(currentAccelerationForce);
     }
 
+    /**
+     *
+     */
     @Override
     public void steerLeft() {
         incrementSteeringValue(steeringChangeValue);
     }
 
+    /**
+     *
+     */
     @Override
     public void steerRight() {
         decrementSteeringValue(steeringChangeValue);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public float getFrictionForce() {
         return frictionForce;
     }
 
+    /**
+     *
+     * @param currentVehicleSpeedKmHour
+     */
     @Override
     public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour) {
         this.currentVehicleSpeedKmHour = currentVehicleSpeedKmHour;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public float getMass() {
         return mass;
     }
 
+    /**
+     *
+     * @param pos
+     */
     @Override
     public void updatePosition(Vector3f pos) {
         this.position = new Vector3f(pos);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public synchronized Vector3f getFirePosition() {
         return new Vector3f(position).addLocal(0, 0.9f, 0).addLocal(direction.multLocal(1.5f));
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vector3f getSmokePosition() {
         return new Vector3f(position).addLocal(0, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
     }
 
+    /**
+     *
+     * @param forwardVector
+     */
     @Override
     public void updateDirection(Vector3f forwardVector) {
         direction = forwardVector.clone();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Vector3f getDirection() {
         return direction.clone();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Quaternion getRotation() {
         return rotation.clone();
     }
 
+    /**
+     *
+     * @param rotation
+     */
     @Override
     public void updateRotation(Quaternion rotation) {
         this.rotation = rotation.clone();
     }
 
+    /**
+     *
+     */
     @Override
     public void applyFriction() {
         pcs.firePropertyChange(Commands.FRICTION, null, null);
     }
 
+    /**
+     *
+     * @param maxSpeed
+     */
     @Override
     public synchronized void setMaxSpeed(float maxSpeed) {
         this.currentMaxSpeed = maxSpeed;
     }
 
+    /**
+     *
+     * @param accelerationForce
+     */
     @Override
     public synchronized void setAccelerationForce(float accelerationForce) {
         this.currentAccelerationForce = accelerationForce;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public float getDefaultMaxSpeed(){
         return defaultMaxSpeed;
     }
 
+    /**
+     *
+     * @param projectile
+     */
     @Override
     public void gotHitBy(IExplodingProjectile projectile) {
         this.decrementHealth(projectile.getDamageOnImpact());
@@ -296,11 +379,18 @@ public final class TankModel implements IArmedVehicle {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void cleanup() {
         pcs.firePropertyChange(Commands.CLEANUP, null, null);
     }
 
+    /**
+     *
+     * @param position
+     */
     @Override
     public void setPosition(Vector3f position) {
         this.position = position.clone();
@@ -322,27 +412,48 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(Commands.HIDE, null, null);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Vector3f getPosition() {
         return new Vector3f(position);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isInWorld() {
         return this.isInWorld;
     }
 
+    /**
+     *
+     */
     @Override
     public void resetSpeedValues() {
         currentMaxSpeed = defaultMaxSpeed;
         currentAccelerationForce = defaultAccelerationForce;
     }
 
+    /**
+     *
+     * @param ex
+     * @throws IOException
+     */
     @Override
     public void write(JmeExporter ex) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param im
+     * @throws IOException
+     */
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");

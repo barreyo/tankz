@@ -27,6 +27,7 @@ public class PowerupSlotView extends AHudElement {
      * 
      * @param player which player's powerup that should be shown.
      * @param vp the viewport of the player.
+     * @param numberOfPlayers  
      */
     public PowerupSlotView(IPlayer player, ViewPort vp, int numberOfPlayers) {
         this.vp = vp;
@@ -56,9 +57,10 @@ public class PowerupSlotView extends AHudElement {
      * 
      * @param pce change event.
      */
+    @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(Commands.POWERUP_CHANGED)) {
-            IPowerup powerup = player.getPowerup();
+            IPowerup powerup = (IPowerup)pce.getNewValue();
             if (powerup instanceof HastePowerup) {
                 picture.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
             } else if (powerup instanceof MissilePowerup) {

@@ -11,6 +11,9 @@ import java.util.EnumMap;
  * @author Per
  */
 public enum PhysicsManager implements IMapRelatedManager {
+    /**
+     *
+     */
     INSTANCE;
     
     private EnumMap<ECollisionShapes, CollisionShape> collisionShapeMap = new EnumMap<ECollisionShapes, CollisionShape>(ECollisionShapes.class);

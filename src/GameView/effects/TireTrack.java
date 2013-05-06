@@ -16,6 +16,9 @@ import com.jme3.util.BufferUtils;
  */
 public class TireTrack extends Mesh {
     
+    /**
+     *
+     */
     public TireTrack() {
         Vector3f[] vertices = new Vector3f[4];
         int[] indexes = { 2,0,1, 1,3,2 };

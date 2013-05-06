@@ -33,6 +33,10 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
         nifty.addXml("Interface/Nifty/LoadingScreen.xml");
     }
 
+    /**
+     *
+     * @return
+     */
     public static synchronized LoadingScreenAppState getInstance() {
         if (instance == null) {
             instance = new LoadingScreenAppState();

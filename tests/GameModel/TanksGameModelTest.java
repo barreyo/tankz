@@ -143,7 +143,7 @@ public class TanksGameModelTest {
     }
 
     /**
-     * Test of getGameTime method, of class TanksGameModel.
+     * Test of getGameEndTimeMS method, of class TanksGameModel.
      */
     @Test
     public void testGetGameTime() {

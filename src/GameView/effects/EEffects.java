@@ -9,9 +9,21 @@ import java.util.Collection;
  * @author Daniel
  */
 public enum EEffects {
+    /**
+     *
+     */
     EXPLOSION(new ExplosionEffect()),
+    /**
+     *
+     */
     SHOOT(new ShootEffect()),
+    /**
+     *
+     */
     TANK_BLOWN_UP(new DestroyedEffect()),
+    /**
+     *
+     */
     SMOKE(new SmokeEffect());
     
     
@@ -21,6 +33,10 @@ public enum EEffects {
         this.effect = effect;
     }
     
+    /**
+     *
+     * @return
+     */
     public Collection<ParticleEmitter> getEmitters() {
         return effect.getParticleEmitters();
     }

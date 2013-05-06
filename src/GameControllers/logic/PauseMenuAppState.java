@@ -48,6 +48,10 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
         sound = nifty.getSoundSystem().getSound("hooverSound");
     }
     
+    /**
+     *
+     * @return
+     */
     public static synchronized PauseMenuAppState getInstance() {
         if (instance == null) {
             instance = new PauseMenuAppState();

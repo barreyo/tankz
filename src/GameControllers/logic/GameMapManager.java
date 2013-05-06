@@ -10,6 +10,9 @@ import GameControllers.TanksFactory;
  * @author Daniel
  */
 public enum GameMapManager implements IMapRelatedManager {
+    /**
+     *
+     */
     INSTANCE;
     
     private GameAppState currentGame;
@@ -56,6 +59,9 @@ public enum GameMapManager implements IMapRelatedManager {
         TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }
 
+    /**
+     *
+     */
     public void restartMap() {
         cleanup();
 
@@ -63,6 +69,9 @@ public enum GameMapManager implements IMapRelatedManager {
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
+    /**
+     *
+     */
     public void loadNextMap() {
         if (currentIntGameMap == NUMBER_OF_MAPS) {
             currentIntGameMap = 1;
@@ -74,6 +83,9 @@ public enum GameMapManager implements IMapRelatedManager {
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
+    /**
+     *
+     */
     public void loadPreviousMap() {
         if (currentIntGameMap == 1) {
             currentIntGameMap = NUMBER_OF_MAPS;

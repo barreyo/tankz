@@ -11,6 +11,9 @@ import java.util.EnumMap;
  * @author Per
  */
 public enum EffectsManager implements IMapRelatedManager {
+    /**
+     *
+     */
     INSTANCE;
 
     private EnumMap<EEffects, Collection<ParticleEmitter>> effectsMap = new EnumMap<EEffects, Collection<ParticleEmitter>>(EEffects.class);

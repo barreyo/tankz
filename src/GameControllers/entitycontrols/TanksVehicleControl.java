@@ -48,6 +48,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
  
     /**
      * Creates a control for a tank vehicle.
+     * @param entity 
+     * @param player 
      */
     public TanksVehicleControl(TankEntity entity, IPlayer player) {  
         super(entity.getCollisionShape(), player.getVehicle().getMass());
@@ -310,6 +312,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         }
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {

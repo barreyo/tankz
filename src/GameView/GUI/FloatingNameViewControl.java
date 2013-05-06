@@ -31,6 +31,11 @@ public class FloatingNameViewControl extends AbstractControl {
     
     private FloatingNameViewControl() {} // Disable zero parameter instantiation
     
+    /**
+     *
+     * @param player
+     * @param vp
+     */
     public FloatingNameViewControl(IPlayer player, ViewPort vp) {
 //        this.player = player;
 //        this.vp = vp;
@@ -51,11 +56,21 @@ public class FloatingNameViewControl extends AbstractControl {
         //text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
     }
 
+    /**
+     *
+     * @param rm
+     * @param vp
+     */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
         // Not in use
     }
         
+    /**
+     *
+     * @param spatial
+     * @return
+     */
     public Control cloneForSpatial(Spatial spatial) {
         // Not in use
         return null;

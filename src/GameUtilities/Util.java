@@ -9,6 +9,12 @@ import com.jme3.scene.Spatial;
  * @author Daniel
  */
 public class Util {
+    /**
+     *
+     * @param spatial
+     * @param name
+     * @return
+     */
     public static Geometry findGeom(Spatial spatial, String name) {
         if (spatial instanceof Node) {
             Node node = (Node) spatial;

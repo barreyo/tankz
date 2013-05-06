@@ -41,10 +41,15 @@ public interface IPowerup extends IWorldObject {
      */
     public void usePowerup(IPlayer player);
     
+    /**
+     *
+     * @param held
+     */
     public void setHeldByPlayer(boolean held);
     
     /**
      * 
+     * @return 
      */
     public boolean isHeldByPlayer();
 }

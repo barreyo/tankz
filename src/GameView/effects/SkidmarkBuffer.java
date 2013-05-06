@@ -16,6 +16,11 @@ public class SkidmarkBuffer {
     private IArmedVehicle vehicle;
     private final static int LENGTH = 20;
     
+    /**
+     *
+     * @param vehicle
+     * @param texture
+     */
     public SkidmarkBuffer(IArmedVehicle vehicle, String texture) {
         this.vehicle = vehicle;
         buffer = new ArrayDeque<TireTrack>();
@@ -26,6 +31,9 @@ public class SkidmarkBuffer {
         }
     }
     
+    /**
+     *
+     */
     public void updateSkidmarkPosition() {
         
     }

@@ -10,6 +10,9 @@ import de.lessvoid.nifty.Nifty;
  * @author Daniel
  */
 public enum GUIManager {
+    /**
+     *
+     */
     INSTANCE;
 
     private Nifty nifty;
@@ -46,6 +49,7 @@ public enum GUIManager {
     
     /**
      *
+     * @param gameModel 
      */
     public void showPauseMenu(ITanks gameModel) {
         PauseMenuAppState.getInstance().setGameToPause(gameModel);
@@ -60,6 +64,9 @@ public enum GUIManager {
         return nifty;
     }
     
+    /**
+     *
+     */
     public void cleanup() {
         TanksAppAdapter.INSTANCE.detachAllGUIChildren();
     }

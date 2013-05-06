@@ -15,6 +15,9 @@ import java.beans.PropertyChangeListener;
  */
 public class LandmineEntity extends AGameEntity {
     
+    /**
+     *
+     */
     public LandmineEntity(){
         super(EGraphics.LANDMINE);
     }

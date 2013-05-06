@@ -26,6 +26,9 @@ public class DestroyedEffect implements IEffect {
 
     private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
     
+    /**
+     *
+     */
     public DestroyedEffect(){
         AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
         
@@ -38,6 +41,10 @@ public class DestroyedEffect implements IEffect {
         createShockwave(assetManager);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Collection<ParticleEmitter> getParticleEmitters() {
         List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();

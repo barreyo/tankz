@@ -9,5 +9,9 @@ import java.util.Collection;
  * @author Daniel
  */
 public interface IEffect {
+    /**
+     *
+     * @return
+     */
     public Collection<ParticleEmitter> getParticleEmitters();
 }

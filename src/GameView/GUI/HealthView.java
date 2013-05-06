@@ -31,6 +31,7 @@ public class HealthView extends AHudElement {
      * 
      * @param player player health to display.
      * @param vp viewport of the player.
+     * @param numberOfPlayers  
      */
     public HealthView(IPlayer player, ViewPort vp, int numberOfPlayers) {
         this.player = player;
@@ -69,6 +70,7 @@ public class HealthView extends AHudElement {
     
     /**
      * {@inheritdoc}
+     * @param pce 
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {

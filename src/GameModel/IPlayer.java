@@ -53,13 +53,6 @@ public interface IPlayer extends IObservable {
      * Sets them to zero.
      */
     public void resetStats();
-    
-    /**
-     * Returns the powerup in powerupSlot.
-     * 
-     * @return The powerup contained in powerupSlot
-     */
-    IPowerup getPowerup();
 
     /**
      * Sets the powerup in the powerupSlot.
@@ -71,7 +64,7 @@ public interface IPlayer extends IObservable {
     /**
      * Players are considered equal when their names are equal.
      * 
-     * @param player player to compare with.
+     * @param obj 
      * @return true if equal false otherwise.
      */
     @Override
@@ -118,6 +111,7 @@ public interface IPlayer extends IObservable {
     
     /**
      * Sets if the player should respawn.
+     * @param respawn 
      */
     public void setRespawn(boolean respawn);
 }

@@ -66,7 +66,7 @@ public class Player implements IPlayer {
     @Override
     public void incrementKills() {
         kills++;
-        pcs.firePropertyChange("ScoreUpdate", null, null);
+        pcs.firePropertyChange(Commands.SCORE_UPDATE, null, null);
     }
 
     /**
@@ -83,7 +83,7 @@ public class Player implements IPlayer {
     @Override
     public void incrementDeaths() {
         deaths++;
-        pcs.firePropertyChange("ScoreUpdate", null, null);
+        pcs.firePropertyChange(Commands.SCORE_UPDATE, null, null);
     }
 
     /**
@@ -93,15 +93,7 @@ public class Player implements IPlayer {
     public void resetStats() {
         deaths = 0;
         kills = 0;
-        pcs.firePropertyChange("ScoreUpdate", null, null);
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public synchronized IPowerup getPowerup() {
-        return powerup;
+        pcs.firePropertyChange(Commands.SCORE_UPDATE, null, null);
     }
 
     /**
@@ -110,8 +102,9 @@ public class Player implements IPlayer {
     @Override
     public synchronized void setPowerup(IPowerup powerup) {
         if (this.powerup == null) {
+            IPowerup oldPowerup = this.powerup;
             this.powerup = powerup;
-            pcs.firePropertyChange(Commands.POWERUP_CHANGED, null, null);
+            pcs.firePropertyChange(Commands.POWERUP_CHANGED, oldPowerup, this.powerup);
         }
     }
 
@@ -192,8 +185,9 @@ public class Player implements IPlayer {
     public synchronized void usePowerup() {
         if (powerup != null) {
             powerup.usePowerup(this);
+            IPowerup oldPowerup = powerup;
             powerup = null;
-            pcs.firePropertyChange(Commands.POWERUP_CHANGED, null, null);
+            pcs.firePropertyChange(Commands.POWERUP_CHANGED, oldPowerup, powerup);
         }
     }
 

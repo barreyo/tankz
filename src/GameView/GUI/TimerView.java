@@ -60,6 +60,7 @@ public class TimerView extends AHudElement {
 
     /**
      * {@inheritdoc}
+     * @param pce 
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {

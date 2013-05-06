@@ -40,7 +40,9 @@ public class TanksGameModel implements ITanks {
      *
      * @param players list of all the IPlayers in the game
      * @param powerups list of all th IPowerups in the game
-     * @param spawningPoints list of all the ISpawningPoints in the game.
+     * @param powerupSpawningPoints 
+     * @param playerSpawningPoints 
+     * @param settings  
      */
     public TanksGameModel(List<IPlayer> players, List<IPowerup> powerups,
             List<ISpawningPoint> powerupSpawningPoints, List<ISpawningPoint> playerSpawningPoints,
@@ -53,12 +55,13 @@ public class TanksGameModel implements ITanks {
         this.powerupSpawningPoints = powerupSpawningPoints;
         this.playerSpawningPoints = playerSpawningPoints;
         this.settings = settings;
-        gameEndTime = settings.getGameTime();
-        powerupSpawningIntervall = 25000;  //testing
+        gameEndTime = settings.getGameEndTimeMS();
+        powerupSpawningIntervall = settings.getPowerupSpawningIntervallMS();  //testing
     }
 
     /**
      * {@inheritdoc}
+     * @return 
      */
     @Override
     public Collection<IPlayer> getPlayers() {
@@ -114,26 +117,6 @@ public class TanksGameModel implements ITanks {
      * {@inheritdoc}
      */
     @Override
-    public Collection<IPowerup> getPowerups() {
-        List<IPowerup> pUps = Collections.unmodifiableList(powerups);
-        // Cast OK Powerup implements IPowerup
-        return (Collection<IPowerup>) pUps;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    @Override
-    public Collection<ISpawningPoint> getSpawningPoints() {
-        List<ISpawningPoint> sp = Collections.unmodifiableList(powerupSpawningPoints);
-        // Cast OK PlayerSpawningPoint and PowerupSpawningPoint implements ISpawningPoint
-        return (Collection<ISpawningPoint>) sp;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
@@ -148,6 +131,7 @@ public class TanksGameModel implements ITanks {
 
     /**
      * {@inheritdoc}
+     * @param tpf 
      */
     @Override
     public void update(float tpf) {
@@ -167,6 +151,7 @@ public class TanksGameModel implements ITanks {
                     endGame();
                     return;
                 }
+                player.update(tpf);
                 if (player.shouldRespawn()) {
                     respawnPlayer(player);
                     player.setRespawn(false);
@@ -175,9 +160,6 @@ public class TanksGameModel implements ITanks {
             if (currTime - powerupSpawningTimerStart >= powerupSpawningIntervall) {
                 spawnPowerups();
                 powerupSpawningTimerStart = currTime;
-            }
-            for (int i = 0; i < players.size(); i++) {
-                players.get(i).update(tpf);
             }
         }
     }
@@ -224,6 +206,9 @@ public class TanksGameModel implements ITanks {
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     @Override
     public void powerupPickedUp(IPowerup powerup) {
         for (ISpawningPoint spawn : powerupSpawningPoints) {

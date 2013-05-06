@@ -13,6 +13,9 @@ import java.util.List;
  * @author Daniel
  */
 public enum ViewPortManager {
+    /**
+     *
+     */
     INSTANCE;
     
     private HashMap<String, EViewPorts> views = new HashMap<String, EViewPorts>();
@@ -55,7 +58,7 @@ public enum ViewPortManager {
     /**
      * Returns the viewport for the specified player.
      * 
-     * @param p The player which you want the viewport for
+     * @param name 
      * @return the viewport for the specified player
      */
     public ViewPort getViewportForPlayer(String name) {

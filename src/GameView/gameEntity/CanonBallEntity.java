@@ -26,6 +26,10 @@ public final class CanonBallEntity extends AGameEntity{
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     *
+     * @param proj
+     */
     public CanonBallEntity(IExplodingProjectile proj) {
         super(EGraphics.BOMB);
         effects = EEffects.EXPLOSION.getEmitters();
@@ -78,6 +82,9 @@ public final class CanonBallEntity extends AGameEntity{
         pcs.firePropertyChange(evt);
     }
     
+    /**
+     *
+     */
     public void impact() {
         hideFromWorld();
         showEffect();
@@ -105,6 +112,9 @@ public final class CanonBallEntity extends AGameEntity{
         spatial.setCullHint(Spatial.CullHint.Dynamic);
     }
 
+    /**
+     *
+     */
     public void hideFromWorld() {
         spatial.setCullHint(Spatial.CullHint.Always);
     }

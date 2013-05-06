@@ -32,6 +32,7 @@ public final class TankEntity extends AGameEntity {
 
     /**
      * Creates a tank game entity.
+     * @param armedVehicle 
      */
     public TankEntity(IArmedVehicle armedVehicle) {
         super(EGraphics.TANK);
@@ -92,6 +93,10 @@ public final class TankEntity extends AGameEntity {
         pcs.removePropertyChangeListener(l);
     }
 
+    /**
+     *
+     * @param vehicle
+     */
     public void setModel(IArmedVehicle vehicle) {
         if (armedVehicle != null) {
            armedVehicle.removeObserver(this);
@@ -102,6 +107,10 @@ public final class TankEntity extends AGameEntity {
         }
     }
 
+    /**
+     *
+     * @param pos
+     */
     public void setPosition(Vector3f pos) {
         spatial.setLocalTranslation(pos);
     }

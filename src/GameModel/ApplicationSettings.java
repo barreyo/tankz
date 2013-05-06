@@ -7,6 +7,9 @@ package GameModel;
  * @author Daniel
  */
 public enum ApplicationSettings {
+    /**
+     *
+     */
     INSTANCE;
     
     // Sound related

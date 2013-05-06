@@ -50,6 +50,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         sound.setVolume(1.0f);
     }
     
+    /**
+     *
+     * @return
+     */
     public static synchronized MenuAppState getInstance() {
         if (instance == null) {
             instance = new MenuAppState();
@@ -223,6 +227,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         GUIManager.INSTANCE.showLoadingScreen();
     }
     
+    /**
+     *
+     * @return
+     */
     public ArrayList<String> getPlayerNames() {
         return new ArrayList<String>(playerNames);
     }

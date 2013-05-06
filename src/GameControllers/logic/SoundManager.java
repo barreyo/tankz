@@ -11,6 +11,9 @@ import java.util.EnumMap;
  * @author Per
  */
 public enum SoundManager implements IMapRelatedManager {
+    /**
+     *
+     */
     INSTANCE;
     private EnumMap<ESounds, AudioNode> soundMap;
 
@@ -34,6 +37,9 @@ public enum SoundManager implements IMapRelatedManager {
         }
     }
 
+    /**
+     *
+     */
     public void preLoad() {
         loadSound(new ESounds[]{ESounds.MENU_SOUND});
     }
@@ -110,6 +116,10 @@ public enum SoundManager implements IMapRelatedManager {
     }
 
     // tries to stop a sound, will probably only work for streaming music though
+    /**
+     *
+     * @param sound
+     */
     public void stop(ESounds sound) {
         AudioNode toStop = soundMap.get(sound);
         if (toStop != null) {

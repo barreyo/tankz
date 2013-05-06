@@ -32,6 +32,10 @@ public class HastePowerup extends APowerup{
         isActive = true;
     }
     
+    /**
+     *
+     * @param tpf
+     */
     @Override
     public void update(float tpf) {
         super.update(tpf);
@@ -46,11 +50,21 @@ public class HastePowerup extends APowerup{
         }
     }
 
+    /**
+     *
+     * @param ex
+     * @throws IOException
+     */
     @Override
     public void write(JmeExporter ex) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param im
+     * @throws IOException
+     */
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");

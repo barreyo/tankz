@@ -85,6 +85,11 @@ public final class TanksFactory {
         return projectileModel;
     }
     
+    /**
+     *
+     * @param senderCollisionGroupMask
+     * @return
+     */
     public static MissileModel getNewMissile(int senderCollisionGroupMask) {
         MissileModel projectileModel = new MissileModel();
 
@@ -165,6 +170,12 @@ public final class TanksFactory {
         return model;
     }
 
+    /**
+     *
+     * @param cam
+     * @param spatial
+     * @return
+     */
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
         chaseCam.setMaxDistance(25);
@@ -178,9 +189,15 @@ public final class TanksFactory {
         return chaseCam;
     }
 
+    /**
+     *
+     * @param intWorld
+     * @param playerNames
+     * @return
+     */
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(120000, 10);
+        GameSettings settings = new GameSettings(120000, 10, 25000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();

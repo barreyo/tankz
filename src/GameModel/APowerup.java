@@ -17,10 +17,16 @@ public abstract class APowerup implements IPowerup {
     private boolean isHeldByPlayer;
     private boolean isInWorld;
     
+    /**
+     *
+     */
     public static final float MASS = 10f;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
+    /**
+     *
+     */
     public APowerup(){
         position = Vector3f.ZERO;
     }
@@ -72,21 +78,36 @@ public abstract class APowerup implements IPowerup {
         return isHeldByPlayer;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isInWorld() {
         return isInWorld;
     }
     
+    /**
+     *
+     * @param held
+     */
     @Override
     public void setHeldByPlayer(boolean held) {
         isHeldByPlayer = held;
     }
     
+    /**
+     *
+     */
     @Override 
     public void cleanup() {
         
     }
     
+    /**
+     *
+     * @param tpf
+     */
     @Override
     public void update(float tpf) {
     }      
