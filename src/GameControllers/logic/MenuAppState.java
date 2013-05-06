@@ -1,7 +1,6 @@
 
 package GameControllers.logic;
 
-import GameModel.ApplicationSettings;
 import GameModel.EApplicationState;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;

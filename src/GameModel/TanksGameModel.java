@@ -40,9 +40,9 @@ public class TanksGameModel implements ITanks {
      *
      * @param players list of all the IPlayers in the game
      * @param powerups list of all th IPowerups in the game
-     * @param powerupSpawningPoints 
-     * @param playerSpawningPoints 
-     * @param settings  
+     * @param powerupSpawningPoints list of all the powerupspawningpoints in game
+     * @param playerSpawningPoints list of all the playerspawningpoints in game
+     * @param settings the game settings for the game
      */
     public TanksGameModel(List<IPlayer> players, List<IPowerup> powerups,
             List<ISpawningPoint> powerupSpawningPoints, List<ISpawningPoint> playerSpawningPoints,
@@ -61,7 +61,6 @@ public class TanksGameModel implements ITanks {
 
     /**
      * {@inheritdoc}
-     * @return 
      */
     @Override
     public Collection<IPlayer> getPlayers() {
@@ -131,7 +130,6 @@ public class TanksGameModel implements ITanks {
 
     /**
      * {@inheritdoc}
-     * @param tpf 
      */
     @Override
     public void update(float tpf) {

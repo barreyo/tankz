@@ -1,7 +1,6 @@
 
 package GameView.GUI;
 
-import GameModel.ApplicationSettings;
 import GameModel.IPlayer;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;

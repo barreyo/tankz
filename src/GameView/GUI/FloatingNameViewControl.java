@@ -1,14 +1,8 @@
 package GameView.GUI;
 
-import App.TanksAppAdapter;
-import GameModel.ApplicationSettings;
 import GameModel.IPlayer;
-import GameModel.Player;
 import com.jme3.bounding.BoundingVolume;
-import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector2f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
