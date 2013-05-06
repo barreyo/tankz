@@ -75,4 +75,7 @@ public final class Commands {
      *
      */
     public static final String SCORE_UPDATE = "SCORE_UPDATE";
+    
+    public static final String SHOW_SCOREBOARD = "SHOW_SCOREBOARD";
+    public static final String HIDE_SCOREBOARD = "HIDE_SCOREBOARD";
 }

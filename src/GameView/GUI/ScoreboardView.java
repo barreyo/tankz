@@ -105,10 +105,10 @@ public class ScoreboardView extends AHudElement {
             playerStatus.get(i).setLocalTranslation((picX + (picWidth * 0.4f)) + 
                     (deathsText.getLineWidth()/2), (picY + picHeight) - 
                     ((picHeight * 0.1f) * (i+2.4f)) , 1);
-            
-            players.get(i).addObserver(this);
-            players.get(i).getVehicle().addObserver(this);
         }
+        
+        player.addObserver(this);
+        
         updateText();
     }
     
@@ -119,13 +119,11 @@ public class ScoreboardView extends AHudElement {
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         String propertyName = pce.getPropertyName();
-        if (propertyName.equals(Commands.SCORE_UPDATE) || propertyName.equals(Commands.SHOW)) {
+        if (propertyName.equals(Commands.SHOW_SCOREBOARD)) {
             updateText();
-        }
-        if (propertyName.equals("show=" + player.getName())) {
             show();
         }
-        if (propertyName.equals("hide=" + player.getName())) {
+        if (propertyName.equals(Commands.HIDE_SCOREBOARD)) {
             hide();
         }
         if (propertyName.equals("respawnTimerUpdate")) {

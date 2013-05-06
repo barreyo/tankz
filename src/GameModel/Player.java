@@ -230,7 +230,7 @@ public class Player implements IPlayer {
     @Override
     public void showScoreboard() {
         // Pass on to the view
-        pcs.firePropertyChange("show=" + name, null, null);
+        pcs.firePropertyChange(Commands.SHOW_SCOREBOARD, null, null);
     }
 
     /**
@@ -239,7 +239,7 @@ public class Player implements IPlayer {
     @Override
     public void hideScoreboard() {
         // Pass on to the view
-        pcs.firePropertyChange("hide=" + name, null, null);
+        pcs.firePropertyChange(Commands.HIDE_SCOREBOARD, null, null);
     }
     
     @Override
