@@ -153,6 +153,7 @@ public class ScoreboardView extends AHudElement {
         for (BitmapText bmt : playerStatus) {
             guiNode.detachChild(bmt);
         }
+        guiNode.detachChild(respawnTimerText);
         guiNode.detachChild(killsText);
         guiNode.detachChild(deathsText);
     }
@@ -175,6 +176,7 @@ public class ScoreboardView extends AHudElement {
         for (BitmapText bmt : playerStatus) {
             guiNode.attachChild(bmt);
         }
+        guiNode.attachChild(respawnTimerText);
         guiNode.attachChild(killsText);
         guiNode.attachChild(deathsText);
     }
