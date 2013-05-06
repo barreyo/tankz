@@ -285,7 +285,7 @@ public class Player implements IPlayer {
         return respawn;
     }
     
-    public float getDeathTime(){
-        return deathTimer;
+    public int getDeathTime(){
+        return (int)deathTimer;
     }
 }

@@ -130,7 +130,7 @@ public interface IPlayer extends IObservable {
      * 
      * @return the current time until respawn.
      */
-    public float getDeathTime();
+    public int getDeathTime();
     
     /**
      * Sets if the player should respawn.
