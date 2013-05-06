@@ -11,33 +11,37 @@ import com.jme3.math.Vector3f;
 public interface ISpawningPoint {
     
     /**
+     * Returns a boolean indicating if the spawning point is occupied.
      * 
-     * @return if the spawning point is in use or not.
+     * @return a boolean indicating if the spawning point is occupied.
      */
-    boolean isOccupied();
+    public boolean isOccupied();
     
     /**
-     * Sets if spawning point is in use or not.
+     * Sets if spawning point is occupied.
      * 
-     * @param inUse 
+     * @param isOccupied a boolean indicating if the powerup now is occupied.
      */
-    void setOccupied(boolean inUse);
+    public void setOccupied(boolean isOccupied);
     
     /**
+     * Returns the position of the spawningpoint.
      * 
      * @return the position of the spawningpoint
      */
-    Vector3f getPosition();
+    public Vector3f getPosition();
     
     /**
+     * Sets the world object occupier of the spawningpoint.
      * 
-     * @param occupier 
+     * @param occupier the occupant of this spawningpoint
      */
-    void setOccupier(IWorldObject occupier);
+    public void setOccupier(IWorldObject occupier);
     
     /**
+     * Returns the world object occupier of the spawningpoint.
      * 
-     * @return 
+     * @return the occupier of this spawningpoint
      */
-    IWorldObject getOccupier();
+    public IWorldObject getOccupier();
 }

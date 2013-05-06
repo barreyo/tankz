@@ -169,7 +169,7 @@ public class TanksGameModel implements ITanks {
         for (ISpawningPoint spawn : powerupSpawningPoints) {
             if (!spawn.isOccupied()) {
                 for (IPowerup powerup : powerups) {
-                    if (!powerup.isHeldByPlayer() && !powerup.isInWorld()) {
+                    if (!powerup.isHeldByPlayer() && !powerup.isShownInWorld()) {
                         powerup.setPosition(spawn.getPosition());
                         powerup.showInWorld();
                         spawn.setOccupied(true);

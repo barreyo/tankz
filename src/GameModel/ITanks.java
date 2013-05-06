@@ -5,7 +5,7 @@ import GameUtilities.IObservable;
 import java.util.Collection;
 
 /**
- * Interface with all the methods the gamestate needs.
+ * Interface of the tanks game.
  * 
  * @author perthoresson
  */
@@ -33,7 +33,8 @@ public interface ITanks extends IObservable {
     
     /**
      * Returns a list of all the players in the game.
-     * @return 
+     * 
+     * @return a list of all the players in game
      */
     public Collection<IPlayer> getPlayers();
     

@@ -83,12 +83,6 @@ public interface IArmedVehicle extends IWorldObject {
      * @param currentVehicleSpeedKmHour
      */
     public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour);
-    
-    /**
-     *
-     * @return
-     */
-    public float getMass();
 
     /**
      *
@@ -154,18 +148,6 @@ public interface IArmedVehicle extends IWorldObject {
      * @param projectile
      */
     public void gotHitBy(IExplodingProjectile projectile);
-
-    /**
-     *
-     * @param position
-     */
-    public void setPosition(Vector3f position);
-
-    /**
-     *
-     * @return
-     */
-    public Vector3f getPosition();
     
     /**
      *

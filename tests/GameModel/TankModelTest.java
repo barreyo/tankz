@@ -516,14 +516,14 @@ public class TankModelTest {
     }
 
     /**
-     * Test of isInWorld method, of class TankModel.
+     * Test of isShownInWorld method, of class TankModel.
      */
     @Test
     public void testIsInWorld() {
         System.out.println("isInWorld");
         TankModel instance = null;
         boolean expResult = false;
-        boolean result = instance.isInWorld();
+        boolean result = instance.isShownInWorld();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

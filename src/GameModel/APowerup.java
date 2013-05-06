@@ -44,7 +44,7 @@ public abstract class APowerup implements IPowerup {
     }
     
     @Override
-    public void playerPickedUpPowerup() {
+    public void powerupWasPickedUp() {
         this.setHeldByPlayer(true);
     }
     
@@ -83,7 +83,7 @@ public abstract class APowerup implements IPowerup {
      * @return
      */
     @Override
-    public boolean isInWorld() {
+    public boolean isShownInWorld() {
         return isInWorld;
     }
     

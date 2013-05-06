@@ -115,7 +115,7 @@ public class LandmineModel implements IWorldObject {
      * @return
      */
     @Override
-    public boolean isInWorld() {
+    public boolean isShownInWorld() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

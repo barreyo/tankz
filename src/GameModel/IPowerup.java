@@ -4,34 +4,16 @@ package GameModel;
 import com.jme3.math.Vector3f;
 
 /**
- *
+ * A interface for a powerup.
+ * 
  * @author Per
  */
 public interface IPowerup extends IWorldObject {
     
     /**
-     * 
+     * Indicates to the powerup that it was picked up.
      */
-    public void playerPickedUpPowerup();
-    
-    /**
-     * 
-     * @return mass of the powerup.
-     */
-    public float getMass();
-
-    /**
-     * 
-     * @return position of the powerup.
-     */
-    public Vector3f getPosition();
-    
-    /**
-     * Sets the position of this powerup.
-     * 
-     * @param pos the position to be set.
-     */
-    public void setPosition(Vector3f pos);
+    public void powerupWasPickedUp();
     
     /**
      * 
@@ -42,7 +24,7 @@ public interface IPowerup extends IWorldObject {
     public void usePowerup(IPlayer player);
     
     /**
-     *
+     *  
      * @param held
      */
     public void setHeldByPlayer(boolean held);

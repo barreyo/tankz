@@ -16,20 +16,6 @@ public interface IExplodingProjectile extends IWorldObject {
      * @return the damage done on impact
      */
     public int getDamageOnImpact();
-
-    /**
-     * Returns the mass of the projcetile in kg.
-     *
-     * @return the mass of the projectile in kg
-     */
-    public float getMass();
-    
-    /**
-     * Returns the position.
-     * 
-     * @return position
-     */
-    public Vector3f getPosition();
     
     /**
      * Returns the rotation.

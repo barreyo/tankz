@@ -117,7 +117,7 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
 
     @Override
     protected void controlUpdate(float tpf) {
-        if (projectileModel.isInWorld()) {
+        if (projectileModel.isShownInWorld()) {
             projectileModel.update(tpf);
             if (spatial != null) {
                 projectileModel.updatePosition((spatial.getWorldTranslation()));

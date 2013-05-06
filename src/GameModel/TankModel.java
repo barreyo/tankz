@@ -158,7 +158,7 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public synchronized void shoot() {
         for (CanonBallModel canonBall : canonBalls) {
-            if (!canonBall.isInWorld()) {
+            if (!canonBall.isShownInWorld()) {
                 canonBall.launchProjectile(getFirePosition(),
                         direction.multLocal(100), rotation);
                 pcs.firePropertyChange(Commands.SHOOT, null, null);
@@ -173,7 +173,7 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public synchronized void shootMissile() {
         for (MissileModel missile : missiles) {
-            if (!missile.isInWorld()) {
+            if (!missile.isShownInWorld()) {
                 missile.launchProjectile(new Vector3f(position).addLocal(0, 4, 0),
                         new Vector3f(0, 10, 0), rotation);
                 pcs.firePropertyChange(Commands.SHOOT, null, null);
@@ -426,7 +426,7 @@ public final class TankModel implements IArmedVehicle {
      * @return
      */
     @Override
-    public boolean isInWorld() {
+    public boolean isShownInWorld() {
         return this.isInWorld;
     }
 
