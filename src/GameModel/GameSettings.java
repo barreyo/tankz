@@ -12,7 +12,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class GameSettings implements IObservable {
     
-    private float gameTime;
+    private long gameTime;
     private int killsToWin;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -23,7 +23,7 @@ public class GameSettings implements IObservable {
      * @param gameTime
      * @param killsToWin 
      */
-    public GameSettings (float gameTime, int killsToWin){
+    public GameSettings (long gameTime, int killsToWin){
         this.gameTime = gameTime;
         this.killsToWin = killsToWin;
     }
@@ -32,7 +32,7 @@ public class GameSettings implements IObservable {
      * Sets the game time.
      * @param gameTime 
      */
-    public void setGameTime (float gameTime){
+    public void setGameTime (long gameTime){
         this.gameTime = gameTime;
         pcs.firePropertyChange(null);
     }
@@ -49,7 +49,7 @@ public class GameSettings implements IObservable {
      * Returns the game time.
      * @return gameTime
      */
-    public float getGameTime(){
+    public long getGameTime(){
         return gameTime;
     }
     

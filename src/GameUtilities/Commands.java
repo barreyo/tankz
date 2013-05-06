@@ -22,4 +22,5 @@ public final class Commands {
     public static final String END_OF_LIFETIME = "END_OF_LIFETIME";
     public static final String EXPLOSION_FINISHED = "EXPLOSION_FINISHED";
     public static final String ROTATE = "ROTATE";
+    public static final String TIMER = "TIMER";
 }

@@ -1,4 +1,3 @@
-
 package GameModel;
 
 import GameModel.IArmedVehicle.VehicleState;
@@ -12,35 +11,40 @@ import java.util.Random;
 
 /**
  * The model for the game state.
+ *
  * @author Daniel
  */
 public class TanksGameModel implements ITanks {
+
     private final List<IPlayer> players;
     private List<IPowerup> powerups;
     private List<ISpawningPoint> playerSpawningPoints;
     private List<ISpawningPoint> powerupSpawningPoints;
     private GameSettings settings;
-    
     // Time until game ends
-    private float gameTimer;
-    private float spawningTimer;
+    private final long gameEndTime;
+    private long gameTimerStart;
+    private long gameTimeLeft;
     
-    private final float spawningIntervall;
+    private long powerupSpawningTimerStart;
+    private final long powerupSpawningIntervall;
     
-    private final Random randomGenerator;
+    private long secondTimerStart;
+    
+    private long pauseTimeStart;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    
+
     /**
      * Instantiates the TanksGameModel.
-     * 
+     *
      * @param players list of all the IPlayers in the game
      * @param powerups list of all th IPowerups in the game
      * @param spawningPoints list of all the ISpawningPoints in the game.
      */
-    public TanksGameModel(List<IPlayer> players, List <IPowerup> powerups,
-            List <ISpawningPoint> powerupSpawningPoints, List <ISpawningPoint> playerSpawningPoints,
-            GameSettings settings){
+    public TanksGameModel(List<IPlayer> players, List<IPowerup> powerups,
+            List<ISpawningPoint> powerupSpawningPoints, List<ISpawningPoint> playerSpawningPoints,
+            GameSettings settings) {
         if (playerSpawningPoints.size() < players.size()) {
             throw new IllegalArgumentException("Not allowed to have fever playerspawningpoints than players");
         }
@@ -49,125 +53,132 @@ public class TanksGameModel implements ITanks {
         this.powerupSpawningPoints = powerupSpawningPoints;
         this.playerSpawningPoints = playerSpawningPoints;
         this.settings = settings;
-        gameTimer = settings.getGameTime();
-        spawningIntervall = 25f;  //testing
-        randomGenerator = new Random();
+        gameEndTime = settings.getGameTime();
+        powerupSpawningIntervall = 25000;  //testing
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
-    public Collection<IPlayer> getPlayers() { 
+    public Collection<IPlayer> getPlayers() {
         List<IPlayer> pls = Collections.unmodifiableList(players);
         // Cast OK Player implements IPlayer
-        return (Collection<IPlayer>) pls; 
+        return (Collection<IPlayer>) pls;
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public void startGame() {
         spawnAllPlayers();
+        gameTimerStart = System.currentTimeMillis();
+        secondTimerStart = gameTimerStart;
+        powerupSpawningTimerStart = gameTimerStart;
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public void endGame() {
         // show stats
-        pcs.firePropertyChange(Commands.END_GAME, null, null);
+        for (IPlayer player : players) {
+            player.showScoreboard();
+        }
+        this.cleanup();
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public void pauseGame() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pauseTimeStart = System.currentTimeMillis();
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    @Override
+    public void resumeGame() {
+        long pausedTime = System.currentTimeMillis() - pauseTimeStart;
+        // adjust all timers with the paused time.
+        gameTimerStart += pausedTime;
+        secondTimerStart += pausedTime;
+        powerupSpawningTimerStart += pausedTime;
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public Collection<IPowerup> getPowerups() {
         List<IPowerup> pUps = Collections.unmodifiableList(powerups);
         // Cast OK Powerup implements IPowerup
-        return (Collection<IPowerup>) pUps; 
+        return (Collection<IPowerup>) pUps;
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public Collection<ISpawningPoint> getSpawningPoints() {
-        List <ISpawningPoint> sp = Collections.unmodifiableList(powerupSpawningPoints);
+        List<ISpawningPoint> sp = Collections.unmodifiableList(powerupSpawningPoints);
         // Cast OK PlayerSpawningPoint and PowerupSpawningPoint implements ISpawningPoint
         return (Collection<ISpawningPoint>) sp;
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
-    
+
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
-    private float secondTimer = 0;
-    
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public void update(float tpf) {
         if (EApplicationState.getGameState() == EApplicationState.RUNNING) {
-            gameTimer -= tpf;
-            secondTimer += tpf;
-        }
-        if (gameTimer <= 0) {
-            for (IPlayer player: players) {
-                player.showScoreboard();
-            }
-            this.cleanup();
-            return;
-        }
-        
-        if (secondTimer >= 1.0f) {
-            pcs.firePropertyChange("Timer", null, null);
-            secondTimer = 0;
-        }
-        // Check if someone has won
-        if (gameTimer <= 0) {
-            endGame();
-        }
-        for (IPlayer player : players) {
-            if (player.getKills() >= settings.getKillsToWin()) {
+            long currTime = System.currentTimeMillis();
+            if (currTime - gameTimerStart >= gameEndTime) {
                 endGame();
+                return;
             }
-            if(player.shouldRespawn() == true){
-                respawnVehicle(player);
-                player.setRespawn(false);
+            if (currTime - secondTimerStart >= 1000) {
+                gameTimeLeft = (gameEndTime - (System.currentTimeMillis() - gameTimerStart))/1000;
+                pcs.firePropertyChange(Commands.TIMER, null, gameTimeLeft);
+                secondTimerStart = currTime;
             }
-        }
-        spawningTimer += tpf;
-        if (spawningTimer >= spawningIntervall) {
-            spawningTimer = 0;
-            spawnPowerups();
-        }
-        for (int i = 0; i < players.size(); i++) {
-            players.get(i).update(tpf);
+            for (IPlayer player : players) {
+                if (player.getKills() >= settings.getKillsToWin()) {
+                    endGame();
+                    return;
+                }
+                if (player.shouldRespawn()) {
+                    respawnPlayer(player);
+                    player.setRespawn(false);
+                }
+            }
+            if (currTime - powerupSpawningTimerStart >= powerupSpawningIntervall) {
+                spawnPowerups();
+                powerupSpawningTimerStart = currTime;
+            }
+            for (int i = 0; i < players.size(); i++) {
+                players.get(i).update(tpf);
+            }
         }
     }
 
@@ -189,7 +200,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritdoc}
      */
     @Override
     public void cleanup() {
@@ -222,36 +233,12 @@ public class TanksGameModel implements ITanks {
             }
         }
     }
-    
-    
 
-    public void respawnVehicle(IPlayer player){
+    private void respawnPlayer(IPlayer player) {
         Collections.shuffle(playerSpawningPoints);
         IArmedVehicle vehicle = player.getVehicle();
-        ISpawningPoint spawn = playerSpawningPoints.get(1);
+        ISpawningPoint spawn = playerSpawningPoints.get(0);
         vehicle.setPosition(spawn.getPosition());
         vehicle.showInWorld();
-        
-    }
-    
-    /*private void respawnDestroyedVehicles() {
-        Collections.shuffle(playerSpawningPoints);
-        int i = 0;
-        for (IPlayer player : players) {
-            IArmedVehicle vehicle = player.getVehicle();
-            if (vehicle.getVehicleState() == VehicleState.DESTROYED) {
-                ISpawningPoint spawn = playerSpawningPoints.get(i);
-                vehicle.setPosition(spawn.getPosition());
-                vehicle.showInWorld();
-                i++;
-            }
-        }
-    }*/
-
-    /**
-     * {@inheritdoc} 
-     */
-    public float getGameTime() {
-        return gameTimer;
     }
 }

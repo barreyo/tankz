@@ -1,6 +1,7 @@
 package GameControllers.logic;
 
 import App.TanksAppAdapter;
+import GameModel.ITanks;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
 
@@ -46,7 +47,8 @@ public enum GUIManager {
     /**
      *
      */
-    public void showPauseMenu() {
+    public void showPauseMenu(ITanks gameModel) {
+        PauseMenuAppState.getInstance().setGameToPause(gameModel);
         TanksAppAdapter.INSTANCE.attachAppState(PauseMenuAppState.getInstance());
     }
     

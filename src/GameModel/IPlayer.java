@@ -55,22 +55,6 @@ public interface IPlayer extends IObservable {
     public void resetStats();
     
     /**
-     * Returns a boolean indicating if the player is active.
-     * @return a boolean indicating if the player is active
-     */
-    public boolean isActive();
-    
-    /**
-     * Activates the player.
-     */
-    public void activatePlayer();
-    
-    /**
-     * Deactivates the player.
-     */
-    public void deactivatePlayer();
-    
-    /**
      * Returns the powerup in powerupSlot.
      * 
      * @return The powerup contained in powerupSlot

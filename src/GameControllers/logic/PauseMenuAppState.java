@@ -2,6 +2,7 @@ package GameControllers.logic;
 
 import GameModel.EApplicationState;
 import App.TanksAppAdapter;
+import GameModel.ITanks;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
@@ -29,6 +30,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     private Element currentElement;
     private SoundHandle sound;
     private Vector2f cursorPosition;
+    private ITanks gameModel;
     
     private NiftyJmeDisplay niftyDisplay;
 
@@ -60,7 +62,6 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     @Override
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
-
     }
 
     /**
@@ -70,7 +71,6 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     @Override
     public void stateDetached(AppStateManager stateManager) {
         super.stateDetached(stateManager);
-        removeDesktopInputs();
         TanksAppAdapter.INSTANCE.removeGuiViewProcessor(niftyDisplay);
     }
 
@@ -82,29 +82,13 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-        EApplicationState.setGameState(EApplicationState.PAUSED);
 
         showPauseMenu();
-
-        loadDesktopInputs();
     }
 
     @Override
     public void cleanup() {
         super.cleanup();
-    }
-
-    private void loadDesktopInputs() {
-        // add mappings
-    }
-
-    @Override
-    public void update(float tpf) {
-        //update loop
-    }
-
-    private void removeDesktopInputs() {
-        //remove mappings
     }
 
     // ==== nifty ====
@@ -169,6 +153,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void resume() {
         EApplicationState.setGameState(EApplicationState.RUNNING);
+        gameModel.resumeGame();
         TanksAppAdapter.INSTANCE.setCursorVisible(false);
         TanksAppAdapter.INSTANCE.detachAppState(this);
     }
@@ -189,8 +174,6 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
         EApplicationState.setGameState(EApplicationState.RUNNING);
         GameMapManager.INSTANCE.restartMap();
         TanksAppAdapter.INSTANCE.detachAppState(this);
-        /* remove this later */
-        //app.getStateManager().attach(app.getTanksAppStateManager().getAppState(LoadingScreenAppState.class));
     }
 
     /**
@@ -204,5 +187,9 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void exit() {
         TanksAppAdapter.INSTANCE.stop();
+    }
+
+    void setGameToPause(ITanks gameModel) {
+        this.gameModel = gameModel;
     }
 }

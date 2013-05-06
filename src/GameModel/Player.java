@@ -15,12 +15,13 @@ import java.util.Collections;
  */
 public class Player implements IPlayer {
     private String name;
+    
     private IArmedVehicle vehicle;
     private int kills, deaths;
-    private boolean isActive;
     private IPowerup powerup;
+    
     private boolean respawn;
-    private static final float DEATHTIME = 5f;
+    private static final long DEATHTIME = 5000;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -94,34 +95,6 @@ public class Player implements IPlayer {
         kills = 0;
         pcs.firePropertyChange("ScoreUpdate", null, null);
     }
-
-        /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isActive() {
-        return isActive;
-    }
-
-        /**
-     * @inheritdoc
-     */
-    @Override
-    public void activatePlayer(){
-        if (!isActive) {
-            isActive = true;
-        }
-    }
-    
-        /**
-     * @inheritdoc
-     */
-    @Override
-    public void deactivatePlayer() {
-        if (isActive) {
-            isActive = false;
-        }
-    }
     
     /**
      * @inheritdoc
@@ -177,8 +150,7 @@ public class Player implements IPlayer {
     @Override
     public String toString() {
         return "Player{" + "name=" + name + ", vehicle=" + vehicle + ", "
-                + "kills=" + kills + ", deaths=" + deaths + ", isActive="
-                + isActive + '}';
+                + "kills=" + kills + ", deaths=" + deaths + '}';
     } 
 
     /**
@@ -234,9 +206,8 @@ public class Player implements IPlayer {
     private float deathTimer = DEATHTIME;
     private float secondTimer = 0;
     
+    @Override
     public void update(float tpf) {
-        
-        
         if (vehicle.getVehicleState() == VehicleState.DESTROYED && !hasDiedThisDeath) {
             this.incrementDeaths();
             hasDiedThisDeath = true;
@@ -244,7 +215,7 @@ public class Player implements IPlayer {
             hasDiedThisDeath = false;
         }
         
-        if(vehicle.getVehicleState() == VehicleState.DESTROYED){
+        if(vehicle.getVehicleState() == VehicleState.DESTROYED){ 
             deathTimer -= tpf;
             secondTimer += tpf;
             if(secondTimer >= 1.0f){
@@ -277,14 +248,17 @@ public class Player implements IPlayer {
         pcs.firePropertyChange("hide=" + name, null, null);
     }
     
+    @Override
     public void setRespawn(boolean respawn){
         this.respawn = respawn;
     }
     
+    @Override
     public boolean shouldRespawn(){
         return respawn;
     }
     
+    @Override
     public int getDeathTime(){
         return (int)deathTimer;
     }

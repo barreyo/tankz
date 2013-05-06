@@ -3,6 +3,7 @@ package GameView.GUI;
 
 import App.TanksAppAdapter;
 import GameModel.ITanks;
+import GameUtilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
@@ -62,13 +63,14 @@ public class TimerView extends AHudElement {
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals("Timer")) {
+        if (pce.getPropertyName().equals(Commands.TIMER)) {
             String formattedTime;
-            if (gameModel.getGameTime() <= 0) {
+            long gameTimeLeft = (long)pce.getNewValue();
+            if (gameTimeLeft <= 0) {
                 formattedTime = "00:00";
             } else {
-                int seconds = (int) (gameModel.getGameTime() % 60);
-                int minutes = (int) (gameModel.getGameTime() / 60);
+                int seconds = (int) (gameTimeLeft % 60);
+                int minutes = (int) (gameTimeLeft / 60);
 
                 if (minutes < 10) {
                     formattedTime = "0" + minutes + ":";

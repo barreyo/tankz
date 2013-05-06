@@ -148,6 +148,6 @@ public class TanksGameModelTest {
     @Test
     public void testGetGameTime() {
         System.out.println("getGameTime");
-        assertTrue(instance.getGameTime() == 20f);
+        assertTrue(instance.getGameTimeLeft() == 20f);
     }
 }

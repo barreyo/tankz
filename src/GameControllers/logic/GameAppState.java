@@ -120,12 +120,13 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void onAction(String name, boolean isPressed, float tpf) {
-            System.out.println(EApplicationState.getGameState().name());
             if (EApplicationState.getGameState() != EApplicationState.RUNNING) {
                 return;
             }
             if (name.equals(PAUSE) && !isPressed) {
-                GUIManager.INSTANCE.showPauseMenu();
+                EApplicationState.setGameState(EApplicationState.PAUSED);
+                gameModel.pauseGame();
+                GUIManager.INSTANCE.showPauseMenu(gameModel);
             }
         }
     };

@@ -27,6 +27,11 @@ public interface ITanks extends IObservable {
     public void pauseGame();
     
     /**
+     * Resumes a paused game
+     */
+    public void resumeGame();
+    
+    /**
      * Returns a list of all the players in the game
      */
     public Collection<IPlayer> getPlayers();
@@ -45,11 +50,4 @@ public interface ITanks extends IObservable {
     void cleanup();
 
     public void powerupPickedUp(IPowerup powerup);
-    
-    /**
-     * Returns the current game time.
-     * 
-     * @return game time.
-     */
-    public float getGameTime();
 }
