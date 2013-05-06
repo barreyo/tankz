@@ -20,6 +20,7 @@ public class Player implements IPlayer {
     private boolean isActive;
     private IPowerup powerup;
     private boolean respawn;
+    private static final float DEATHTIME = 5f;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -230,7 +231,7 @@ public class Player implements IPlayer {
     }
     
     private boolean hasDiedThisDeath = false;
-    private float deathTimer = 5f;
+    private float deathTimer = DEATHTIME;
     private float secondTimer = 0;
     
     public void update(float tpf) {
@@ -253,6 +254,7 @@ public class Player implements IPlayer {
             
             if(deathTimer <= 0){
                 respawn = true;
+                deathTimer = DEATHTIME;
             }
         }
     }
