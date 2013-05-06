@@ -156,11 +156,14 @@ public class TanksGameModel implements ITanks {
             if (player.getKills() >= settings.getKillsToWin()) {
                 endGame();
             }
+            if(player.shouldRespawn() == true){
+                respawnVehicle(player);
+                player.setRespawn(false);
+            }
         }
         spawningTimer += tpf;
         if (spawningTimer >= spawningIntervall) {
             spawningTimer = 0;
-            respawnDestroyedVehicles();
             spawnPowerups();
         }
         for (int i = 0; i < players.size(); i++) {
@@ -222,7 +225,16 @@ public class TanksGameModel implements ITanks {
     
     
 
-    private void respawnDestroyedVehicles() {
+    public void respawnVehicle(IPlayer player){
+        Collections.shuffle(playerSpawningPoints);
+        IArmedVehicle vehicle = player.getVehicle();
+        ISpawningPoint spawn = playerSpawningPoints.get(1);
+        vehicle.setPosition(spawn.getPosition());
+        vehicle.showInWorld();
+        
+    }
+    
+    /*private void respawnDestroyedVehicles() {
         Collections.shuffle(playerSpawningPoints);
         int i = 0;
         for (IPlayer player : players) {
@@ -234,7 +246,7 @@ public class TanksGameModel implements ITanks {
                 i++;
             }
         }
-    }
+    }*/
 
     /**
      * {@inheritdoc} 

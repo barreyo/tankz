@@ -119,4 +119,21 @@ public interface IPlayer extends IObservable {
      * Hide the scoreboard for the player.
      */
     public void hideScoreboard();
+    
+    /**
+     * 
+     * @return wether or not the player is due to respawn. 
+     */
+    public boolean shouldRespawn();
+    
+    /**
+     * 
+     * @return the current time until respawn.
+     */
+    public float getDeathTime();
+    
+    /**
+     * Sets if the player should respawn.
+     */
+    public void setRespawn(boolean respawn);
 }
