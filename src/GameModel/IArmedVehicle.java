@@ -32,27 +32,6 @@ public interface IArmedVehicle extends IWorldObject {
     float getDefaultAccelerationForce();
     
     /**
-     * Gets the brakeforce applied when braking.
-     *
-     * @return The brakeforce of the vehicle
-     */
-    float getBrakeForce();
-    
-    /**
-     * Gets the steering value used to steer.
-     *
-     * @return The brake force of the vehicle
-     */
-    float getSteeringValue();
-    
-    /**
-     * Gets the acceleration value used to accelerate.
-     * 
-     * @return The steeringvalue of the vehicle
-     */
-    float getAccelerationValue();
-
-    /**
      *
      */
     public void accelerateForward();
@@ -71,12 +50,6 @@ public interface IArmedVehicle extends IWorldObject {
      *
      */
     public void steerRight();
-
-    /**
-     *
-     * @return
-     */
-    public float getFrictionForce();
 
     /**
      *

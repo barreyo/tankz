@@ -104,7 +104,7 @@ public final class TanksFactory {
                 | PhysicsCollisionObject.COLLISION_GROUP_04 
                 | PhysicsCollisionObject.COLLISION_GROUP_05);
         
-        GhostControl aggroGhost = new GhostControl(new SphereCollisionShape(50));
+        GhostControl aggroGhost = new GhostControl(new SphereCollisionShape(200));
         aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_10);
         // Collide with all tanks except the senders --> aggro only other tanks.
         aggroGhost.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02 

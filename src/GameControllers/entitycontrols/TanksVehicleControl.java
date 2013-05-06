@@ -61,6 +61,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         addInputMappings();
         // Observe view
         entity.addObserver(this);
+        
+        vehicleModel.applyFriction();
     }
 
     /*
@@ -292,13 +294,13 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         if (source == vehicleModel) {
             if (command.equals(Commands.STEER)) {
                 // Steer the vehicle according to the model
-                this.steer(vehicleModel.getSteeringValue());
+                this.steer((float)evt.getNewValue());
             } else if (command.equals(Commands.ACCELERATE)) {
                 // Accelerate the vehicle accordning to the model
-                this.accelerate(vehicleModel.getAccelerationValue());
+                this.accelerate((float)evt.getNewValue());
             } else if (command.equals(Commands.FRICTION)) {
-                // Brake the vehicle according to the friction in model
-                this.brake(vehicleModel.getFrictionForce());
+                // Brake the vehicle according to the friction passed by model
+                this.brake((float)evt.getNewValue());
             } else if (command.equals(Commands.SHOW)) {
                 this.setEnabled(true);
                 TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);

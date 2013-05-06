@@ -33,14 +33,16 @@ public abstract class APowerup implements IPowerup {
     
     @Override
     public void showInWorld(){
+        boolean wasInWorld = isInWorld;
         isInWorld = true;
-        pcs.firePropertyChange(Commands.SHOW, null, null);
+        pcs.firePropertyChange(Commands.SHOW, wasInWorld, isInWorld);
     }
     
     @Override
     public void hideFromWorld() {
+        boolean wasInWorld = isInWorld;
         isInWorld = false;
-        pcs.firePropertyChange(Commands.HIDE, null, null);
+        pcs.firePropertyChange(Commands.HIDE, wasInWorld, isInWorld);
     }
     
     @Override

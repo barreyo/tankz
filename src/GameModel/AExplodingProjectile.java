@@ -18,7 +18,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     Quaternion rotation;
     
     private static final long EXPLOSION_END_TIME = 2000;
-    private static final long MAX_LIFE_TIME = 4000;
+    private static final long MAX_LIFE_TIME = 10000;
     private long lifeTimerStart;
     private long explodingTimerStart;
     boolean isInWorld;

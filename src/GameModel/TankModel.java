@@ -94,30 +94,6 @@ public final class TankModel implements IArmedVehicle {
         return defaultAccelerationForce;
     }
 
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public float getBrakeForce() {
-        return brakeForce;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public float getSteeringValue() {
-        return steeringValue;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public float getAccelerationValue() {
-        return accelerationValue;
-    }
-
     private void incrementAcceleration(float force) {
         this.acceleration += force;
     }
@@ -128,22 +104,21 @@ public final class TankModel implements IArmedVehicle {
 
     private void incrementSteeringValue(float value) {
         if (value != 0) {
+            float oldSteeringValue = steeringValue;
             this.steeringValue += value;
-            steeringValueChanged();
+            pcs.firePropertyChange(Commands.STEER, oldSteeringValue, steeringValue);
         }
     }
 
     private void decrementSteeringValue(float value) {
         if (value != 0) {
+            float oldSteeringValue = steeringValue;
             this.steeringValue -= value;
-            steeringValueChanged();
+            pcs.firePropertyChange(Commands.STEER, oldSteeringValue, steeringValue);
         }
     }
     
-    private void steeringValueChanged() {
-        pcs.firePropertyChange(Commands.STEER, null, null);
-    }
-
+    @Override
     public void decrementHealth(int hp) {
         if (hp != 0) {
             if (health - hp < 0) {
@@ -243,15 +218,6 @@ public final class TankModel implements IArmedVehicle {
 
     /**
      *
-     * @return
-     */
-    @Override
-    public float getFrictionForce() {
-        return frictionForce;
-    }
-
-    /**
-     *
      * @param currentVehicleSpeedKmHour
      */
     @Override
@@ -336,7 +302,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void applyFriction() {
-        pcs.firePropertyChange(Commands.FRICTION, null, null);
+        pcs.firePropertyChange(Commands.FRICTION, null, frictionForce);
     }
 
     /**

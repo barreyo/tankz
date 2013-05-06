@@ -38,6 +38,8 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
         powerupModel = model;
         
         this.physicsControl = physicsControl;
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
+        physicsControl.setEnabled(false);
         
         // We observe view
         entity.addObserver(this);
@@ -46,7 +48,7 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     @Override
     public synchronized void propertyChange(PropertyChangeEvent pce) {
         if (pce.getSource() == powerupModel && pce.getPropertyName().equals(Commands.SHOW)) {
-            TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
+            physicsControl.setEnabled(true);
         }
     }
 
@@ -88,7 +90,7 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
             IWorldObject objB = event.getNodeB().getUserData("Model");
             if (objA == powerupModel && objB instanceof IArmedVehicle
                     || objB == powerupModel && objA instanceof IArmedVehicle) {
-                TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
+                physicsControl.setEnabled(false);
                 powerupModel.powerupWasPickedUp();
                 powerupEntity.hideFromWorld();
             }
