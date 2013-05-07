@@ -60,7 +60,7 @@ public final class TankModel implements IArmedVehicle {
         defaultMaxSpeed = 80.0f;
         currentMaxSpeed = defaultMaxSpeed;
         backMaxSpeed = 30.0f;
-        defaultAccelerationForce = 2000.0f;
+        defaultAccelerationForce = 3000.0f;
         currentAccelerationForce = defaultAccelerationForce;
         brakeForce = 10000.0f;
         frictionForce = 10.0f;
@@ -68,14 +68,6 @@ public final class TankModel implements IArmedVehicle {
         position = Vector3f.ZERO;
         direction = Vector3f.ZERO;
         rotation = Quaternion.ZERO;
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public int getHealth() {
-        return health;
     }
 
     /**
@@ -85,48 +77,17 @@ public final class TankModel implements IArmedVehicle {
     public IArmedVehicle.VehicleState getVehicleState() {
         return vehicleState;
     }
-
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public float getDefaultAccelerationForce() {
-        return defaultAccelerationForce;
-    }
-
-    private void incrementAcceleration(float force) {
-        this.acceleration += force;
-    }
-
-    private void decrementAcceleration(float force) {
-        this.acceleration -= force;
-    }
-
-    private void incrementSteeringValue(float value) {
-        if (value != 0) {
-            float oldSteeringValue = steeringValue;
-            this.steeringValue += value;
-            pcs.firePropertyChange(Commands.STEER, oldSteeringValue, steeringValue);
-        }
-    }
-
-    private void decrementSteeringValue(float value) {
-        if (value != 0) {
-            float oldSteeringValue = steeringValue;
-            this.steeringValue -= value;
-            pcs.firePropertyChange(Commands.STEER, oldSteeringValue, steeringValue);
-        }
-    }
     
     @Override
-    public void decrementHealth(int hp) {
+    public void applyDamage(int hp) {
         if (hp != 0) {
+            int oldHP = health;
             if (health - hp < 0) {
                 health = 0;
             } else {
                 health -= hp;
             }
-            pcs.firePropertyChange(Commands.HEALTH, null, null);
+            pcs.firePropertyChange(Commands.HEALTH, oldHP, health);
         }
     }
 
@@ -173,14 +134,12 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void update(float tpf) {
-        // Keep vehicle within max speeds
         float oldAcceleration = accelerationValue;
         float maxSpeed = (acceleration >= 0 ? this.currentMaxSpeed : -backMaxSpeed);
         float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
         accelerationValue = acceleration * speedFactor;
-        if (oldAcceleration != accelerationValue) {
-            pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
-        }
+        pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
+
         pcs.firePropertyChange(Commands.SMOKE, null, null);
     }
 
@@ -189,7 +148,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void accelerateForward() {
-        incrementAcceleration(currentAccelerationForce);
+        this.acceleration += currentAccelerationForce;
     }
 
     /**
@@ -197,7 +156,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void accelerateBack() {
-        decrementAcceleration(currentAccelerationForce);
+       this.acceleration -= currentAccelerationForce;
     }
 
     /**
@@ -205,7 +164,9 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void steerLeft() {
-        incrementSteeringValue(steeringChangeValue);
+        float oldSteeringValue = steeringValue;
+        this.steeringValue += steeringChangeValue;
+        pcs.firePropertyChange(Commands.STEER, oldSteeringValue, steeringValue);
     }
 
     /**
@@ -213,7 +174,9 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void steerRight() {
-        decrementSteeringValue(steeringChangeValue);
+        float oldSteeringValue = steeringValue;
+        this.steeringValue -= steeringChangeValue;
+        pcs.firePropertyChange(Commands.STEER, oldSteeringValue, steeringValue);
     }
 
     /**
@@ -310,7 +273,7 @@ public final class TankModel implements IArmedVehicle {
      * @param maxSpeed
      */
     @Override
-    public synchronized void setMaxSpeed(float maxSpeed) {
+    public void setMaxSpeed(float maxSpeed) {
         this.currentMaxSpeed = maxSpeed;
     }
 
@@ -319,7 +282,7 @@ public final class TankModel implements IArmedVehicle {
      * @param accelerationForce
      */
     @Override
-    public synchronized void setAccelerationForce(float accelerationForce) {
+    public void setAccelerationForce(float accelerationForce) {
         this.currentAccelerationForce = accelerationForce;
     }
     
@@ -338,10 +301,9 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void gotHitBy(IExplodingProjectile projectile) {
-        this.decrementHealth(projectile.getDamageOnImpact());
+        this.applyDamage(projectile.getDamageOnImpact());
         if (health<=0){
-            this.vehicleState = VehicleState.DESTROYED;
-            pcs.firePropertyChange(Commands.HIDE, null, null);
+            hideFromWorld();
         }
     }
 
@@ -359,23 +321,25 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void setPosition(Vector3f position) {
-        this.position = position.clone();
+        this.position = new Vector3f(position);
     }
 
     @Override
     public void showInWorld() {
         health = 100;
-        pcs.firePropertyChange(Commands.HEALTH, null, null);
+        pcs.firePropertyChange(Commands.HEALTH, null, health);
         vehicleState = VehicleState.ALIVE;
+        boolean wasInWorld = isInWorld;
         isInWorld = true;
-        pcs.firePropertyChange(Commands.SHOW, null, null);
+        pcs.firePropertyChange(Commands.SHOW, wasInWorld, isInWorld);
     }
 
     @Override
     public void hideFromWorld() {
+        boolean wasInWorld = isInWorld;
         isInWorld = false;
         vehicleState = VehicleState.DESTROYED;
-        pcs.firePropertyChange(Commands.HIDE, null, null);
+        pcs.firePropertyChange(Commands.HIDE, wasInWorld, isInWorld);
     }
 
     /**
@@ -402,7 +366,6 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void resetSpeedValues() {
         currentMaxSpeed = defaultMaxSpeed;
-        currentAccelerationForce = defaultAccelerationForce;
     }
 
     /**
