@@ -54,7 +54,7 @@ public enum GameMapManager implements IMapRelatedManager {
         GraphicManager.INSTANCE.load(gameMap);
         EffectsManager.INSTANCE.load(gameMap);
         
-        currentGame = TanksFactory.getNewGame(gameMap, MenuAppState.getInstance().getPlayerNames());
+        currentGame = TanksFactory.getNewGame(MenuAppState.getInstance().getPlayerNames());
         
         TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }
