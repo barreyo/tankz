@@ -41,7 +41,7 @@ public class ScoreboardView extends AHudElement {
         this.players = players;
         this.player = player;
         
-        playerNames = new ArrayList<>();
+        playerNames = new ArrayList<BitmapText>();
         playerKills = new ArrayList<BitmapText>();
         playerDeaths = new ArrayList<BitmapText>();
         playerStatus = new ArrayList<BitmapText>();

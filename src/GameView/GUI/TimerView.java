@@ -66,7 +66,7 @@ public class TimerView extends AHudElement {
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(Commands.TIMER)) {
             String formattedTime;
-            long gameTimeLeft = (long)pce.getNewValue();
+            long gameTimeLeft = (Long)pce.getNewValue();
             if (gameTimeLeft <= 0) {
                 formattedTime = "00:00";
             } else {

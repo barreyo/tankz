@@ -19,6 +19,8 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -412,5 +414,13 @@ public enum TanksAppAdapter {
      */
     public boolean isAttachedToRootNode(Spatial spatial) {
         return tanksApp.getRootNode().hasChild(spatial);
+    }
+
+    public List<Spatial> getGuiChildren() {
+        List<Spatial> newList = new ArrayList<Spatial>();
+        for (Spatial spatial : tanksApp.getGuiNode().getChildren()) {
+            newList.add(spatial);
+        }
+        return newList;
     }
 }
