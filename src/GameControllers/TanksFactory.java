@@ -291,7 +291,7 @@ public final class TanksFactory {
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,
                     ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
-            HealthView v = new HealthView(player,
+            HealthView v = new HealthView(vehicleModel,
                     ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
             pView.show();
             v.show();

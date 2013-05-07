@@ -1,6 +1,7 @@
 
 package GameView.GUI;
 
+import GameModel.IArmedVehicle;
 import GameModel.IPlayer;
 import GameUtilities.Commands;
 import com.jme3.font.BitmapFont;
@@ -11,7 +12,7 @@ import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
 
 /**
- * The graphical representation of player health.
+ * The graphical representation of vehicle health.
  * 
  * @author Johan Backman
  */
@@ -19,20 +20,20 @@ public class HealthView extends AHudElement {
 
     private Picture mask;
     private BitmapText text;
-    private IPlayer player;
+    private IArmedVehicle vehicle;
     private float elementWidth;
     private ViewPort vp;
     
     /**
-     * Instatiates a graphical representation of the player health at the
+     * Instatiates a graphical representation of the vehicle health at the
      * position supplied in the ViewPort.
      * 
-     * @param player player health to display.
-     * @param vp viewport of the player.
+     * @param vehicle vehicle health to display.
+     * @param vp viewport of the vehicle.
      * @param numberOfPlayers  
      */
-    public HealthView(IPlayer player, ViewPort vp, int numberOfPlayers) {
-        this.player = player;
+    public HealthView(IArmedVehicle vehicle, ViewPort vp, int numberOfPlayers) {
+        this.vehicle = vehicle;
         this.vp = vp;
         
         float screenHeight = vp.getCamera().getHeight();
@@ -58,12 +59,12 @@ public class HealthView extends AHudElement {
         
         BitmapFont font = assetManager.loadFont(EFonts.HANDDRAWNSHAPES.getPath());
         text = new BitmapText(font, false);
-        text.setText("" + player.getVehicle().getHealth());
+        //text.setText("" + player.getVehicle().getHealth());
         text.setColor(ColorRGBA.White);
         text.setSize(font.getCharSet().getRenderedSize() * 1.1f);
         text.setLocalTranslation(elementX, elementY - 5.0f, 0);
         
-        player.getVehicle().addObserver(this);
+        vehicle.addObserver(this);
     }
     
     /**
@@ -72,9 +73,10 @@ public class HealthView extends AHudElement {
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(Commands.HEALTH)) {
-            mask.setWidth(elementWidth * (player.getVehicle().getHealth() * 0.01f));
-            text.setText("" + player.getVehicle().getHealth());
+        if (pce.getSource() == vehicle && pce.getPropertyName().equals(Commands.HEALTH)) {
+            int health = (Integer)pce.getNewValue();
+            mask.setWidth(elementWidth * (health * 0.01f));
+            text.setText("" + health);
         }
     }
     
@@ -108,7 +110,6 @@ public class HealthView extends AHudElement {
      */
     @Override
     public String toString() {
-        return super.toString() + "\nPlayer: " + player.getName() + 
-                "\nVP: " + vp.getName() + "\nText: " + text.getText();
+        return super.toString() + "\nVP: " + vp.getName() + "\nText: " + text.getText();
     }
 }

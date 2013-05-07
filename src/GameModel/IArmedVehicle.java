@@ -10,12 +10,6 @@ import com.jme3.math.Vector3f;
  * @author Daniel
  */
 public interface IArmedVehicle extends IWorldObject {
-    /**
-     * Gets the current health of the vehicle.
-     *
-     * @return The health of the vehicle
-     */
-    int getHealth();
     
     /**
      * Gets the state of the vehicle.
@@ -23,13 +17,6 @@ public interface IArmedVehicle extends IWorldObject {
      * @return The state of the vehicle
      */
     IArmedVehicle.VehicleState getVehicleState();
-    
-    /**
-     * Gets the accerlationforce use to accelerate the vehicle.
-     *
-     * @return The accelerationforce of the vehicle
-     */
-    float getDefaultAccelerationForce();
     
     /**
      *
@@ -157,7 +144,7 @@ public interface IArmedVehicle extends IWorldObject {
      * Decrements the hp of the vehicle by the given amount
      * @param hp 
      */
-    public void decrementHealth(int hp);
+    public void applyDamage(int hp);
     
     /**
      * Shoots a projectile from the vehicle
