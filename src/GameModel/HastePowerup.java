@@ -15,7 +15,7 @@ public class HastePowerup extends APowerup{
     private long activateTimerStart;
     private boolean isActive;
     
-    private static final long END_TIME = 5000;
+    private static final long END_TIME = 10000;
     
     private IPlayer player;
 
@@ -25,9 +25,7 @@ public class HastePowerup extends APowerup{
         this.player = player;
         IArmedVehicle vehicle = player.getVehicle();
         maxSpeed = vehicle.getDefaultMaxSpeed();
-        accForce = vehicle.getDefaultAccelerationForce();
-        vehicle.setMaxSpeed(maxSpeed * 2f);
-        vehicle.setAccelerationForce(accForce * 2f);
+        vehicle.setMaxSpeed(maxSpeed * 3f);
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
     }

@@ -90,7 +90,7 @@ public final class TanksFactory {
      * @param senderCollisionGroupMask
      * @return
      */
-    public static MissileModel getNewMissile(int senderCollisionGroupMask) {
+    private static MissileModel getNewMissile(int senderCollisionGroupMask) {
         MissileModel projectileModel = new MissileModel();
 
         MissileEntity projectileEntity = new MissileEntity(projectileModel);
@@ -197,7 +197,7 @@ public final class TanksFactory {
      */
     public static GameAppState getNewGame(Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(120000, 10, 25000);
+        GameSettings settings = new GameSettings(120000, 10, 5000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();

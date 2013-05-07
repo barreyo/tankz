@@ -61,8 +61,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         addInputMappings();
         // Observe view
         entity.addObserver(this);
-        
-        vehicleModel.applyFriction();
     }
 
     /*

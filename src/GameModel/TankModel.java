@@ -60,7 +60,7 @@ public final class TankModel implements IArmedVehicle {
         defaultMaxSpeed = 80.0f;
         currentMaxSpeed = defaultMaxSpeed;
         backMaxSpeed = 30.0f;
-        defaultAccelerationForce = 2000.0f;
+        defaultAccelerationForce = 3000.0f;
         currentAccelerationForce = defaultAccelerationForce;
         brakeForce = 10000.0f;
         frictionForce = 10.0f;
@@ -173,14 +173,12 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void update(float tpf) {
-        // Keep vehicle within max speeds
         float oldAcceleration = accelerationValue;
         float maxSpeed = (acceleration >= 0 ? this.currentMaxSpeed : -backMaxSpeed);
         float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
         accelerationValue = acceleration * speedFactor;
-        if (oldAcceleration != accelerationValue) {
-            pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
-        }
+        pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
+
         pcs.firePropertyChange(Commands.SMOKE, null, null);
     }
 
@@ -402,7 +400,7 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void resetSpeedValues() {
         currentMaxSpeed = defaultMaxSpeed;
-        currentAccelerationForce = defaultAccelerationForce;
+        //currentAccelerationForce = defaultAccelerationForce;
     }
 
     /**
