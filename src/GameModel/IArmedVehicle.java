@@ -90,12 +90,6 @@ public interface IArmedVehicle extends IDamageableObject {
      * @return
      */
     public float getDefaultMaxSpeed();
-
-    /**
-     *
-     * @param position
-     */
-    public void setPosition(Vector3f position);
     
     /**
      *

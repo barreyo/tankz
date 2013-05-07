@@ -23,12 +23,6 @@ public interface IExplodingProjectile extends IWorldObject {
     
     /**
      *
-     * @param pos
-     */
-    public void setPosition(Vector3f pos);
-    
-    /**
-     *
      * @param initialPos
      * @param initialVelocity
      * @param initialRotation
