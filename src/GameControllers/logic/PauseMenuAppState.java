@@ -3,11 +3,13 @@ package GameControllers.logic;
 import GameModel.EApplicationState;
 import App.TanksAppAdapter;
 import GameModel.ITanks;
+import GameUtilities.Commands;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.math.Vector2f;
 import com.jme3.niftygui.NiftyJmeDisplay;
+import com.jme3.scene.Spatial;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
 import de.lessvoid.nifty.elements.Element;
@@ -17,6 +19,9 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 /**
  * An app state representing the pause menu.
@@ -33,7 +38,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     private ITanks gameModel;
     
     private NiftyJmeDisplay niftyDisplay;
-
+    
     /**
      *  Create a pause menu app state.
      */
@@ -160,6 +165,10 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
         gameModel.resumeGame();
         TanksAppAdapter.INSTANCE.setCursorVisible(false);
         TanksAppAdapter.INSTANCE.detachAppState(this);
+        List<Spatial> hudElements = GUIManager.INSTANCE.getHudElements();
+        for (Spatial spatial : hudElements) {
+            TanksAppAdapter.INSTANCE.attachChildToGUINode(spatial);
+        }
     }
     
     /**
@@ -187,7 +196,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
+     * Stop this AppState.
      */
     public void exit() {
         TanksAppAdapter.INSTANCE.stop();
