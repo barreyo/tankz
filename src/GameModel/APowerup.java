@@ -16,11 +16,8 @@ public abstract class APowerup implements IPowerup {
     private Quaternion rotation;
     private boolean isHeldByPlayer;
     private boolean isInWorld;
-    
-    /**
-     *
-     */
-    public static final float MASS = 10f;
+
+    private static final float MASS = 10f;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -31,6 +28,9 @@ public abstract class APowerup implements IPowerup {
         position = Vector3f.ZERO;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showInWorld(){
         boolean wasInWorld = isInWorld;
@@ -38,6 +38,9 @@ public abstract class APowerup implements IPowerup {
         pcs.firePropertyChange(Commands.SHOW, wasInWorld, isInWorld);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hideFromWorld() {
         boolean wasInWorld = isInWorld;
@@ -45,44 +48,64 @@ public abstract class APowerup implements IPowerup {
         pcs.firePropertyChange(Commands.HIDE, wasInWorld, isInWorld);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void powerupWasPickedUp() {
         this.setHeldByPlayer(true);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public float getMass(){
         return MASS;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector3f getPosition(){
         return position.clone();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setPosition(Vector3f position) {
         this.position = position.clone();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isHeldByPlayer() {
         return isHeldByPlayer;
     }
     
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public boolean isShownInWorld() {
@@ -90,8 +113,7 @@ public abstract class APowerup implements IPowerup {
     }
     
     /**
-     *
-     * @param held
+     * {@inheritDoc}
      */
     @Override
     public void setHeldByPlayer(boolean held) {
@@ -99,7 +121,7 @@ public abstract class APowerup implements IPowerup {
     }
     
     /**
-     *
+     * {@inheritDoc}
      */
     @Override 
     public void cleanup() {
@@ -107,13 +129,15 @@ public abstract class APowerup implements IPowerup {
     }
     
     /**
-     *
-     * @param tpf
+     * {@inheritDoc}
      */
     @Override
     public void update(float tpf) {
     }      
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void usePowerup(IPlayer player) {
         setHeldByPlayer(false);

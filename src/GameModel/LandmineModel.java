@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
 import com.jme3.export.JmeExporter;
@@ -37,9 +34,9 @@ public class LandmineModel implements IWorldObject {
     }
 
     /**
-     * 
-     * @return The position of the landmine.
+     * {@inheritDoc}
      */
+    @Override
     public Vector3f getPosition() {
         return position.clone();
     }

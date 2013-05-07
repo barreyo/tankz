@@ -37,20 +37,24 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
         isInWorld = false;
     }
     
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Vector3f getPosition() {
         return position.clone();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Quaternion getRotation() {
         return rotation.clone();
     }
     
-      /**
-       * @param tpf 
-       * @inheritdoc
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void update(float tpf) {
@@ -69,7 +73,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     }
     
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public void impact() {
@@ -79,19 +83,15 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     }
 
     /**
-     *
-     * @param pos
+     * {@inheritDoc}
      */
     @Override
-    public void updatePosition(Vector3f pos) {
+    public void setPosition(Vector3f pos) {
         this.position = pos.clone();
     }
     
     /**
-     *
-     * @param initialPos
-     * @param initialVelocity
-     * @param initialRotation
+     * {@inheritDoc}
      */
     @Override
     public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
@@ -102,8 +102,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     }
     
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Vector3f getInitialPosition() {
@@ -111,14 +110,16 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     }
 
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Vector3f getLinearVelocity() {
         return this.linearVelocity.clone();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showInWorld() {
         exploding = false;
@@ -127,6 +128,9 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
         pcs.firePropertyChange(Commands.SHOW, null, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hideFromWorld() {
         isInWorld = false;
@@ -134,26 +138,31 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void cleanup() {
         pcs.firePropertyChange(Commands.CLEANUP, null, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addObserver(PropertyChangeListener l) {
        pcs.addPropertyChangeListener(l);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
     
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public boolean isShownInWorld() {

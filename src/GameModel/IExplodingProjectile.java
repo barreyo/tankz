@@ -9,14 +9,6 @@ import com.jme3.math.Vector3f;
  * @author Daniel
  */
 public interface IExplodingProjectile extends IWorldObject {
-    
-    /**
-     * Returns the damage done on impact.
-     *
-     * @return the damage done on impact
-     */
-    public int getDamageOnImpact();
-    
     /**
      * Returns the rotation.
      * 
@@ -33,7 +25,7 @@ public interface IExplodingProjectile extends IWorldObject {
      *
      * @param pos
      */
-    public void updatePosition(Vector3f pos);
+    public void setPosition(Vector3f pos);
     
     /**
      *
@@ -54,4 +46,11 @@ public interface IExplodingProjectile extends IWorldObject {
      * @return
      */
     public Vector3f getInitialPosition();
+
+    /**
+     * Applies damage on the specified damageable object.
+     * 
+     * @param damageableObject 
+     */
+    public void doDamageOn(IDamageableObject damageableObject);
 }

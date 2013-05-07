@@ -37,7 +37,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public String getName() {
@@ -45,7 +45,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public IArmedVehicle getVehicle() {
@@ -53,7 +53,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public int getKills() {
@@ -61,7 +61,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public void incrementKills() {
@@ -70,7 +70,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public int getDeaths() {
@@ -78,7 +78,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public void incrementDeaths() {
@@ -87,7 +87,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public void resetStats() {
@@ -97,7 +97,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     @Override
     public synchronized void setPowerup(IPowerup powerup) {
@@ -109,7 +109,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     @Override
     public void addObserver(PropertyChangeListener l) {
@@ -122,17 +122,6 @@ public class Player implements IPlayer {
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
-    }
-
-    /**
-     * Players are considered equal when their names
-     * 
-     * @param player to be compared.
-     * @return true if they are equal, false if not.
-     */
-    public boolean equals(IPlayer player) {
-        return false;
-        
     }
     
     /**
@@ -191,6 +180,9 @@ public class Player implements IPlayer {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void cleanup() {
         vehicle.cleanup();
@@ -200,6 +192,9 @@ public class Player implements IPlayer {
     private float deathTimer = DEATHTIME;
     private float secondTimer = 0;
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(float tpf) {
         if (vehicle.getVehicleState() == VehicleState.DESTROYED && !hasDiedThisDeath) {
@@ -244,16 +239,25 @@ public class Player implements IPlayer {
         pcs.firePropertyChange(Commands.HIDE_SCOREBOARD, null, null);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setRespawn(boolean respawn){
         this.respawn = respawn;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean shouldRespawn(){
         return respawn;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getDeathTime(){
         return (int)deathTimer;

@@ -2,6 +2,8 @@ package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
+import GameModel.IArmedVehicle;
+import GameModel.IDamageableObject;
 import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
 import GameModel.MissileModel;
@@ -93,6 +95,11 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
                 projectileModel.impact();
                 entity.impact();
                 SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                if (objA instanceof IDamageableObject) {
+                    projectileModel.doDamageOn((IDamageableObject)objA);
+                } else if (objB instanceof IDamageableObject) {
+                    projectileModel.doDamageOn((IDamageableObject)objB);
+                }
             }
         }
     }
@@ -120,7 +127,7 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
         if (projectileModel.isShownInWorld()) {
             projectileModel.update(tpf);
             if (spatial != null) {
-                projectileModel.updatePosition((spatial.getWorldTranslation()));
+                projectileModel.setPosition((spatial.getWorldTranslation()));
             }
             if (hasAggro && target != null) {
                 projectileModel.setAttackTarget(target.getWorldTranslation().clone());

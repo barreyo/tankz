@@ -59,16 +59,7 @@ public interface IPlayer extends IObservable {
      * 
      * @param powerup The powerup to add in powerupSlot
      */
-    void setPowerup(IPowerup powerup);
-    
-    /**
-     * Players are considered equal when their names are equal.
-     * 
-     * @param obj 
-     * @return true if equal false otherwise.
-     */
-    @Override
-    boolean equals(Object obj);
+    public void setPowerup(IPowerup powerup);
 
     /**
      * Uses the powerup that the player holds, removing it from the player.
@@ -76,12 +67,12 @@ public interface IPlayer extends IObservable {
     public void usePowerup();
 
     /**
-     * Clear objects in the class.
+     * Releases resources tied to the player.
      */
     public void cleanup();
     
     /**
-     * Connect to the update loop of JMonkeyEngine.
+     * Update of the player state.
      * 
      * @param tpf time per frame.
      */
@@ -111,7 +102,7 @@ public interface IPlayer extends IObservable {
     
     /**
      * Sets if the player should respawn.
-     * @param respawn 
+     * @param respawn
      */
     public void setRespawn(boolean respawn);
 }
