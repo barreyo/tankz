@@ -1,14 +1,8 @@
 package GameView.GUI;
 
-import App.TanksAppAdapter;
-import GameModel.ApplicationSettings;
 import GameModel.IPlayer;
-import GameModel.Player;
 import com.jme3.bounding.BoundingVolume;
-import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector2f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
@@ -31,6 +25,11 @@ public class FloatingNameViewControl extends AbstractControl {
     
     private FloatingNameViewControl() {} // Disable zero parameter instantiation
     
+    /**
+     *
+     * @param player
+     * @param vp
+     */
     public FloatingNameViewControl(IPlayer player, ViewPort vp) {
 //        this.player = player;
 //        this.vp = vp;
@@ -51,11 +50,21 @@ public class FloatingNameViewControl extends AbstractControl {
         //text.setLocalTranslation(this.getScreenCoordinates().x, this.getScreenCoordinates().y, 1);
     }
 
+    /**
+     *
+     * @param rm
+     * @param vp
+     */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
         // Not in use
     }
         
+    /**
+     *
+     * @param spatial
+     * @return
+     */
     public Control cloneForSpatial(Spatial spatial) {
         // Not in use
         return null;

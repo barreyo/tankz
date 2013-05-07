@@ -1,9 +1,7 @@
 
 package GameView.GUI;
 
-import GameModel.ApplicationSettings;
 import GameModel.IPlayer;
-import GameModel.IArmedVehicle;
 import GameUtilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
@@ -31,6 +29,7 @@ public class HealthView extends AHudElement {
      * 
      * @param player player health to display.
      * @param vp viewport of the player.
+     * @param numberOfPlayers  
      */
     public HealthView(IPlayer player, ViewPort vp, int numberOfPlayers) {
         this.player = player;
@@ -69,6 +68,7 @@ public class HealthView extends AHudElement {
     
     /**
      * {@inheritdoc}
+     * @param pce 
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {

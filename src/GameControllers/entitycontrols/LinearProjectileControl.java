@@ -30,6 +30,9 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
     private RigidBodyControl physicsControl;
     /**
      * Creates a tank projectile control.
+     * @param entity
+     * @param projModel
+     * @param physicsControl  
      */
     public LinearProjectileControl(CanonBallEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
 
@@ -47,17 +50,21 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals(Commands.SHOW)) {
-            physicsControl.setEnabled(true);
-            physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
-        } else if (evt.getPropertyName().equals(Commands.HIDE)) {
-            physicsControl.setEnabled(false);
+        String command = evt.getPropertyName();
+        Object source = evt.getSource();
+        if (source == projectileModel) {
+            if (command.equals(Commands.SHOW)) {
+                physicsControl.setEnabled(true);
+                physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
+            } else if (command.equals(Commands.HIDE)) {
+                physicsControl.setEnabled(false);
+            }
         }
     }
 
     @Override
     protected void controlUpdate(float tpf) {
-        if (projectileModel.isInWorld()) {
+        if (projectileModel.isShownInWorld()) {
             projectileModel.update(tpf);
             if (spatial != null) {
                 projectileModel.updatePosition((spatial.getWorldTranslation()));
@@ -68,16 +75,30 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         }
     }
 
+    /**
+     *
+     * @param rm
+     * @param vp
+     */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param spatial
+     * @return
+     */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {

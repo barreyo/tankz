@@ -16,20 +16,6 @@ public interface IExplodingProjectile extends IWorldObject {
      * @return the damage done on impact
      */
     public int getDamageOnImpact();
-
-    /**
-     * Returns the mass of the projcetile in kg.
-     *
-     * @return the mass of the projectile in kg
-     */
-    public float getMass();
-    
-    /**
-     * Returns the position.
-     * 
-     * @return position
-     */
-    public Vector3f getPosition();
     
     /**
      * Returns the rotation.
@@ -43,11 +29,29 @@ public interface IExplodingProjectile extends IWorldObject {
      */
     public void impact();
     
+    /**
+     *
+     * @param pos
+     */
     public void updatePosition(Vector3f pos);
     
+    /**
+     *
+     * @param initialPos
+     * @param initialVelocity
+     * @param initialRotation
+     */
     public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation);
 
+    /**
+     *
+     * @return
+     */
     public Vector3f getLinearVelocity();
 
+    /**
+     *
+     * @return
+     */
     public Vector3f getInitialPosition();
 }

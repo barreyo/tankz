@@ -27,11 +27,19 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     private IPowerup powerupModel;
     private RigidBodyControl physicsControl;
     
+    /**
+     *
+     * @param entity
+     * @param model
+     * @param physicsControl
+     */
     public PowerupControl(PowerupEntity entity, IPowerup model, RigidBodyControl physicsControl) {
         powerupEntity = entity;
         powerupModel = model;
         
         this.physicsControl = physicsControl;
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
+        physicsControl.setEnabled(false);
         
         // We observe view
         entity.addObserver(this);
@@ -39,8 +47,8 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
 
     @Override
     public synchronized void propertyChange(PropertyChangeEvent pce) {
-        if (pce.getPropertyName().equals(Commands.SHOW)) {
-            TanksAppAdapter.INSTANCE.addToPhysicsSpace(physicsControl);
+        if (pce.getSource() == powerupModel && pce.getPropertyName().equals(Commands.SHOW)) {
+            physicsControl.setEnabled(true);
         }
     }
 
@@ -51,16 +59,30 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     }
 
 
+    /**
+     *
+     * @param rm
+     * @param vp
+     */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
        // Should only be used by advance users
     }
 
+    /**
+     *
+     * @param spatial
+     * @return
+     */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
         throw new UnsupportedOperationException("Not supported");
     }
 
+    /**
+     *
+     * @param event
+     */
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {
@@ -68,8 +90,8 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
             IWorldObject objB = event.getNodeB().getUserData("Model");
             if (objA == powerupModel && objB instanceof IArmedVehicle
                     || objB == powerupModel && objA instanceof IArmedVehicle) {
-                TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(physicsControl);
-                powerupModel.playerPickedUpPowerup();
+                physicsControl.setEnabled(false);
+                powerupModel.powerupWasPickedUp();
                 powerupEntity.hideFromWorld();
             }
         }

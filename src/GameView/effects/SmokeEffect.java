@@ -53,6 +53,10 @@ public class SmokeEffect implements IEffect {
         emitters.add(smoketrail);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Collection<ParticleEmitter> getParticleEmitters() {
         List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();

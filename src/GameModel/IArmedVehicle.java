@@ -32,68 +32,111 @@ public interface IArmedVehicle extends IWorldObject {
     float getDefaultAccelerationForce();
     
     /**
-     * Gets the brakeforce applied when braking.
      *
-     * @return The brakeforce of the vehicle
      */
-    float getBrakeForce();
-    
-    /**
-     * Gets the steering value used to steer.
-     *
-     * @return The brake force of the vehicle
-     */
-    float getSteeringValue();
-    
-    /**
-     * Gets the acceleration value used to accelerate.
-     * 
-     * @return The steeringvalue of the vehicle
-     */
-    float getAccelerationValue();
-
     public void accelerateForward();
 
+    /**
+     *
+     */
     public void accelerateBack();
 
+    /**
+     *
+     */
     public void steerLeft();
 
+    /**
+     *
+     */
     public void steerRight();
 
-    public float getFrictionForce();
-
+    /**
+     *
+     * @param currentVehicleSpeedKmHour
+     */
     public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour);
-    
-    public float getMass();
 
+    /**
+     *
+     * @param physicsLocation
+     */
     public void updatePosition(Vector3f physicsLocation);
 
+    /**
+     *
+     * @return
+     */
     public Vector3f getFirePosition();
 
+    /**
+     *
+     * @param forwardVector
+     */
     public void updateDirection(Vector3f forwardVector);
 
+    /**
+     *
+     * @return
+     */
     public Vector3f getDirection();
 
+    /**
+     *
+     * @return
+     */
     public Quaternion getRotation();
 
+    /**
+     *
+     * @param worldRotation
+     */
     public void updateRotation(Quaternion worldRotation);
 
+    /**
+     *
+     */
     public void applyFriction();
     
+    /**
+     *
+     * @param maxSpeed
+     */
     public void setMaxSpeed(float maxSpeed);
     
+    /**
+     *
+     * @param accelerationForce
+     */
     public void setAccelerationForce(float accelerationForce);
     
+    /**
+     *
+     * @return
+     */
     public float getDefaultMaxSpeed();
 
+    /**
+     *
+     * @param projectile
+     */
     public void gotHitBy(IExplodingProjectile projectile);
 
+    /**
+     *
+     * @param position
+     */
     public void setPosition(Vector3f position);
-
-    public Vector3f getPosition();
     
+    /**
+     *
+     * @return
+     */
     public Vector3f getSmokePosition();
 
+    /**
+     *
+     */
     public void shootMissile();
 
     /**
@@ -112,6 +155,7 @@ public interface IArmedVehicle extends IWorldObject {
     
     /**
      * Decrements the hp of the vehicle by the given amount
+     * @param hp 
      */
     public void decrementHealth(int hp);
     
@@ -120,6 +164,9 @@ public interface IArmedVehicle extends IWorldObject {
      */
     public void shoot();
     
+    /**
+     *
+     */
     void resetSpeedValues();
    
 }

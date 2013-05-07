@@ -18,15 +18,18 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     Quaternion rotation;
     
     private static final long EXPLOSION_END_TIME = 2000;
-    private static final long MAX_LIFE_TIME = 4000;
+    private static final long MAX_LIFE_TIME = 10000;
     private long lifeTimerStart;
-    private float explodingTimerStart;
+    private long explodingTimerStart;
     boolean isInWorld;
     
     boolean exploding;
     
     final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     *
+     */
     public AExplodingProjectile() {
         this.position = Vector3f.ZERO;
         this.linearVelocity = Vector3f.ZERO;
@@ -46,7 +49,8 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     }
     
       /**
-     * @inheritdoc
+       * @param tpf 
+       * @inheritdoc
      */
     @Override
     public void update(float tpf) {
@@ -74,11 +78,21 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
         hideFromWorld();
     }
 
+    /**
+     *
+     * @param pos
+     */
     @Override
     public void updatePosition(Vector3f pos) {
         this.position = pos.clone();
     }
     
+    /**
+     *
+     * @param initialPos
+     * @param initialVelocity
+     * @param initialRotation
+     */
     @Override
     public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
         this.initialPos = new Vector3f(initialPos);
@@ -87,11 +101,19 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
         showInWorld();
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public Vector3f getInitialPosition() {
         return new Vector3f(initialPos);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Vector3f getLinearVelocity() {
         return this.linearVelocity.clone();
@@ -111,6 +133,9 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
         pcs.firePropertyChange(Commands.HIDE, null, null);
     }
 
+    /**
+     *
+     */
     @Override
     public void cleanup() {
         pcs.firePropertyChange(Commands.CLEANUP, null, null);
@@ -126,8 +151,12 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
         pcs.removePropertyChangeListener(l);
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
-    public boolean isInWorld() {
+    public boolean isShownInWorld() {
         return this.isInWorld;
     }
 }

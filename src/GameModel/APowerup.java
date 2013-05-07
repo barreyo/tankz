@@ -17,28 +17,36 @@ public abstract class APowerup implements IPowerup {
     private boolean isHeldByPlayer;
     private boolean isInWorld;
     
+    /**
+     *
+     */
     public static final float MASS = 10f;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
+    /**
+     *
+     */
     public APowerup(){
         position = Vector3f.ZERO;
     }
     
     @Override
     public void showInWorld(){
+        boolean wasInWorld = isInWorld;
         isInWorld = true;
-        pcs.firePropertyChange(Commands.SHOW, null, null);
+        pcs.firePropertyChange(Commands.SHOW, wasInWorld, isInWorld);
     }
     
     @Override
     public void hideFromWorld() {
+        boolean wasInWorld = isInWorld;
         isInWorld = false;
-        pcs.firePropertyChange(Commands.HIDE, null, null);
+        pcs.firePropertyChange(Commands.HIDE, wasInWorld, isInWorld);
     }
     
     @Override
-    public void playerPickedUpPowerup() {
+    public void powerupWasPickedUp() {
         this.setHeldByPlayer(true);
     }
     
@@ -72,21 +80,36 @@ public abstract class APowerup implements IPowerup {
         return isHeldByPlayer;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
-    public boolean isInWorld() {
+    public boolean isShownInWorld() {
         return isInWorld;
     }
     
+    /**
+     *
+     * @param held
+     */
     @Override
     public void setHeldByPlayer(boolean held) {
         isHeldByPlayer = held;
     }
     
+    /**
+     *
+     */
     @Override 
     public void cleanup() {
         
     }
     
+    /**
+     *
+     * @param tpf
+     */
     @Override
     public void update(float tpf) {
     }      

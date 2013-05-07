@@ -32,6 +32,12 @@ implements PhysicsCollisionListener, PropertyChangeListener {
     private LandmineEntity entity;
     private RigidBodyControl physicsControl;
     
+    /**
+     *
+     * @param model
+     * @param entity
+     * @param physicsControl
+     */
     public LandmineController (LandmineModel model, LandmineEntity entity,
             RigidBodyControl physicsControl ){
         
@@ -51,16 +57,30 @@ implements PhysicsCollisionListener, PropertyChangeListener {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param rm
+     * @param vp
+     */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param spatial
+     * @return
+     */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    /**
+     *
+     * @param event
+     */
     @Override
     public void collision(PhysicsCollisionEvent event) {
         IWorldObject objA = event.getNodeA().getUserData("Model");

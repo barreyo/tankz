@@ -18,8 +18,17 @@ import java.beans.PropertyChangeListener;
  */
 public abstract class AHudElement implements PropertyChangeListener, IHudElement {
 
+    /**
+     *
+     */
     protected Picture picture;
+    /**
+     *
+     */
     protected AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+    /**
+     *
+     */
     protected Node guiNode = TanksAppAdapter.INSTANCE.getGUINode();
     
     /**

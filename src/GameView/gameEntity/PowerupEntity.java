@@ -20,6 +20,10 @@ public class PowerupEntity extends AGameEntity {
     private final IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
+    /**
+     *
+     * @param pow
+     */
     public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
         
@@ -71,6 +75,9 @@ public class PowerupEntity extends AGameEntity {
         spatial.setCullHint(CullHint.Dynamic);
     }
 
+    /**
+     *
+     */
     public void hideFromWorld() {
         spatial.setCullHint(CullHint.Always);
     }

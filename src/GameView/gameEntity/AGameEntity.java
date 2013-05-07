@@ -30,6 +30,7 @@ public abstract class AGameEntity implements IGameEntity {
 
     /**
      * Adds an material to the spatial.
+     * @param mat 
      */
     @Override
     public void setMaterial(Material mat) {
@@ -38,6 +39,7 @@ public abstract class AGameEntity implements IGameEntity {
 
     /**
      * Adds an appropriate control to the spatial.
+     * @param control 
      */
     @Override
     public void addControl(Control control) {
@@ -64,6 +66,7 @@ public abstract class AGameEntity implements IGameEntity {
     
     /**
      * Help metohd used to get the boundingbox of the spatial.
+     * @return 
      */
     @Override
     public Vector3f getExtents() {

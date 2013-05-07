@@ -43,6 +43,7 @@ public final class MissileModel extends AExplodingProjectile {
     }
 
     /**
+     * @param tpf 
      * @inheritdoc
      */
     @Override
@@ -63,6 +64,12 @@ public final class MissileModel extends AExplodingProjectile {
         }
     }
     
+    /**
+     *
+     * @param initialPos
+     * @param initialVelocity
+     * @param initialRotation
+     */
     @Override
     public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
         super.launchProjectile(initialPos, initialVelocity, initialRotation);
@@ -72,6 +79,10 @@ public final class MissileModel extends AExplodingProjectile {
         hasAttackTarget = false;
     }
 
+    /**
+     *
+     * @param target
+     */
     public void setAttackTarget(Vector3f target) {
         hasAttackTarget = true;
         this.attackTarget = target;
@@ -88,11 +99,21 @@ public final class MissileModel extends AExplodingProjectile {
         pcs.firePropertyChange(Commands.ROTATE, null, rotation);
     }
 
+    /**
+     *
+     * @param ex
+     * @throws IOException
+     */
     @Override
     public void write(JmeExporter ex) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param im
+     * @throws IOException
+     */
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");

@@ -25,8 +25,9 @@ public class ScoreboardView extends AHudElement {
     
     private List<BitmapText> playerNames, playerKills, playerDeaths, playerStatus;
     private List<IPlayer> players;
-    private BitmapText killsText, deathsText;
+    private BitmapText killsText, deathsText, respawnTimerText;
     private IPlayer player;
+    private PlayerComparator pCompare;
     
     /**
      * Instatiates a scoreboardview that can be displayed in the given viewport.
@@ -40,10 +41,12 @@ public class ScoreboardView extends AHudElement {
         this.players = players;
         this.player = player;
         
-        playerNames = new ArrayList<BitmapText>();
+        playerNames = new ArrayList<>();
         playerKills = new ArrayList<BitmapText>();
         playerDeaths = new ArrayList<BitmapText>();
         playerStatus = new ArrayList<BitmapText>();
+        
+        pCompare = new PlayerComparator();
         
         float screenWidth = TanksAppAdapter.INSTANCE.getScreenWidth();
         float screenHeight = TanksAppAdapter.INSTANCE.getScreenHeight();
@@ -70,43 +73,52 @@ public class ScoreboardView extends AHudElement {
         
         killsText = new BitmapText(font, false);
         deathsText = new BitmapText(font, false);
+        respawnTimerText = new BitmapText(font, false);
         killsText.setText("Score");
         deathsText.setText("Death");
+        respawnTimerText.setText("");
         killsText.setLocalTranslation(picX + (picWidth * 0.65f), 
                 (picY + picHeight) - ((picHeight * 0.13f)), 1);
         deathsText.setLocalTranslation(picX + (picWidth * 0.85f), 
                 (picY + picHeight) - ((picHeight * 0.13f)), 1);
+        respawnTimerText.setLocalTranslation(picX + (picWidth * 0.05f), 
+                (picY + picHeight) - ((picHeight * 0.1f) * (7.4f)), 1);
         
-        for (int i = 0; i < players.size(); i++) {
-            playerNames.add(new BitmapText(font, false));
-            playerNames.get(i).setText(players.get(i).getName());
-            playerNames.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerNames.get(i).setLocalTranslation(picX + (picWidth * 0.05f), 
-                    (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
+        int i = 0;
+        for (IPlayer playR : players) {
+            int size = font.getCharSet().getRenderedSize();
             
-            playerKills.add(new BitmapText(font, false));
-            playerKills.get(i).setText("" + players.get(i).getKills());
-            playerKills.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerKills.get(i).setLocalTranslation((picX + (picWidth * 0.65f)) + 
+            BitmapText name = new BitmapText(font, false);
+            name.setText(playR.getName());
+            name.setSize(size);
+            name.setLocalTranslation(picX + (picWidth * 0.05f), 
+                    (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
+            playerNames.add(name);
+            
+            BitmapText kills = new BitmapText(font, false);
+            kills.setSize(size);
+            kills.setLocalTranslation((picX + (picWidth * 0.65f)) + 
                     ((killsText.getLineWidth()/2) - (font.getLineWidth("9")/2)), 
                     (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
+            playerKills.add(kills);
         
-            playerDeaths.add(new BitmapText(font, false));
-            playerDeaths.get(i).setText("" + players.get(i).getDeaths());
-            playerDeaths.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerDeaths.get(i).setLocalTranslation((picX + (picWidth * 0.85f)) + 
+            BitmapText deaths = new BitmapText(font, false);
+            deaths.setSize(size);
+            deaths.setLocalTranslation((picX + (picWidth * 0.85f)) + 
                     ((deathsText.getLineWidth()/2) - (font.getLineWidth("9")/2)), 
                     (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
+            playerDeaths.add(deaths);
             
-            playerStatus.add(new BitmapText(font, false));
-            playerStatus.get(i).setText("");
-            playerStatus.get(i).setSize(font.getCharSet().getRenderedSize());
-            playerStatus.get(i).setLocalTranslation((picX + (picWidth * 0.4f)) + 
+            BitmapText status = new BitmapText(font, false);
+            status.setSize(size);
+            status.setLocalTranslation((picX + (picWidth * 0.4f)) + 
                     (deathsText.getLineWidth()/2), (picY + picHeight) - 
                     ((picHeight * 0.1f) * (i+2.4f)) , 1);
+            playerStatus.add(status);
             
-            players.get(i).addObserver(this);
-            players.get(i).getVehicle().addObserver(this);
+            playR.addObserver(this);
+            
+            i++;
         }
         updateText();
     }
@@ -117,14 +129,20 @@ public class ScoreboardView extends AHudElement {
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         String propertyName = pce.getPropertyName();
-        if (propertyName.equals("ScoreUpdate") || propertyName.equals(Commands.SHOW)) {
+        Object source = pce.getSource();
+        if (source instanceof IPlayer && propertyName.equals(Commands.SCORE_UPDATE)) {
             updateText();
-        }
-        if (propertyName.equals("show=" + player.getName())) {
-            show();
-        }
-        if (propertyName.equals("hide=" + player.getName())) {
-            hide();
+        } else if (source == player) {
+            if (propertyName.equals(Commands.SHOW_SCOREBOARD)) {
+                show();
+            } else if (propertyName.equals(Commands.HIDE_SCOREBOARD)) {
+                hide();
+            } else if (propertyName.equals(Commands.SCORE_RESPAWN_UPDATE)) {
+                respawnTimerText.setText("Respawn in: " + player.getDeathTime());
+                if (player.getDeathTime() <= 0) {
+                    respawnTimerText.setText("");
+                }
+            }
         }
     }
         
@@ -146,6 +164,7 @@ public class ScoreboardView extends AHudElement {
         for (BitmapText bmt : playerStatus) {
             guiNode.detachChild(bmt);
         }
+        guiNode.detachChild(respawnTimerText);
         guiNode.detachChild(killsText);
         guiNode.detachChild(deathsText);
     }
@@ -168,13 +187,13 @@ public class ScoreboardView extends AHudElement {
         for (BitmapText bmt : playerStatus) {
             guiNode.attachChild(bmt);
         }
+        guiNode.attachChild(respawnTimerText);
         guiNode.attachChild(killsText);
         guiNode.attachChild(deathsText);
     }
     
-    // Updates text values and position in the table.
+    // Updates text values and positions in the table.
     private void updateText() {
-        PlayerComparator pCompare = new PlayerComparator();
         List<IPlayer> playersClone = new ArrayList<IPlayer>();
         
         // Cloning players list just in case since we mess with the order.

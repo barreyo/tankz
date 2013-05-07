@@ -13,6 +13,9 @@ import com.jme3.scene.Spatial;
  * @author Daniel
  */
 public enum PreloadManager {
+    /**
+     *
+     */
     INSTANCE;
     
     /**

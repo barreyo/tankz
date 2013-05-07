@@ -1,7 +1,6 @@
 package GameControllers.logic;
 
 import App.TanksAppAdapter;
-import GameModel.ApplicationSettings;
 import GameView.Sounds.ESounds;
 import com.jme3.audio.AudioNode;
 import java.util.EnumMap;
@@ -11,8 +10,14 @@ import java.util.EnumMap;
  * @author Per
  */
 public enum SoundManager implements IMapRelatedManager {
+
+    /**
+     *
+     */
     INSTANCE;
     private EnumMap<ESounds, AudioNode> soundMap;
+    private boolean muteSoundFX;
+    private boolean muteMusic;
 
     /**
      *
@@ -34,6 +39,9 @@ public enum SoundManager implements IMapRelatedManager {
         }
     }
 
+    /**
+     *
+     */
     public void preLoad() {
         loadSound(new ESounds[]{ESounds.MENU_SOUND});
     }
@@ -65,7 +73,7 @@ public enum SoundManager implements IMapRelatedManager {
      * @param sound
      */
     public void play(ESounds sound) {
-        if (ApplicationSettings.INSTANCE.isMusicMuted()) {
+        if (muteMusic) {
             return;
         }
         AudioNode audio = soundMap.get(sound);
@@ -98,7 +106,7 @@ public enum SoundManager implements IMapRelatedManager {
      */
     public void togglePlayPause(ESounds sound) {
         AudioNode toToggle = soundMap.get(sound);
-        
+
         if (toToggle != null) {
             if (toToggle.getStatus() == AudioNode.Status.Paused
                     || toToggle.getStatus() == AudioNode.Status.Stopped) {
@@ -110,6 +118,10 @@ public enum SoundManager implements IMapRelatedManager {
     }
 
     // tries to stop a sound, will probably only work for streaming music though
+    /**
+     *
+     * @param sound
+     */
     public void stop(ESounds sound) {
         AudioNode toStop = soundMap.get(sound);
         if (toStop != null) {
@@ -130,5 +142,41 @@ public enum SoundManager implements IMapRelatedManager {
         for (AudioNode audio : soundMap.values()) {
             audio.stop();
         }
+    }
+
+    /**
+     * Sets the boolean mute, which represents enabled, or disabled FX sound.
+     *
+     * @param mute enables or disables FX sound.
+     */
+    public void setMuteSoundFx(boolean mute) {
+        muteSoundFX = mute;
+    }
+
+    /**
+     * Returns a boolean which tells if the FX sounds are muted.
+     *
+     * @return isSoundFXMuted
+     */
+    public boolean isSoundFXMuted() {
+        return muteSoundFX;
+    }
+
+    /**
+     * Sets a boolean mute, which represents enabled, or disabled music.
+     *
+     * @param mute mutes or unmutes the music.
+     */
+    public void setMuteMusic(boolean mute) {
+        muteMusic = mute;
+    }
+
+    /**
+     * Returns a boolean which tells if the music is muted.
+     *
+     * @return muteMusic
+     */
+    public boolean isMusicMuted() {
+        return muteMusic;
     }
 }

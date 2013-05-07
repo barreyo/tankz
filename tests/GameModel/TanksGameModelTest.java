@@ -143,11 +143,11 @@ public class TanksGameModelTest {
     }
 
     /**
-     * Test of getGameTime method, of class TanksGameModel.
+     * Test of getGameEndTimeMS method, of class TanksGameModel.
      */
     @Test
     public void testGetGameTime() {
         System.out.println("getGameTime");
-        assertTrue(instance.getGameTime() == 20f);
+        assertTrue(instance.getGameTimeLeft() == 20f);
     }
 }

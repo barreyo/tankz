@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameView.effects;
 
 import App.TanksAppAdapter;
@@ -15,10 +12,13 @@ import com.jme3.util.BufferUtils;
 
 /**
  *
- * @author backman
+ * @author Johan Backman
  */
 public class TireTrack extends Mesh {
     
+    /**
+     *
+     */
     public TireTrack() {
         Vector3f[] vertices = new Vector3f[4];
         int[] indexes = { 2,0,1, 1,3,2 };
@@ -39,12 +39,6 @@ public class TireTrack extends Mesh {
         this.setBuffer(Type.TexCoord, 2, BufferUtils.createFloatBuffer(texCoords));
         this.setBuffer(Type.Index, 3, BufferUtils.createIntBuffer(indexes));
         this.updateBound();
-    }
-    
-    private void textureThisShit() {
-        Geometry geo = new Geometry("Textures/Tracks.j3md", this);
-        Material mat = new Material(TanksAppAdapter.INSTANCE.getAssetManager(), "Common/MatDefs/Misc/Unshaded.j3md");
-        geo.setMaterial(mat);
     }
 }
 

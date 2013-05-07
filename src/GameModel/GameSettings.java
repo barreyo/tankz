@@ -12,45 +12,32 @@ import java.beans.PropertyChangeSupport;
  */
 public class GameSettings implements IObservable {
     
-    private float gameTime;
+    private long gameEndTimeMS;
     private int killsToWin;
+    private long powerupSpawningIntervallMS;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      * Basic constructor.
      * 
-     * @param gameTime
-     * @param killsToWin 
+     * @param gameEndTimeMS
+     * @param killsToWin
+     * @param powerupSpawningIntervallMS  
      */
-    public GameSettings (float gameTime, int killsToWin){
-        this.gameTime = gameTime;
+    public GameSettings (long gameEndTimeMS, int killsToWin, long powerupSpawningIntervallMS){
+        this.gameEndTimeMS = gameEndTimeMS;
         this.killsToWin = killsToWin;
+        this.powerupSpawningIntervallMS = powerupSpawningIntervallMS;
     }
     
     /**
-     * Sets the game time.
-     * @param gameTime 
+     * Returns the game end time, ie how long the game lasts.
+     * 
+     * @return gameEndTimeMS 
      */
-    public void setGameTime (float gameTime){
-        this.gameTime = gameTime;
-        pcs.firePropertyChange(null);
-    }
-    
-    /**
-     * Sets number of kills to win.
-     * @param kills 
-     */
-    public void setKillsToWin(int kills){
-        this.killsToWin = kills;
-    }
-    
-    /**
-     * Returns the game time.
-     * @return gameTime
-     */
-    public float getGameTime(){
-        return gameTime;
+    public long getGameEndTimeMS(){
+        return gameEndTimeMS;
     }
     
     /**
@@ -58,8 +45,16 @@ public class GameSettings implements IObservable {
      * 
      * @return killsToWin
      */
-    public int getKillsToWin(){
+    public int getKillsToWin() {
         return killsToWin;
+    }
+    
+    /**
+     * 
+     * @return the powe
+     */
+    public long getPowerupSpawningIntervallMS() {
+        return powerupSpawningIntervallMS;
     }
 
     /**

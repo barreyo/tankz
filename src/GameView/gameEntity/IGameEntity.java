@@ -23,11 +23,13 @@ public interface IGameEntity extends PropertyChangeListener, IObservable {
 
     /**
      * Adds an material to the spatial.
+     * @param mat 
      */
     void setMaterial(Material mat);
 
     /**
      * Adds an appropriate control to the spatial.
+     * @param control 
      */
     void addControl(Control control);
 
@@ -46,6 +48,7 @@ public interface IGameEntity extends PropertyChangeListener, IObservable {
     
     /**
      * Help metohd used to get the boundingbox of the spatial.
+     * @return 
      */
     Vector3f getExtents();
 

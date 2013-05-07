@@ -34,7 +34,7 @@ public class APowerupTest {
         System.out.println("showInWorld");
         instance.showInWorld();
         
-        assertTrue(instance.isInWorld() == true);
+        assertTrue(instance.isShownInWorld() == true);
     }
 
     /**
@@ -45,19 +45,19 @@ public class APowerupTest {
         System.out.println("hideFromWorld");
         instance.hideFromWorld();
         
-        assertTrue(instance.isInWorld() == false);
+        assertTrue(instance.isShownInWorld() == false);
     }
 
     /**
-     * Test of playerPickedUpPowerup method, of class APowerup.
+     * Test of powerupWasPickedUp method, of class APowerup.
      */
     @Test
     public void testPlayerPickedUpPowerup() {
         System.out.println("playerPickedUpPowerup");
-        instance.playerPickedUpPowerup();
+        instance.powerupWasPickedUp();
         
         assertTrue(instance.isHeldByPlayer() == true);
-        assertTrue(instance.isInWorld() == false);
+        assertTrue(instance.isShownInWorld() == false);
     }
 
     /**
@@ -110,14 +110,14 @@ public class APowerupTest {
     }
 
     /**
-     * Test of isInWorld method, of class APowerup.
+     * Test of isShownInWorld method, of class APowerup.
      */
     @Test
     public void testIsInWorld() {
         System.out.println("isInWorld");
         instance.showInWorld();
         boolean expResult = true;
-        boolean result = instance.isInWorld();
+        boolean result = instance.isShownInWorld();
         
         assertTrue(expResult == result);
     }

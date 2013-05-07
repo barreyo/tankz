@@ -5,6 +5,7 @@ import GameModel.IArmedVehicle.VehicleState;
 import GameUtilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Collections;
 
 /**
  * A representation of a player.
@@ -14,10 +15,13 @@ import java.beans.PropertyChangeSupport;
  */
 public class Player implements IPlayer {
     private String name;
+    
     private IArmedVehicle vehicle;
     private int kills, deaths;
-    private boolean isActive;
     private IPowerup powerup;
+    
+    private boolean respawn;
+    private static final long DEATHTIME = 5;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
@@ -62,7 +66,7 @@ public class Player implements IPlayer {
     @Override
     public void incrementKills() {
         kills++;
-        pcs.firePropertyChange("ScoreUpdate", null, null);
+        pcs.firePropertyChange(Commands.SCORE_UPDATE, null, null);
     }
 
     /**
@@ -79,7 +83,7 @@ public class Player implements IPlayer {
     @Override
     public void incrementDeaths() {
         deaths++;
-        pcs.firePropertyChange("ScoreUpdate", null, null);
+        pcs.firePropertyChange(Commands.SCORE_UPDATE, null, null);
     }
 
     /**
@@ -89,43 +93,7 @@ public class Player implements IPlayer {
     public void resetStats() {
         deaths = 0;
         kills = 0;
-        pcs.firePropertyChange("ScoreUpdate", null, null);
-    }
-
-        /**
-     * @inheritdoc
-     */
-    @Override
-    public boolean isActive() {
-        return isActive;
-    }
-
-        /**
-     * @inheritdoc
-     */
-    @Override
-    public void activatePlayer(){
-        if (!isActive) {
-            isActive = true;
-        }
-    }
-    
-        /**
-     * @inheritdoc
-     */
-    @Override
-    public void deactivatePlayer() {
-        if (isActive) {
-            isActive = false;
-        }
-    }
-    
-    /**
-     * @inheritdoc
-     */
-    @Override
-    public synchronized IPowerup getPowerup() {
-        return powerup;
+        pcs.firePropertyChange(Commands.SCORE_UPDATE, null, null);
     }
 
     /**
@@ -134,8 +102,9 @@ public class Player implements IPlayer {
     @Override
     public synchronized void setPowerup(IPowerup powerup) {
         if (this.powerup == null) {
+            IPowerup oldPowerup = this.powerup;
             this.powerup = powerup;
-            pcs.firePropertyChange(Commands.POWERUP_CHANGED, null, null);
+            pcs.firePropertyChange(Commands.POWERUP_CHANGED, oldPowerup, this.powerup);
         }
     }
 
@@ -174,8 +143,7 @@ public class Player implements IPlayer {
     @Override
     public String toString() {
         return "Player{" + "name=" + name + ", vehicle=" + vehicle + ", "
-                + "kills=" + kills + ", deaths=" + deaths + ", isActive="
-                + isActive + '}';
+                + "kills=" + kills + ", deaths=" + deaths + '}';
     } 
 
     /**
@@ -217,8 +185,9 @@ public class Player implements IPlayer {
     public synchronized void usePowerup() {
         if (powerup != null) {
             powerup.usePowerup(this);
+            IPowerup oldPowerup = powerup;
             powerup = null;
-            pcs.firePropertyChange(Commands.POWERUP_CHANGED, null, null);
+            pcs.firePropertyChange(Commands.POWERUP_CHANGED, oldPowerup, powerup);
         }
     }
 
@@ -228,13 +197,32 @@ public class Player implements IPlayer {
     }
     
     private boolean hasDiedThisDeath = false;
+    private float deathTimer = DEATHTIME;
+    private float secondTimer = 0;
     
+    @Override
     public void update(float tpf) {
         if (vehicle.getVehicleState() == VehicleState.DESTROYED && !hasDiedThisDeath) {
             this.incrementDeaths();
             hasDiedThisDeath = true;
+            showScoreboard();
         } else if (vehicle.getVehicleState() == VehicleState.ALIVE) {
             hasDiedThisDeath = false;
+        }
+        
+        if(vehicle.getVehicleState() == VehicleState.DESTROYED){ 
+            deathTimer -= tpf;
+            secondTimer += tpf;
+            if(secondTimer >= 1.0f){
+                pcs.firePropertyChange(Commands.SCORE_RESPAWN_UPDATE, null, null);
+                secondTimer = 0;
+            }
+            
+            if(deathTimer <= 0){
+                respawn = true;
+                deathTimer = DEATHTIME;
+                hideScoreboard();
+            }
         }
     }
 
@@ -244,7 +232,7 @@ public class Player implements IPlayer {
     @Override
     public void showScoreboard() {
         // Pass on to the view
-        pcs.firePropertyChange("show=" + name, null, null);
+        pcs.firePropertyChange(Commands.SHOW_SCOREBOARD, null, null);
     }
 
     /**
@@ -253,6 +241,21 @@ public class Player implements IPlayer {
     @Override
     public void hideScoreboard() {
         // Pass on to the view
-        pcs.firePropertyChange("hide=" + name, null, null);
+        pcs.firePropertyChange(Commands.HIDE_SCOREBOARD, null, null);
+    }
+    
+    @Override
+    public void setRespawn(boolean respawn){
+        this.respawn = respawn;
+    }
+    
+    @Override
+    public boolean shouldRespawn(){
+        return respawn;
+    }
+    
+    @Override
+    public int getDeathTime(){
+        return (int)deathTimer;
     }
 }

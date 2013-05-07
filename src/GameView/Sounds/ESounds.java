@@ -10,9 +10,21 @@ public enum ESounds {
      *
      */
     CLICK_SOUND("click.ogg", false, 0.5f),
+    /**
+     *
+     */
     MISSILE_LAUNCH_SOUND("Explosion.ogg", false, 0.1f),
+    /**
+     *
+     */
     MISSILI_COLLISION_SOUND("MissileCollision.ogg", false, 0.2f),
+    /**
+     *
+     */
     MENU_SOUND("Menu.ogg", true, 0.5f),
+    /**
+     *
+     */
     GAMEMUSIC_1("ItsLikeThat.ogg", true, 0.4f);
     
     private final String path;
@@ -41,6 +53,10 @@ public enum ESounds {
         return music;
     }
     
+    /**
+     *
+     * @return
+     */
     public float getVolume() {
         return volume;
     }

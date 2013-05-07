@@ -53,29 +53,6 @@ public interface IPlayer extends IObservable {
      * Sets them to zero.
      */
     public void resetStats();
-    
-    /**
-     * Returns a boolean indicating if the player is active.
-     * @return a boolean indicating if the player is active
-     */
-    public boolean isActive();
-    
-    /**
-     * Activates the player.
-     */
-    public void activatePlayer();
-    
-    /**
-     * Deactivates the player.
-     */
-    public void deactivatePlayer();
-    
-    /**
-     * Returns the powerup in powerupSlot.
-     * 
-     * @return The powerup contained in powerupSlot
-     */
-    IPowerup getPowerup();
 
     /**
      * Sets the powerup in the powerupSlot.
@@ -87,7 +64,7 @@ public interface IPlayer extends IObservable {
     /**
      * Players are considered equal when their names are equal.
      * 
-     * @param player player to compare with.
+     * @param obj 
      * @return true if equal false otherwise.
      */
     @Override
@@ -119,4 +96,22 @@ public interface IPlayer extends IObservable {
      * Hide the scoreboard for the player.
      */
     public void hideScoreboard();
+    
+    /**
+     * 
+     * @return wether or not the player is due to respawn. 
+     */
+    public boolean shouldRespawn();
+    
+    /**
+     * 
+     * @return the current time until respawn.
+     */
+    public int getDeathTime();
+    
+    /**
+     * Sets if the player should respawn.
+     * @param respawn 
+     */
+    public void setRespawn(boolean respawn);
 }

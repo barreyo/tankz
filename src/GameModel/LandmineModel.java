@@ -60,14 +60,26 @@ public class LandmineModel implements IWorldObject {
         return rotation.clone();
     }
     
+    /**
+     *
+     * @param pos
+     */
     public void updatePosition(Vector3f pos) {
         this.position = pos.clone();
     }
     
+    /**
+     *
+     * @param rotation
+     */
     public void updateRotation(Quaternion rotation) {
         this.rotation = rotation.clone();
     }
     
+    /**
+     *
+     * @param velocity
+     */
     public void updateLinearVelocity(Vector3f velocity) {
         this.velocity = velocity.clone();
     }
@@ -84,6 +96,7 @@ public class LandmineModel implements IWorldObject {
      * 
      * @return the mass of the missile
      */
+    @Override
     public float getMass() {
         return MASS;
     }
@@ -98,16 +111,27 @@ public class LandmineModel implements IWorldObject {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
-    public boolean isInWorld() {
+    public boolean isShownInWorld() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param tpf
+     */
     @Override
     public void update(float tpf) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     */
     @Override
     public void cleanup() {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -123,11 +147,21 @@ public class LandmineModel implements IWorldObject {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param ex
+     * @throws IOException
+     */
     @Override
     public void write(JmeExporter ex) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     *
+     * @param im
+     * @throws IOException
+     */
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");

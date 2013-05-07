@@ -20,6 +20,8 @@ public class VehicleCamera extends ChaseCamera {
     
     /**
      * {@inheritdoc}
+     * @param cam 
+     * @param target 
      */
     public VehicleCamera(Camera cam, final Spatial target) {
         super(cam, target);
@@ -27,6 +29,7 @@ public class VehicleCamera extends ChaseCamera {
 
     /**
      * {@inheritdoc}
+     * @param cam 
      */
     public VehicleCamera(Camera cam) {
         super(cam);
@@ -34,6 +37,8 @@ public class VehicleCamera extends ChaseCamera {
 
     /**
      * {@inheritdoc}
+     * @param cam 
+     * @param inputManager 
      */
     public VehicleCamera(Camera cam, InputManager inputManager) {
         super(cam, inputManager);
@@ -41,6 +46,9 @@ public class VehicleCamera extends ChaseCamera {
 
     /**
      * {@inheritdoc}
+     * @param cam 
+     * @param inputManager
+     * @param target  
      */
     public VehicleCamera(Camera cam, final Spatial target, InputManager inputManager) {
         super(cam, target, inputManager);

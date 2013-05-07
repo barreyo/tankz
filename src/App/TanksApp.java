@@ -19,7 +19,6 @@ import java.util.logging.Logger;
  * @author Daniel, Per, Johan, Albin
  */
 class TanksApp extends SimpleApplication { 
-    // Managers
     private BulletAppState bulletAppState;
     
     /**
@@ -34,7 +33,7 @@ class TanksApp extends SimpleApplication {
      */
     @Override
     public void simpleInitApp() {
-        // Attaching a physics appstate
+        // Creating and attaching an appstate needed to handle physics
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
         
@@ -50,18 +49,10 @@ class TanksApp extends SimpleApplication {
         Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE);
     }
    
-    /**
-     *
-     * @return
-     */
     BulletAppState getBulletAppState() {
         return bulletAppState;
     }
     
-    /**
-     *
-     * @return
-     */
     AppSettings getSettings() {
         return settings;
     }

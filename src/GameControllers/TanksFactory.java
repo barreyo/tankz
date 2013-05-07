@@ -85,6 +85,11 @@ public final class TanksFactory {
         return projectileModel;
     }
     
+    /**
+     *
+     * @param senderCollisionGroupMask
+     * @return
+     */
     public static MissileModel getNewMissile(int senderCollisionGroupMask) {
         MissileModel projectileModel = new MissileModel();
 
@@ -99,7 +104,7 @@ public final class TanksFactory {
                 | PhysicsCollisionObject.COLLISION_GROUP_04 
                 | PhysicsCollisionObject.COLLISION_GROUP_05);
         
-        GhostControl aggroGhost = new GhostControl(new SphereCollisionShape(50));
+        GhostControl aggroGhost = new GhostControl(new SphereCollisionShape(200));
         aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_10);
         // Collide with all tanks except the senders --> aggro only other tanks.
         aggroGhost.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02 
@@ -165,6 +170,12 @@ public final class TanksFactory {
         return model;
     }
 
+    /**
+     *
+     * @param cam
+     * @param spatial
+     * @return
+     */
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
         chaseCam.setMaxDistance(25);
@@ -178,9 +189,15 @@ public final class TanksFactory {
         return chaseCam;
     }
 
+    /**
+     *
+     * @param intWorld
+     * @param playerNames
+     * @return
+     */
     public static GameAppState getNewGame(int intWorld, Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(120f, 10);
+        GameSettings settings = new GameSettings(120000, 10, 25000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();

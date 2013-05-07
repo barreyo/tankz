@@ -9,7 +9,6 @@ import com.jme3.math.Vector3f;
  * @author perthoresson
  */
 public class SpawningPoint implements ISpawningPoint {
-    
     private boolean isOccupied;
     private IWorldObject occupier;
     private Vector3f position;
@@ -17,7 +16,7 @@ public class SpawningPoint implements ISpawningPoint {
     /**
      * Instantiates the object.
      * 
-     * @param inUse if the spawning point is in use or not.
+     * @param pos 
      */
     public SpawningPoint (Vector3f pos){
         this.position = pos.clone();

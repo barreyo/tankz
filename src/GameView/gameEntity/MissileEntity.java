@@ -26,6 +26,10 @@ public final class MissileEntity extends AGameEntity {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     *
+     * @param proj
+     */
     public MissileEntity(IExplodingProjectile proj) {
         super(EGraphics.SHARK);
         effects = EEffects.EXPLOSION.getEmitters();
@@ -80,6 +84,9 @@ public final class MissileEntity extends AGameEntity {
         pcs.firePropertyChange(evt);
     }
     
+    /**
+     *
+     */
     public void impact() {
         hideFromWorld();
         showEffect();
@@ -107,6 +114,9 @@ public final class MissileEntity extends AGameEntity {
         spatial.setCullHint(Spatial.CullHint.Dynamic);
     }
 
+    /**
+     *
+     */
     public void hideFromWorld() {
         spatial.setCullHint(Spatial.CullHint.Always);
     }

@@ -9,6 +9,9 @@ import java.util.EnumMap;
  * @author Daniel
  */
 public enum GraphicManager implements IMapRelatedManager {
+    /**
+     *
+     */
     INSTANCE;
 
     private EnumMap<EGraphics, Spatial> graphicMap = new EnumMap<EGraphics, Spatial>(EGraphics.class);
