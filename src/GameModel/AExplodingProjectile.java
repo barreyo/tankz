@@ -21,8 +21,8 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     private static final long MAX_LIFE_TIME = 10000;
     private long lifeTimerStart;
     private long explodingTimerStart;
-    boolean isInWorld;
     
+    boolean isInWorld;
     boolean exploding;
     
     final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
@@ -33,6 +33,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     public AExplodingProjectile() {
         this.position = Vector3f.ZERO;
         this.linearVelocity = Vector3f.ZERO;
+        this.initialPos = Vector3f.ZERO;
         this.rotation = Quaternion.ZERO;
         isInWorld = false;
     }
@@ -87,7 +88,7 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
      */
     @Override
     public void setPosition(Vector3f pos) {
-        this.position = pos.clone();
+        this.position = new Vector3f(pos);
     }
     
     /**

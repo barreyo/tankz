@@ -112,6 +112,8 @@ public interface IArmedVehicle extends IDamageableObject {
      */
     public void shootMissile();
 
+    public void dropLandmine();
+
     /**
      * Enum representing different states of the vehicle.
      */
