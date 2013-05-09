@@ -197,7 +197,7 @@ public final class TanksFactory {
      */
     public static GameAppState getNewGame(Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(120000, 10, 5000);
+        GameSettings settings = new GameSettings(1200000, 100, 50000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
