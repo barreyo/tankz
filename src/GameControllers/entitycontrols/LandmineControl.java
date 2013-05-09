@@ -1,14 +1,14 @@
+
 package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
-import GameModel.IArmedVehicle;
 import GameModel.IDamageableObject;
-import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
+import GameModel.LandmineModel;
 import GameUtilities.Commands;
 import GameView.Sounds.ESounds;
-import GameView.gameEntity.CanonBallEntity;
+import GameView.gameEntity.LandmineEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -23,23 +23,25 @@ import java.beans.PropertyChangeListener;
 
 /**
  *
- * @author Daniel
+ * @author perthoresson
  */
-public class LinearProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
-    private CanonBallEntity entity;
-    private IExplodingProjectile projectileModel;
-
+public class LandmineControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
+    
+    private LandmineModel landmineModel;
+    private LandmineEntity entity;
     private RigidBodyControl physicsControl;
+    
     /**
-     * Creates a tank projectile control.
+     *
+     * @param model
      * @param entity
-     * @param projModel
-     * @param physicsControl  
+     * @param physicsControl
      */
-    public LinearProjectileControl(CanonBallEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
-
+    public LandmineControl (LandmineModel model, 
+            LandmineEntity entity, RigidBodyControl physicsControl ){
+        
+        this.landmineModel = model;
         this.entity = entity;
-        this.projectileModel = projModel;
         this.physicsControl = physicsControl;
         
         entity.addControl(physicsControl);
@@ -49,30 +51,14 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         // We observe Model
         entity.addObserver(this);
     }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        String command = evt.getPropertyName();
-        Object source = evt.getSource();
-        if (source == projectileModel) {
-            if (command.equals(Commands.SHOW)) {
-                physicsControl.setEnabled(true);
-                physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
-            } else if (command.equals(Commands.HIDE)) {
-                physicsControl.setEnabled(false);
-            }
-        }
-    }
-
+    
+    
     @Override
     protected void controlUpdate(float tpf) {
-        if (projectileModel.isShownInWorld()) {
-            projectileModel.update(tpf);
+        if (landmineModel.isShownInWorld()) {
+            landmineModel.update(tpf);
             if (spatial != null) {
-                projectileModel.setPosition((spatial.getWorldTranslation()));
-            }
-            if (physicsControl.isEnabled()) {
-                physicsControl.setLinearVelocity((projectileModel.getLinearVelocity()));
+                landmineModel.setPosition((spatial.getWorldTranslation()));
             }
         }
     }
@@ -96,7 +82,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
     public Control cloneForSpatial(Spatial spatial) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
     /**
      *
      * @param event
@@ -106,17 +92,33 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         if (event.getNodeA() != null && event.getNodeB() != null) {
             IWorldObject objA = event.getNodeA().getUserData("Model");
             IWorldObject objB = event.getNodeB().getUserData("Model");
-            if (objA == projectileModel || objB == projectileModel) {
+            if (objA == landmineModel && objB instanceof IDamageableObject) {
                 physicsControl.setEnabled(false);
                 entity.impact();
-                projectileModel.impact();
+                landmineModel.impact();
                 SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
-               if (objA instanceof IDamageableObject) {
-                    projectileModel.doDamageOn((IDamageableObject)objA);
-                } else if (objB instanceof IDamageableObject) {
-                    projectileModel.doDamageOn((IDamageableObject)objB);
-                }
+                landmineModel.doDamageOn((IDamageableObject)objB);
+            } else if (objB == landmineModel && objA instanceof IDamageableObject) {
+                physicsControl.setEnabled(false);
+                entity.impact();
+                landmineModel.impact();
+                SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                landmineModel.doDamageOn((IDamageableObject)objA);
+            } 
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String command = evt.getPropertyName();
+        Object source = evt.getSource();
+        if (source == landmineModel) {
+            if (command.equals(Commands.SHOW)) {
+                physicsControl.setEnabled(true);
+            } else if (command.equals(Commands.HIDE)) {
+                physicsControl.setEnabled(false);
             }
         }
     }
+    
 }

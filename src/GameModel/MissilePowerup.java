@@ -14,15 +14,12 @@ public class MissilePowerup extends APowerup {
     @Override
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
-
         
         player.getVehicle().shootMissile();
     }
 
     /**
-     *
-     * @param ex
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void write(JmeExporter ex) throws IOException {
@@ -30,9 +27,7 @@ public class MissilePowerup extends APowerup {
     }
 
     /**
-     *
-     * @param im
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void read(JmeImporter im) throws IOException {

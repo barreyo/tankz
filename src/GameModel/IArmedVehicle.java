@@ -9,7 +9,7 @@ import com.jme3.math.Vector3f;
  *
  * @author Daniel
  */
-public interface IArmedVehicle extends IWorldObject {
+public interface IArmedVehicle extends IDamageableObject {
     
     /**
      * Gets the state of the vehicle.
@@ -43,12 +43,6 @@ public interface IArmedVehicle extends IWorldObject {
      * @param currentVehicleSpeedKmHour
      */
     public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour);
-
-    /**
-     *
-     * @param physicsLocation
-     */
-    public void updatePosition(Vector3f physicsLocation);
 
     /**
      *
@@ -93,38 +87,32 @@ public interface IArmedVehicle extends IWorldObject {
     
     /**
      *
-     * @param accelerationForce
-     */
-    public void setAccelerationForce(float accelerationForce);
-    
-    /**
-     *
      * @return
      */
     public float getDefaultMaxSpeed();
-
-    /**
-     *
-     * @param projectile
-     */
-    public void gotHitBy(IExplodingProjectile projectile);
-
-    /**
-     *
-     * @param position
-     */
-    public void setPosition(Vector3f position);
     
     /**
      *
      * @return
      */
-    public Vector3f getSmokePosition();
-
+    public Vector3f getExhaustPosition();
+    
+    /**
+     * Shoots a projectile from the vehicle.
+     */
+    public void shoot();
+    
     /**
      *
      */
+    public void resetSpeedValues();
+
+    /**
+     * Shoots a missile from the vehicle.
+     */
     public void shootMissile();
+
+    public void dropLandmine();
 
     /**
      * Enum representing different states of the vehicle.
@@ -139,21 +127,4 @@ public interface IArmedVehicle extends IWorldObject {
          */
         DESTROYED;
     }
-    
-    /**
-     * Decrements the hp of the vehicle by the given amount
-     * @param hp 
-     */
-    public void applyDamage(int hp);
-    
-    /**
-     * Shoots a projectile from the vehicle
-     */
-    public void shoot();
-    
-    /**
-     *
-     */
-    void resetSpeedValues();
-   
 }

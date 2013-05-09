@@ -15,29 +15,23 @@ public final class CanonBallModel extends AExplodingProjectile {
     private static final float MASS = 0.1f;
 
     /**
-     * Returns the damage the missile does.
-     * 
-     * @return damage
-     */
-    @Override
-    public int getDamageOnImpact() {
-        return DAMAGE;
-    }
-
-    /**
-     * Returns the mass of the missile.
-     * 
-     * @return mass
+     * {@inheritDoc}
      */
     @Override
     public float getMass() {
         return MASS;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doDamageOn(IDamageableObject damageableObject) {
+        damageableObject.applyDamage(DAMAGE);
+    }
 
     /**
-     *
-     * @param ex
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void write(JmeExporter ex) throws IOException {
@@ -45,9 +39,7 @@ public final class CanonBallModel extends AExplodingProjectile {
     }
 
     /**
-     *
-     * @param im
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void read(JmeImporter im) throws IOException {

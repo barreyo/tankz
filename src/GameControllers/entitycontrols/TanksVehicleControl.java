@@ -74,7 +74,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         super.update(tpf);
         
         vehicleModel.updateCurrentVehicleSpeedKmHour(this.getCurrentVehicleSpeedKmHour());
-        vehicleModel.updatePosition(spatial.getWorldTranslation());
+        vehicleModel.setPosition(spatial.getWorldTranslation());
         vehicleModel.updateDirection(this.getForwardVector(null));
         vehicleModel.updateRotation(spatial.getWorldRotation());
         vehicleModel.update(tpf);
@@ -324,18 +324,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             if (objA == vehicleModel) {
                 if (objB instanceof IPowerup) {
                     player.setPowerup((IPowerup) objB);
-                } else if (objB instanceof IExplodingProjectile) {
-                    if (!(event.getObjectB() instanceof GhostControl)) {
-                        vehicleModel.gotHitBy((IExplodingProjectile) objB);
-                    }
-                }
+                } 
             } else if (objB == vehicleModel) {
                 if (objA instanceof IPowerup) {
                     player.setPowerup((IPowerup) objB);
-                } else if (objA instanceof IExplodingProjectile) {
-                    if (!(event.getObjectA() instanceof GhostControl)) {
-                        vehicleModel.gotHitBy((IExplodingProjectile) objA);
-                    }
                 }
             }
         }

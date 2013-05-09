@@ -320,14 +320,14 @@ public class TankModelTest {
     }
 
     /**
-     * Test of getSmokePosition method, of class TankModel.
+     * Test of getExhaustPosition method, of class TankModel.
      */
     @Test
     public void testGetSmokePosition() {
         System.out.println("getSmokePosition");
         TankModel instance = null;
         Vector3f expResult = null;
-        Vector3f result = instance.getSmokePosition();
+        Vector3f result = instance.getExhaustPosition();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

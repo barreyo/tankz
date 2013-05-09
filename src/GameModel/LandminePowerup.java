@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
 import com.jme3.export.JmeExporter;
@@ -14,10 +11,11 @@ import java.io.IOException;
  */
 public class LandminePowerup extends APowerup{
     
+    @Override
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         
-        player.getVehicle().shoot();
+        player.getVehicle().dropLandmine();
     }
 
     /**

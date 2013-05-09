@@ -46,15 +46,18 @@ public final class TankModel implements IArmedVehicle {
     
     private List<CanonBallModel> canonBalls;
     private List<MissileModel> missiles;
+    private List<LandmineModel> landmines;
     
     /**
      *
      * @param canonBalls
      * @param missiles
      */
-    public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
+    public TankModel(List<CanonBallModel> canonBalls, 
+            List<MissileModel> missiles, List<LandmineModel> landmines) {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
+        this.landmines = landmines;
         mass = 600.0f;
         health = 100;
         defaultMaxSpeed = 80.0f;
@@ -71,19 +74,23 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public IArmedVehicle.VehicleState getVehicleState() {
         return vehicleState;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void applyDamage(int hp) {
         if (hp != 0) {
             int oldHP = health;
-            if (health - hp < 0) {
+            if (health - hp <= 0) {
                 health = 0;
+                hideFromWorld();
             } else {
                 health -= hp;
             }
@@ -91,6 +98,9 @@ public final class TankModel implements IArmedVehicle {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void shoot() {
         for (CanonBallModel canonBall : canonBalls) {
@@ -104,7 +114,7 @@ public final class TankModel implements IArmedVehicle {
     }
     
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public synchronized void shootMissile() {
@@ -119,18 +129,33 @@ public final class TankModel implements IArmedVehicle {
     }
     
     @Override
+    public synchronized void dropLandmine() {
+        for (LandmineModel landmine : landmines) {
+            if (!landmine.isShownInWorld()) {
+                landmine.dropMine(new Vector3f(position).add(direction.mult(2f).negate()));
+                return;
+            }
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
     /**
-     *
-     * @param tpf
+     * {@inheritDoc}
      */
     @Override
     public void update(float tpf) {
@@ -144,7 +169,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void accelerateForward() {
@@ -152,7 +177,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void accelerateBack() {
@@ -160,7 +185,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void steerLeft() {
@@ -170,7 +195,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void steerRight() {
@@ -180,8 +205,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param currentVehicleSpeedKmHour
+     * {@inheritDoc}
      */
     @Override
     public void updateCurrentVehicleSpeedKmHour(float currentVehicleSpeedKmHour) {
@@ -189,8 +213,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public float getMass() {
@@ -198,17 +221,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param pos
-     */
-    @Override
-    public void updatePosition(Vector3f pos) {
-        this.position = new Vector3f(pos);
-    }
-
-    /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public synchronized Vector3f getFirePosition() {
@@ -216,17 +229,15 @@ public final class TankModel implements IArmedVehicle {
     }
     
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
-    public Vector3f getSmokePosition() {
+    public Vector3f getExhaustPosition() {
         return new Vector3f(position).addLocal(0, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
     }
 
     /**
-     *
-     * @param forwardVector
+     * {@inheritDoc}
      */
     @Override
     public void updateDirection(Vector3f forwardVector) {
@@ -234,8 +245,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Vector3f getDirection() {
@@ -243,8 +253,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Quaternion getRotation() {
@@ -252,8 +261,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param rotation
+     * {@inheritDoc}
      */
     @Override
     public void updateRotation(Quaternion rotation) {
@@ -261,7 +269,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void applyFriction() {
@@ -269,8 +277,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param maxSpeed
+     * {@inheritDoc}
      */
     @Override
     public void setMaxSpeed(float maxSpeed) {
@@ -278,17 +285,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param accelerationForce
-     */
-    @Override
-    public void setAccelerationForce(float accelerationForce) {
-        this.currentAccelerationForce = accelerationForce;
-    }
-    
-    /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public float getDefaultMaxSpeed(){
@@ -296,19 +293,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param projectile
-     */
-    @Override
-    public void gotHitBy(IExplodingProjectile projectile) {
-        this.applyDamage(projectile.getDamageOnImpact());
-        if (health<=0){
-            hideFromWorld();
-        }
-    }
-
-    /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void cleanup() {
@@ -316,14 +301,16 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param position
+     * {@inheritDoc}
      */
     @Override
     public void setPosition(Vector3f position) {
         this.position = new Vector3f(position);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void showInWorld() {
         health = 100;
@@ -334,6 +321,9 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(Commands.SHOW, wasInWorld, isInWorld);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void hideFromWorld() {
         boolean wasInWorld = isInWorld;
@@ -343,8 +333,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Vector3f getPosition() {
@@ -352,8 +341,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public boolean isShownInWorld() {
@@ -361,7 +349,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void resetSpeedValues() {
@@ -369,9 +357,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param ex
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void write(JmeExporter ex) throws IOException {
@@ -379,9 +365,7 @@ public final class TankModel implements IArmedVehicle {
     }
 
     /**
-     *
-     * @param im
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void read(JmeImporter im) throws IOException {

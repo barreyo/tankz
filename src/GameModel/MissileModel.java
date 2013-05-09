@@ -23,19 +23,7 @@ public final class MissileModel extends AExplodingProjectile {
     private static final long LAUNCH_END_TIME = 1000;
 
     /**
-     * Returns the damage the missile does.
-     * 
-     * @return damage
-     */
-    @Override
-    public int getDamageOnImpact() {
-        return DAMAGE;
-    }
-
-    /**
-     * Returns the mass of the missile.
-     * 
-     * @return mass
+     * {@inheritDoc}
      */
     @Override
     public float getMass() {
@@ -43,8 +31,7 @@ public final class MissileModel extends AExplodingProjectile {
     }
 
     /**
-     * @param tpf 
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public void update(float tpf) {
@@ -65,10 +52,7 @@ public final class MissileModel extends AExplodingProjectile {
     }
     
     /**
-     *
-     * @param initialPos
-     * @param initialVelocity
-     * @param initialRotation
+     * {@inheritDoc}
      */
     @Override
     public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
@@ -98,11 +82,17 @@ public final class MissileModel extends AExplodingProjectile {
         rotation.lookAt(targetVec, Vector3f.UNIT_Y);
         pcs.firePropertyChange(Commands.ROTATE, null, rotation);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doDamageOn(IDamageableObject damageableObject) {
+        damageableObject.applyDamage(DAMAGE);
+    }
 
     /**
-     *
-     * @param ex
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void write(JmeExporter ex) throws IOException {
@@ -110,9 +100,7 @@ public final class MissileModel extends AExplodingProjectile {
     }
 
     /**
-     *
-     * @param im
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void read(JmeImporter im) throws IOException {

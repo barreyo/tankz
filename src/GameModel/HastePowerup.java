@@ -31,8 +31,7 @@ public class HastePowerup extends APowerup{
     }
     
     /**
-     *
-     * @param tpf
+     * {@inheritDoc}
      */
     @Override
     public void update(float tpf) {
@@ -48,9 +47,7 @@ public class HastePowerup extends APowerup{
     }
 
     /**
-     *
-     * @param ex
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void write(JmeExporter ex) throws IOException {
@@ -58,9 +55,7 @@ public class HastePowerup extends APowerup{
     }
 
     /**
-     *
-     * @param im
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void read(JmeImporter im) throws IOException {

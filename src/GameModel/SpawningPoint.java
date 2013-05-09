@@ -24,8 +24,7 @@ public class SpawningPoint implements ISpawningPoint {
     }
     
     /**
-     * Returns the boolean isInUse.
-     * @return true if it is in use, false if it's not.
+     * {@inheritDoc}
      */
     @Override
     public boolean isOccupied() {
@@ -94,11 +93,17 @@ public class SpawningPoint implements ISpawningPoint {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setOccupier(IWorldObject occupier) {
         this.occupier = occupier;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IWorldObject getOccupier() {
         return occupier;
