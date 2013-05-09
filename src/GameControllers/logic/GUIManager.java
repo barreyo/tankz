@@ -13,7 +13,7 @@ import java.util.List;
  */
 public enum GUIManager {
     /**
-     *
+     * Get access to the GUI manager through this singleton.
      */
     INSTANCE;
 
@@ -21,7 +21,7 @@ public enum GUIManager {
     private List<Spatial> hudElements;
     
     /**
-     *
+     * A manager that controls the GUI.
      */
     private GUIManager() {
         initialiseNifty();
@@ -37,22 +37,23 @@ public enum GUIManager {
     }
     
     /**
-     *
+     * Show main menu of the game.
      */
     public void showMainMenu() {
         TanksAppAdapter.INSTANCE.attachAppState(MenuAppState.getInstance());
     }
 
     /**
-     *
+     * Show the loading screen.
      */
     public void showLoadingScreen() {
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
     
     /**
-     *
-     * @param gameModel 
+     * Show the ingame pause menu.
+     * 
+     * @param gameModel gameModel that is in use.
      */
     public void showPauseMenu(ITanks gameModel) {
         PauseMenuAppState.getInstance().setGameToPause(gameModel);
@@ -62,15 +63,16 @@ public enum GUIManager {
     }
     
     /**
-     *
-     * @return
+     * Return the current instance of Nifty GUI library.
+     * 
+     * @return nifty.
      */
     public Nifty getNifty() {
         return nifty;
     }
     
     /**
-     *
+     * Clean the GUI node.
      */
     public void cleanup() {
         TanksAppAdapter.INSTANCE.detachAllGUIChildren();

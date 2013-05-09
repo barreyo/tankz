@@ -300,11 +300,11 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 // Brake the vehicle according to the friction passed by model
                 this.brake((Float)evt.getNewValue());
             } else if (command.equals(Commands.SHOW)) {
-                this.setEnabled(true);
+                //this.setEnabled(true);                        fucks up steering
                 TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
                 this.setPhysicsLocation(vehicleModel.getPosition());
             } else if (command.equals(Commands.HIDE)) {
-                this.setEnabled(false);
+                //this.setEnabled(false);                       fucks up steering
                 TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
             } else if (command.equals(Commands.CLEANUP)) {
                 this.cleanup();

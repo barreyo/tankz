@@ -5,6 +5,7 @@ import GameModel.IPlayer;
 import GameModel.CanonBallModel;
 import App.TanksAppAdapter;
 import GameControllers.entitycontrols.HomingProjectileControl;
+import GameControllers.entitycontrols.LandmineControl;
 import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
@@ -18,6 +19,8 @@ import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
 import GameModel.ISpawningPoint;
+import GameModel.LandmineModel;
+import GameModel.LandminePowerup;
 import GameModel.MissileModel;
 import GameModel.MissilePowerup;
 import GameModel.SpawningPoint;
@@ -31,6 +34,7 @@ import GameView.GUI.TimerView;
 import GameView.Map.GameWorld1;
 import GameView.Map.IGameWorld;
 import GameView.gameEntity.CanonBallEntity;
+import GameView.gameEntity.LandmineEntity;
 import GameView.gameEntity.MissileEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
@@ -85,6 +89,27 @@ public final class TanksFactory {
         projectileEntity.addControl(control);
         return projectileModel;
     }
+    
+    private static LandmineModel getNewLandmine() {
+        LandmineModel landmine = new LandmineModel();
+
+        LandmineEntity landmineEntity = new LandmineEntity(landmine);
+
+        RigidBodyControl physicsControl = new RigidBodyControl(landmineEntity.getCollisionShape(), landmine.getMass());
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
+                | PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05);
+
+        LandmineControl control = new LandmineControl(landmine, landmineEntity, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        landmineEntity.addControl(control);
+        return landmine;
+    }
 
     /**
      *
@@ -123,14 +148,10 @@ public final class TanksFactory {
 
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
-        for (int i = 1; i < spawns.size() + players.size() + 1; i++) {
-            if (i % 3 == 1) {
-                tmp.add(getNewHastePowerup());
-            } else if (i % 3 == 2) {
-                tmp.add(getNewMissilePowerup());
-            } else {
-                tmp.add(getNewBeerPowerup());
-            }
+        for (int i = 0; i < 10; i++) {
+            tmp.add(getNewHastePowerup());
+            tmp.add(getNewMissilePowerup());
+            tmp.add(getNewLandminePowerup());
         }
         return tmp;
     }
@@ -173,8 +194,8 @@ public final class TanksFactory {
         return model;
     }
     
-        private static BeerPowerup getNewBeerPowerup() {
-        BeerPowerup model = new BeerPowerup();
+     private static LandminePowerup getNewLandminePowerup() {
+        LandminePowerup model = new LandminePowerup();
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);
@@ -191,6 +212,7 @@ public final class TanksFactory {
         view.addControl(physicsControl);
         return model;
     }
+
 
     /**
      *
@@ -219,7 +241,7 @@ public final class TanksFactory {
      */
     public static GameAppState getNewGame(Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(120000, 10, 5000);
+        GameSettings settings = new GameSettings(1200000, 100, 50000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
@@ -244,9 +266,15 @@ public final class TanksFactory {
             for (int i = 0; i < 5; i++) {
                 missiles.add(getNewMissile(collisionGroup));
             }
+            
+            List<LandmineModel> landmines = new ArrayList<LandmineModel>();
+
+            for (int i = 0; i < 5; i++) {
+                landmines.add(getNewLandmine());
+            }
 
             // Create one vehicleModel per player
-            IArmedVehicle vehicleModel = new TankModel(canonBalls, missiles);
+            IArmedVehicle vehicleModel = new TankModel(canonBalls, missiles, landmines);
             Player player = new Player(name, vehicleModel);
 
             // Set up vehicle

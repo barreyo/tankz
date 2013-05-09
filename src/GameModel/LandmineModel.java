@@ -1,11 +1,13 @@
 
 package GameModel;
 
+import GameUtilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
 /**
@@ -16,37 +18,39 @@ public class LandmineModel implements IWorldObject {
     private static final int DAMAGE = 30;
     private static final float MASS = 100f;
     
+    private Vector3f initialPos;
     private Vector3f position;
-    private Vector3f velocity;
     private Quaternion rotation;
+    private boolean isInWorld;
+    private boolean exploding;
+    
+    private static final long EXPLOSION_END_TIME = 2000;
+    private long lifeTimerStart;
+    private long explodingTimerStart;
+    
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      * Constructor for LandmineModel
-     * 
-     * @param initialPos The initial position of the landmine
-     * @param initialVelocity The initial velocity of the landmine
-     * @param rotation The rotation of the landmine.
      */
-    public LandmineModel(Vector3f initialPos, Vector3f initialVelocity, Quaternion rotation){
-        this.position = initialPos.clone();
-        this.velocity = initialVelocity.clone();
-        this.rotation = rotation.clone();
+    public LandmineModel(){
+        this.initialPos = Vector3f.ZERO;
+        this.position = Vector3f.ZERO;
+        this.rotation = Quaternion.ZERO;
+        isInWorld = false;
     }
+   
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Vector3f getPosition() {
-        return position.clone();
+        return new Vector3f(position);
     }
-
-    /**
-     * 
-     * @return The velocity of the landmine.
-     */
-    public Vector3f getVelocity() {
-        return velocity.clone();
+    
+    public Vector3f getInitialPosition() {
+        return new Vector3f(initialPos);
     }
 
     /**
@@ -59,34 +63,10 @@ public class LandmineModel implements IWorldObject {
     
     /**
      *
-     * @param pos
-     */
-    public void updatePosition(Vector3f pos) {
-        this.position = pos.clone();
-    }
-    
-    /**
-     *
      * @param rotation
      */
     public void updateRotation(Quaternion rotation) {
         this.rotation = rotation.clone();
-    }
-    
-    /**
-     *
-     * @param velocity
-     */
-    public void updateLinearVelocity(Vector3f velocity) {
-        this.velocity = velocity.clone();
-    }
-    
-    /**
-     * 
-     * @return the damage the missile does.
-     */
-    public int getDamageOnImpact() {
-        return DAMAGE;
     }
 
     /**
@@ -97,15 +77,20 @@ public class LandmineModel implements IWorldObject {
     public float getMass() {
         return MASS;
     }
+    
 
     @Override
     public void showInWorld() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        exploding = false;
+        isInWorld = true;
+        lifeTimerStart = System.currentTimeMillis();
+        pcs.firePropertyChange(Commands.SHOW, null, null);
     }
 
     @Override
     public void hideFromWorld() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        isInWorld = false;
+        pcs.firePropertyChange(Commands.HIDE, null, null);
     }
 
     /**
@@ -114,7 +99,7 @@ public class LandmineModel implements IWorldObject {
      */
     @Override
     public boolean isShownInWorld() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return isInWorld;
     }
 
     /**
@@ -123,7 +108,14 @@ public class LandmineModel implements IWorldObject {
      */
     @Override
     public void update(float tpf) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if (isInWorld) {
+            if (exploding) {
+                if (System.currentTimeMillis() - explodingTimerStart >= EXPLOSION_END_TIME) {
+                    exploding = false;
+                    pcs.firePropertyChange(Commands.EXPLOSION_FINISHED, null, null);
+                }
+            } 
+        }
     }
 
     /**
@@ -131,17 +123,23 @@ public class LandmineModel implements IWorldObject {
      */
     @Override
     public void cleanup() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pcs.firePropertyChange(Commands.CLEANUP, null, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addObserver(PropertyChangeListener l) {
-        throw new UnsupportedOperationException("Not supported yet.");
+       pcs.addPropertyChangeListener(l);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeObserver(PropertyChangeListener l) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        pcs.removePropertyChangeListener(l);
     }
 
     /**
@@ -166,9 +164,24 @@ public class LandmineModel implements IWorldObject {
 
     @Override
     public void setPosition(Vector3f pos) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.position = new Vector3f(pos);
     }
-    
-    
-    
+
+    public void dropMine(Vector3f initialPos) {
+        this.initialPos = new Vector3f(initialPos);
+        showInWorld();
+    }
+
+    public void impact() {
+        exploding = true;
+        explodingTimerStart = System.currentTimeMillis();
+        hideFromWorld();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void doDamageOn(IDamageableObject damageableObject) {
+        damageableObject.applyDamage(DAMAGE);
+    }
 }

@@ -416,6 +416,11 @@ public enum TanksAppAdapter {
         return tanksApp.getRootNode().hasChild(spatial);
     }
 
+    /**
+     * Get all the current GUI children in a cloned list.
+     * 
+     * @return cloned list of GUI children.
+     */
     public List<Spatial> getGuiChildren() {
         List<Spatial> newList = new ArrayList<Spatial>();
         for (Spatial spatial : tanksApp.getGuiNode().getChildren()) {

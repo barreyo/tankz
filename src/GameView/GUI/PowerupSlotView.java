@@ -5,6 +5,7 @@ import GameModel.BeerPowerup;
 import GameModel.IPlayer;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;
+import GameModel.LandminePowerup;
 import GameModel.MissilePowerup;
 import GameUtilities.Commands;
 import com.jme3.renderer.ViewPort;
@@ -65,8 +66,8 @@ public class PowerupSlotView extends AHudElement {
                 picture.setImage(assetManager, EPowerupIcons.HASTE.getPath(), true);
             } else if (powerup instanceof MissilePowerup) {
                 picture.setImage(assetManager, EPowerupIcons.HOMING.getPath(), true);
-            } else if (powerup instanceof BeerPowerup) {
-                picture.setImage(assetManager, EPowerupIcons.BEER.getPath(), true);
+            } else if (powerup instanceof LandminePowerup) {
+                picture.setImage(assetManager, EPowerupIcons.LANDMINE.getPath(), true);
             } else if (powerup == null) {
                 picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
             }

@@ -46,15 +46,18 @@ public final class TankModel implements IArmedVehicle {
     
     private List<CanonBallModel> canonBalls;
     private List<MissileModel> missiles;
+    private List<LandmineModel> landmines;
     
     /**
      *
      * @param canonBalls
      * @param missiles
      */
-    public TankModel(List<CanonBallModel> canonBalls, List<MissileModel> missiles) {
+    public TankModel(List<CanonBallModel> canonBalls, 
+            List<MissileModel> missiles, List<LandmineModel> landmines) {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
+        this.landmines = landmines;
         mass = 600.0f;
         health = 100;
         defaultMaxSpeed = 80.0f;
@@ -120,6 +123,16 @@ public final class TankModel implements IArmedVehicle {
                 missile.launchProjectile(new Vector3f(position).addLocal(0, 4, 0),
                         new Vector3f(0, 10, 0), rotation);
                 pcs.firePropertyChange(Commands.SHOOT, null, null);
+                return;
+            }
+        }
+    }
+    
+    @Override
+    public synchronized void dropLandmine() {
+        for (LandmineModel landmine : landmines) {
+            if (!landmine.isShownInWorld()) {
+                landmine.dropMine(new Vector3f(position).add(direction.mult(2f).negate()));
                 return;
             }
         }
