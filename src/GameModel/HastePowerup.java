@@ -1,15 +1,19 @@
 
 package GameModel;
 
+import GameUtilities.Commands;
+import GameUtilities.IObservable;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
 /**
  * Is broken
  * @author Per
  */
-public class HastePowerup extends APowerup{
+public class HastePowerup extends APowerup {
     private float maxSpeed;
     private float accForce;
     private long activateTimerStart;
@@ -28,6 +32,7 @@ public class HastePowerup extends APowerup{
         vehicle.setMaxSpeed(maxSpeed * 3f);
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
+        vehicle.toggleFlame();
     }
     
     /**
@@ -40,6 +45,7 @@ public class HastePowerup extends APowerup{
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
                 isActive = false;
                 IArmedVehicle vehicle = player.getVehicle();
+                vehicle.toggleFlame();
                 vehicle.resetSpeedValues();
                 player = null;
             }

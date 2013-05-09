@@ -150,10 +150,10 @@ public final class TanksFactory {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < 10; i++) {
             tmp.add(getNewHastePowerup());
-            tmp.add(getNewMissilePowerup());
+/*            tmp.add(getNewMissilePowerup());
             tmp.add(getNewLandminePowerup());
             tmp.add(getNewBeerPowerup());
-        }
+*/        }
         return tmp;
     }
 
