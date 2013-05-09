@@ -9,6 +9,7 @@ import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
+import GameModel.BeerPowerup;
 import GameModel.GameSettings;
 import GameModel.ITanks;
 import GameModel.TanksGameModel;
@@ -123,10 +124,12 @@ public final class TanksFactory {
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 1; i < spawns.size() + players.size() + 1; i++) {
-            if (i % 2 == 1) {
+            if (i % 3 == 1) {
                 tmp.add(getNewHastePowerup());
-            } else {
+            } else if (i % 3 == 2) {
                 tmp.add(getNewMissilePowerup());
+            } else {
+                tmp.add(getNewBeerPowerup());
             }
         }
         return tmp;
@@ -153,6 +156,25 @@ public final class TanksFactory {
 
     private static MissilePowerup getNewMissilePowerup() {
         MissilePowerup model = new MissilePowerup();
+        PowerupEntity view = new PowerupEntity(model);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
+        physicsControl.setKinematic(true);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05));
+
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        view.addControl(control);
+        view.addControl(physicsControl);
+        return model;
+    }
+    
+        private static BeerPowerup getNewBeerPowerup() {
+        BeerPowerup model = new BeerPowerup();
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);

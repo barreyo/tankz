@@ -163,6 +163,11 @@ public class LandmineModel implements IWorldObject {
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    public void setPosition(Vector3f pos) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
     
     
