@@ -152,6 +152,7 @@ public final class TanksFactory {
             tmp.add(getNewHastePowerup());
             tmp.add(getNewMissilePowerup());
             tmp.add(getNewLandminePowerup());
+            tmp.add(getNewBeerPowerup());
         }
         return tmp;
     }
@@ -212,6 +213,25 @@ public final class TanksFactory {
         view.addControl(physicsControl);
         return model;
     }
+     
+    private static BeerPowerup getNewBeerPowerup() {
+        BeerPowerup model = new BeerPowerup();
+        PowerupEntity view = new PowerupEntity(model);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
+        physicsControl.setKinematic(true);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05));
+
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        view.addControl(control);
+        view.addControl(physicsControl);
+        return model;
+    }
 
 
     /**
@@ -241,7 +261,7 @@ public final class TanksFactory {
      */
     public static GameAppState getNewGame(Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(1200000, 100, 50000);
+        GameSettings settings = new GameSettings(120000, 10, 5000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
