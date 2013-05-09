@@ -14,10 +14,11 @@ import java.io.IOException;
  */
 public class BeerPowerup extends APowerup {
     
-    float speedChangeCounter;
-    float turningChangeCounter;
-    boolean changeSpeed;
-    boolean changeTurning;
+    private float speedChangeCounter;
+    private float turningChangeCounter;
+    private float shootingCounter;
+    private boolean changeSpeed;
+    private boolean changeTurning;
     private float maxSpeed;
     private long activateTimerStart;
     private boolean isActive;
@@ -66,6 +67,12 @@ public class BeerPowerup extends APowerup {
                 } else {
                     vehicle.steerRight();
                 }
+            }
+            
+            shootingCounter = shootingCounter + tpf;
+            if (shootingCounter >= 2.5) {
+                shootingCounter = 0;
+                vehicle.shoot();
             }
             
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
