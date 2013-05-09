@@ -422,10 +422,6 @@ public enum TanksAppAdapter {
      * @return cloned list of GUI children.
      */
     public List<Spatial> getGuiChildren() {
-        List<Spatial> newList = new ArrayList<Spatial>();
-        for (Spatial spatial : tanksApp.getGuiNode().getChildren()) {
-            newList.add(spatial);
-        }
-        return newList;
+        return new ArrayList<Spatial>(tanksApp.getGuiNode().getChildren());
     }
 }

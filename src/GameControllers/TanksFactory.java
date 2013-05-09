@@ -97,8 +97,7 @@ public final class TanksFactory {
 
         RigidBodyControl physicsControl = new RigidBodyControl(landmineEntity.getCollisionShape(), landmine.getMass());
         physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
-                | PhysicsCollisionObject.COLLISION_GROUP_02
+        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_02
                 | PhysicsCollisionObject.COLLISION_GROUP_03
                 | PhysicsCollisionObject.COLLISION_GROUP_04
                 | PhysicsCollisionObject.COLLISION_GROUP_05);
@@ -150,10 +149,10 @@ public final class TanksFactory {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < 10; i++) {
             tmp.add(getNewHastePowerup());
-/*            tmp.add(getNewMissilePowerup());
+            tmp.add(getNewMissilePowerup());
             tmp.add(getNewLandminePowerup());
-            tmp.add(getNewBeerPowerup());
-*/        }
+            //tmp.add(getNewBeerPowerup());
+        }
         return tmp;
     }
 
