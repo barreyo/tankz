@@ -15,10 +15,12 @@ import java.io.IOException;
 public class BeerPowerup extends APowerup {
     
     private float speedChangeCounter;
-    private float turningChangeCounter;
+    private float turningLeftCounter;
+    private float turningRightCounter;
     private float shootingCounter;
     private boolean changeSpeed;
-    private boolean changeTurning;
+    private boolean turnLeft;
+    private boolean turnRight;
     private float maxSpeed;
     private long activateTimerStart;
     private boolean isActive;
@@ -58,14 +60,25 @@ public class BeerPowerup extends APowerup {
                 }
             }
             
-            turningChangeCounter = turningChangeCounter + tpf;
-            if (turningChangeCounter >= 1.8f) {
-                changeTurning = !changeTurning;
-                turningChangeCounter = 0;
-                if (changeTurning) {
+            turningLeftCounter = turningLeftCounter + tpf;
+            if (turningLeftCounter >= 1.8f) {
+                turnLeft = !turnLeft;
+                turningLeftCounter = 0;
+                if (turnLeft) {
                     vehicle.steerLeft();
                 } else {
                     vehicle.steerRight();
+                }
+            }
+           
+            turningRightCounter = turningRightCounter + tpf;
+            if (turningRightCounter >= 0.9f) {
+                turnRight = !turnRight;
+                turningRightCounter = 0;
+                if (turnRight) {
+                    vehicle.steerRight();
+                } else {
+                    vehicle.steerLeft();
                 }
             }
             
@@ -76,7 +89,6 @@ public class BeerPowerup extends APowerup {
             }
             
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
-                vehicle.steerRight();
                 isActive = false;
                 vehicle.resetSpeedValues();
                 player = null;
