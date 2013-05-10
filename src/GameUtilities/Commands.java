@@ -12,6 +12,14 @@ public final class Commands {
      */
     public static final String POWERUP_CHANGED = "POWERUP_CHANGED";
     /**
+     * 
+     */
+    public static final String SHOW_FLAME = "SHOW_FLAME";
+    /**
+     * 
+     */
+    public static final String HIDE_FLAME = "HIDE_FLAME";
+    /**
      *
      */
     public static final String SHOOT = "SHOOT";

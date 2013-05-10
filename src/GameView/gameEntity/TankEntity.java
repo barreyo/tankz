@@ -27,6 +27,7 @@ public final class TankEntity extends AGameEntity {
     private final Collection<ParticleEmitter> shootEffects;
     private final Collection<ParticleEmitter> blownUpEffects;
     private final Collection<ParticleEmitter> smokeEffects;
+    private final Collection<ParticleEmitter> flameEffects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -43,6 +44,7 @@ public final class TankEntity extends AGameEntity {
         shootEffects = EEffects.SHOOT.getEmitters();
         blownUpEffects = EEffects.TANK_BLOWN_UP.getEmitters();
         smokeEffects = EEffects.SMOKE.getEmitters();
+        flameEffects = EEffects.FLAME.getEmitters();
         
         setModel(armedVehicle);
         showInWorld();
@@ -80,6 +82,11 @@ public final class TankEntity extends AGameEntity {
         if (evt.getPropertyName().equals(Commands.SMOKE)) {
             showSmokeEffects(smokeEffects);
         }
+        if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
+            showFlameEffects(flameEffects);
+        } else if (evt.getPropertyName().equals(Commands.HIDE_FLAME)) {
+            hideFlameEffects(flameEffects);
+        }
         pcs.firePropertyChange(evt);
     }
 
@@ -100,6 +107,7 @@ public final class TankEntity extends AGameEntity {
     public void setModel(IArmedVehicle vehicle) {
         if (armedVehicle != null) {
            armedVehicle.removeObserver(this);
+           
         }
         armedVehicle = vehicle;
         if (armedVehicle != null) {
@@ -141,6 +149,28 @@ public final class TankEntity extends AGameEntity {
                     effect.setLocalTranslation(armedVehicle.getExhaustPosition());
                     spatial.getParent().attachChild(effect);
                     effect.emitAllParticles();
+                }
+            }
+        }
+    }
+    
+    private synchronized void showFlameEffects(Collection<ParticleEmitter> effects) {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : effects) {
+                if (effect != null) {
+                    effect.setLocalTranslation(armedVehicle.getExhaustPosition());
+                    spatial.getParent().attachChild(effect);
+                    effect.emitAllParticles();
+                }
+            }
+        }
+    }
+    
+    private synchronized void hideFlameEffects(Collection<ParticleEmitter> effects) {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : effects) {
+                if (effect != null) {
+                    spatial.getParent().detachChild(effect);
                 }
             }
         }

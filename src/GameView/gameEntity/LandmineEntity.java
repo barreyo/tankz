@@ -42,7 +42,7 @@ public final class LandmineEntity extends AGameEntity {
 
     @Override
     public CollisionShape getCollisionShape() {
-        return new BoxCollisionShape(getExtents());
+        return new BoxCollisionShape(getExtents().multLocal(1, 2, 1));
     }
 
     @Override

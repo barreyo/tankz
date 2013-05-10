@@ -19,6 +19,8 @@ import java.util.List;
  */
 public final class TankModel implements IArmedVehicle {
     
+    private boolean flameIsShowing;
+    
     private int health;
     private IArmedVehicle.VehicleState vehicleState;
     private Vector3f position;
@@ -166,6 +168,12 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
 
         pcs.firePropertyChange(Commands.SMOKE, null, null);
+        
+        if (flameIsShowing) {
+            pcs.firePropertyChange(Commands.SHOW_FLAME, null, null);
+        } else {
+            pcs.firePropertyChange(Commands.HIDE_FLAME, null, null);
+        }
     }
 
     /**
@@ -371,6 +379,10 @@ public final class TankModel implements IArmedVehicle {
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
+    @Override
+    public void toggleFlame() {
+        flameIsShowing = !flameIsShowing;
+    }
     
 }

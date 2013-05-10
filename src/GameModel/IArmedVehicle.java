@@ -1,6 +1,7 @@
 
 package GameModel;
 
+import GameUtilities.Commands;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
@@ -96,6 +97,11 @@ public interface IArmedVehicle extends IDamageableObject {
      * @return
      */
     public Vector3f getExhaustPosition();
+    
+    /**
+     * 
+     */
+    public void toggleFlame();
     
     /**
      * Shoots a projectile from the vehicle.
