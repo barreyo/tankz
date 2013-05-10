@@ -106,4 +106,9 @@ public class BeerPowerup extends APowerup {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    @Override
+    public boolean isActive() {
+        return isActive;
+    }
+    
 }

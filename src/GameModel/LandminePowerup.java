@@ -38,4 +38,9 @@ public class LandminePowerup extends APowerup{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    
+    @Override
+    public boolean isActive() {
+        return false;
+    }
 }

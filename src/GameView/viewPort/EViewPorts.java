@@ -67,22 +67,22 @@ public enum EViewPorts {
         pssmRenderer.setDirection(new Vector3f(0.01f, -0.01f, 0.01f).normalizeLocal());
         pssmRenderer.setShadowIntensity(0.35f);
         
-        //SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
-        //fpp.addFilter(ssaoFilter);
+        /*SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
+        fpp.addFilter(ssaoFilter);*/
         
-        /*DepthOfFieldFilter dof = new DepthOfFieldFilter();
+        /*DepthOfFieldFilter dof = new DepthOfFieldFiilter();
         dof.setFocusDistance(0);
-        dof.setFocusRange(100);
+        dof.setFocusRange(80);
         fpp.addFilter(dof); 
         
-       
+      
         // uncomment this for cartoon, trees gets fucked up though
         if (TanksAppAdapter.INSTANCE.rendererContains(Caps.GLSL100)){
             fpp.addFilter(new CartoonEdgeFilter());
         } */
         
         view.addProcessor(fpp);
-//        view.addProcessor(pssmRenderer);
+        view.addProcessor(pssmRenderer);
     }
 
     /**

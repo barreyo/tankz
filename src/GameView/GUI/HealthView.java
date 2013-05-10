@@ -53,15 +53,17 @@ public class HealthView extends AHudElement {
         picture.setWidth(elementWidth);
         picture.setPosition(elementX, elementY);
         
+        elementWidth *= 0.978f;
+        elementHeight *= 0.8f;
         mask.setHeight(elementHeight);
         mask.setWidth(elementWidth);
-        mask.setPosition(elementX, elementY);
+        mask.setPosition(elementX + elementWidth * 0.0132f, elementY + (elementHeight * 0.1f));
         
         BitmapFont font = assetManager.loadFont(EFonts.HANDDRAWNSHAPES.getPath());
         text = new BitmapText(font, false);
         //text.setText("" + player.getVehicle().getHealth());
         text.setColor(ColorRGBA.White);
-        text.setSize(font.getCharSet().getRenderedSize() * 1.1f);
+        text.setSize(font.getCharSet().getRenderedSize() * 0.85f);
         text.setLocalTranslation(elementX, elementY - 5.0f, 0);
         
         vehicle.addObserver(this);

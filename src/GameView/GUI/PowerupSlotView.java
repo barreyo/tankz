@@ -2,8 +2,8 @@
 package GameView.GUI;
 
 import GameModel.BeerPowerup;
-import GameModel.IPlayer;
 import GameModel.HastePowerup;
+import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.LandminePowerup;
 import GameModel.MissilePowerup;
@@ -84,7 +84,7 @@ public class PowerupSlotView extends AHudElement {
             picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
         } */
     }
-
+    
     /**
      * Format: Pic: ######
      *         Player: ######
