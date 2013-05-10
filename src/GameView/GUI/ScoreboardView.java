@@ -89,7 +89,7 @@ public class ScoreboardView extends AHudElement {
             int size = font.getCharSet().getRenderedSize();
             
             BitmapText name = new BitmapText(font, false);
-            name.setText(playR.getName());
+            name.setText(playR.getName());  
             name.setSize(size);
             name.setLocalTranslation(picX + (picWidth * 0.05f), 
                     (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);

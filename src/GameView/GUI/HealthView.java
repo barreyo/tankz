@@ -1,8 +1,8 @@
 
 package GameView.GUI;
 
+import App.TanksAppAdapter;
 import GameModel.IArmedVehicle;
-import GameModel.IPlayer;
 import GameUtilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
@@ -53,15 +53,14 @@ public class HealthView extends AHudElement {
         picture.setWidth(elementWidth);
         picture.setPosition(elementX, elementY);
         
-        elementWidth *= 0.978f;
-        elementHeight *= 0.8f;
+        elementWidth *= 0.97f;
+        elementHeight *= 0.75f;
         mask.setHeight(elementHeight);
         mask.setWidth(elementWidth);
-        mask.setPosition(elementX + elementWidth * 0.0132f, elementY + (elementHeight * 0.1f));
+        mask.setPosition(elementX + elementWidth * 0.0132f, elementY + (elementHeight * 0.17f));
         
         BitmapFont font = assetManager.loadFont(EFonts.HANDDRAWNSHAPES.getPath());
         text = new BitmapText(font, false);
-        //text.setText("" + player.getVehicle().getHealth());
         text.setColor(ColorRGBA.White);
         text.setSize(font.getCharSet().getRenderedSize() * 0.85f);
         text.setLocalTranslation(elementX, elementY - 5.0f, 0);
