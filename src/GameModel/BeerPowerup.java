@@ -85,7 +85,7 @@ public class BeerPowerup extends APowerup {
             shootingCounter = shootingCounter + tpf;
             if (shootingCounter >= 2.5) {
                 shootingCounter = 0;
-                vehicle.shoot();
+                vehicle.shoot(player);
             }
             
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {

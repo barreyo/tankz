@@ -15,7 +15,7 @@ public class LandminePowerup extends APowerup{
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         
-        player.getVehicle().dropLandmine();
+        player.getVehicle().dropLandmine(player);
     }
 
     /**

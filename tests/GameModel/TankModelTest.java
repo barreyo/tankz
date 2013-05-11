@@ -128,14 +128,14 @@ public class TankModelTest {
     }
 
     /**
-     * Test of applyDamage method, of class TankModel.
+     * Test of applyDamageToKill method, of class TankModel.
      */
     @Test
     public void testDecrementHealth() {
         System.out.println("decrementHealth");
         int hp = 0;
         TankModel instance = null;
-        instance.applyDamage(hp);
+        instance.applyDamageToKill(hp);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

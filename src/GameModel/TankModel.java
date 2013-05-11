@@ -87,16 +87,19 @@ public final class TankModel implements IArmedVehicle {
      * {@inheritDoc}
      */
     @Override
-    public void applyDamage(int hp) {
-        if (hp != 0) {
-            int oldHP = health;
-            if (health - hp <= 0) {
-                health = 0;
-                hideFromWorld();
-            } else {
-                health -= hp;
-            }
+    public boolean applyDamageToKill(int hp) {
+        int oldHP = health;
+        if (health == 0) {
+            return false;
+        } else if (health - hp <= 0) {
+            health = 0;
+            hideFromWorld();
             pcs.firePropertyChange(Commands.HEALTH, oldHP, health);
+            return true;
+        } else {
+            health -= hp;
+            pcs.firePropertyChange(Commands.HEALTH, oldHP, health);
+            return false;
         }
     }
 
@@ -104,11 +107,11 @@ public final class TankModel implements IArmedVehicle {
      * {@inheritDoc}
      */
     @Override
-    public synchronized void shoot() {
+    public synchronized void shoot(IPlayer player) {
         for (CanonBallModel canonBall : canonBalls) {
             if (!canonBall.isShownInWorld()) {
                 canonBall.launchProjectile(getFirePosition(),
-                        direction.multLocal(100), rotation);
+                        direction.multLocal(100), rotation, player);
                 pcs.firePropertyChange(Commands.SHOOT, null, null);
                 return;
             }
@@ -119,11 +122,11 @@ public final class TankModel implements IArmedVehicle {
      * {@inheritDoc}
      */
     @Override
-    public synchronized void shootMissile() {
+    public synchronized void shootMissile(IPlayer player) {
         for (MissileModel missile : missiles) {
             if (!missile.isShownInWorld()) {
                 missile.launchProjectile(new Vector3f(position).addLocal(0, 4, 0),
-                        new Vector3f(0, 10, 0), rotation);
+                        new Vector3f(0, 10, 0), rotation, player);
                 pcs.firePropertyChange(Commands.SHOOT, null, null);
                 return;
             }
@@ -131,10 +134,10 @@ public final class TankModel implements IArmedVehicle {
     }
     
     @Override
-    public synchronized void dropLandmine() {
+    public synchronized void dropLandmine(IPlayer player) {
         for (LandmineModel landmine : landmines) {
             if (!landmine.isShownInWorld()) {
-                landmine.dropMine(new Vector3f(position).add(direction.mult(2f).negate()));
+                landmine.dropMine(new Vector3f(position).add(direction.mult(2f).negate()), player);
                 return;
             }
         }

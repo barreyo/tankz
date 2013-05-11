@@ -15,7 +15,7 @@ public class MissilePowerup extends APowerup {
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         
-        player.getVehicle().shootMissile();
+        player.getVehicle().shootMissile(player);
     }
 
     /**

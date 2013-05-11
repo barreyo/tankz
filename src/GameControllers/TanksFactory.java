@@ -309,7 +309,7 @@ public final class TanksFactory {
             vehicle.setSuspensionStiffness(Constants.TANK_STIFFNESS);
             vehicle.setMaxSuspensionForce(Constants.TANK_MAX_SUSPENSION_FORCE);
 
-            Geometry wheel_fr = Util.findGeom(carNode, "WheelFrontRight");
+            Geometry wheel_fr = Util.findGeom(carNode, Constants.RIGHT_FRONT_WHEEL_MODEL_NAME);
             wheel_fr.center();
             BoundingBox box = (BoundingBox) wheel_fr.getModelBound();
             float wheelRadius = box.getYExtent();
@@ -318,7 +318,7 @@ public final class TanksFactory {
                     Constants.TANK_WHEEL_DIRECTION, Constants.TANK_WHEEL_AXIS,
                     Constants.TANK_WHEEL_REST_LENGTH, wheelRadius, true);
 
-            Geometry wheel_fl = Util.findGeom(carNode, "WheelFrontLeft");
+            Geometry wheel_fl = Util.findGeom(carNode, Constants.LEFT_FRONT_WHEEL_MODEL_NAME);
             wheel_fl.center();
             box = (BoundingBox) wheel_fl.getModelBound();
             vehicle.addWheel(wheel_fl.getParent(), new Vector3f(-Constants.TANK_WHEEL_X_OFF,
@@ -326,7 +326,7 @@ public final class TanksFactory {
                     Constants.TANK_WHEEL_DIRECTION, Constants.TANK_WHEEL_AXIS,
                     Constants.TANK_WHEEL_REST_LENGTH, wheelRadius, true);
 
-            Geometry wheel_br = Util.findGeom(carNode, "WheelBackRight");
+            Geometry wheel_br = Util.findGeom(carNode, Constants.RIGHT_BACK_WHEEL_MODEL_NAME);
             wheel_br.center();
             box = (BoundingBox) wheel_br.getModelBound();
             vehicle.addWheel(wheel_br.getParent(), new Vector3f(Constants.TANK_WHEEL_X_OFF,
@@ -334,7 +334,7 @@ public final class TanksFactory {
                     Constants.TANK_WHEEL_DIRECTION, Constants.TANK_WHEEL_AXIS,
                     Constants.TANK_WHEEL_REST_LENGTH, wheelRadius, false);
 
-            Geometry wheel_bl = Util.findGeom(carNode, "WheelBackLeft");
+            Geometry wheel_bl = Util.findGeom(carNode, Constants.LEFT_BACK_WHEEL_MODEL_NAME);
             wheel_bl.center();
             box = (BoundingBox) wheel_bl.getModelBound();
             vehicle.addWheel(wheel_bl.getParent(), new Vector3f(-Constants.TANK_WHEEL_X_OFF,
@@ -377,26 +377,22 @@ public final class TanksFactory {
 
         // Setting spawningpoints, different on each map
         List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
-        List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
-        List<IPowerup> powerups = new ArrayList<IPowerup>();
-
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 10)));
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 12)));
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(30, 3, 10)));
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
 
+        List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 7)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(80, 3, 7)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
 
-        powerups = TanksFactory.getNewPowerups(powerupSpawningPoints, players);
+        List<IPowerup> powerups = TanksFactory.getNewPowerups(powerupSpawningPoints, players);
 
         // Creating model and view of the game, view depending on which map it is
         ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
-        IGameWorld gameWorld = null;
-
-        gameWorld = new GameWorld1(game);
+        IGameWorld gameWorld = new GameWorld1(game);
 
         // set up timerView
         TimerView timerView = new TimerView(game);

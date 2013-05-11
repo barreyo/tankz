@@ -106,7 +106,7 @@ public interface IArmedVehicle extends IDamageableObject {
     /**
      * Shoots a projectile from the vehicle.
      */
-    public void shoot();
+    public void shoot(IPlayer player);
     
     /**
      *
@@ -116,9 +116,9 @@ public interface IArmedVehicle extends IDamageableObject {
     /**
      * Shoots a missile from the vehicle.
      */
-    public void shootMissile();
+    public void shootMissile(IPlayer player);
 
-    public void dropLandmine();
+    public void dropLandmine(IPlayer player);
 
     /**
      * Enum representing different states of the vehicle.

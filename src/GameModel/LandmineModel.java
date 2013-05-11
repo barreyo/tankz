@@ -28,6 +28,8 @@ public class LandmineModel implements IWorldObject {
     private long lifeTimerStart;
     private long explodingTimerStart;
     
+    private IPlayer launcherPlayer;
+    
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
@@ -167,8 +169,9 @@ public class LandmineModel implements IWorldObject {
         this.position = new Vector3f(pos);
     }
 
-    public void dropMine(Vector3f initialPos) {
+    public void dropMine(Vector3f initialPos, IPlayer player) {
         this.initialPos = new Vector3f(initialPos);
+        this.launcherPlayer = player;
         showInWorld();
     }
 
@@ -182,6 +185,10 @@ public class LandmineModel implements IWorldObject {
      * {@inheritDoc}
      */
     public void doDamageOn(IDamageableObject damageableObject) {
-        damageableObject.applyDamage(DAMAGE);
+        if (damageableObject.applyDamageToKill(DAMAGE)) {
+            if (launcherPlayer != null) {
+                launcherPlayer.incrementKills();
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@ public interface IExplodingProjectile extends IWorldObject {
      * @param initialVelocity
      * @param initialRotation
      */
-    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation);
+    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation, IPlayer player);
 
     /**
      *

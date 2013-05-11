@@ -25,6 +25,8 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
     boolean isInWorld;
     boolean exploding;
     
+    IPlayer launcherPlayer;
+    
     final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
@@ -95,10 +97,11 @@ public abstract class AExplodingProjectile implements IExplodingProjectile {
      * {@inheritDoc}
      */
     @Override
-    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
+    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation, IPlayer player) {
         this.initialPos = new Vector3f(initialPos);
         this.linearVelocity =  new Vector3f(initialVelocity);
         this.rotation =  new Quaternion(initialRotation);
+        this.launcherPlayer = player;
         showInWorld();
     }
     

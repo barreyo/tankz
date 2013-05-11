@@ -55,8 +55,8 @@ public final class MissileModel extends AExplodingProjectile {
      * {@inheritDoc}
      */
     @Override
-    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation) {
-        super.launchProjectile(initialPos, initialVelocity, initialRotation);
+    public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation, IPlayer player) {
+        super.launchProjectile(initialPos, initialVelocity, initialRotation, player);
         launchTarget = new Vector3f(initialPos).addLocal(0f, 100f, 0f);
         launchTimerStart = System.currentTimeMillis();
         attackTarget = new Vector3f();
@@ -88,7 +88,11 @@ public final class MissileModel extends AExplodingProjectile {
      */
     @Override
     public void doDamageOn(IDamageableObject damageableObject) {
-        damageableObject.applyDamage(DAMAGE);
+        if (damageableObject.applyDamageToKill(DAMAGE)) {
+            if (launcherPlayer != null) {
+                launcherPlayer.incrementKills();
+            }
+        }
     }
 
     /**

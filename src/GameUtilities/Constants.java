@@ -58,4 +58,10 @@ public final class Constants {
      *
      */
     public static final float TANK_WHEEL_Z_OFF = 0.7f;
+    
+    
+    public static final String RIGHT_FRONT_WHEEL_MODEL_NAME = "WheelFrontRight";
+    public static final String LEFT_FRONT_WHEEL_MODEL_NAME = "WheelFrontLeft";
+    public static final String RIGHT_BACK_WHEEL_MODEL_NAME = "WheelBackRight";
+    public static final String LEFT_BACK_WHEEL_MODEL_NAME = "WheelBackLeft";
 }

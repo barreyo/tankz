@@ -199,7 +199,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             }
         } else if (name.equals(shoot)) {
             if (!isPressed) {
-                vehicleModel.shoot();
+                vehicleModel.shoot(player);
             }
         } else if (name.equals(powerup)) {
             if (!isPressed) {

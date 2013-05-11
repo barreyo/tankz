@@ -27,7 +27,11 @@ public final class CanonBallModel extends AExplodingProjectile {
      */
     @Override
     public void doDamageOn(IDamageableObject damageableObject) {
-        damageableObject.applyDamage(DAMAGE);
+        if (damageableObject.applyDamageToKill(DAMAGE)) {
+            if (launcherPlayer != null) {
+                launcherPlayer.incrementKills();
+            }
+        }
     }
 
     /**
