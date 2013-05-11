@@ -59,6 +59,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         this.player = player;
         // Register input mappings
         addInputMappings();
+        
+        TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
+        this.setEnabled(false);
         // Observe view
         entity.addObserver(this);
     }
@@ -300,12 +303,18 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
                 // Brake the vehicle according to the friction passed by model
                 this.brake((Float)evt.getNewValue());
             } else if (command.equals(Commands.SHOW)) {
-                //this.setEnabled(true);                        fucks up steering
-                TanksAppAdapter.INSTANCE.addToPhysicsSpace(this);
+                this.setEnabled(true); 
+                isFirstLeftKeyPressDone = false;
+                isFirstRightKeyPressDone = false;
+                isFirstUpKeyPressDone = false;
+                isFirstDownKeyPressDone = false;
                 this.setPhysicsLocation(vehicleModel.getPosition());
             } else if (command.equals(Commands.HIDE)) {
-                //this.setEnabled(false);                       fucks up steering
-                TanksAppAdapter.INSTANCE.removeFromPhysicsSpace(this);
+                this.setPhysicsRotation(new Matrix3f());
+                this.setLinearVelocity(Vector3f.ZERO);
+                this.setAngularVelocity(Vector3f.ZERO);
+                this.resetSuspension();
+                this.setEnabled(false);                      
             } else if (command.equals(Commands.CLEANUP)) {
                 this.cleanup();
             }

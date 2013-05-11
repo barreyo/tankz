@@ -40,7 +40,6 @@ public final class TankModel implements IArmedVehicle {
     private float currentAccelerationForce;
     private final float defaultMaxSpeed;
     private final float defaultAccelerationForce;
-    private final float brakeForce;
     private final float frictionForce;
     private final float backMaxSpeed;
     
@@ -67,7 +66,6 @@ public final class TankModel implements IArmedVehicle {
         backMaxSpeed = 30.0f;
         defaultAccelerationForce = 3000.0f;
         currentAccelerationForce = defaultAccelerationForce;
-        brakeForce = 10000.0f;
         frictionForce = 10.0f;
         steeringChangeValue = 0.4f;
         position = Vector3f.ZERO;
@@ -339,6 +337,10 @@ public final class TankModel implements IArmedVehicle {
     public void hideFromWorld() {
         boolean wasInWorld = isInWorld;
         isInWorld = false;
+        steeringValue = 0f;
+        accelerationValue = 0f;
+        acceleration = 0f;
+        currentVehicleSpeedKmHour = 0f;
         vehicleState = VehicleState.DESTROYED;
         pcs.firePropertyChange(Commands.HIDE, wasInWorld, isInWorld);
     }
