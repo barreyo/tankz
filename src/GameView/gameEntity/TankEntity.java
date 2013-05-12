@@ -75,14 +75,14 @@ public final class TankEntity extends AGameEntity {
                 this.showShootingEffects(blownUpEffects);
                 this.hideFromWorld();
         } else if (evt.getPropertyName().equals(Commands.SHOW)) {
-            this.showInWorld();
+            showInWorld();
+            updatePosition();
+            updateRotation();
         } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             this.cleanup();
-        }
-        if (evt.getPropertyName().equals(Commands.SMOKE)) {
+        } else if (evt.getPropertyName().equals(Commands.SMOKE)) {
             showSmokeEffects(smokeEffects);
-        }
-        if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
+        } else if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
             showFlameEffects(flameEffects);
         } else if (evt.getPropertyName().equals(Commands.HIDE_FLAME)) {
             hideFlameEffects(flameEffects);
@@ -124,12 +124,19 @@ public final class TankEntity extends AGameEntity {
     }
 
     private void showInWorld() {
-        spatial.setLocalTranslation(armedVehicle.getPosition());
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 
     private void hideFromWorld() {
         TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
+    }
+    
+    private void updatePosition() {
+        spatial.setLocalTranslation(armedVehicle.getPosition());
+    }
+    
+    private void updateRotation() {
+        spatial.setLocalRotation(armedVehicle.getRotation());
     }
 
     private synchronized void showShootingEffects(Collection<ParticleEmitter> effects) {

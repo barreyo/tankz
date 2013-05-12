@@ -341,6 +341,8 @@ public final class TankModel implements IArmedVehicle {
         accelerationValue = 0f;
         acceleration = 0f;
         currentVehicleSpeedKmHour = 0f;
+        rotation = Quaternion.ZERO;
+        direction = Vector3f.ZERO;
         vehicleState = VehicleState.DESTROYED;
         pcs.firePropertyChange(Commands.HIDE, wasInWorld, isInWorld);
     }
