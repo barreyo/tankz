@@ -32,7 +32,7 @@ public class HastePowerup extends APowerup {
         vehicle.setMaxSpeed(maxSpeed * 3f);
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
-        vehicle.toggleFlame();
+        vehicle.toggleFlame(true);
     }
     
     /**
@@ -45,7 +45,7 @@ public class HastePowerup extends APowerup {
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
                 isActive = false;
                 IArmedVehicle vehicle = player.getVehicle();
-                vehicle.toggleFlame();
+                vehicle.toggleFlame(false);
                 vehicle.resetSpeedValues();
                 player = null;
             }

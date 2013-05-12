@@ -388,8 +388,8 @@ public final class TankModel implements IArmedVehicle {
     }
 
     @Override
-    public void toggleFlame() {
-        flameIsShowing = !flameIsShowing;
+    public void toggleFlame(boolean state) {
+        flameIsShowing = state;
     }
     
 }
