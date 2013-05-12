@@ -186,7 +186,7 @@ public class LandmineModel implements IWorldObject {
      */
     public void doDamageOn(IDamageableObject damageableObject) {
         if (damageableObject.applyDamageToKill(DAMAGE)) {
-            if (launcherPlayer != null) {
+            if (launcherPlayer != null && damageableObject != launcherPlayer.getVehicle()) {
                 launcherPlayer.incrementKills();
             }
         }
