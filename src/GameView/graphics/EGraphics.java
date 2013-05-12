@@ -18,7 +18,7 @@ public enum EGraphics {
     /**
      * The default map.
      */
-    MAP("Scenes/Map1/Map3.j3o"),
+    MAP("Scenes/Map2/Map2.j3o"),
     /**
      * Model used for powerup boxes.
      */
