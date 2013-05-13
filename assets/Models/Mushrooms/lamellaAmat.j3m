@@ -1,0 +1,8 @@
+Material My Material : Common/MatDefs/Light/Lighting.j3md {
+     MaterialParameters {
+        NormalMap : Flip Repeat Models/Mushrooms/mushroom_lamella_NM.png
+        DiffuseMap : Flip Repeat Models/Mushrooms/mushroom_lamella_tex.png
+     }
+    AdditionalRenderState {
+    }
+}
