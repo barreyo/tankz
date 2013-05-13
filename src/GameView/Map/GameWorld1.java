@@ -4,12 +4,14 @@ import GameControllers.logic.GraphicManager;
 import App.TanksAppAdapter;
 import GameModel.ITanks;
 import GameView.graphics.EGraphics;
+import com.jme3.asset.AssetManager;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -44,14 +46,30 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         mainScene = new Node("Main Scene");
         TanksAppAdapter.INSTANCE.attachChildToRootNode(mainScene);
         
+        AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
         sun = new DirectionalLight();
         sun.setDirection(LIGHT_DIR);
         sun.setColor(ColorRGBA.White.clone().multLocal(1.7f));
         TanksAppAdapter.INSTANCE.addLightToRootNode(sun);
         
-        Spatial sky = SkyFactory.createSky(TanksAppAdapter.INSTANCE.getAssetManager(), 
-                                        "Scenes/FullskiesSunset0068.dds", false);
-        sky.setLocalScale(350);
+        Texture westTex = assetManager.loadTexture("Textures/sky/west.jpg");
+        Texture eastTex = assetManager.loadTexture("Textures/sky/almostWest.jpg");
+        Texture northTex = assetManager.loadTexture("Textures/sky/center.jpg");
+        Texture southTex = assetManager.loadTexture("Textures/sky/east.jpg");
+        Texture upTex = assetManager.loadTexture("Textures/sky/top.jpg");
+        Texture downTex = assetManager.loadTexture("Textures/sky/bot.jpg");
+        
+        final Vector3f normalScale = new Vector3f(-1, 1, 1);
+        Spatial sky = SkyFactory.createSky(
+                        assetManager,
+                        westTex,
+                        eastTex,
+                        northTex,
+                        southTex,
+                        upTex,
+                        downTex,
+                        normalScale);
+        //sky.setLocalScale(350);
         
         mainScene.attachChild(sky);
         

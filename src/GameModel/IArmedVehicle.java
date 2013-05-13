@@ -101,7 +101,12 @@ public interface IArmedVehicle extends IDamageableObject {
     /**
      * 
      */
-    public void toggleFlame();
+    public void toggleFlame(boolean state);
+    
+    /**
+     * 
+     */
+    public void toggleSmoke(boolean state);
     
     /**
      * Shoots a projectile from the vehicle.
