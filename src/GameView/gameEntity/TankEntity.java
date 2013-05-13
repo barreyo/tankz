@@ -80,12 +80,14 @@ public final class TankEntity extends AGameEntity {
             updateRotation();
         } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             this.cleanup();
-        } else if (evt.getPropertyName().equals(Commands.SMOKE)) {
-            showSmokeEffects(smokeEffects);
+        } else if (evt.getPropertyName().equals(Commands.SHOW_SMOKE)) {
+            showEffects(smokeEffects);
+        } else if (evt.getPropertyName().equals(Commands.HIDE_SMOKE)) {
+            hideEffects(smokeEffects);
         } else if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
-            showFlameEffects(flameEffects);
+            showEffects(flameEffects);
         } else if (evt.getPropertyName().equals(Commands.HIDE_FLAME)) {
-            hideFlameEffects(flameEffects);
+            hideEffects(flameEffects);
         }
         pcs.firePropertyChange(evt);
     }
@@ -149,7 +151,7 @@ public final class TankEntity extends AGameEntity {
         }
     }
     
-    private synchronized void showSmokeEffects(Collection<ParticleEmitter> effects) {
+    private synchronized void showEffects(Collection<ParticleEmitter> effects) {
         if (spatial.getParent() != null) {
             for (ParticleEmitter effect : effects) {
                 if (effect != null) {
@@ -161,19 +163,7 @@ public final class TankEntity extends AGameEntity {
         }
     }
     
-    private synchronized void showFlameEffects(Collection<ParticleEmitter> effects) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    effect.setLocalTranslation(armedVehicle.getExhaustPosition());
-                    spatial.getParent().attachChild(effect);
-                    effect.emitAllParticles();
-                }
-            }
-        }
-    }
-    
-    private synchronized void hideFlameEffects(Collection<ParticleEmitter> effects) {
+    private synchronized void hideEffects(Collection<ParticleEmitter> effects) {
         if (spatial.getParent() != null) {
             for (ParticleEmitter effect : effects) {
                 if (effect != null) {
