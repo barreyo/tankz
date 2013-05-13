@@ -31,7 +31,17 @@ public enum EPowerupIcons {
     /**
      * Landmine powerup icon.
      */
-    LANDMINE("Interface/PowerupIcons/Landmine.png");
+    LANDMINE("Interface/PowerupIcons/Landmine.png"),
+    
+    /**
+     * Nuke/air call powerup icon.
+     */
+    NUKE("Interface/PowerupIcons/Nuke.png"),
+    
+    /**
+     * Heart powerup icon.
+     */
+    HEART("Interface/PowerupIcons/Heart.png");
     
     private String path;
     
