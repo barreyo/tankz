@@ -20,7 +20,9 @@ import java.util.List;
 public final class TankModel implements IArmedVehicle {
     
     private boolean flameIsShowing;
+    private boolean firstFlameDisabling;
     private boolean smokeIsShowing;
+    private boolean firstSmokeDisabling;
     
     private int health;
     private IArmedVehicle.VehicleState vehicleState;
@@ -57,6 +59,8 @@ public final class TankModel implements IArmedVehicle {
      */
     public TankModel(List<CanonBallModel> canonBalls, 
             List<MissileModel> missiles, List<LandmineModel> landmines) {
+        firstFlameDisabling = false;
+        firstSmokeDisabling = false;
         this.smokeIsShowing = true;
         this.canonBalls = canonBalls;
         this.missiles = missiles;
@@ -172,13 +176,13 @@ public final class TankModel implements IArmedVehicle {
 
         if (smokeIsShowing) {
             pcs.firePropertyChange(Commands.SHOW_SMOKE, null, null);
-        } else {
+        } else if(!smokeIsShowing && firstSmokeDisabling) {
             pcs.firePropertyChange(Commands.HIDE_SMOKE, null, null);
         }
         
         if (flameIsShowing) {
             pcs.firePropertyChange(Commands.SHOW_FLAME, null, null);
-        } else {
+        } else if (!flameIsShowing && firstFlameDisabling) {
             pcs.firePropertyChange(Commands.HIDE_FLAME, null, null);
         }
     }
@@ -397,11 +401,21 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void toggleFlame(boolean state) {
+        if (!state && firstFlameDisabling) {
+            firstFlameDisabling = false;
+        } else {
+            firstFlameDisabling = true;
+        }
         flameIsShowing = state;
     }
 
     @Override
     public void toggleSmoke(boolean state) {
+        if (!state && firstSmokeDisabling) {
+            firstSmokeDisabling = false;
+        } else {
+            firstSmokeDisabling = true;
+        }
         smokeIsShowing = state;
     }
 }

@@ -49,7 +49,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
      */
     public void showLoadingScreen() {
         nifty.gotoScreen("loadingScreen");
-        System.out.println("On loadingscreen");
     }
 
     /**

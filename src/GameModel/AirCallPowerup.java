@@ -4,6 +4,7 @@
  */
 package GameModel;
 
+import GameUtilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
@@ -23,10 +24,9 @@ public class AirCallPowerup extends APowerup {
     
     private static final long END_TIME = 10000;
     private static final long INITIAL_DELAY = 200;
-    private static final long INTERVAL = 200;
-    private static final int BOMB_COUNT = 10;
+    private static final float INTERVAL = 0.0001f;
     
-    private static final int DROP_HEIGHT = 400;
+    private static final int DROP_HEIGHT = 10;
     
     private float counter;
     
@@ -39,12 +39,15 @@ public class AirCallPowerup extends APowerup {
         this.player = player;
         vehicle = player.getVehicle();
         
-        for (int i = 0; i < BOMB_COUNT; i++) {
-            bombs.add(new AtomicBombModel());
-        }
-        
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
+        System.out.println("1111111111111111");
+        System.out.println("1111111111111111");
+        System.out.println("1111111111111111");
+    }
+    
+    public void addBombType(List<IExplodingProjectile> bombs) {
+        this.bombs = bombs;
     }
     
     /**
@@ -53,12 +56,16 @@ public class AirCallPowerup extends APowerup {
     @Override
     public void update(float tpf) {
         super.update(tpf);
-        
-        counter += tpf;
-        
-        if (counter >= INTERVAL) {
-            dropBomb();
-            counter = 0;
+        if (isActive) {
+            counter = counter + tpf;
+            
+            if (counter >= INTERVAL) {
+                dropBomb();
+                counter = 0;
+            }
+            if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
+                isActive = false;
+            }
         }
 
     }
@@ -79,12 +86,24 @@ public class AirCallPowerup extends APowerup {
     }
 
     private void dropBomb() {
-        int zRandom = (int)Math.random() * 100;
-        int xRandom = (int)Math.random() * 100;
-        Vector3f initPos = new Vector3f(xRandom, DROP_HEIGHT, zRandom);
+        int tmpRandomOne = (int) (Math.random() * 2);
+        int tmpRandomTwo = (int) (Math.random() * 2);
+        System.out.println(tmpRandomOne);
+        System.out.println(tmpRandomTwo);
         
+        float zRandom = (float) (Math.random() * 200);
+        float xRandom = (float) (Math.random() * 200);
+        
+        if (tmpRandomOne == 1) {
+            zRandom *= -1;
+        }
+        if (tmpRandomTwo == 1) {
+            xRandom *= -1;
+        }
+        Vector3f initPos = new Vector3f(xRandom, DROP_HEIGHT, zRandom);
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).isShownInWorld()) {
+                
                 bombs.get(i).launchProjectile(initPos, new Vector3f(0, -1, 0).multLocal(100), Quaternion.ZERO, player);
                 return; 
             }

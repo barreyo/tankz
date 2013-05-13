@@ -10,6 +10,7 @@ import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
+import GameModel.AirCallPowerup;
 import GameModel.BeerPowerup;
 import GameModel.GameSettings;
 import GameModel.ITanks;
@@ -18,6 +19,7 @@ import GameModel.Player;
 import GameModel.HastePowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
+import GameModel.IExplodingProjectile;
 import GameModel.ISpawningPoint;
 import GameModel.LandmineModel;
 import GameModel.LandminePowerup;
@@ -151,7 +153,10 @@ public final class TanksFactory {
             tmp.add(getNewHastePowerup());
             tmp.add(getNewMissilePowerup());
             tmp.add(getNewLandminePowerup());
-            //tmp.add(getNewBeerPowerup());
+            tmp.add(getNewBeerPowerup());
+            if (i > 5) {
+                tmp.add(getNewAirCallPowerup());
+            }
         }
         return tmp;
     }
@@ -215,6 +220,35 @@ public final class TanksFactory {
      
     private static BeerPowerup getNewBeerPowerup() {
         BeerPowerup model = new BeerPowerup();
+        PowerupEntity view = new PowerupEntity(model);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
+        physicsControl.setKinematic(true);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05));
+
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        view.addControl(control);
+        view.addControl(physicsControl);
+        return model;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    private static AirCallPowerup getNewAirCallPowerup() {
+        AirCallPowerup model = new AirCallPowerup();
+        List<IExplodingProjectile> balls = new ArrayList<IExplodingProjectile>();
+        for (int i = 0; i < 100; i++) {
+            balls.add(getNewCanonBall());
+        }
+        model.addBombType(balls);
+        
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);
