@@ -1,0 +1,8 @@
+Material My Material : Common/MatDefs/Light/Lighting.j3md {
+     MaterialParameters {
+        ColorRamp : Models/fences2/prop_fence1_col.jpg
+        NormalMap : Models/fences2/prop_fence1_nor.jpg
+     }
+    AdditionalRenderState {
+    }
+}
