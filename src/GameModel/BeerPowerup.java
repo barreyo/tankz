@@ -54,9 +54,9 @@ public class BeerPowerup extends APowerup {
                 changeSpeed = !changeSpeed;
                 speedChangeCounter = 0;
                 if (changeSpeed) {
-                    vehicle.setMaxSpeed(maxSpeed * 5f);
+                    vehicle.setMaxSpeed(maxSpeed * 2f);
                 } else {
-                    vehicle.setMaxSpeed(maxSpeed / 5f);
+                    vehicle.setMaxSpeed(maxSpeed / 2f);
                 }
             }
             

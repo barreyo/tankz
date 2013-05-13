@@ -380,6 +380,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void resetSpeedValues() {
+        steeringValue = 0;
         currentMaxSpeed = defaultMaxSpeed;
     }
 
