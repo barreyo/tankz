@@ -20,6 +20,7 @@ import java.util.List;
 public final class TankModel implements IArmedVehicle {
     
     private boolean flameIsShowing;
+    private boolean smokeIsShowing;
     
     private int health;
     private IArmedVehicle.VehicleState vehicleState;
@@ -56,6 +57,7 @@ public final class TankModel implements IArmedVehicle {
      */
     public TankModel(List<CanonBallModel> canonBalls, 
             List<MissileModel> missiles, List<LandmineModel> landmines) {
+        this.smokeIsShowing = true;
         this.canonBalls = canonBalls;
         this.missiles = missiles;
         this.landmines = landmines;
@@ -168,7 +170,11 @@ public final class TankModel implements IArmedVehicle {
         accelerationValue = acceleration * speedFactor;
         pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
 
-        pcs.firePropertyChange(Commands.SMOKE, null, null);
+        if (smokeIsShowing) {
+            pcs.firePropertyChange(Commands.SHOW_SMOKE, null, null);
+        } else {
+            pcs.firePropertyChange(Commands.HIDE_SMOKE, null, null);
+        }
         
         if (flameIsShowing) {
             pcs.firePropertyChange(Commands.SHOW_FLAME, null, null);
@@ -335,6 +341,8 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void hideFromWorld() {
+        this.toggleSmoke(false);
+        this.toggleFlame(false);
         boolean wasInWorld = isInWorld;
         isInWorld = false;
         steeringValue = 0f;
@@ -391,5 +399,9 @@ public final class TankModel implements IArmedVehicle {
     public void toggleFlame(boolean state) {
         flameIsShowing = state;
     }
-    
+
+    @Override
+    public void toggleSmoke(boolean state) {
+        smokeIsShowing = state;
+    }
 }

@@ -54,7 +54,11 @@ public final class Commands {
     /**
      *
      */
-    public static final String SMOKE = "SMOKE";
+    public static final String SHOW_SMOKE = "SHOW_SMOKE";
+    /**
+     * 
+     */
+    public static final String HIDE_SMOKE = "HIDE_SMOKE";
     /**
      *
      */
