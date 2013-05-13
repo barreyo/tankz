@@ -2,6 +2,7 @@
 package GameView.GUI;
 
 import App.TanksAppAdapter;
+import GameModel.IArmedVehicle;
 import GameModel.IArmedVehicle.VehicleState;
 import GameModel.IPlayer;
 import GameModel.PlayerComparator;
@@ -85,11 +86,10 @@ public class ScoreboardView extends AHudElement {
                 (picY + picHeight) - ((picHeight * 0.1f) * (7.4f)), 1);
         
         int i = 0;
-        for (IPlayer playR : players) {
-            int size = font.getCharSet().getRenderedSize();
-            
+        int size = font.getCharSet().getRenderedSize();
+        for (IPlayer p : players) {
             BitmapText name = new BitmapText(font, false);
-            name.setText(playR.getName());  
+            name.setText(p.getName());  
             name.setSize(size);
             name.setLocalTranslation(picX + (picWidth * 0.05f), 
                     (picY + picHeight) - ((picHeight * 0.1f) * (i+2.4f)) , 1);
@@ -116,8 +116,8 @@ public class ScoreboardView extends AHudElement {
                     ((picHeight * 0.1f) * (i+2.4f)) , 1);
             playerStatus.add(status);
             
-            playR.addObserver(this);
-            
+            p.addObserver(this);
+            p.getVehicle().addObserver(this);
             i++;
         }
         updateText();
@@ -130,7 +130,9 @@ public class ScoreboardView extends AHudElement {
     public void propertyChange(PropertyChangeEvent pce) {
         String propertyName = pce.getPropertyName();
         Object source = pce.getSource();
-        if (source instanceof IPlayer && propertyName.equals(Commands.SCORE_UPDATE)) {
+        if ((source instanceof IPlayer || source instanceof IArmedVehicle) 
+                && (propertyName.equals(Commands.SCORE_UPDATE) 
+                || propertyName.equals(Commands.SHOW))) {
             updateText();
         } else if (source == player) {
             if (propertyName.equals(Commands.SHOW_SCOREBOARD)) {
