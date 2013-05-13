@@ -41,9 +41,6 @@ public class AirCallPowerup extends APowerup {
         
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
-        System.out.println("1111111111111111");
-        System.out.println("1111111111111111");
-        System.out.println("1111111111111111");
     }
     
     public void addBombType(List<IExplodingProjectile> bombs) {

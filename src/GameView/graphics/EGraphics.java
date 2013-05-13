@@ -11,6 +11,7 @@ public enum EGraphics {
      *  Model used for tanks.
      */
     TANK("Models/Tankz/Tankz.j3o"),
+    
     /**
      * Model used for missile projectiles.
      */
@@ -31,7 +32,12 @@ public enum EGraphics {
     /**
      * Model used for landmine.
      */
-    LANDMINE("Models/landmine/landmine.j3o");
+    LANDMINE("Models/landmine/landmine.j3o"),
+    
+    /**
+     * Model used for AirCall powerup.
+     */
+    NUKE("Models/nuclear/nuclear.j3o");
     
     private String fileLocation;
 
@@ -41,6 +47,7 @@ public enum EGraphics {
 
     /**
      * Returns the relative path to the model.
+     * 
      * @return the relative path of the model
      */
     public String getPath() {

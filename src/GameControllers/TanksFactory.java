@@ -153,7 +153,7 @@ public final class TanksFactory {
             tmp.add(getNewHastePowerup());
             tmp.add(getNewMissilePowerup());
             tmp.add(getNewLandminePowerup());
-            tmp.add(getNewBeerPowerup());
+            tmp.add(getNewBeerPowerup(players));
             if (i > 5) {
                 tmp.add(getNewAirCallPowerup());
             }
@@ -218,8 +218,8 @@ public final class TanksFactory {
         return model;
     }
      
-    private static BeerPowerup getNewBeerPowerup() {
-        BeerPowerup model = new BeerPowerup();
+    private static BeerPowerup getNewBeerPowerup(List<IPlayer> players) {
+        BeerPowerup model = new BeerPowerup(players);
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);

@@ -69,7 +69,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
                         upTex,
                         downTex,
                         normalScale);
-        //sky.setLocalScale(350);
+        //sky.setLocalScale(600);
         
         mainScene.attachChild(sky);
         
