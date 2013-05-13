@@ -1,6 +1,7 @@
 
 package GameView.GUI;
 
+import GameModel.AirCallPowerup;
 import GameModel.BeerPowerup;
 import GameModel.HastePowerup;
 import GameModel.IPlayer;
@@ -70,6 +71,8 @@ public class PowerupSlotView extends AHudElement {
                 picture.setImage(assetManager, EPowerupIcons.LANDMINE.getPath(), true);
             } else if(powerup instanceof BeerPowerup) {
                 picture.setImage(assetManager, EPowerupIcons.BEER.getPath(), true);
+            } else if (powerup instanceof AirCallPowerup) {
+                picture.setImage(assetManager, EPowerupIcons.NUKE.getPath(), true);
             } else if (powerup == null) {
                 picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
             }
