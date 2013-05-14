@@ -1,6 +1,5 @@
 package GameModel;
 
-import GameModel.IExplodingProjectile;
 import GameUtilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
@@ -9,7 +8,6 @@ import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -47,6 +45,8 @@ public final class TankModel implements IArmedVehicle {
     private final float frictionForce;
     private final float backMaxSpeed;
     
+    private float shootDelay;
+    
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     private List<CanonBallModel> canonBalls;
@@ -79,6 +79,8 @@ public final class TankModel implements IArmedVehicle {
         position = Vector3f.ZERO;
         direction = Vector3f.ZERO;
         rotation = Quaternion.ZERO;
+        
+        shootDelay = 0.5f;
     }
 
     /**
@@ -114,12 +116,16 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public synchronized void shoot(IPlayer player) {
-        for (CanonBallModel canonBall : canonBalls) {
-            if (!canonBall.isShownInWorld()) {
-                canonBall.launchProjectile(getFirePosition(),
-                        direction.multLocal(100), rotation, player);
-                pcs.firePropertyChange(Commands.SHOOT, null, null);
-                return;
+        if(shootDelay<=0){
+            //Can only shoot once every half second
+            shootDelay = 0.5f;
+            for (CanonBallModel canonBall : canonBalls) {
+                if (!canonBall.isShownInWorld()) {
+                    canonBall.launchProjectile(getFirePosition(),
+                            direction.multLocal(100), rotation, player);
+                    pcs.firePropertyChange(Commands.SHOOT, null, null);
+                    return;
+                }
             }
         }
     }
@@ -173,6 +179,7 @@ public final class TankModel implements IArmedVehicle {
         float oldAcceleration = accelerationValue;
         float maxSpeed = (acceleration >= 0 ? this.currentMaxSpeed : -backMaxSpeed);
         float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
+        shootDelay -= tpf;
         accelerationValue = acceleration * speedFactor;
         pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
 
@@ -383,8 +390,14 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void resetSpeedValues() {
-        steeringValue = 0;
         currentMaxSpeed = defaultMaxSpeed;
+    }
+    
+    /**
+     * 
+     */
+    public void resetSteeringValues() {
+        steeringValue = 0;
     }
 
     /**

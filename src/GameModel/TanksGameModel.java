@@ -66,7 +66,7 @@ public class TanksGameModel implements ITanks {
     public Collection<IPlayer> getPlayers() {
         List<IPlayer> pls = Collections.unmodifiableList(players);
         // Cast OK Player implements IPlayer
-        return (Collection<IPlayer>) pls;
+        return pls;
     }
 
     /**

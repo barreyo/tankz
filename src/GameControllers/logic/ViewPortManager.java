@@ -1,7 +1,7 @@
 package GameControllers.logic;
 
-import GameView.viewPort.EViewPorts;
 import App.TanksAppAdapter;
+import GameView.viewPort.EViewPorts;
 import com.jme3.renderer.ViewPort;
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,7 +42,7 @@ public enum ViewPortManager {
                 views.put(playerNames.get(2), EViewPorts.BOTTOM_Left);
                 views.put(playerNames.get(3), EViewPorts.BOTTOM_RIGHT);
                 break;
-        };
+        }
     }
     
     /**

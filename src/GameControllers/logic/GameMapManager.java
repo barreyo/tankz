@@ -2,6 +2,7 @@ package GameControllers.logic;
 
 import App.TanksAppAdapter;
 import GameControllers.TanksFactory;
+import GameView.Map.GameWorld1;
 
 
 /**
@@ -9,7 +10,7 @@ import GameControllers.TanksFactory;
  *
  * @author Daniel
  */
-public enum GameMapManager implements IMapRelatedManager {
+public enum GameMapManager {
     /**
      *
      */
@@ -47,14 +48,19 @@ public enum GameMapManager implements IMapRelatedManager {
      * @param gameMap
      */
     public void load(int gameMap) {
-        SoundManager.INSTANCE.load(gameMap);
-        MaterialManager.INSTANCE.load(gameMap);
-        PhysicsManager.INSTANCE.load(gameMap);
+        SoundManager.INSTANCE.load();
+        PhysicsManager.INSTANCE.load();
         ViewPortManager.INSTANCE.load();
-        GraphicManager.INSTANCE.load(gameMap);
-        EffectsManager.INSTANCE.load(gameMap);
-        
-        currentGame = TanksFactory.getNewGame(MenuAppState.getInstance().getPlayerNames());
+        GraphicManager.INSTANCE.load();
+        EffectsManager.INSTANCE.load();
+
+        switch (gameMap) {
+            case 1:
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
+                break;
+            default:
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
+        }
         
         TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }
@@ -97,15 +103,12 @@ public enum GameMapManager implements IMapRelatedManager {
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
-    @Override
     public void cleanup() {
-        MaterialManager.INSTANCE.cleanup();
         PhysicsManager.INSTANCE.cleanup();
         SoundManager.INSTANCE.cleanup();
         ViewPortManager.INSTANCE.cleanup();
         GraphicManager.INSTANCE.cleanup();
         EffectsManager.INSTANCE.cleanup();
         TanksAppAdapter.INSTANCE.detachAppState(currentGame);
-        // animManager.cleanup();
     }
 }

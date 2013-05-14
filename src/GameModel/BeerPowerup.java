@@ -17,13 +17,13 @@ import java.util.List;
 public class BeerPowerup extends APowerup {
     
     private float speedChangeCounter;
-    private float turningLeftCounter;
+/*    private float turningLeftCounter;
     private float turningRightCounter;
     private float shootingCounter;
-    private boolean changeSpeed;
-    private boolean turnLeft;
+*/    private boolean changeSpeed;
+/*    private boolean turnLeft;
     private boolean turnRight;
-    private float maxSpeed;
+*/    private float maxSpeed;
     private long activateTimerStart;
     private boolean isActive;
     
@@ -93,7 +93,7 @@ public class BeerPowerup extends APowerup {
                         vehicle.setMaxSpeed(maxSpeed / 2f);
                     }
                 }
-
+/*
                 turningLeftCounter = turningLeftCounter + tpf;
                 if (turningLeftCounter >= 1.8f) {
                     turnLeft = !turnLeft;
@@ -121,7 +121,7 @@ public class BeerPowerup extends APowerup {
                     shootingCounter = 0;
                     vehicle.shoot(player);
                 }
-
+*/
                 if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
                     isActive = false;
                     vehicle.resetSpeedValues();

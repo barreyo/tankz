@@ -16,7 +16,7 @@ import java.beans.PropertyChangeSupport;
  *
  * @author Garpetun
  */
-public class PowerupEntity extends AGameEntity {
+public final class PowerupEntity extends AGameEntity {
     private final IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     

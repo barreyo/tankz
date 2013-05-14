@@ -81,7 +81,7 @@ final class ExplosionEffect implements IEffect {
     private void createRoundSpark(AssetManager assetManager) {
         ParticleEmitter roundspark = new ParticleEmitter("RoundSpark", Type.Point, 20);
         roundspark.setStartColor(new ColorRGBA(1f, 0.29f, 0.34f, 1f));
-        roundspark.setEndColor(new ColorRGBA(0, 0, 0, (float) 1f));
+        roundspark.setEndColor(new ColorRGBA(0, 0, 0, 1f));
         roundspark.setStartSize(1.2f);
         roundspark.setEndSize(1.8f);
         roundspark.setShape(new EmitterSphereShape(Vector3f.ZERO, 2f));

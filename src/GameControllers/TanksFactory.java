@@ -1,5 +1,8 @@
 package GameControllers;
 
+import GameControllers.logic.ViewPortManager;
+import GameModel.IPlayer;
+import GameModel.CanonBallModel;
 import App.TanksAppAdapter;
 import GameControllers.entitycontrols.HomingProjectileControl;
 import GameControllers.entitycontrols.LandmineControl;
@@ -7,24 +10,25 @@ import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
-import GameControllers.logic.ViewPortManager;
 import GameModel.AirCallPowerup;
 import GameModel.AtomicBombModel;
 import GameModel.BeerPowerup;
-import GameModel.CanonBallModel;
 import GameModel.GameSettings;
+import GameModel.ITanks;
+import GameModel.TanksGameModel;
+import GameModel.Player;
+import GameModel.HastePowerup;
+import GameModel.HealthPowerup;
+import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
 import GameModel.IExplodingProjectile;
-import GameModel.IPlayer;
-import GameModel.IPowerup;
 import GameModel.ISpawningPoint;
-import GameModel.ITanks;
 import GameModel.LandmineModel;
+import GameModel.LandminePowerup;
 import GameModel.MissileModel;
-import GameModel.Player;
+import GameModel.MissilePowerup;
 import GameModel.SpawningPoint;
 import GameModel.TankModel;
-import GameModel.TanksGameModel;
 import GameUtilities.Constants;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
@@ -47,14 +51,18 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -133,11 +141,6 @@ public final class TanksFactory {
         return landmine;
     }
 
-    /**
-     *
-     * @param senderCollisionGroupMask
-     * @return
-     */
     private static MissileModel getNewMissile(int senderCollisionGroupMask) {
         MissileModel projectileModel = new MissileModel();
 
@@ -171,18 +174,17 @@ public final class TanksFactory {
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < 10; i++) {
-            //tmp.add(getNewPowerup(HastePowerup.class));
-            //tmp.add(getNewPowerup(MissilePowerup.class));
-            //tmp.add(getNewPowerup(LandminePowerup.class));
-            //tmp.add(getNewBeerPowerup(players));
-            //tmp.add(getNewPowerup(HealthPowerup.class));
+            tmp.add(getNewPowerup(HastePowerup.class));
+            tmp.add(getNewPowerup(MissilePowerup.class));
+            tmp.add(getNewPowerup(LandminePowerup.class));
+            tmp.add(getNewBeerPowerup(players));
+            tmp.add(getNewPowerup(HealthPowerup.class));
             if (i > 5) {
                 tmp.add(getNewAirCallPowerup());
             }
         }
         return tmp;
     }
-
      
     private static BeerPowerup getNewBeerPowerup(List<IPlayer> players) {
         BeerPowerup model = new BeerPowerup(players);
@@ -203,15 +205,11 @@ public final class TanksFactory {
         return model;
     }
     
-    /**
-     * 
-     * @return 
-     */
     private static AirCallPowerup getNewAirCallPowerup() {
         List<IExplodingProjectile> balls = new ArrayList<IExplodingProjectile>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < Constants.BOMBS_IN_AIRCALL; i++) {
             balls.add(getNewAtomicBomb());
-        }
+         }
         AirCallPowerup model = new AirCallPowerup(balls);
         
         PowerupEntity view = new PowerupEntity(model);
@@ -231,7 +229,7 @@ public final class TanksFactory {
         return model;
     }
     
-    public static IPowerup getNewPowerup(Class<? extends IPowerup> powerupClass) {
+    private static IPowerup getNewPowerup(Class<? extends IPowerup> powerupClass) {
         IPowerup model = null;
         try {
             model = powerupClass.newInstance();
@@ -266,26 +264,25 @@ public final class TanksFactory {
      */
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
-        chaseCam.setMaxDistance(28);
-        chaseCam.setMinDistance(18);
-        chaseCam.setDefaultDistance(24);
-        chaseCam.setChasingSensitivity(50f);
+        chaseCam.setMaxDistance(Constants.CAM_MAX_DISTANCE);
+        chaseCam.setMinDistance(Constants.CAM_MIN_DISTANCE);
+        chaseCam.setDefaultDistance(Constants.CAM_DEFAULT_DISTANCE);
+        chaseCam.setChasingSensitivity(Constants.CAM_CHASING_SENSITIVITY);
         chaseCam.setSmoothMotion(true); //automatic following
         chaseCam.setUpVector(Vector3f.UNIT_Y);
         chaseCam.setTrailingEnabled(true);
-        chaseCam.setDefaultVerticalRotation(0.28f);
+        chaseCam.setDefaultVerticalRotation(Constants.CAM_DEFAULT_VERTICAL_ROTATION);
         return chaseCam;
     }
 
     /**
      *
-     * @param intWorld
-     * @param playerNames
-     * @return
+     * @param worldMapClass the visual world map to be instansiated and used as map for the game.
+     * @param playerNames the names of the players to be created.
      */
-    public static GameAppState getNewGame(Collection<String> playerNames) {
+    public static GameAppState getNewGame(Class<? extends IGameWorld> worldMapClass, Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(1200000, 10, 5000);
+        GameSettings settings = new GameSettings(120000, 10, 5000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
@@ -301,19 +298,19 @@ public final class TanksFactory {
 
             List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < Constants.CANNONBALLS_PER_PLAYER; i++) {
                 canonBalls.add(getNewCanonBall());
             }
 
             List<MissileModel> missiles = new ArrayList<MissileModel>();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Constants.MISSILES_PER_PLAYER; i++) {
                 missiles.add(getNewMissile(collisionGroup));
             }
             
             List<LandmineModel> landmines = new ArrayList<LandmineModel>();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Constants.LANDMINES_PER_PLAYER; i++) {
                 landmines.add(getNewLandmine());
             }
 
@@ -417,7 +414,12 @@ public final class TanksFactory {
 
         // Creating model and view of the game, view depending on which map it is
         ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
-        IGameWorld gameWorld = new GameWorld1(game);
+        IGameWorld gameWorld = null;
+        try {
+            gameWorld = worldMapClass.getDeclaredConstructor(ITanks.class).newInstance(game);
+        } catch (Exception ex) {
+            Logger.getLogger(TanksFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // set up timerView
         TimerView timerView = new TimerView(game);

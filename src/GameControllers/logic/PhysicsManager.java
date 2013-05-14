@@ -10,7 +10,7 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public enum PhysicsManager implements IMapRelatedManager {
+public enum PhysicsManager {
     /**
      *
      */
@@ -22,10 +22,9 @@ public enum PhysicsManager implements IMapRelatedManager {
      *
      * @param level
      */
-    public void load(int level) {
-        if (level == 1) {
-            loadCollisionShapes(new ECollisionShapes[]{ECollisionShapes.VEHICLE});
-        }
+    public void load() {
+            loadCollisionShapes(new ECollisionShapes[]{ECollisionShapes.VEHICLE,
+                ECollisionShapes.MISSILE_PROJECTILE, ECollisionShapes.NUKE_PROJECTILE});
     }
 
     private void loadCollisionShapes(ECollisionShapes[] tanksCollisionShapes) {

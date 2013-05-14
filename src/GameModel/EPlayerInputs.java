@@ -8,21 +8,24 @@ import com.jme3.input.KeyInput;
  * @author Daniel
  */
 public enum EPlayerInputs {
-
+    
     /**
-     *
+     * Player one steering, shooting, resetting and show scoreboard inputs.
      */
     Player1(KeyInput.KEY_A, KeyInput.KEY_D, KeyInput.KEY_W, KeyInput.KEY_S, KeyInput.KEY_RETURN, KeyInput.KEY_Q, KeyInput.KEY_E, KeyInput.KEY_1),
+    
     /**
-     *
+     * Player two steering, shooting, resetting and show scoreboard inputs.
      */
     Player2(KeyInput.KEY_H, KeyInput.KEY_K, KeyInput.KEY_U, KeyInput.KEY_J, KeyInput.KEY_O, KeyInput.KEY_Y, KeyInput.KEY_I, KeyInput.KEY_2),
+    
     /**
-     *
+     * Player three steering, shooting, resetting and show scoreboard inputs.
      */
     Player3(KeyInput.KEY_LEFT, KeyInput.KEY_RIGHT, KeyInput.KEY_UP, KeyInput.KEY_DOWN, KeyInput.KEY_NUMPAD0, KeyInput.KEY_NUMPAD1, KeyInput.KEY_RSHIFT, KeyInput.KEY_3),
+    
     /**
-     *
+     * Player four steering, shooting, resetting and show scoreboard inputs.
      */
     Player4(KeyInput.KEY_NUMPAD4, KeyInput.KEY_NUMPAD6, KeyInput.KEY_NUMPAD8, KeyInput.KEY_NUMPAD5, KeyInput.KEY_NUMPAD9, KeyInput.KEY_NUMPAD7, KeyInput.KEY_X, KeyInput.KEY_4);
     

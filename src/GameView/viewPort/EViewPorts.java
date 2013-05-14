@@ -1,6 +1,8 @@
 package GameView.viewPort;
 
 import App.TanksAppAdapter;
+import GameUtilities.Constants;
+import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;
 import com.jme3.post.filters.CartoonEdgeFilter;
@@ -9,10 +11,10 @@ import com.jme3.post.ssao.SSAOFilter;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.Caps;
 import com.jme3.renderer.ViewPort;
-import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
-import com.jme3.shadow.BasicShadowRenderer;
-import com.jme3.shadow.PssmShadowRenderer;
+import com.jme3.shadow.DirectionalLightShadowFilter;
+import com.jme3.shadow.DirectionalLightShadowRenderer;
+import com.jme3.shadow.EdgeFilteringMode;
 
 /**
  * Enum holding the different kind of viewports used in Tanks.
@@ -63,18 +65,29 @@ public enum EViewPorts {
         
         FilterPostProcessor fpp = new FilterPostProcessor(TanksAppAdapter.INSTANCE.getAssetManager());
         
-        PssmShadowRenderer pssmRenderer = new PssmShadowRenderer(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 5);
-        pssmRenderer.setDirection(new Vector3f(0.01f, -0.01f, 0.01f).normalizeLocal());
-        pssmRenderer.setShadowIntensity(0.35f);
+        DirectionalLight light = new DirectionalLight();
+        light.setDirection(new Vector3f(-5,-2,6).normalizeLocal());
         
-        /*SSAOFilter ssaoFilter = new SSAOFilter(12.94f, 43.92f, 0.33f, 0.61f);
+        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 4);
+        dlsf.setLight(light);
+        dlsf.setLambda(0.55f);
+        dlsf.setShadowIntensity(0.6f);        
+        dlsf.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
+        
+        fpp.addFilter(dlsf);
+        
+//        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer();
+//        dlsr.setLight(light);
+//        dlsr.setLambda(0.55f);
+//        view.addProcessor(dlsr);
+        
+        /*SSAOFilter ssaoFilter = new SSAOFilter(5f, 10f, 0.33f, 0.4f);
         fpp.addFilter(ssaoFilter); */
         
-        /*DepthOfFieldFilter dof = new DepthOfFieldFilter();
+        DepthOfFieldFilter dof = new DepthOfFieldFilter();
         dof.setFocusDistance(0);
-        dof.setFocusRange(80);
-        fpp.addFilter(dof); */
-        
+        dof.setFocusRange(100);
+        fpp.addFilter(dof);
       
         // uncomment this for cartoon, trees gets fucked up though
         if (TanksAppAdapter.INSTANCE.rendererContains(Caps.GLSL100)){
@@ -85,7 +98,6 @@ public enum EViewPorts {
         } 
         
         view.addProcessor(fpp);
-        view.addProcessor(pssmRenderer);
     }
 
     /**

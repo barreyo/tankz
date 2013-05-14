@@ -117,6 +117,11 @@ public interface IArmedVehicle extends IDamageableObject {
      *
      */
     public void resetSpeedValues();
+    
+    /**
+     * 
+     */
+    public void resetSteeringValues();
 
     /**
      * Shoots a missile from the vehicle.

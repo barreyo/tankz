@@ -3,13 +3,14 @@ package GameControllers.logic;
 import App.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import com.jme3.audio.AudioNode;
+import com.jme3.audio.AudioSource;
 import java.util.EnumMap;
 
 /**
  *
  * @author Per
  */
-public enum SoundManager implements IMapRelatedManager {
+public enum SoundManager {
 
     /**
      *
@@ -26,17 +27,10 @@ public enum SoundManager implements IMapRelatedManager {
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
     }
 
-    /**
-     *
-     * @param map
-     */
-    @Override
-    public void load(int map) {
-        if (map == 1) {
-            loadSound(new ESounds[]{ESounds.CLICK_SOUND,
-                        ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
-                        ESounds.GAMEMUSIC_1});
-        }
+    public void load() {
+        loadSound(new ESounds[]{ESounds.CLICK_SOUND,
+                    ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
+                    ESounds.GAMEMUSIC_1});
     }
 
     /**
@@ -56,6 +50,7 @@ public enum SoundManager implements IMapRelatedManager {
                 soundNode = new AudioNode(TanksAppAdapter.INSTANCE.getAssetManager(), s.getPath());
             }
             soundNode.setVolume(s.getVolume());
+            soundNode.setPositional(false);
             soundMap.put(s, soundNode);
         }
     }
@@ -108,8 +103,8 @@ public enum SoundManager implements IMapRelatedManager {
         AudioNode toToggle = soundMap.get(sound);
 
         if (toToggle != null) {
-            if (toToggle.getStatus() == AudioNode.Status.Paused
-                    || toToggle.getStatus() == AudioNode.Status.Stopped) {
+            if (toToggle.getStatus() == AudioSource.Status.Paused
+                    || toToggle.getStatus() == AudioSource.Status.Stopped) {
                 play(sound);
             } else {
                 pause(sound);
@@ -132,7 +127,6 @@ public enum SoundManager implements IMapRelatedManager {
     /**
      *
      */
-    @Override
     public void cleanup() {
         removeAllMusic();
         soundMap.clear();

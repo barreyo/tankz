@@ -35,7 +35,7 @@ final class ShootEffect implements IEffect{
     private void createSpark() {
         ParticleEmitter flash = new ParticleEmitter("Flash", ParticleMesh.Type.Point, 24);
         flash.setSelectRandomImage(true);
-        flash.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, (float) (1f)));
+        flash.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
         flash.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
         flash.setStartSize(.1f);
         flash.setEndSize(1.0f);
