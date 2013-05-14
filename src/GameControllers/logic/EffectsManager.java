@@ -10,27 +10,23 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public enum EffectsManager implements IMapRelatedManager {
+public enum EffectsManager {
+
     /**
      *
      */
     INSTANCE;
-
     private EnumMap<EEffects, Collection<ParticleEmitter>> effectsMap = new EnumMap<EEffects, Collection<ParticleEmitter>>(EEffects.class);
 
     /**
      *
      * @param level
      */
-    @Override
-    public void load(int level) {
+    public void load() {
         // Call this after loading viewports
         Collection<EViewPorts> views = ViewPortManager.INSTANCE.getViews();
-        if (level == 1) {
-            loadGraphics(new EEffects[]{EEffects.EXPLOSION}, views);
-        } else if (level == 2) {
-            
-        }
+        loadGraphics(new EEffects[]{EEffects.EXPLOSION, EEffects.FLAME, EEffects.SHOOT,
+                    EEffects.SMOKE, EEffects.TANK_BLOWN_UP}, views);
     }
 
     private void loadGraphics(EEffects[] effects, Collection<EViewPorts> views) {
@@ -45,9 +41,8 @@ public enum EffectsManager implements IMapRelatedManager {
     }
 
     /**
-     *  Releases resources held by this manager.
+     * Releases resources held by this manager.
      */
-    @Override
     public void cleanup() {
         effectsMap.clear();
     }

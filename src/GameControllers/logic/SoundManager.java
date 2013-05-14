@@ -9,7 +9,7 @@ import java.util.EnumMap;
  *
  * @author Per
  */
-public enum SoundManager implements IMapRelatedManager {
+public enum SoundManager {
 
     /**
      *
@@ -26,17 +26,10 @@ public enum SoundManager implements IMapRelatedManager {
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
     }
 
-    /**
-     *
-     * @param map
-     */
-    @Override
-    public void load(int map) {
-        if (map == 1) {
-            loadSound(new ESounds[]{ESounds.CLICK_SOUND,
-                        ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
-                        ESounds.GAMEMUSIC_1});
-        }
+    public void load() {
+        loadSound(new ESounds[]{ESounds.CLICK_SOUND,
+                    ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
+                    ESounds.GAMEMUSIC_1});
     }
 
     /**
@@ -132,7 +125,6 @@ public enum SoundManager implements IMapRelatedManager {
     /**
      *
      */
-    @Override
     public void cleanup() {
         removeAllMusic();
         soundMap.clear();
