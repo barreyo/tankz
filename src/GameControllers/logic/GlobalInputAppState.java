@@ -3,6 +3,7 @@ package GameControllers.logic;
 
 import App.TanksAppAdapter;
 import GameModel.EGlobalInputs;
+import GameView.Sounds.ESounds;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.controls.ActionListener;
@@ -66,6 +67,8 @@ public class GlobalInputAppState extends AbstractAppState implements ActionListe
                 } else {
                     sm.setMuteMusic(true);
                 }
+                sm.togglePlayPause(ESounds.MENU_SOUND);
+                sm.togglePlayPause(ESounds.GAMEMUSIC_1);
             }
         }
         if (name.equals(fxToggle)) {

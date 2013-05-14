@@ -163,8 +163,6 @@ public enum SoundManager {
      */
     public void setMuteMusic(boolean mute) {
         muteMusic = mute;
-        togglePlayPause(ESounds.MENU_SOUND);
-        togglePlayPause(ESounds.GAMEMUSIC_1);
     }
 
     /**
