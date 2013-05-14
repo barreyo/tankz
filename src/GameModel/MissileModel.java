@@ -36,6 +36,7 @@ public final class MissileModel extends AExplodingProjectile {
     @Override
     public void update(float tpf) {
         if (isInWorld) {
+            pcs.firePropertyChange(Commands.SHOW_FLAME, null, null);
             super.update(tpf);
             if (!exploding) {
                 if (System.currentTimeMillis() - launchTimerStart >= LAUNCH_END_TIME) {

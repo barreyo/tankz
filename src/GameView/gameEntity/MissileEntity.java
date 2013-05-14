@@ -23,6 +23,7 @@ import java.util.Collection;
 public final class MissileEntity extends AGameEntity {
     private IExplodingProjectile projectile;
     private final Collection<ParticleEmitter> effects;
+    private final Collection<ParticleEmitter> flameEffects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
@@ -36,6 +37,8 @@ public final class MissileEntity extends AGameEntity {
         
         spatial.setUserData("Model", proj);
         projectile = proj;
+        
+        flameEffects = EEffects.FLAME.getEmitters();
         
         proj.addObserver(this);
         hideFromWorld();
@@ -80,6 +83,8 @@ public final class MissileEntity extends AGameEntity {
                     effect.removeFromParent();
                 }
             }
+        } else if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
+            showEffects(flameEffects);
         }
         pcs.firePropertyChange(evt);
     }
@@ -90,6 +95,7 @@ public final class MissileEntity extends AGameEntity {
     public void impact() {
         hideFromWorld();
         showEffect();
+        hideEffects(flameEffects);
     }
 
     private void showEffect() {
@@ -98,6 +104,28 @@ public final class MissileEntity extends AGameEntity {
                 effect.setLocalTranslation(spatial.getWorldTranslation());
                 TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
                 effect.emitAllParticles();
+            }
+        }
+    }
+    
+    private synchronized void showEffects(Collection<ParticleEmitter> effects) {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : effects) {
+                if (effect != null) {
+                    effect.setLocalTranslation(spatial.getWorldTranslation());
+                    spatial.getParent().attachChild(effect);
+                    effect.emitAllParticles();
+                }
+            }
+        }
+    }
+    
+    private synchronized void hideEffects(Collection<ParticleEmitter> effects) {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : effects) {
+                if (effect != null) {
+                    spatial.getParent().detachChild(effect);
+                }
             }
         }
     }
