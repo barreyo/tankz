@@ -93,7 +93,7 @@ public class BeerPowerup extends APowerup {
                         vehicle.setMaxSpeed(maxSpeed / 2f);
                     }
                 }
-
+/*
                 turningLeftCounter = turningLeftCounter + tpf;
                 if (turningLeftCounter >= 1.8f) {
                     turnLeft = !turnLeft;
@@ -121,7 +121,7 @@ public class BeerPowerup extends APowerup {
                     shootingCounter = 0;
                     vehicle.shoot(player);
                 }
-
+*/
                 if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
                     isActive = false;
                     vehicle.resetSpeedValues();
