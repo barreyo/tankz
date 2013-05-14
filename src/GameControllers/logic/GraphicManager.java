@@ -8,25 +8,18 @@ import java.util.EnumMap;
 /**
  * @author Daniel
  */
-public enum GraphicManager implements IMapRelatedManager {
+public enum GraphicManager {
+
     /**
      *
      */
     INSTANCE;
-
     private EnumMap<EGraphics, Spatial> graphicMap = new EnumMap<EGraphics, Spatial>(EGraphics.class);
 
-    /**
-     *
-     * @param level
-     */
-    @Override
-    public void load(int level) {
-        if (level == 1) {
-            loadGraphics(new EGraphics[]{EGraphics.SHARK, EGraphics.TANK});
-        } else if (level == 2) {
-            //loadGraphics(new EGraphics[]{EGraphics.TEST_PLATFORM});
-        }
+    public void load() {
+        loadGraphics(new EGraphics[]{EGraphics.SHARK, EGraphics.TANK,
+                    EGraphics.BOMB, EGraphics.LANDMINE, EGraphics.NUKE,
+                    EGraphics.POWERUP});
     }
 
     private void loadGraphics(EGraphics[] graphics) {
@@ -49,7 +42,6 @@ public enum GraphicManager implements IMapRelatedManager {
     /**
      *
      */
-    @Override
     public void cleanup() {
         graphicMap.clear();
     }
