@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class AirCallPowerup extends APowerup {
 
-    private List<IExplodingProjectile> bombs;
+    private final List<IExplodingProjectile> bombs;
     private long activateTimerStart;
     private boolean isActive;
     
@@ -32,6 +32,10 @@ public class AirCallPowerup extends APowerup {
     
     private IPlayer player;
     private IArmedVehicle vehicle;
+    
+    public AirCallPowerup(List<IExplodingProjectile> bombs) {
+         this.bombs = bombs;
+    }
 
     @Override
     public void usePowerup(IPlayer player) {
@@ -41,10 +45,6 @@ public class AirCallPowerup extends APowerup {
         
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
-    }
-    
-    public void addBombType(List<IExplodingProjectile> bombs) {
-        this.bombs = bombs;
     }
     
     /**
