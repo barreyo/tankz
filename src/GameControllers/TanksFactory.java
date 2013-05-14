@@ -17,6 +17,7 @@ import GameModel.ITanks;
 import GameModel.TanksGameModel;
 import GameModel.Player;
 import GameModel.HastePowerup;
+import GameModel.HealthPowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
 import GameModel.IExplodingProjectile;
@@ -154,6 +155,7 @@ public final class TanksFactory {
             tmp.add(getNewMissilePowerup());
             tmp.add(getNewLandminePowerup());
             tmp.add(getNewBeerPowerup(players));
+            tmp.add(getNewHealthPowerup());
             if (i > 5) {
                 tmp.add(getNewAirCallPowerup());
             }
@@ -220,6 +222,25 @@ public final class TanksFactory {
      
     private static BeerPowerup getNewBeerPowerup(List<IPlayer> players) {
         BeerPowerup model = new BeerPowerup(players);
+        PowerupEntity view = new PowerupEntity(model);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
+        physicsControl.setKinematic(true);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05));
+
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        view.addControl(control);
+        view.addControl(physicsControl);
+        return model;
+    }
+    
+    private static HealthPowerup getNewHealthPowerup() {
+        HealthPowerup model = new HealthPowerup();
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);

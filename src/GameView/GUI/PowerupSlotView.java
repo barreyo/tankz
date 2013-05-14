@@ -4,6 +4,7 @@ package GameView.GUI;
 import GameModel.AirCallPowerup;
 import GameModel.BeerPowerup;
 import GameModel.HastePowerup;
+import GameModel.HealthPowerup;
 import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.LandminePowerup;
@@ -73,19 +74,12 @@ public class PowerupSlotView extends AHudElement {
                 picture.setImage(assetManager, EPowerupIcons.BEER.getPath(), true);
             } else if (powerup instanceof AirCallPowerup) {
                 picture.setImage(assetManager, EPowerupIcons.NUKE.getPath(), true);
+            } else if (powerup instanceof HealthPowerup) {
+                picture.setImage(assetManager, EPowerupIcons.HEART.getPath(), true);
             } else if (powerup == null) {
                 picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
             }
         }
-            /*else if (player.getPowerup().equals(EPowerup.HOMING)) {
-            picture.setImage(assetManager, EPowerupIcons.HOMING.getPath(), true);
-        } else if (player.getPowerup().equals(EPowerup.BEER)) {
-            picture.setImage(assetManager, EPowerupIcons.BEER.getPath(), true);
-        } else if (player.getPowerup().equals(EPowerup.LANDMINE)) {
-            picture.setImage(assetManager, EPowerupIcons.LANDMINE.getPath(), true);
-        } else {
-            picture.setImage(assetManager, EPowerupIcons.EMPTY.getPath(), true);
-        } */
     }
     
     /**

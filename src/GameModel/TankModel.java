@@ -25,6 +25,7 @@ public final class TankModel implements IArmedVehicle {
     private boolean firstSmokeDisabling;
     
     private int health;
+    private final int maxHealth;
     private IArmedVehicle.VehicleState vehicleState;
     private Vector3f position;
     private Vector3f direction;
@@ -66,7 +67,8 @@ public final class TankModel implements IArmedVehicle {
         this.missiles = missiles;
         this.landmines = landmines;
         mass = 600.0f;
-        health = 100;
+        maxHealth = 100;
+        health = maxHealth;
         defaultMaxSpeed = 80.0f;
         currentMaxSpeed = defaultMaxSpeed;
         backMaxSpeed = 30.0f;
@@ -409,5 +411,19 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void toggleSmoke(boolean state) {
         smokeIsShowing = state;
+    }
+
+    @Override
+    public void heal(int heal) {
+        int oldHP = health;
+        if (health == 0) {
+            return;
+        } else if (health + heal >= maxHealth) {
+            health = maxHealth;
+            pcs.firePropertyChange(Commands.HEALTH, oldHP, health);
+        } else {
+            health += heal;
+            pcs.firePropertyChange(Commands.HEALTH, oldHP, health);
+        }
     }
 }

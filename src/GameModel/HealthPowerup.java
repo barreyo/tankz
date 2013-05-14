@@ -1,4 +1,7 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package GameModel;
 
 import com.jme3.export.JmeExporter;
@@ -7,15 +10,17 @@ import java.io.IOException;
 
 /**
  *
- * @author Garpetun
+ * @author Bex
  */
-public class MissilePowerup extends APowerup {
-
+public class HealthPowerup extends APowerup{
+    
+    private static final int HEAL = 40;
+    
     @Override
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         
-        player.getVehicle().shootMissile(player);
+        player.getVehicle().heal(HEAL);
     }
 
     /**
