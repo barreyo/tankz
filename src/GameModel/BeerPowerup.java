@@ -17,13 +17,13 @@ import java.util.List;
 public class BeerPowerup extends APowerup {
     
     private float speedChangeCounter;
-    private float turningLeftCounter;
+/*    private float turningLeftCounter;
     private float turningRightCounter;
     private float shootingCounter;
-    private boolean changeSpeed;
-    private boolean turnLeft;
+*/    private boolean changeSpeed;
+/*    private boolean turnLeft;
     private boolean turnRight;
-    private float maxSpeed;
+*/    private float maxSpeed;
     private long activateTimerStart;
     private boolean isActive;
     
