@@ -17,8 +17,8 @@ public enum SoundManager {
      */
     INSTANCE;
     private EnumMap<ESounds, AudioNode> soundMap;
-    private boolean muteSoundFX;
-    private boolean muteMusic;
+    private boolean muteSoundFX = false;
+    private boolean muteMusic = false;
 
     /**
      *
@@ -172,5 +172,15 @@ public enum SoundManager {
      */
     public boolean isMusicMuted() {
         return muteMusic;
+    }
+    
+    public void toggleMusic() {
+        muteMusic = !muteMusic;
+        togglePlayPause(ESounds.MENU_SOUND);
+        togglePlayPause(ESounds.GAMEMUSIC_1);
+    }
+    
+    public void toggleFX() {
+        muteSoundFX = !muteSoundFX;
     }
 }

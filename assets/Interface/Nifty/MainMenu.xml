@@ -21,11 +21,17 @@
                     <onStartScreen name="move" mode="in" direction="bottom" length="260" startDelay="0" inherit="true" />
                     <onEndScreen name="move" mode="out" direction="bottom" length="260" startDelay="0" inherit="true" />
                 </effect>
+                <control id="spacer" name ="label"  style="main" text="                 ">
+                    <interact onClick="" />
+              </control>
                 <control id="main_menu" name ="label"  style="main" text="NEW GAME">
                     <interact onClick="goToMultiplayerScreen()" />
                 </control>
+                <control id="main_settings" name ="label"  style="main" text="SETTINGS">
+                    <interact onClick="goToSettingsScreen()" />
+                </control>
                 <control id="main_exit" name ="label" style="main" text="EXIT">
-                    <interact onClick="showExitDialog()"/>
+                    <interact onClick="exit()"/>
                 </control>
             </panel>
         </layer>
@@ -68,22 +74,30 @@
         </layer>
     </screen>
 
-    <!-- Popup layer for exiting -->
-    <popup id="popupExit" childLayout="center" backgroundColor="#000a">
-        <panel childLayout="vertical" width="50%" height="30%" backgroundColor="#666f" padding = "10%" >
-            <text text="Fuckin quitter!" font="aurulent-sans-16.fnt" align="center" />
-            <panel height="*" />
-            <panel childLayout="horizontal">
-                <control name = "button" label = "Cancel" valign="bottom" align="right" >
-                    <interact onClick="closePopup()" />
+    <screen id="settings" controller="GameControllers.logic.MenuAppState">
+        <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
+        </layer>
+        <layer id="menu_layer" childLayout="center" >
+            <panel childLayout="vertical" visibleToMouse="true" align="left" >
+                <effect>
+                    <onStartScreen name="move" mode="in" direction="bottom" length="260" startDelay="0" inherit="true" />
+                    <onEndScreen name="move" mode="out" direction="bottom" length="260" startDelay="0" inherit="true" />
+                </effect>
+                <control id="spacer" name ="label"  style="main" text="                 ">
+                    <interact onClick="" />
+              </control>
+                <control id="main_music_toggle" name ="label"  style="main" text="MUSIC ON">
+                    <interact onClick="toggleMusic()" />
                 </control>
-                <panel width="*" height="0" />
-                <control name = "button" label = "Exit" valign="bottom" align="left" >
-                    <interact onClick="exit()" />
+                <control id="main_fx_toggle" name ="label"  style="main" text="SOUND EFFECTS ON">
+                    <interact onClick="toggleFX()" />
+                </control>
+                <control id="main_settings_back" name ="label" style="main" text="BACK">
+                    <interact onClick="goToMainMenu()"/>
                 </control>
             </panel>
-        </panel>
-    </popup>
+        </layer>
+    </screen>
 
     <screen id="end" >
     </screen>

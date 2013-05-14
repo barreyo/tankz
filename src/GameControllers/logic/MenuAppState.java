@@ -29,8 +29,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private static MenuAppState instance;
     
     private Nifty nifty;
-    private Element popupElement;
-    private Element currentElement;
+    private Element currentElement, musicToggle, fxToggle;
     private SoundHandle sound;
     
     private final List<String> playerNames = new ArrayList<String>();
@@ -42,7 +41,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         nifty = GUIManager.INSTANCE.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this);
         //nifty.addXml("Interface/Nifty/MultiMenu.xml");
-
+        
         nifty.getSoundSystem().addSound("hooverSound", "Sounds/click.ogg");
 
         sound = nifty.getSoundSystem().getSound("hooverSound");
@@ -73,6 +72,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         if (!SoundManager.INSTANCE.isMusicMuted()) {
             SoundManager.INSTANCE.play(ESounds.MENU_SOUND);
         }
+        musicToggle = nifty.getScreen("settings").findElementByName("main_music_toggle");
+        fxToggle = nifty.getScreen("settings").findElementByName("main_fx_toggle");
     }
 
     /**
@@ -121,6 +122,14 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
+     * 
+     */
+    public void goToSettingsScreen() {
+        nifty.gotoScreen("settings");
+        updateSettingsOptions();
+    }
+    
+    /**
      *
      */
     public void goToMultiplayerScreen() {
@@ -162,14 +171,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     @Override
     public void bind(Nifty nifty, Screen screen) {
-        popupElement = nifty.createPopup("popupExit");
-    }
-
-    /**
-     *
-     */
-    public void closePopup() {
-        nifty.closePopup(popupElement.getId());
+        
     }
 
     /**
@@ -182,15 +184,31 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     /**
      *
      */
-    public void showExitDialog() {
-        nifty.showPopup(nifty.getCurrentScreen(), popupElement.getId(), null);
-    }
-
-    /**
-     *
-     */
     public void exit() {
         TanksAppAdapter.INSTANCE.stop();
+    }
+    
+    public void toggleMusic() {
+        SoundManager.INSTANCE.toggleMusic();
+        updateSettingsOptions();
+    }
+    
+    public void toggleFX() {
+        SoundManager.INSTANCE.toggleFX();
+        updateSettingsOptions();
+    }
+    
+    public void updateSettingsOptions() {
+        if (SoundManager.INSTANCE.isMusicMuted()) {
+            musicToggle.getRenderer(TextRenderer.class).setText("MUSIC OFF");
+        } else {
+            musicToggle.getRenderer(TextRenderer.class).setText("MUSIC ON");
+        }
+        if (SoundManager.INSTANCE.isSoundFXMuted()) {
+            fxToggle.getRenderer(TextRenderer.class).setText("SOUND EFFECTS OFF");
+        } else {
+            fxToggle.getRenderer(TextRenderer.class).setText("SOUND EFFECTS ON");
+        }
     }
     
     /**

@@ -61,24 +61,14 @@ public class GlobalInputAppState extends AbstractAppState implements ActionListe
     public void onAction(String name, boolean isPressed, float tpf) {
         if (name.equals(musicToggle)) {
             if (isPressed) {
-                SoundManager sm = SoundManager.INSTANCE;
-                if (sm.isMusicMuted()) {
-                    sm.setMuteMusic(false);
-                } else {
-                    sm.setMuteMusic(true);
-                }
-                sm.togglePlayPause(ESounds.MENU_SOUND);
-                sm.togglePlayPause(ESounds.GAMEMUSIC_1);
+                SoundManager.INSTANCE.toggleMusic();
+                MenuAppState.getInstance().updateSettingsOptions();
             }
         }
         if (name.equals(fxToggle)) {
             if (isPressed) {
-                SoundManager sm = SoundManager.INSTANCE;
-                if (sm.isSoundFXMuted()) {
-                    sm.setMuteSoundFx(false);
-                } else {
-                    sm.setMuteSoundFx(true);
-                }
+                SoundManager.INSTANCE.toggleFX();
+                MenuAppState.getInstance().updateSettingsOptions();
             }
         } 
     }
