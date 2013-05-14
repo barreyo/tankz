@@ -172,4 +172,9 @@ public final class TankEntity extends AGameEntity {
             }
         }
     }
+
+    @Override
+    public void impact() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

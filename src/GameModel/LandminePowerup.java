@@ -37,4 +37,5 @@ public class LandminePowerup extends APowerup{
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }
