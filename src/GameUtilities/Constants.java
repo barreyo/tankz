@@ -59,6 +59,16 @@ public final class Constants {
      */
     public static final float TANK_WHEEL_Z_OFF = 0.7f;
     
+    public static final int LANDMINES_PER_PLAYER = 10;
+    public static final int MISSILES_PER_PLAYER = 5;
+    public static final int CANNONBALLS_PER_PLAYER = 10;
+    public static final int CANNONBALLS_IN_AIRCALL = 100;
+    public static final float CAM_MAX_DISTANCE = 25f;
+    public static final float CAM_MIN_DISTANCE = 15f;
+    public static final float CAM_DEFAULT_DISTANCE = 20f;
+    public static final float CAM_CHASING_SENSITIVITY = 50f;
+    public static final float CAM_DEFAULT_VERTICAL_ROTATION = 0.3f;
+    
     
     public static final String RIGHT_FRONT_WHEEL_MODEL_NAME = "WheelFrontRight";
     public static final String LEFT_FRONT_WHEEL_MODEL_NAME = "WheelFrontLeft";

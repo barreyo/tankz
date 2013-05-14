@@ -2,6 +2,7 @@ package GameControllers.logic;
 
 import App.TanksAppAdapter;
 import GameControllers.TanksFactory;
+import GameView.Map.GameWorld1;
 
 
 /**
@@ -46,6 +47,7 @@ public enum GameMapManager implements IMapRelatedManager {
      *
      * @param gameMap
      */
+    @Override
     public void load(int gameMap) {
         SoundManager.INSTANCE.load(gameMap);
         MaterialManager.INSTANCE.load(gameMap);
@@ -53,8 +55,14 @@ public enum GameMapManager implements IMapRelatedManager {
         ViewPortManager.INSTANCE.load();
         GraphicManager.INSTANCE.load(gameMap);
         EffectsManager.INSTANCE.load(gameMap);
-        
-        currentGame = TanksFactory.getNewGame(MenuAppState.getInstance().getPlayerNames());
+
+        switch (gameMap) {
+            case 1:
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
+                break;
+            default:
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
+        }
         
         TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }
@@ -106,6 +114,5 @@ public enum GameMapManager implements IMapRelatedManager {
         GraphicManager.INSTANCE.cleanup();
         EffectsManager.INSTANCE.cleanup();
         TanksAppAdapter.INSTANCE.detachAppState(currentGame);
-        // animManager.cleanup();
     }
 }

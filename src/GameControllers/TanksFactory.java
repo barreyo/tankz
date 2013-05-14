@@ -55,6 +55,7 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -115,11 +116,6 @@ public final class TanksFactory {
         return landmine;
     }
 
-    /**
-     *
-     * @param senderCollisionGroupMask
-     * @return
-     */
     private static MissileModel getNewMissile(int senderCollisionGroupMask) {
         MissileModel projectileModel = new MissileModel();
 
@@ -164,7 +160,6 @@ public final class TanksFactory {
         }
         return tmp;
     }
-
      
     private static BeerPowerup getNewBeerPowerup(List<IPlayer> players) {
         BeerPowerup model = new BeerPowerup(players);
@@ -185,13 +180,9 @@ public final class TanksFactory {
         return model;
     }
     
-    /**
-     * 
-     * @return 
-     */
     private static AirCallPowerup getNewAirCallPowerup() {
         List<IExplodingProjectile> balls = new ArrayList<IExplodingProjectile>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < Constants.CANNONBALLS_IN_AIRCALL; i++) {
             balls.add(getNewCanonBall());
         }
         AirCallPowerup model = new AirCallPowerup(balls);
@@ -213,7 +204,7 @@ public final class TanksFactory {
         return model;
     }
     
-    public static IPowerup getNewPowerup(Class<? extends IPowerup> powerupClass) {
+    private static IPowerup getNewPowerup(Class<? extends IPowerup> powerupClass) {
         IPowerup model = null;
         try {
             model = powerupClass.newInstance();
@@ -248,24 +239,23 @@ public final class TanksFactory {
      */
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
-        chaseCam.setMaxDistance(25);
-        chaseCam.setMinDistance(15);
-        chaseCam.setDefaultDistance(20);
-        chaseCam.setChasingSensitivity(50f);
+        chaseCam.setMaxDistance(Constants.CAM_MAX_DISTANCE);
+        chaseCam.setMinDistance(Constants.CAM_MIN_DISTANCE);
+        chaseCam.setDefaultDistance(Constants.CAM_DEFAULT_DISTANCE);
+        chaseCam.setChasingSensitivity(Constants.CAM_CHASING_SENSITIVITY);
         chaseCam.setSmoothMotion(true); //automatic following
         chaseCam.setUpVector(Vector3f.UNIT_Y);
         chaseCam.setTrailingEnabled(true);
-        chaseCam.setDefaultVerticalRotation(0.3f);
+        chaseCam.setDefaultVerticalRotation(Constants.CAM_DEFAULT_VERTICAL_ROTATION);
         return chaseCam;
     }
 
     /**
      *
-     * @param intWorld
-     * @param playerNames
-     * @return
+     * @param worldMapClass the visual world map to be instansiated and used as map for the game.
+     * @param playerNames the names of the players to be created.
      */
-    public static GameAppState getNewGame(Collection<String> playerNames) {
+    public static GameAppState getNewGame(Class<? extends IGameWorld> worldMapClass, Collection<String> playerNames) {
 
         GameSettings settings = new GameSettings(120000, 10, 5000);
 
@@ -283,19 +273,19 @@ public final class TanksFactory {
 
             List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
 
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < Constants.CANNONBALLS_PER_PLAYER; i++) {
                 canonBalls.add(getNewCanonBall());
             }
 
             List<MissileModel> missiles = new ArrayList<MissileModel>();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Constants.MISSILES_PER_PLAYER; i++) {
                 missiles.add(getNewMissile(collisionGroup));
             }
             
             List<LandmineModel> landmines = new ArrayList<LandmineModel>();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Constants.LANDMINES_PER_PLAYER; i++) {
                 landmines.add(getNewLandmine());
             }
 
@@ -399,7 +389,12 @@ public final class TanksFactory {
 
         // Creating model and view of the game, view depending on which map it is
         ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
-        IGameWorld gameWorld = new GameWorld1(game);
+        IGameWorld gameWorld = null;
+        try {
+            gameWorld = worldMapClass.getDeclaredConstructor(ITanks.class).newInstance(game);
+        } catch (Exception ex) {
+            Logger.getLogger(TanksFactory.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // set up timerView
         TimerView timerView = new TimerView(game);
