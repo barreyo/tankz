@@ -1,8 +1,5 @@
 package App;
 
-
-
-import App.TanksApp;
 import com.jme3.system.AppSettings;
 import java.awt.image.BufferedImage;
 import java.io.File;

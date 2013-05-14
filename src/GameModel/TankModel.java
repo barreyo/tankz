@@ -1,6 +1,5 @@
 package GameModel;
 
-import GameModel.IExplodingProjectile;
 import GameUtilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
@@ -9,7 +8,6 @@ import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -381,8 +379,14 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void resetSpeedValues() {
-        steeringValue = 0;
         currentMaxSpeed = defaultMaxSpeed;
+    }
+    
+    /**
+     * 
+     */
+    public void resetSteeringValues() {
+        steeringValue = 0;
     }
 
     /**

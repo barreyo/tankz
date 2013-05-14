@@ -42,7 +42,7 @@ public enum ViewPortManager {
                 views.put(playerNames.get(2), EViewPorts.BOTTOM_Left);
                 views.put(playerNames.get(3), EViewPorts.BOTTOM_RIGHT);
                 break;
-        };
+        }
     }
     
     /**
