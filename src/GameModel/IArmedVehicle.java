@@ -130,6 +130,8 @@ public interface IArmedVehicle extends IDamageableObject {
 
     public void dropLandmine(IPlayer player);
 
+    public void heal(int HEAL);
+
     /**
      * Enum representing different states of the vehicle.
      */

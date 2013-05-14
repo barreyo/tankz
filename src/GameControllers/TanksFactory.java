@@ -17,6 +17,7 @@ import GameModel.ITanks;
 import GameModel.TanksGameModel;
 import GameModel.Player;
 import GameModel.HastePowerup;
+import GameModel.HealthPowerup;
 import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
 import GameModel.IExplodingProjectile;
@@ -59,6 +60,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Manages controls.
@@ -150,10 +153,11 @@ public final class TanksFactory {
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < 10; i++) {
-            tmp.add(getNewHastePowerup());
-            tmp.add(getNewMissilePowerup());
-            tmp.add(getNewLandminePowerup());
+            tmp.add(getNewPowerup(HastePowerup.class));
+            tmp.add(getNewPowerup(MissilePowerup.class));
+            tmp.add(getNewPowerup(LandminePowerup.class));
             tmp.add(getNewBeerPowerup(players));
+            tmp.add(getNewPowerup(HealthPowerup.class));
             if (i > 5) {
                 tmp.add(getNewAirCallPowerup());
             }
@@ -161,62 +165,6 @@ public final class TanksFactory {
         return tmp;
     }
 
-    private static HastePowerup getNewHastePowerup() {
-        HastePowerup model = new HastePowerup();
-        PowerupEntity view = new PowerupEntity(model);
-        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
-        physicsControl.setKinematic(true);
-        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
-                | PhysicsCollisionObject.COLLISION_GROUP_03
-                | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05));
-
-        PowerupControl control = new PowerupControl(view, model, physicsControl);
-
-        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-
-        view.addControl(control);
-        view.addControl(physicsControl);
-        return model;
-    }
-
-    private static MissilePowerup getNewMissilePowerup() {
-        MissilePowerup model = new MissilePowerup();
-        PowerupEntity view = new PowerupEntity(model);
-        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
-        physicsControl.setKinematic(true);
-        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
-                | PhysicsCollisionObject.COLLISION_GROUP_03
-                | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05));
-
-        PowerupControl control = new PowerupControl(view, model, physicsControl);
-
-        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-
-        view.addControl(control);
-        view.addControl(physicsControl);
-        return model;
-    }
-    
-     private static LandminePowerup getNewLandminePowerup() {
-        LandminePowerup model = new LandminePowerup();
-        PowerupEntity view = new PowerupEntity(model);
-        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
-        physicsControl.setKinematic(true);
-        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
-                | PhysicsCollisionObject.COLLISION_GROUP_03
-                | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05));
-
-        PowerupControl control = new PowerupControl(view, model, physicsControl);
-
-        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-
-        view.addControl(control);
-        view.addControl(physicsControl);
-        return model;
-    }
      
     private static BeerPowerup getNewBeerPowerup(List<IPlayer> players) {
         BeerPowerup model = new BeerPowerup(players);
@@ -242,13 +190,38 @@ public final class TanksFactory {
      * @return 
      */
     private static AirCallPowerup getNewAirCallPowerup() {
-        AirCallPowerup model = new AirCallPowerup();
         List<IExplodingProjectile> balls = new ArrayList<IExplodingProjectile>();
         for (int i = 0; i < 100; i++) {
             balls.add(getNewCanonBall());
         }
-        model.addBombType(balls);
+        AirCallPowerup model = new AirCallPowerup(balls);
         
+        PowerupEntity view = new PowerupEntity(model);
+        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
+        physicsControl.setKinematic(true);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05));
+
+        PowerupControl control = new PowerupControl(view, model, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        view.addControl(control);
+        view.addControl(physicsControl);
+        return model;
+    }
+    
+    public static IPowerup getNewPowerup(Class<? extends IPowerup> powerupClass) {
+        IPowerup model = null;
+        try {
+            model = powerupClass.newInstance();
+        } catch (InstantiationException ex) {
+            Logger.getLogger(TanksFactory.class.getName()).log(Level.SEVERE, "Unable to instansiate IPowerup", ex);
+        } catch (IllegalAccessException ex) {
+            Logger.getLogger(TanksFactory.class.getName()).log(Level.SEVERE, "Do not have access to IPowerup", ex);
+        }
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);

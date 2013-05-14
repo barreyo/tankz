@@ -67,9 +67,4 @@ public class HastePowerup extends APowerup {
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    @Override
-    public boolean isActive() {
-        return isActive;
-    }
 }
