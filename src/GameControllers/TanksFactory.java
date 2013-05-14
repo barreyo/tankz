@@ -11,6 +11,7 @@ import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
 import GameModel.AirCallPowerup;
+import GameModel.AtomicBombModel;
 import GameModel.BeerPowerup;
 import GameModel.GameSettings;
 import GameModel.ITanks;
@@ -38,8 +39,10 @@ import GameView.Map.IGameWorld;
 import GameView.gameEntity.CanonBallEntity;
 import GameView.gameEntity.LandmineEntity;
 import GameView.gameEntity.MissileEntity;
+import GameView.gameEntity.NukeEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
+import GameView.physics.ECollisionShapes;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
@@ -76,6 +79,28 @@ public final class TanksFactory {
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
+        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
+        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
+                | PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05);
+
+        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        projectileEntity.addControl(control);
+        return projectileModel;
+    }
+    
+    private static AtomicBombModel getNewAtomicBomb() {
+        AtomicBombModel projectileModel = new AtomicBombModel();
+
+        NukeEntity projectileEntity = new NukeEntity(projectileModel);
+
+        RigidBodyControl physicsControl = new RigidBodyControl(ECollisionShapes.NUKE_PROJECTILE.createCollisionShape(), projectileModel.getMass());
         physicsControl.setCcdMotionThreshold(0.1f);
         physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
         physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
@@ -150,10 +175,10 @@ public final class TanksFactory {
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < 10; i++) {
-            tmp.add(getNewHastePowerup());
-            tmp.add(getNewMissilePowerup());
-            tmp.add(getNewLandminePowerup());
-            tmp.add(getNewBeerPowerup(players));
+            //tmp.add(getNewHastePowerup());
+            //tmp.add(getNewMissilePowerup());
+            //tmp.add(getNewLandminePowerup());
+            //tmp.add(getNewBeerPowerup(players));
             if (i > 5) {
                 tmp.add(getNewAirCallPowerup());
             }
@@ -244,8 +269,8 @@ public final class TanksFactory {
     private static AirCallPowerup getNewAirCallPowerup() {
         AirCallPowerup model = new AirCallPowerup();
         List<IExplodingProjectile> balls = new ArrayList<IExplodingProjectile>();
-        for (int i = 0; i < 100; i++) {
-            balls.add(getNewCanonBall());
+        for (int i = 0; i < 50; i++) {
+            balls.add(getNewAtomicBomb());
         }
         model.addBombType(balls);
         

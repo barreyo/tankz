@@ -8,6 +8,7 @@ import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
 import GameView.Sounds.ESounds;
+import GameView.gameEntity.AGameEntity;
 import GameView.gameEntity.CanonBallEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -26,7 +27,7 @@ import java.beans.PropertyChangeListener;
  * @author Daniel
  */
 public class LinearProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
-    private CanonBallEntity entity;
+    private AGameEntity entity;
     private IExplodingProjectile projectileModel;
 
     private RigidBodyControl physicsControl;
@@ -36,7 +37,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
      * @param projModel
      * @param physicsControl  
      */
-    public LinearProjectileControl(CanonBallEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
+    public LinearProjectileControl(AGameEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
 
         this.entity = entity;
         this.projectileModel = projModel;

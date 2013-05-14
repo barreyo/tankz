@@ -81,4 +81,9 @@ public class PowerupEntity extends AGameEntity {
     public void hideFromWorld() {
         spatial.setCullHint(CullHint.Always);
     }
+
+    @Override
+    public void impact() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

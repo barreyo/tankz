@@ -34,7 +34,4 @@ public interface IPowerup extends IWorldObject {
      * @return 
      */
     public boolean isHeldByPlayer();
-    
-    
-    public boolean isActive();
 }
