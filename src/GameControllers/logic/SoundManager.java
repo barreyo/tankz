@@ -66,7 +66,7 @@ public enum SoundManager {
      * @param sound
      */
     public void play(ESounds sound) {
-        if (muteMusic) {
+        /*if (muteMusic) {
             return;
         }
         AudioNode audio = soundMap.get(sound);
@@ -76,7 +76,7 @@ public enum SoundManager {
             } else {
                 audio.playInstance();
             }
-        }
+        }*/
     }
 
     // pause the music
