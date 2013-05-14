@@ -11,23 +11,32 @@ import com.jme3.input.KeyInput;
 public enum EGlobalInputs {
     
     /**
-     * Toggle sound on/off button.
+     * Sound inputs.
      */
-    SoundToggle(KeyInput.KEY_9);
+    SoundInput(KeyInput.KEY_8, KeyInput.KEY_9);
     
-    private final int toggleSound;
+    private final int toggleMusic, toggleFX;
     
-    private EGlobalInputs(int key) {
-        toggleSound = key;
+    private EGlobalInputs(int music, int fx) {
+        toggleMusic = music;
+        toggleFX = fx;
     }
     
     /**
-     * Returns the mute key.
+     * Returns the toggle music key.
      * 
-     * @return mute key.
+     * @return music key.
      */
-    public int getMuteButton() {
-        return toggleSound;
+    public int getToggleMusicButton() {
+        return toggleMusic;
     }
     
+    /**
+     * Returns the toggle FX key.
+     * 
+     * @return FX key.
+     */
+    public int getToggleFXButton() {
+        return toggleFX;
+    }
 }

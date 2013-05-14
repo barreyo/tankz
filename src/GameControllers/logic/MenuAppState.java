@@ -69,7 +69,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         TanksAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EApplicationState.setGameState(EApplicationState.MAIN_MENU);
-        SoundManager.INSTANCE.play(ESounds.MENU_SOUND);
+        TanksAppAdapter.INSTANCE.attachAppState(GlobalInputAppState.getInstance());
+        if (!SoundManager.INSTANCE.isMusicMuted()) {
+            SoundManager.INSTANCE.play(ESounds.MENU_SOUND);
+        }
     }
 
     /**
@@ -140,7 +143,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
                 TextRenderer renderer1 = currentElement.getRenderer(TextRenderer.class);
                 renderer1.setColor(Color.BLACK);
 
-                sound.play();
+                if (!SoundManager.INSTANCE.isSoundFXMuted()) {
+                    sound.play();
+                }
             }
         } else {
             if (event.getElement() != currentElement) {

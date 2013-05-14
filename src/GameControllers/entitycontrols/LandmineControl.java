@@ -96,13 +96,17 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
                 physicsControl.setEnabled(false);
                 entity.impact();
                 landmineModel.impact();
-                SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                if (!SoundManager.INSTANCE.isSoundFXMuted()) {
+                    SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                }
                 landmineModel.doDamageOn((IDamageableObject)objB);
             } else if (objB == landmineModel && objA instanceof IDamageableObject) {
                 physicsControl.setEnabled(false);
                 entity.impact();
                 landmineModel.impact();
-                SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                if (!SoundManager.INSTANCE.isSoundFXMuted()) {
+                    SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                }
                 landmineModel.doDamageOn((IDamageableObject)objA);
             } 
         }

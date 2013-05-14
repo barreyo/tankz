@@ -94,7 +94,9 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
                 aggroGhost.setEnabled(false);
                 projectileModel.impact();
                 entity.impact();
-                SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                if (!SoundManager.INSTANCE.isSoundFXMuted()) {
+                    SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                }
                 if (objA instanceof IDamageableObject) {
                     projectileModel.doDamageOn((IDamageableObject)objA);
                 } else if (objB instanceof IDamageableObject) {
