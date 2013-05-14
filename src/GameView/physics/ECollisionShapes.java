@@ -16,10 +16,16 @@ public enum ECollisionShapes {
      *  A vehicle collision shape.
      */
     VEHICLE,
+    
     /**
      *  A missile projectile collision shape.
      */
-    MISSILE_PROJECTILE;
+    MISSILE_PROJECTILE,
+    
+    /**
+     *  A nuke missile projectile collision shape.
+     */
+    NUKE_PROJECTILE;
 
     /**
      * Returns a new collision shape based on enum type.
@@ -37,6 +43,9 @@ public enum ECollisionShapes {
                 break;
             case MISSILE_PROJECTILE:
                 collisionShape = new BoxCollisionShape(new Vector3f(0.5f, 0.5f, 0.5f));
+                break;
+            case NUKE_PROJECTILE:
+                collisionShape = new BoxCollisionShape(new Vector3f(40f, 0f, 40f));
                 break;
             default:
                 collisionShape = new BoxCollisionShape(new Vector3f(1, 1, 1));

@@ -72,4 +72,6 @@ public abstract class AGameEntity implements IGameEntity {
     public Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
     }
+
+    public abstract void impact();
 }

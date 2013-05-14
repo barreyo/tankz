@@ -139,5 +139,6 @@ public class BeerPowerup extends APowerup {
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
-    } 
+    }
+    
 }
