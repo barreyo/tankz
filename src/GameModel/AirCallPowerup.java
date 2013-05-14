@@ -23,7 +23,7 @@ public class AirCallPowerup extends APowerup {
     
     private static final long END_TIME = 15000;
     private int bombCount;
-    private static final float INTERVAL = 0.2f;
+    private static final float INTERVAL = 0.3f;
     
     private static final int DROP_HEIGHT = 20;
     
@@ -80,8 +80,6 @@ public class AirCallPowerup extends APowerup {
     private void dropBomb() {
         int tmpRandomOne = (int) (Math.random() * 2);
         int tmpRandomTwo = (int) (Math.random() * 2);
-        System.out.println(tmpRandomOne);
-        System.out.println(tmpRandomTwo);
         
         float zRandom = (float) (Math.random() * 80);
         float xRandom = (float) (Math.random() * 80);
@@ -95,7 +93,6 @@ public class AirCallPowerup extends APowerup {
         Vector3f initPos = new Vector3f(xRandom, DROP_HEIGHT, zRandom);
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).isShownInWorld()) {
-                
                 bombs.get(i).launchProjectile(initPos, new Vector3f(0, -1, 0).multLocal(80), Quaternion.ZERO, player);
                 bombCount--;
                 return; 
