@@ -22,35 +22,35 @@ public class CameraAnimator {
     public static final Quaternion ROT_UP = new Quaternion().fromAngleAxis(FastMath.PI/32, new Vector3f(1,0,0));
     public static final Quaternion ROT_DOWN = new Quaternion().fromAngleAxis(-FastMath.PI/32, new Vector3f(1,0,0));
     
-    private static Quaternion origRot;
-    private static boolean shakeActive;
-    private float animTimer;
-    private boolean firstShakeFinished = false;
-    private static Camera cam;
-    
-    private static void shakeCamera(IPlayer p) {
-        cam = ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()).getCamera();
-        origRot = cam.getRotation();
-        shakeActive = true;
-        cam.setRotation(ROT_DOWN);
-    }
+//    private static Quaternion origRot;
+//    private static boolean shakeActive;
+//    private float animTimer;
+//    private boolean firstShakeFinished = false;
+//    private static Camera cam;
+//    
+//    private static void shakeCamera(IPlayer p) {
+//        cam = ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()).getCamera();
+//        origRot = cam.getRotation();
+//        shakeActive = true;
+//        cam.setRotation(ROT_DOWN);
+//    }
 
     
-    public void update(float tpf) {
-        
-        if (shakeActive) {
-            animTimer += tpf;
-            
-            if (firstShakeFinished) {
-                cam.setRotation(origRot);
-                shakeActive = false;
-            }
-            if (animTimer >= 0.1f) {
-                cam.setRotation(ROT_UP);
-                firstShakeFinished = true;
-                animTimer = 0;
-            }   
-        }
-    }
-    
+//    public void update(float tpf) {
+//        
+//        if (shakeActive) {
+//            animTimer += tpf;
+//            
+//            if (firstShakeFinished) {
+//                cam.setRotation(origRot);
+//                shakeActive = false;
+//            }
+//            if (animTimer >= 0.1f) {
+//                cam.setRotation(ROT_UP);
+//                firstShakeFinished = true;
+//                animTimer = 0;
+//            }   
+//        }
+//    }
+//    
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="false">  
+  <package id="1" language="java" name="App" project="tanks" file="/tanks/src/App" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="78" y="191"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="GameControllers" project="tanks" file="/tanks/src/GameControllers" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="448" y="357"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="GameControllers.logic" project="tanks" file="/tanks/src/GameControllers/logic" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="177" x="475" y="401"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="GameControllers.entitycontrols" project="tanks" 
+    file="/tanks/src/GameControllers/entitycontrols" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="239" x="196" y="401"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="GameModel" project="tanks" file="/tanks/src/GameModel" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="77" y="352"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="GameUtilities" project="tanks" file="/tanks/src/GameUtilities" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="205" y="194"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="GameView.effects" project="tanks" file="/tanks/src/GameView/effects" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="627" y="101"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="GameView.graphics" project="tanks" file="/tanks/src/GameView/graphics" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="620" y="97"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="9" language="java" name="GameView.gameEntity" project="tanks" file="/tanks/src/GameView/gameEntity" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="612" y="97"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="10" language="java" name="GameView.viewPort" project="tanks" file="/tanks/src/GameView/viewPort" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="621" y="97"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="11" language="java" name="GameView.physics" project="tanks" file="/tanks/src/GameView/physics" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1010" y="291"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="12" language="java" name="GameView.Map" project="tanks" file="/tanks/src/GameView/Map" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1007" y="359"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="13" language="java" name="GameView.Sounds" project="tanks" file="/tanks/src/GameView/Sounds" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="852" y="360"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="14" language="java" name="GameView.GUI" project="tanks" file="/tanks/src/GameView/GUI" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="700" y="358"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false"/>    
+    <operations public="false" package="false" protected="false" private="false"/>  
+  </classifier-display>  
+  <association-display labels="false" multiplicity="false"/>
+</class-diagram>

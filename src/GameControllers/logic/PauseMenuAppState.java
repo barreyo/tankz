@@ -116,8 +116,10 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
                 // hover
                 TextRenderer renderer1 = currentElement.getRenderer(TextRenderer.class);
                 renderer1.setColor(Color.BLACK);
-
-                sound.play();
+                
+                if (!SoundManager.INSTANCE.isSoundFXMuted()) {
+                    sound.play();
+                }
             }
         } else {
             if (event.getElement() != currentElement) {
