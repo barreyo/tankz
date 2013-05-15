@@ -13,6 +13,8 @@ public final class CanonBallModel extends AExplodingProjectile {
     
     private static final int DAMAGE = 10;
     private static final float MASS = 0.1f;
+    private static final long EXPLOSION_END_TIME = 2000;
+    private static final long MAX_LIFE_TIME = 5000;
 
     /**
      * {@inheritDoc}
@@ -48,5 +50,21 @@ public final class CanonBallModel extends AExplodingProjectile {
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getExplosionEndTime() {
+        return EXPLOSION_END_TIME;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getLifeTime() {
+        return MAX_LIFE_TIME;
     }
 }
