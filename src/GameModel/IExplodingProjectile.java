@@ -8,19 +8,7 @@ import com.jme3.math.Vector3f;
  * 
  * @author Daniel
  */
-public interface IExplodingProjectile extends IWorldObject {
-    /**
-     * Returns the rotation.
-     * 
-     * @return rotation
-     */
-    public Quaternion getRotation();
-    
-    /**
-     * Sets exploding to true, and sends event.
-     */
-    public void impact();
-    
+public interface IExplodingProjectile extends IExplodingObject {
     /**
      *
      * @param initialPos
@@ -34,17 +22,4 @@ public interface IExplodingProjectile extends IWorldObject {
      * @return
      */
     public Vector3f getLinearVelocity();
-
-    /**
-     *
-     * @return
-     */
-    public Vector3f getInitialPosition();
-
-    /**
-     * Applies damage on the specified damageable object.
-     * 
-     * @param damageableObject 
-     */
-    public void doDamageOn(IDamageableObject damageableObject);
 }
