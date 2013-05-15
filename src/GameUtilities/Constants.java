@@ -62,7 +62,7 @@ public final class Constants {
     public static final int LANDMINES_PER_PLAYER = 10;
     public static final int MISSILES_PER_PLAYER = 5;
     public static final int CANNONBALLS_PER_PLAYER = 10;
-    public static final int BOMBS_IN_AIRCALL = 50;
+    public static final int BOMBS_IN_AIRCALL = 10;
     public static final float CAM_MAX_DISTANCE = 25f;
     public static final float CAM_MIN_DISTANCE = 15f;
     public static final float CAM_DEFAULT_DISTANCE = 20f;

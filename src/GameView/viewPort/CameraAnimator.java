@@ -4,6 +4,8 @@
  */
 package GameView.viewPort;
 
+import GameControllers.logic.ViewPortManager;
+import GameModel.IPlayer;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -26,8 +28,8 @@ public class CameraAnimator {
     private boolean firstShakeFinished = false;
     private static Camera cam;
     
-    private static void shakeCamera(Camera cam) {
-        CameraAnimator.cam = cam;
+    private static void shakeCamera(IPlayer p) {
+        cam = ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()).getCamera();
         origRot = cam.getRotation();
         shakeActive = true;
         cam.setRotation(ROT_DOWN);

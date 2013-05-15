@@ -23,7 +23,7 @@ public class AirCallPowerup extends APowerup {
     
     private static final long END_TIME = 15000;
     private int bombCount;
-    private static final float INTERVAL = 0.3f;
+    private static final float INTERVAL = 0.6f;
     
     private static final int DROP_HEIGHT = 20;
     
