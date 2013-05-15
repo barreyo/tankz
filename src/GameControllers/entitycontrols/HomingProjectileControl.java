@@ -1,7 +1,7 @@
 package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
-import GameControllers.logic.SoundManager;
+import GameControllers.Managers.SoundManager;
 import GameModel.IArmedVehicle;
 import GameModel.IDamageableObject;
 import GameModel.IExplodingProjectile;

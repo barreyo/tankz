@@ -30,7 +30,6 @@ public class BeerPowerup extends APowerup {
     private static final long END_TIME = 10000;
     
     private IPlayer player;
-    private IArmedVehicle vehicle;
     private List<IPlayer> players;
     private List<IPlayer> targets;
 
@@ -43,7 +42,7 @@ public class BeerPowerup extends APowerup {
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         this.player = player;
-        this.vehicle = player.getVehicle();
+        IArmedVehicle vehicle = player.getVehicle();
         
         targets = new ArrayList<IPlayer>();
         // Setup targets for this powerup
@@ -70,6 +69,7 @@ public class BeerPowerup extends APowerup {
      */
     @Override
     public void update(float tpf) {
+        IArmedVehicle vehicle = player.getVehicle();
         super.update(tpf);
         if (isActive) {
             if (!targets.isEmpty()) {

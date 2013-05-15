@@ -2,7 +2,7 @@
 package GameControllers.entitycontrols;
 
 import GameControllers.TanksFactory;
-import GameControllers.logic.SoundManager;
+import GameControllers.Managers.SoundManager;
 import GameModel.EApplicationState;
 import GameModel.EPlayerInputs;
 import GameModel.IPlayer;

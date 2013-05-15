@@ -60,7 +60,7 @@ public final class TankModel implements IArmedVehicle {
      */
     public TankModel(List<CanonBallModel> canonBalls, 
             List<MissileModel> missiles, List<LandmineModel> landmines) {
-        firstFlameDisabling = true;
+        firstFlameDisabling = false;
         firstSmokeDisabling = true;
         this.smokeIsShowing = true;
         this.canonBalls = canonBalls;
@@ -185,13 +185,15 @@ public final class TankModel implements IArmedVehicle {
 
         if (smokeIsShowing) {
             pcs.firePropertyChange(Commands.SHOW_SMOKE, null, null);
-        } else if(!smokeIsShowing) {
+        } else if(!smokeIsShowing && firstSmokeDisabling) {
+            firstSmokeDisabling = false;
             pcs.firePropertyChange(Commands.HIDE_SMOKE, null, null);
         }
         
         if (flameIsShowing) {
             pcs.firePropertyChange(Commands.SHOW_FLAME, null, null);
-        } else if (!flameIsShowing) {
+        } else if (!flameIsShowing && firstFlameDisabling) {
+            firstFlameDisabling = false;
             pcs.firePropertyChange(Commands.HIDE_FLAME, null, null);
         }
     }
@@ -418,11 +420,17 @@ public final class TankModel implements IArmedVehicle {
 
     @Override
     public void toggleFlame(boolean state) {
+        if (state) {
+            firstFlameDisabling = true;
+        }
         flameIsShowing = state;
     }
 
     @Override
     public void toggleSmoke(boolean state) {
+        if (state) {
+            firstSmokeDisabling = true;
+        }
         smokeIsShowing = state;
     }
 
