@@ -1,6 +1,6 @@
 package GameView.gameEntity;
 
-import GameControllers.logic.GraphicManager;
+import GameControllers.Managers.GraphicManager;
 import GameView.graphics.EGraphics;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.material.Material;

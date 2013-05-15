@@ -30,7 +30,7 @@ public class AirCallPowerup extends APowerup {
     private float counter;
     
     private IPlayer player;
-    private IArmedVehicle vehicle;
+//    private IArmedVehicle vehicle;
     
     public AirCallPowerup(List<IExplodingProjectile> bombs) {
          this.bombs = bombs;
@@ -41,7 +41,6 @@ public class AirCallPowerup extends APowerup {
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         this.player = player;
-        vehicle = player.getVehicle();
         
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
