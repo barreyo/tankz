@@ -2,7 +2,7 @@
 package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
-import GameControllers.logic.SoundManager;
+import GameControllers.Managers.SoundManager;
 import GameModel.IDamageableObject;
 import GameModel.IWorldObject;
 import GameModel.LandmineModel;
