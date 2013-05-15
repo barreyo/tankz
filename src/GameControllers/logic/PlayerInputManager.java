@@ -1,4 +1,4 @@
-package GameControllers.Managers;
+package GameControllers.logic;
 
 import GameModel.EPlayerInputs;
 import GameModel.Player;

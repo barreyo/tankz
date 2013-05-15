@@ -70,7 +70,6 @@ public class BeerPowerup extends APowerup {
      */
     @Override
     public void update(float tpf) {
-        IArmedVehicle vehicle = player.getVehicle();
         super.update(tpf);
         if (isActive) {
             IArmedVehicle vehicle = player.getVehicle();

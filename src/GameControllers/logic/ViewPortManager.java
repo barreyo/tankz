@@ -1,4 +1,4 @@
-package GameControllers.Managers;
+package GameControllers.logic;
 
 import App.TanksAppAdapter;
 import GameView.viewPort.EViewPorts;

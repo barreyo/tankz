@@ -1,6 +1,6 @@
 package GameControllers;
 
-import GameControllers.Managers.ViewPortManager;
+import GameControllers.logic.ViewPortManager;
 import GameModel.IPlayer;
 import GameModel.CanonBallModel;
 import App.TanksAppAdapter;
@@ -9,7 +9,7 @@ import GameControllers.entitycontrols.LandmineControl;
 import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
-import GameControllers.Managers.GameAppState;
+import GameControllers.logic.GameAppState;
 import GameModel.AirCallPowerup;
 import GameModel.AtomicBombModel;
 import GameModel.BeerPowerup;

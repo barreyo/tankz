@@ -1,4 +1,4 @@
-package GameControllers.Managers;
+package GameControllers.logic;
 
 import GameModel.EApplicationState;
 import App.TanksAppAdapter;

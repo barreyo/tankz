@@ -4,7 +4,7 @@
  */
 package GameView.viewPort;
 
-import GameControllers.Managers.ViewPortManager;
+import GameControllers.logic.ViewPortManager;
 import GameModel.IPlayer;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
