@@ -2,9 +2,7 @@ package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
-import GameModel.IArmedVehicle;
 import GameModel.IDamageableObject;
-import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
 import GameModel.MissileModel;
 import GameUtilities.Commands;
@@ -12,7 +10,6 @@ import GameView.Sounds.ESounds;
 import GameView.gameEntity.MissileEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.Vector3f;
@@ -25,8 +22,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- *
- * @author Daniel
+ * Control for the homing missile, a missile that follows the target.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class HomingProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
 
@@ -39,10 +37,11 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
 
     /**
      * Creates a tank projectile control.
-     * @param entity 
-     * @param projModel
-     * @param physicsControl 
-     * @param aggroControl  
+     * 
+     * @param entity entity to be controlled.
+     * @param projModel model for the entity.
+     * @param physicsControl physics shape.
+     * @param aggroControl target searching controller.
      */
     public HomingProjectileControl(MissileEntity entity, MissileModel projModel,
             RigidBodyControl physicsControl, GhostControl aggroControl) {
@@ -65,8 +64,7 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
     }
 
     /**
-     *
-     * @param event
+     * {@inheritDoc}
      */
     @Override
     public void collision(PhysicsCollisionEvent event) {
@@ -106,6 +104,9 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
         String command = evt.getPropertyName();
@@ -124,6 +125,9 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void controlUpdate(float tpf) {
         if (projectileModel.isShownInWorld()) {
@@ -141,22 +145,18 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
     }
 
     /**
-     *
-     * @param rm
-     * @param vp
+     * {@inheritDoc}
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+        // not used
     }
 
     /**
-     *
-     * @param spatial
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported");
     }
 }

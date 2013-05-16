@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Manager for the game Tanks that handles viewports.
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum ViewPortManager {
     /**
-     *
+     * Gain access to this manager.
      */
     INSTANCE;
     

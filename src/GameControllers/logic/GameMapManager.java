@@ -6,13 +6,13 @@ import GameView.Map.GameWorld1;
 
 
 /**
- * A manager that manages the different maps of the game.
+ * A manager that manages the different maps of the game, singleton.
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum GameMapManager {
     /**
-     *
+     * Access to an instance of this singleton.
      */
     INSTANCE;
     
@@ -28,27 +28,29 @@ public enum GameMapManager {
     }
 
     /**
-     *
-     * @return
+     * Returns the current map.
+     * 
+     * @return current map.
      */
     public int getCurrentIntMap() {
         return currentIntGameMap;
     }
 
     /**
-     *
-     * @param gameMap
+     * Set the current map.
+     * 
+     * @param gameMap map number.
      */
     public void setCurrentIntGameMap(int gameMap) {
         this.currentIntGameMap = gameMap;
     }
 
     /**
-     *
-     * @param gameMap
+     * Load a game map.
+     * 
+     * @param gameMap game map number.
      */
     public void load(int gameMap) {
-
         switch (gameMap) {
             case 1:
                 currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
@@ -56,21 +58,19 @@ public enum GameMapManager {
             default:
                 currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
         }
-        
         TanksAppAdapter.INSTANCE.attachAppState(currentGame);
     }
 
     /**
-     *
+     * Restart the current map.
      */
     public void restartMap() {
         cleanup();
-
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
     /**
-     *
+     * Load the next map.
      */
     public void loadNextMap() {
         if (currentIntGameMap == NUMBER_OF_MAPS) {
@@ -78,13 +78,12 @@ public enum GameMapManager {
         } else {
             currentIntGameMap++;
         }
-
         cleanup();
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
     /**
-     *
+     * Load the previous map.
      */
     public void loadPreviousMap() {
         if (currentIntGameMap == 1) {
@@ -92,11 +91,13 @@ public enum GameMapManager {
         } else {
             currentIntGameMap--;
         }
-
         cleanup();
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 
+    /**
+     * Kill all game related managers.
+     */
     public void cleanup() {
         PhysicsManager.INSTANCE.cleanup();
         SoundManager.INSTANCE.cleanup();

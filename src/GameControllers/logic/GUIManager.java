@@ -8,10 +8,12 @@ import de.lessvoid.nifty.Nifty;
 import java.util.List;
 
 /**
- *
- * @author Daniel
+ * Manger for all GUI elements, singleton.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum GUIManager {
+    
     /**
      * Get access to the GUI manager through this singleton.
      */
@@ -27,6 +29,7 @@ public enum GUIManager {
         initialiseNifty();
     }
     
+    // init all Nifty relate objects.
     private void initialiseNifty() {
         NiftyJmeDisplay niftyDisplay = new NiftyJmeDisplay(TanksAppAdapter.INSTANCE.getAssetManager(),
                 TanksAppAdapter.INSTANCE.getInputManager(), TanksAppAdapter.INSTANCE.getAudioRenderer(), 

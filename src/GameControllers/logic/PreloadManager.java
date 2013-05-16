@@ -10,11 +10,11 @@ import com.jme3.scene.Spatial;
 /**
  * Used to preload different kinds of game data.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum PreloadManager {
     /**
-     *
+     * Gain access to this singleton instance.
      */
     INSTANCE;
     

@@ -7,12 +7,11 @@ import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import de.lessvoid.nifty.Nifty;
-import de.lessvoid.nifty.screen.Screen;
-import de.lessvoid.nifty.screen.ScreenController;
 
 /**
- *
- * @author Daniel
+ * Loading screen app state, singleton.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class LoadingScreenAppState extends AbstractAppState {
 
@@ -21,17 +20,15 @@ public final class LoadingScreenAppState extends AbstractAppState {
     private int frameCount;
     private static final int FRAME_COUNT = 20;
 
-    /**
-     *
-     */
     private LoadingScreenAppState() {
-        // Get managers
+        // Nifty GUI processor.
         nifty = GUIManager.INSTANCE.getNifty();
     }
 
     /**
-     *
-     * @return
+     * Returns the instance to this singleton.
+     * 
+     * @return instance.
      */
     public static synchronized LoadingScreenAppState getInstance() {
         if (instance == null) {
@@ -41,15 +38,14 @@ public final class LoadingScreenAppState extends AbstractAppState {
     }
 
     /**
-     *
+     * Show the loading screen, go to the loading screen nifty screen.
      */
     private void showLoadingScreen() {
         nifty.gotoScreen("loadingScreen");
     }
 
     /**
-     *
-     * @param stateManager
+     * {@inheritDoc}
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
@@ -60,8 +56,7 @@ public final class LoadingScreenAppState extends AbstractAppState {
     }
 
     /**
-     *
-     * @param stateManager
+     * {@inheritDoc}
      */
     @Override
     public void stateDetached(AppStateManager stateManager) {
@@ -70,15 +65,16 @@ public final class LoadingScreenAppState extends AbstractAppState {
     }
 
     /**
-     *
-     * @param stateManager
-     * @param app
+     * {@inheritDoc}
      */
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(float tpf) {
         if (frameCount == 0) {

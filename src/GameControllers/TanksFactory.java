@@ -1,8 +1,5 @@
 package GameControllers;
 
-import GameControllers.logic.ViewPortManager;
-import GameModel.IPlayer;
-import GameModel.CanonBallModel;
 import App.TanksAppAdapter;
 import GameControllers.entitycontrols.HomingProjectileControl;
 import GameControllers.entitycontrols.LandmineControl;
@@ -10,32 +7,34 @@ import GameControllers.entitycontrols.LinearProjectileControl;
 import GameControllers.entitycontrols.PowerupControl;
 import GameControllers.entitycontrols.TanksVehicleControl;
 import GameControllers.logic.GameAppState;
+import GameControllers.logic.ViewPortManager;
 import GameModel.AirCallPowerup;
 import GameModel.AtomicBombModel;
 import GameModel.BeerPowerup;
+import GameModel.CanonBallModel;
 import GameModel.GameSettings;
-import GameModel.ITanks;
-import GameModel.TanksGameModel;
-import GameModel.Player;
 import GameModel.HastePowerup;
 import GameModel.HealthPowerup;
-import GameModel.IPowerup;
 import GameModel.IArmedVehicle;
 import GameModel.IExplodingProjectile;
+import GameModel.IPlayer;
+import GameModel.IPowerup;
 import GameModel.ISpawningPoint;
+import GameModel.ITanks;
 import GameModel.LandmineModel;
 import GameModel.LandminePowerup;
 import GameModel.MissileModel;
 import GameModel.MissilePowerup;
+import GameModel.Player;
 import GameModel.SpawningPoint;
 import GameModel.TankModel;
+import GameModel.TanksGameModel;
 import GameUtilities.Constants;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
 import GameView.GUI.PowerupSlotView;
 import GameView.GUI.ScoreboardView;
 import GameView.GUI.TimerView;
-import GameView.Map.GameWorld1;
 import GameView.Map.IGameWorld;
 import GameView.gameEntity.CanonBallEntity;
 import GameView.gameEntity.LandmineEntity;
@@ -51,18 +50,14 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -256,10 +251,11 @@ public final class TanksFactory {
 
 
     /**
-     *
-     * @param cam
-     * @param spatial
-     * @return
+     * Create a vehicle chase camera.
+     * 
+     * @param cam camera.
+     * @param spatial spatial to follow.
+     * @return finshed chase camera.
      */
     public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
@@ -275,7 +271,8 @@ public final class TanksFactory {
     }
 
     /**
-     *
+     * Set up a new Tanks game.
+     * 
      * @param worldMapClass the visual world map to be instansiated and used as map for the game.
      * @param playerNames the names of the players to be created.
      */

@@ -4,19 +4,15 @@ import GameControllers.logic.GUIManager;
 import GameControllers.logic.SoundManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
-import com.jme3.audio.AudioRenderer;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.system.AppSettings;
-import com.jme3.system.JmeContext;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-
 
 /**
  * The main controller of the game TanksGame.
  *
- * @author Daniel, Per, Johan, Albin
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 class TanksApp extends SimpleApplication { 
     private BulletAppState bulletAppState;
@@ -49,10 +45,20 @@ class TanksApp extends SimpleApplication {
         Logger.getLogger("NiftyInputEventHandlingLog").setLevel(Level.SEVERE);
     }
    
+    /**
+     * Returns the bullet physics app state of the game.
+     * 
+     * @return bulllet app state.
+     */
     BulletAppState getBulletAppState() {
         return bulletAppState;
     }
     
+    /**
+     * Returns the video settings for the game.
+     *  
+     * @return vide settings.
+     */
     AppSettings getSettings() {
         return settings;
     }

@@ -1,23 +1,19 @@
 
 package GameControllers.entitycontrols;
 
+import App.TanksAppAdapter;
 import GameControllers.TanksFactory;
-import GameControllers.logic.SoundManager;
 import GameModel.EApplicationState;
 import GameModel.EPlayerInputs;
-import GameModel.IPlayer;
-import GameView.viewPort.VehicleCamera;
 import GameModel.IArmedVehicle;
-import App.TanksAppAdapter;
-import GameModel.IExplodingProjectile;
+import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
-import GameView.Sounds.ESounds;
 import GameView.gameEntity.TankEntity;
+import GameView.viewPort.VehicleCamera;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.control.GhostControl;
 import com.jme3.bullet.control.VehicleControl;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -28,11 +24,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- *  A control of a tank vehicle.
+ * A control of a tank vehicle.
  * 
  * Extends JMonkey predefined VehicleControl class.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class TanksVehicleControl extends VehicleControl implements ActionListener, PhysicsCollisionListener, PropertyChangeListener {
     
@@ -48,8 +44,9 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
  
     /**
      * Creates a control for a tank vehicle.
-     * @param entity 
-     * @param player 
+     * 
+     * @param entity entity to be controlled and listen to.
+     * @param player player model.
      */
     public TanksVehicleControl(TankEntity entity, IPlayer player) {  
         super(entity.getCollisionShape(), player.getVehicle().getMass());
@@ -66,8 +63,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         entity.addObserver(this);
     }
 
-    /*
-     * @inheritdoc
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void update(float tpf) {
@@ -106,7 +103,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public void cleanup() {
         // Remove this as a control and remove inputs
@@ -132,8 +129,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     private boolean isFirstDownKeyPressDone;
     
     /**
-     * @inheritdoc
-     * 
+     * {@inheritDoc}
+     *
      * Calls for the method in the model, according to the button pressed.
      */
     @Override
@@ -218,7 +215,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     }
 
     /**
-     * Adds inputmappings for this control, depends on what the variables are set to.
+     * Adds inputmappings for this control, depends on what the variables are 
+     * set to.
      */
     private void addInputMappings() {
         // Looks for unused input mappings
@@ -287,7 +285,10 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         TanksAppAdapter.INSTANCE.removeInputListener(this);
         inputs.setInUse(false);
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
         String command = evt.getPropertyName();
@@ -322,8 +323,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     }
 
     /**
-     *
-     * @param event
+     * {@inheritDoc}
      */
     @Override
     public void collision(PhysicsCollisionEvent event) {

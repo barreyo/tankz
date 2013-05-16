@@ -2,14 +2,12 @@ package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
 import GameControllers.logic.SoundManager;
-import GameModel.IArmedVehicle;
 import GameModel.IDamageableObject;
 import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.AGameEntity;
-import GameView.gameEntity.CanonBallEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -23,19 +21,23 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- *
- * @author Daniel
+ * Control class for linear projectiles.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class LinearProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
+    
     private AGameEntity entity;
     private IExplodingProjectile projectileModel;
 
     private RigidBodyControl physicsControl;
+    
     /**
-     * Creates a tank projectile control.
-     * @param entity
-     * @param projModel
-     * @param physicsControl  
+     * Creates a linear projectile control.
+     * 
+     * @param entity entity to be controlled.
+     * @param projModel entity model.
+     * @param physicsControl physics shape.
      */
     public LinearProjectileControl(AGameEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
 
@@ -50,7 +52,10 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         // We observe Model
         entity.addObserver(this);
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String command = evt.getPropertyName();
@@ -65,6 +70,9 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void controlUpdate(float tpf) {
         if (projectileModel.isShownInWorld()) {
@@ -79,28 +87,23 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
     }
 
     /**
-     *
-     * @param rm
-     * @param vp
+     * {@inheritDoc}
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+        // not used ever
     }
 
     /**
-     *
-     * @param spatial
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Never supported");
     }
 
     /**
-     *
-     * @param event
+     * {@inheritDoc}
      */
     @Override
     public void collision(PhysicsCollisionEvent event) {
