@@ -180,10 +180,10 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      * 
      */
     public void menu() {
-        EApplicationState.setGameState(EApplicationState.MAIN_MENU);
-        GameMapManager.INSTANCE.cleanup();
-        TanksAppAdapter.INSTANCE.detachAppState(this);
-        GUIManager.INSTANCE.showMainMenu();
+         EApplicationState.setGameState(EApplicationState.MAIN_MENU);
+         GameMapManager.INSTANCE.cleanup();
+         TanksAppAdapter.INSTANCE.detachAppState(this);
+         GUIManager.INSTANCE.showMainMenu();
     }
 
     /**

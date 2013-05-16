@@ -77,10 +77,31 @@ public final class TanksFactory {
     private TanksFactory() {
     }
 
-    private static CanonBallModel getNewCanonBall() {
+    private static CanonBallModel getNewCanonBall(int senderCollisionGroupMask) {
         CanonBallModel projectileModel = new CanonBallModel();
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
+
+        RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
+        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_10);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05) & ~senderCollisionGroupMask);
+
+        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel, physicsControl);
+
+        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
+
+        projectileEntity.addControl(control);
+        return projectileModel;
+    }
+    
+    private static MissileModel getNewMissile(int senderCollisionGroupMask) {
+        MissileModel projectileModel = new MissileModel();
+
+        MissileEntity projectileEntity = new MissileEntity(projectileModel);
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
         physicsControl.setCcdMotionThreshold(0.1f);
@@ -91,7 +112,15 @@ public final class TanksFactory {
                 | PhysicsCollisionObject.COLLISION_GROUP_04
                 | PhysicsCollisionObject.COLLISION_GROUP_05);
 
-        LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel, physicsControl);
+        GhostControl aggroGhost = new GhostControl(new SphereCollisionShape(200));
+        aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_10);
+        // Collide with all tanks except the senders --> aggro only other tanks.
+        aggroGhost.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+                | PhysicsCollisionObject.COLLISION_GROUP_03
+                | PhysicsCollisionObject.COLLISION_GROUP_04
+                | PhysicsCollisionObject.COLLISION_GROUP_05) & ~senderCollisionGroupMask);
+
+        HomingProjectileControl control = new HomingProjectileControl(projectileEntity, projectileModel, physicsControl, aggroGhost);
 
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
 
@@ -139,36 +168,6 @@ public final class TanksFactory {
 
         landmineEntity.addControl(control);
         return landmine;
-    }
-
-    private static MissileModel getNewMissile(int senderCollisionGroupMask) {
-        MissileModel projectileModel = new MissileModel();
-
-        MissileEntity projectileEntity = new MissileEntity(projectileModel);
-
-        RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
-        physicsControl.setCcdMotionThreshold(0.1f);
-        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
-                | PhysicsCollisionObject.COLLISION_GROUP_02
-                | PhysicsCollisionObject.COLLISION_GROUP_03
-                | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05);
-
-        GhostControl aggroGhost = new GhostControl(new SphereCollisionShape(200));
-        aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_10);
-        // Collide with all tanks except the senders --> aggro only other tanks.
-        aggroGhost.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
-                | PhysicsCollisionObject.COLLISION_GROUP_03
-                | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05) & ~senderCollisionGroupMask);
-
-        HomingProjectileControl control = new HomingProjectileControl(projectileEntity, projectileModel, physicsControl, aggroGhost);
-
-        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-
-        projectileEntity.addControl(control);
-        return projectileModel;
     }
 
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
@@ -299,7 +298,7 @@ public final class TanksFactory {
             List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
 
             for (int i = 0; i < Constants.CANNONBALLS_PER_PLAYER; i++) {
-                canonBalls.add(getNewCanonBall());
+                canonBalls.add(getNewCanonBall(collisionGroup));
             }
 
             List<MissileModel> missiles = new ArrayList<MissileModel>();
