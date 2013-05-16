@@ -71,7 +71,6 @@ public enum GameMapManager {
     public void restartMap() {
         cleanup();
 
-        //this calls currentGameMap.load() inside
         TanksAppAdapter.INSTANCE.attachAppState(LoadingScreenAppState.getInstance());
     }
 

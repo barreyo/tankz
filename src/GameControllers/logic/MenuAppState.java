@@ -40,7 +40,6 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private MenuAppState() {
         nifty = GUIManager.INSTANCE.getNifty();
         nifty.fromXml("Interface/Nifty/MainMenu.xml", "start", this);
-        //nifty.addXml("Interface/Nifty/MultiMenu.xml");
         
         nifty.getSoundSystem().addSound("hooverSound", "Sounds/click.ogg");
 
@@ -68,6 +67,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         TanksAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EApplicationState.setGameState(EApplicationState.MAIN_MENU);
+        playerNames.clear();
         TanksAppAdapter.INSTANCE.attachAppState(GlobalInputAppState.getInstance());
         if (!SoundManager.INSTANCE.isMusicMuted()) {
             SoundManager.INSTANCE.play(ESounds.MENU_SOUND);
@@ -78,31 +78,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
 
     /**
      *
-     * @param stateManager
      */
     @Override
-    public void stateDetached(AppStateManager stateManager) {
-    }
-
-    /**
-     *
-     * @param stateManager
-     * @param app
-     */
-    @Override
-    public void initialize(AppStateManager stateManager, Application app) {
-        super.initialize(stateManager, app);
-    }
-
-    @Override
-    public void cleanup() {
-        super.cleanup();
-        playerNames.clear();
-    }
-
-    /**
-     *
-     */
     public void onStartScreen() {
         System.out.println("onStartScreen");
     }
@@ -110,6 +87,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     /**
      *
      */
+    @Override
     public void onEndScreen() {
         System.out.println("onEndScreen");
     }
@@ -171,14 +149,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     @Override
     public void bind(Nifty nifty, Screen screen) {
-        
-    }
-
-    /**
-     *
-     */
-    public void quit() {
-        nifty.gotoScreen("end");
+        System.out.println("bind( " + screen.getScreenId() + ")");
     }
 
     /**
@@ -207,6 +178,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     public void loadOnePlayerGame() {
         playerNames.add("Player1");
         GUIManager.INSTANCE.showLoadingScreen();
+        TanksAppAdapter.INSTANCE.detachAppState(this);
     }
     
     /**
@@ -216,6 +188,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         playerNames.add("Player1");
         playerNames.add("Player2");
         GUIManager.INSTANCE.showLoadingScreen();
+        TanksAppAdapter.INSTANCE.detachAppState(this);
     }
     
     /**
@@ -226,6 +199,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         playerNames.add("Player2");
         playerNames.add("Player3");
         GUIManager.INSTANCE.showLoadingScreen();
+        TanksAppAdapter.INSTANCE.detachAppState(this);
     }
     
     /**
@@ -237,6 +211,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         playerNames.add("Player3");
         playerNames.add("Player4");
         GUIManager.INSTANCE.showLoadingScreen();
+        TanksAppAdapter.INSTANCE.detachAppState(this);
     }
     
     /**
