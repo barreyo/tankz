@@ -281,7 +281,7 @@ public final class TanksFactory {
      */
     public static GameAppState getNewGame(Class<? extends IGameWorld> worldMapClass, Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(1200000, 10, 5000);
+        GameSettings settings = new GameSettings(120000, 10, 20000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
@@ -398,16 +398,15 @@ public final class TanksFactory {
 
         // Setting spawningpoints, different on each map
         List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(10, 3, 10)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 12)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(30, 3, 10)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-102.4f, 2f, -22.9f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-110.9f, 2f, 138.6f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(125.2f, 2f, 152.2f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(131f, 2f, -20f)));
 
         List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(75, 21, 95)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-50, 2, 50)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(73.6f, 21, 98)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-53.3f, 2f, 54.3f)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(53.6f, 2f, 78.9f)));
 
         List<IPowerup> powerups = TanksFactory.getNewPowerups(powerupSpawningPoints, players);
 
