@@ -1,6 +1,7 @@
 package GameModel;
 
 import GameUtilities.Commands;
+import GameUtilities.Constants;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
@@ -9,6 +10,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Model for a tank vehicle.
@@ -50,9 +52,10 @@ public final class TankModel implements IArmedVehicle {
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
-    private List<CanonBallModel> canonBalls;
-    private List<MissileModel> missiles;
-    private List<LandmineModel> landmines;
+    private final List<CanonBallModel> canonBalls;
+    private final List<MissileModel> missiles;
+    private final List<LandmineModel> landmines;
+    private final List<AtomicBombModel> bombs;
     
     /**
      *
@@ -60,7 +63,8 @@ public final class TankModel implements IArmedVehicle {
      * @param missiles
      */
     public TankModel(List<CanonBallModel> canonBalls, 
-            List<MissileModel> missiles, List<LandmineModel> landmines) {
+            List<MissileModel> missiles, List<LandmineModel> landmines, 
+            List<AtomicBombModel> bombs) {
         paused = false;
         firstFlameDisabling = false;
         firstSmokeDisabling = true;
@@ -68,6 +72,7 @@ public final class TankModel implements IArmedVehicle {
         this.canonBalls = canonBalls;
         this.missiles = missiles;
         this.landmines = landmines;
+        this.bombs = bombs;
         mass = 600.0f;
         maxHealth = 100;
         health = maxHealth;
@@ -153,6 +158,35 @@ public final class TankModel implements IArmedVehicle {
             if (!landmine.isShownInWorld()) {
                 landmine.dropMine(new Vector3f(position).add(direction.mult(2f).negate()), player);
                 return;
+            }
+        }
+    }
+    
+    @Override
+    public void dropBomb(IPlayer player) {
+        Vector3f launchOrigin = new Vector3f(position).add(direction.normalize().mult(50));
+        launchOrigin.setY(Constants.NUKE_DROP_HEIGHT);
+        Random rand = new Random();
+        
+        int tmpRandomOne = rand.nextInt(3);
+        int tmpRandomTwo = rand.nextInt(3);
+        
+        float zRandom = rand.nextFloat() * 10;
+        float xRandom = rand.nextFloat() * 10;
+        
+        if (tmpRandomOne == 1) {
+            zRandom *= -1;
+        }
+        if (tmpRandomTwo == 1) {
+            xRandom *= -1;
+        }
+        
+        launchOrigin.addLocal(xRandom, 0, zRandom);
+        for (int i = 0; i < bombs.size(); i++) {
+            if (!bombs.get(i).isShownInWorld()) {
+                
+                bombs.get(i).launchProjectile(launchOrigin, new Vector3f(0, -1, 0).multLocal(80), Quaternion.ZERO, player);
+                return; 
             }
         }
     }
@@ -397,13 +431,6 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void resetSpeedValues() {
         currentMaxSpeed = defaultMaxSpeed;
-    }
-    
-    /**
-     * 
-     */
-    public void resetSteeringValues() {
-        steeringValue = 0;
     }
 
     /**
