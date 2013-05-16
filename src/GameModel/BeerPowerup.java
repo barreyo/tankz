@@ -55,11 +55,11 @@ public class BeerPowerup extends APowerup {
         if (!targets.isEmpty()) {
             for (IPlayer p : targets) {
                 IArmedVehicle temp = p.getVehicle();
-                temp.setMaxSpeed(temp.getDefaultMaxSpeed() / 5f);
+                temp.setMaxSpeed(temp.getDefaultMaxSpeed() / 2f);
             }
         } else {
             maxSpeed = vehicle.getDefaultMaxSpeed();
-            vehicle.setMaxSpeed(maxSpeed / 5f);
+            vehicle.setMaxSpeed(maxSpeed / 2f);
         }
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
