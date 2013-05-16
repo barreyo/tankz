@@ -15,7 +15,7 @@ import com.jme3.input.controls.KeyTrigger;
  * 
  * @author Johan Backman
  */
-public class GlobalInputAppState extends AbstractAppState implements ActionListener {
+public final class GlobalInputAppState extends AbstractAppState implements ActionListener {
     
     private static GlobalInputAppState instance;
     

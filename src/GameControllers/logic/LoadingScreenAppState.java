@@ -14,7 +14,7 @@ import de.lessvoid.nifty.screen.ScreenController;
  *
  * @author Daniel
  */
-public final class LoadingScreenAppState extends AbstractAppState implements ScreenController {
+public final class LoadingScreenAppState extends AbstractAppState {
 
     private static LoadingScreenAppState instance;
     private Nifty nifty;
@@ -27,10 +27,6 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     private LoadingScreenAppState() {
         // Get managers
         nifty = GUIManager.INSTANCE.getNifty();
-
-        // Register as a screen controller and add scree n to Hud handler Nifty
-        nifty.registerScreenController(this);
-        nifty.addXml("Interface/Nifty/LoadingScreen.xml");
     }
 
     /**
@@ -47,7 +43,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     /**
      *
      */
-    public void showLoadingScreen() {
+    private void showLoadingScreen() {
         nifty.gotoScreen("loadingScreen");
     }
 
@@ -58,6 +54,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
     @Override
     public void stateAttached(AppStateManager stateManager) {
         super.stateAttached(stateManager);
+        showLoadingScreen();
         EApplicationState.setGameState(EApplicationState.LOADING_MAP);
         frameCount = 0;
     }
@@ -84,10 +81,7 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
 
     @Override
     public void update(float tpf) {
-        if (frameCount == 1) {
-            //load the screen
-            showLoadingScreen();
-        } else if (frameCount == FRAME_COUNT) { //using 150 as a debug, this is where you load the game
+        if (frameCount == FRAME_COUNT) { //using 150 as a debug, this is where you load the game
 
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
 
@@ -101,31 +95,5 @@ public final class LoadingScreenAppState extends AbstractAppState implements Scr
             System.out.println("Finished loading game");
         }
         frameCount++;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void onStartScreen() {
-        System.out.println("onStartScreen");
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void onEndScreen() {
-        System.out.println("onEndScreen");
-    }
-
-    /**
-     *
-     * @param nifty
-     * @param screen
-     */
-    @Override
-    public void bind(Nifty nifty, Screen screen) {
-        System.out.println("bind( " + screen.getScreenId() + ")");
     }
 }

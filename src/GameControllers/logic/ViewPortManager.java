@@ -77,6 +77,10 @@ public enum ViewPortManager {
      * Releases the resources contained by this manager.
      */
     public void cleanup() {
+        for (EViewPorts view : views.values()) {
+            view.getViewPort().detachScene(TanksAppAdapter.INSTANCE.getRootNode());
+            view.getViewPort().setEnabled(false);
+        }
         views.clear();
     }
 }
