@@ -13,7 +13,7 @@ public final class Constants {
     /**
      *
      */
-    public static final float TANK_STIFFNESS = 80.0f;//200=f1 car
+    public static final float TANK_STIFFNESS = 100.0f;//200=f1 car
     /**
      *
      */
@@ -25,7 +25,7 @@ public final class Constants {
     /**
      *
      */
-    public static final float TANK_MAX_BACK_SPEED = 30.0f;
+    public static final float TANK_MAX_BACK_SPEED = 34.0f;
     /**
      *
      */
@@ -33,7 +33,7 @@ public final class Constants {
     /**
      *
      */
-    public static final float TANK_MAX_SUSPENSION_FORCE = 999000.0f;
+    public static final float TANK_MAX_SUSPENSION_FORCE = 9000.0f;
     /**
      *
      */
@@ -63,9 +63,9 @@ public final class Constants {
     public static final int MISSILES_PER_PLAYER = 5;
     public static final int CANNONBALLS_PER_PLAYER = 10;
     public static final int BOMBS_IN_AIRCALL = 5;
-    public static final float CAM_MAX_DISTANCE = 25f;
-    public static final float CAM_MIN_DISTANCE = 15f;
-    public static final float CAM_DEFAULT_DISTANCE = 20f;
+    public static final float CAM_MAX_DISTANCE = 28f;
+    public static final float CAM_MIN_DISTANCE = 18f;
+    public static final float CAM_DEFAULT_DISTANCE = 24f;
     public static final float CAM_CHASING_SENSITIVITY = 50f;
     public static final float CAM_DEFAULT_VERTICAL_ROTATION = 0.3f;
     

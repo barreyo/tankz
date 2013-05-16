@@ -188,16 +188,6 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         TanksAppAdapter.INSTANCE.stop();
     }
     
-    public void toggleMusic() {
-        SoundManager.INSTANCE.toggleMusic();
-        updateSettingsOptions();
-    }
-    
-    public void toggleFX() {
-        SoundManager.INSTANCE.toggleFX();
-        updateSettingsOptions();
-    }
-    
     public void updateSettingsOptions() {
         if (SoundManager.INSTANCE.isMusicMuted()) {
             musicToggle.getRenderer(TextRenderer.class).setText("MUSIC OFF");

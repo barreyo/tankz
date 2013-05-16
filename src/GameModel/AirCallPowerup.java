@@ -80,8 +80,8 @@ public class AirCallPowerup extends APowerup {
         int tmpRandomOne = (int) (Math.random() * 2);
         int tmpRandomTwo = (int) (Math.random() * 2);
         
-        float zRandom = (float) (Math.random() * 80);
-        float xRandom = (float) (Math.random() * 80);
+        float zRandom = (float) (Math.random() * 50);
+        float xRandom = (float) (Math.random() * 50);
         
         if (tmpRandomOne == 1) {
             zRandom *= -1;
@@ -92,6 +92,7 @@ public class AirCallPowerup extends APowerup {
         Vector3f initPos = new Vector3f(xRandom, DROP_HEIGHT, zRandom);
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).isShownInWorld()) {
+                
                 bombs.get(i).launchProjectile(initPos, new Vector3f(0, -1, 0).multLocal(80), Quaternion.ZERO, player);
                 bombCount--;
                 return; 

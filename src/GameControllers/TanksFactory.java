@@ -173,7 +173,7 @@ public final class TanksFactory {
 
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             tmp.add(getNewPowerup(HastePowerup.class));
             tmp.add(getNewPowerup(MissilePowerup.class));
             tmp.add(getNewPowerup(LandminePowerup.class));
@@ -282,7 +282,7 @@ public final class TanksFactory {
      */
     public static GameAppState getNewGame(Class<? extends IGameWorld> worldMapClass, Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(120000, 10, 5000);
+        GameSettings settings = new GameSettings(1200000, 10, 5000);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();

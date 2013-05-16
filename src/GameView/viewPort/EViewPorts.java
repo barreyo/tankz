@@ -66,28 +66,26 @@ public enum EViewPorts {
         FilterPostProcessor fpp = new FilterPostProcessor(TanksAppAdapter.INSTANCE.getAssetManager());
         
         DirectionalLight light = new DirectionalLight();
-        light.setDirection(new Vector3f(-5,-2,6).normalizeLocal());
+        light.setDirection(new Vector3f(-.5f,-.5f,-.5f).normalizeLocal());
         
-        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 4);
-        dlsf.setLight(light);
-        dlsf.setLambda(0.55f);
-        dlsf.setShadowIntensity(0.6f);        
-        dlsf.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
+//        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 4);
+//        dlsf.setLight(light);
+//        dlsf.setLambda(0.55f);
+//        dlsf.setShadowIntensity(0.6f);        
+//        dlsf.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
+//        
+//        fpp.addFilter(dlsf);
         
-        fpp.addFilter(dlsf);
+        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 4);
+        dlsr.setLight(light);
+        dlsr.setLambda(0.9f);
+        dlsr.setShadowIntensity(0.35f);
+        view.addProcessor(dlsr);
         
-//        DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer();
-//        dlsr.setLight(light);
-//        dlsr.setLambda(0.55f);
-//        view.addProcessor(dlsr);
-        
-        /*SSAOFilter ssaoFilter = new SSAOFilter(5f, 10f, 0.33f, 0.4f);
-        fpp.addFilter(ssaoFilter); */
-        
-        DepthOfFieldFilter dof = new DepthOfFieldFilter();
+        /*DepthOfFieldFilter dof = new DepthOfFieldFilter();
         dof.setFocusDistance(0);
         dof.setFocusRange(100);
-        fpp.addFilter(dof);
+        fpp.addFilter(dof);*/
       
         // uncomment this for cartoon, trees gets fucked up though
         if (TanksAppAdapter.INSTANCE.rendererContains(Caps.GLSL100)){

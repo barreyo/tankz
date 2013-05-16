@@ -76,7 +76,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         
         // Load, attach map to root node, and add nodes and geoms in the map to physicsspace
         mapNode = (Node) GraphicManager.INSTANCE.createSpatial(EGraphics.MAP1);
-        mapNode.setShadowMode(RenderQueue.ShadowMode.Receive);
+        mapNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         TanksAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
         TanksAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
 //        TanksAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TanksAppAdapter.INSTANCE.getAssetManager());
