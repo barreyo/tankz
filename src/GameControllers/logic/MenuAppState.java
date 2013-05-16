@@ -114,6 +114,17 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
        nifty.gotoScreen("multi");
     }
 
+
+    public void toggleMusic() {
+        SoundManager.INSTANCE.toggleMusic();
+        updateSettingsOptions();
+    }
+    
+    public void toggleFX() {
+        SoundManager.INSTANCE.toggleFX();
+        updateSettingsOptions();
+    }
+    
     /**
      *
      * @param id
