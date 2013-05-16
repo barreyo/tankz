@@ -132,7 +132,7 @@ public enum SoundManager {
         soundMap.clear();
     }
 
-    void stopAllSounds() {
+    public void stopAllSounds() {
         for (AudioNode audio : soundMap.values()) {
             audio.stop();
         }
