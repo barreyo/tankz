@@ -4,16 +4,16 @@
  */
 package GameView.viewPort;
 
-import GameControllers.logic.ViewPortManager;
-import GameModel.IPlayer;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
 
 /**
- *
- * @author backman
+ * This is a lol-class.
+ * 
+ * SHOULD BE REMOVED
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class CameraAnimator {
     

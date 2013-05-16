@@ -21,6 +21,7 @@ public final class TankModel implements IArmedVehicle {
     private boolean firstFlameDisabling;
     private boolean smokeIsShowing;
     private boolean firstSmokeDisabling;
+    private boolean paused;
     
     private int health;
     private final int maxHealth;
@@ -60,6 +61,7 @@ public final class TankModel implements IArmedVehicle {
      */
     public TankModel(List<CanonBallModel> canonBalls, 
             List<MissileModel> missiles, List<LandmineModel> landmines) {
+        paused = false;
         firstFlameDisabling = false;
         firstSmokeDisabling = true;
         this.smokeIsShowing = true;
@@ -176,26 +178,29 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void update(float tpf) {
-        float oldAcceleration = accelerationValue;
-        float maxSpeed = (acceleration >= 0 ? this.currentMaxSpeed : -backMaxSpeed);
-        float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
-        shootDelay -= tpf;
-        accelerationValue = acceleration * speedFactor;
-        pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
+        if (!paused) {
+            float oldAcceleration = accelerationValue;
+            float maxSpeed = (acceleration >= 0 ? this.currentMaxSpeed : -backMaxSpeed);
+            float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;
+            shootDelay -= tpf;
+            accelerationValue = acceleration * speedFactor;
+            pcs.firePropertyChange(Commands.ACCELERATE, oldAcceleration, accelerationValue);
 
-        if (smokeIsShowing) {
-            pcs.firePropertyChange(Commands.SHOW_SMOKE, null, null);
-        } else if(!smokeIsShowing && firstSmokeDisabling) {
-            firstSmokeDisabling = false;
-            pcs.firePropertyChange(Commands.HIDE_SMOKE, null, null);
+            if (smokeIsShowing) {
+                pcs.firePropertyChange(Commands.SHOW_SMOKE, null, null);
+            } else if(!smokeIsShowing && firstSmokeDisabling) {
+                firstSmokeDisabling = false;
+                pcs.firePropertyChange(Commands.HIDE_SMOKE, null, null);
+            }
+
+            if (flameIsShowing) {
+                pcs.firePropertyChange(Commands.SHOW_FLAME, null, null);
+            } else if (!flameIsShowing && firstFlameDisabling) {
+                firstFlameDisabling = false;
+                pcs.firePropertyChange(Commands.HIDE_FLAME, null, null);
+            }
         }
-        
-        if (flameIsShowing) {
-            pcs.firePropertyChange(Commands.SHOW_FLAME, null, null);
-        } else if (!flameIsShowing && firstFlameDisabling) {
-            firstFlameDisabling = false;
-            pcs.firePropertyChange(Commands.HIDE_FLAME, null, null);
-        }
+        System.out.println(position);
     }
 
     /**

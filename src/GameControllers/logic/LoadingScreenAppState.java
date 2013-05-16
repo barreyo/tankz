@@ -19,7 +19,7 @@ public final class LoadingScreenAppState extends AbstractAppState {
     private static LoadingScreenAppState instance;
     private Nifty nifty;
     private int frameCount;
-    private static final int FRAME_COUNT = 25;
+    private static final int FRAME_COUNT = 20;
 
     /**
      *
@@ -84,15 +84,15 @@ public final class LoadingScreenAppState extends AbstractAppState {
         if (frameCount == 0) {
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
             System.out.println("LOADING GAME");
-        } else if (frameCount == 1) {
-            SoundManager.INSTANCE.load();
-        } else if (frameCount == 2) {
-            PhysicsManager.INSTANCE.load();
-        } else if (frameCount == 3) {
-            ViewPortManager.INSTANCE.load();
-        } else if (frameCount == 4) {
-            GraphicManager.INSTANCE.load();
         } else if (frameCount == 5) {
+            SoundManager.INSTANCE.load();
+        } else if (frameCount == 8) {
+            PhysicsManager.INSTANCE.load();
+        } else if (frameCount == 13) {
+            ViewPortManager.INSTANCE.load();
+        } else if (frameCount == 14) {
+            GraphicManager.INSTANCE.load();
+        } else if (frameCount == 17) {
             EffectsManager.INSTANCE.load();
         }
         else if (frameCount == FRAME_COUNT) {

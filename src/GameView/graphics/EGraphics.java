@@ -3,7 +3,7 @@ package GameView.graphics;
 /**
  * Enum holding relative paths to models.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum EGraphics {
 

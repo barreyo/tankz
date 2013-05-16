@@ -13,16 +13,22 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
+ * The graphical representation of the powerups, when out in the world.
+ * 
+ * Connects the visual representation with its effects as well handling
+ *  collision shapes.
  *
- * @author Garpetun
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class PowerupEntity extends AGameEntity {
+    
     private final IPowerup powerup;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
-     *
-     * @param pow
+     * Instantiates the object.
+     * 
+     * @param pow The powerup representated
      */
     public PowerupEntity(IPowerup pow) {
         super(EGraphics.POWERUP);
@@ -36,6 +42,9 @@ public final class PowerupEntity extends AGameEntity {
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
     
+    /**
+     * @inheritdoc
+     */
     @Override
     public CollisionShape getCollisionShape() {
         return new BoxCollisionShape(getExtents());
@@ -50,6 +59,9 @@ public final class PowerupEntity extends AGameEntity {
         powerup.removeObserver(this);
     }
 
+    /**
+     * @inheritdoc 
+     */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(Commands.SHOW)) {
@@ -60,30 +72,42 @@ public final class PowerupEntity extends AGameEntity {
         pcs.firePropertyChange(pce);
     }
 
+    /**
+     * @inheritdoc 
+     */
     @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    /**
+     * @inheritdoc 
+     */
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
+    /**
+     * Shows the powerup in the world.
+     */
     private void showInWorld() {
         spatial.setLocalTranslation(powerup.getPosition());
         spatial.setCullHint(CullHint.Dynamic);
     }
 
     /**
-     *
+     * Hides the powerup from the world.
      */
     public void hideFromWorld() {
         spatial.setCullHint(CullHint.Always);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void impact() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported.");
     }
 }
