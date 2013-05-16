@@ -404,8 +404,8 @@ public final class TanksFactory {
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(35, 3, 9)));
 
         List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-90, 3, 7)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(80, 3, 7)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(75, 21, 95)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-50, 2, 50)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(8, 3, 7)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(20, 3, 20)));
 
