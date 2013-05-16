@@ -77,18 +77,9 @@ public class AirCallPowerup extends APowerup {
     }
 
     private void dropBomb() {
-        int tmpRandomOne = (int) (Math.random() * 2);
-        int tmpRandomTwo = (int) (Math.random() * 2);
+        float zRandom = (float) ((Math.random() * 208) - 34);
+        float xRandom = (float) ((Math.random() * 256) - 121);
         
-        float zRandom = (float) (Math.random() * 80);
-        float xRandom = (float) (Math.random() * 80);
-        
-        if (tmpRandomOne == 1) {
-            zRandom *= -1;
-        }
-        if (tmpRandomTwo == 1) {
-            xRandom *= -1;
-        }
         Vector3f initPos = new Vector3f(xRandom, DROP_HEIGHT, zRandom);
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).isShownInWorld()) {
