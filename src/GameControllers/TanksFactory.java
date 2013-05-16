@@ -13,10 +13,7 @@ import GameModel.AtomicBombModel;
 import GameModel.BeerPowerup;
 import GameModel.CanonBallModel;
 import GameModel.GameSettings;
-import GameModel.HastePowerup;
-import GameModel.HealthPowerup;
 import GameModel.IArmedVehicle;
-import GameModel.IExplodingProjectile;
 import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.ISpawningPoint;
@@ -24,7 +21,6 @@ import GameModel.ITanks;
 import GameModel.LandmineModel;
 import GameModel.LandminePowerup;
 import GameModel.MissileModel;
-import GameModel.MissilePowerup;
 import GameModel.Player;
 import GameModel.SpawningPoint;
 import GameModel.TankModel;
@@ -36,13 +32,13 @@ import GameView.GUI.PowerupSlotView;
 import GameView.GUI.ScoreboardView;
 import GameView.GUI.TimerView;
 import GameView.Map.IGameWorld;
+import GameView.effects.AirCallIndicator;
 import GameView.gameEntity.CanonBallEntity;
 import GameView.gameEntity.LandmineEntity;
 import GameView.gameEntity.MissileEntity;
 import GameView.gameEntity.NukeEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
-import GameView.physics.ECollisionShapes;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
@@ -63,9 +59,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Manages controls.
+ * Factory used for creating a new tanks game and tanks game related objects.
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class TanksFactory {
 
@@ -408,6 +404,8 @@ public final class TanksFactory {
         TimerView timerView = new TimerView(game);
         timerView.show();
 
+        AirCallIndicator ai = new AirCallIndicator();
+        
         return new GameAppState(game, gameWorld);
     }
 }

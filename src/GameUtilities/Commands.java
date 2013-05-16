@@ -125,4 +125,9 @@ public final class Commands {
      * Respawn update for the scoreboard.
      */
     public static final String SCORE_RESPAWN_UPDATE = "SCORE_RESPAWN_UPDATE";
+    
+    /**
+     * Air call AoE indicator update.
+     */
+    public static final String AIRCALL = "AIRCALL";
 }

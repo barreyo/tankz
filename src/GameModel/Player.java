@@ -5,7 +5,6 @@ import GameModel.IArmedVehicle.VehicleState;
 import GameUtilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Collections;
 
 /**
  * A representation of a player.

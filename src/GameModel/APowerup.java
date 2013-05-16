@@ -13,13 +13,12 @@ import java.beans.PropertyChangeSupport;
 public abstract class APowerup implements IPowerup {
     
     private Vector3f position;
-    private Quaternion rotation;
     private boolean isHeldByPlayer;
     private boolean isInWorld;
 
     private static final float MASS = 10f;
     
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    protected final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      *

@@ -168,18 +168,8 @@ public final class TankModel implements IArmedVehicle {
         launchOrigin.setY(Constants.NUKE_DROP_HEIGHT);
         Random rand = new Random();
         
-        int tmpRandomOne = rand.nextInt(3);
-        int tmpRandomTwo = rand.nextInt(3);
-        
-        float zRandom = rand.nextFloat() * 20;
-        float xRandom = rand.nextFloat() * 20;
-        
-        if (tmpRandomOne == 1) {
-            zRandom *= -1;
-        }
-        if (tmpRandomTwo == 1) {
-            xRandom *= -1;
-        }
+        float zRandom = (rand.nextFloat() * 30) - 15;
+        float xRandom = (rand.nextFloat() * 30) - 15;
         
         launchOrigin.addLocal(xRandom, 0, zRandom);
         for (int i = 0; i < bombs.size(); i++) {
