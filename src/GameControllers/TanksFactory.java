@@ -345,8 +345,11 @@ public final class TanksFactory {
                     Constants.TANK_WHEEL_REST_LENGTH, wheelRadius, false);
 
             vehicle.setCollisionGroup(collisionGroup);
-            vehicle.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
-                    | PhysicsCollisionObject.COLLISION_GROUP_02);
+            vehicle.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_01
+                    | PhysicsCollisionObject.COLLISION_GROUP_02
+                    | PhysicsCollisionObject.COLLISION_GROUP_03
+                    | PhysicsCollisionObject.COLLISION_GROUP_04
+                    | PhysicsCollisionObject.COLLISION_GROUP_05) & ~collisionGroup);
 
             TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
 
