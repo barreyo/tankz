@@ -117,11 +117,6 @@ public interface IArmedVehicle extends IDamageableObject {
      *
      */
     public void resetSpeedValues();
-    
-    /**
-     * 
-     */
-    public void resetSteeringValues();
 
     /**
      * Shoots a missile from the vehicle.
@@ -130,7 +125,9 @@ public interface IArmedVehicle extends IDamageableObject {
 
     public void dropLandmine(IPlayer player);
 
-    public void heal(int HEAL);
+    public void heal(int heal);
+
+    public void dropBomb(IPlayer player);
 
     /**
      * Enum representing different states of the vehicle.

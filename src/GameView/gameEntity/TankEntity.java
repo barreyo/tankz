@@ -1,8 +1,8 @@
 
 package GameView.gameEntity;
 
-import GameModel.IArmedVehicle;
 import App.TanksAppAdapter;
+import GameModel.IArmedVehicle;
 import GameUtilities.Commands;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
@@ -19,7 +19,10 @@ import java.util.Collection;
 /**
  * The visual game entity class of a tank.
  * 
- * @author Daniel
+ * Connects the visual representation with its effects as well handling
+ *  collision shapes.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class TankEntity extends AGameEntity {
     
@@ -33,6 +36,7 @@ public final class TankEntity extends AGameEntity {
 
     /**
      * Creates a tank game entity.
+     * 
      * @param armedVehicle 
      */
     public TankEntity(IArmedVehicle armedVehicle) {
@@ -66,13 +70,16 @@ public final class TankEntity extends AGameEntity {
         setModel(null);
     }
 
+    /**
+     * @inheritdoc 
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(Commands.SHOOT)) {
-            showShootingEffects(shootEffects);
+            showEffects(shootEffects, armedVehicle.getFirePosition());
         } else if(evt.getPropertyName().equals(Commands.HIDE)){
                 // Remove tank from world
-                this.showShootingEffects(blownUpEffects);
+                this.showEffects(blownUpEffects, armedVehicle.getFirePosition());
                 this.hideFromWorld();
         } else if (evt.getPropertyName().equals(Commands.SHOW)) {
             showInWorld();
@@ -81,30 +88,38 @@ public final class TankEntity extends AGameEntity {
         } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             this.cleanup();
         } else if (evt.getPropertyName().equals(Commands.SHOW_SMOKE)) {
-            showEffects(smokeEffects);
+            showEffects(smokeEffects, armedVehicle.getExhaustPosition());
         } else if (evt.getPropertyName().equals(Commands.HIDE_SMOKE)) {
             hideEffects(smokeEffects);
         } else if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
-            showEffects(flameEffects);
+            showEffects(flameEffects, armedVehicle.getExhaustPosition());
         } else if (evt.getPropertyName().equals(Commands.HIDE_FLAME)) {
             hideEffects(flameEffects);
         }
         pcs.firePropertyChange(evt);
     }
 
+    /**
+     * @inheritdoc 
+     */
     @Override
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
 
+    /**
+     * @inheritdoc
+     */
     @Override
     public void removeObserver(PropertyChangeListener l) {
         pcs.removePropertyChangeListener(l);
     }
 
     /**
-     *
-     * @param vehicle
+     * Sets a model representation of an IArmedVehicle to be
+     *  associated to this TankEntity.
+     * 
+     * @param vehicle The IArmedVehicle to be associated to this
      */
     public void setModel(IArmedVehicle vehicle) {
         if (armedVehicle != null) {
@@ -118,61 +133,47 @@ public final class TankEntity extends AGameEntity {
     }
 
     /**
-     *
-     * @param pos
+     * Sets the position of the spatial in the world.
+     * 
+     * @param pos The position
      */
     public void setPosition(Vector3f pos) {
         spatial.setLocalTranslation(pos);
     }
 
+    /**
+     * Toggles the spatial to be shown in the world.
+     */
     private void showInWorld() {
         TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 
+    /**
+     * Toggles the spatial to be hidden from the world.
+     */
     private void hideFromWorld() {
         TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
     }
     
+    /**
+     * Updates the position of the spatial to
+     *  the position of the model representation.
+     */
     private void updatePosition() {
         spatial.setLocalTranslation(armedVehicle.getPosition());
     }
     
+    /**
+     * Updates the rotation of the spatial to
+     *  the rotation of the model representation.
+     */
     private void updateRotation() {
         spatial.setLocalRotation(armedVehicle.getRotation());
     }
 
-    private synchronized void showShootingEffects(Collection<ParticleEmitter> effects) {
-         for (ParticleEmitter effect : effects) {
-            if (effect != null) {
-                effect.setLocalTranslation(armedVehicle.getFirePosition());
-                TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
-                effect.emitAllParticles();
-            }
-        }
-    }
-    
-    private synchronized void showEffects(Collection<ParticleEmitter> effects) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    effect.setLocalTranslation(armedVehicle.getExhaustPosition());
-                    spatial.getParent().attachChild(effect);
-                    effect.emitAllParticles();
-                }
-            }
-        }
-    }
-    
-    private synchronized void hideEffects(Collection<ParticleEmitter> effects) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    spatial.getParent().detachChild(effect);
-                }
-            }
-        }
-    }
-
+    /**
+     * @inheritdoc
+     */
     @Override
     public void impact() {
         throw new UnsupportedOperationException("Not supported yet.");

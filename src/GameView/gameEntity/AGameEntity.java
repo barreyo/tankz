@@ -3,11 +3,13 @@ package GameView.gameEntity;
 import GameControllers.logic.GraphicManager;
 import GameView.graphics.EGraphics;
 import com.jme3.bounding.BoundingBox;
+import com.jme3.effect.ParticleEmitter;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
+import java.util.Collection;
 
 /**
  * An abstract game entity.
@@ -71,6 +73,39 @@ public abstract class AGameEntity implements IGameEntity {
     @Override
     public Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
+    }
+    
+    /**
+     * Shows the effects that this methods gets in, at the position given.
+     * 
+     * @param effects The effects that gets shown
+     * @param position The position at which the effects get shown
+     */
+    protected synchronized void showEffects(Collection<ParticleEmitter> effects, Vector3f position) {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : effects) {
+                if (effect != null) {
+                    effect.setLocalTranslation(position);
+                    spatial.getParent().attachChild(effect);
+                    effect.emitAllParticles();
+                }
+            }
+        }
+    }
+    
+    /**
+     * Hides the given effects.
+     * 
+     * @param effects The effects to be hidden
+     */
+    protected synchronized void hideEffects(Collection<ParticleEmitter> effects) {
+        if (spatial.getParent() != null) {
+            for (ParticleEmitter effect : effects) {
+                if (effect != null) {
+                    spatial.getParent().detachChild(effect);
+                }
+            }
+        }
     }
 
     public abstract void impact();

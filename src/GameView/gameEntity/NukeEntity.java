@@ -16,19 +16,24 @@ import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 /**
- * A missile projectile.
+ * The graphical representation of the Nuke powerups projectile, when it is shot.
+ * 
+ * Connects the visual representation with its effects as well handling
+ *  collision shapes.
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
-public final class NukeEntity extends AGameEntity{
+public final class NukeEntity extends AGameEntity {
+    
     private IExplodingProjectile projectile;
     private final Collection<ParticleEmitter> effects;
     
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
-     *
-     * @param proj
+     * Instantiates the object.
+     * 
+     * @param proj The model of the object
      */
     public NukeEntity(IExplodingProjectile proj) {
         super(EGraphics.NUKE);
@@ -59,6 +64,9 @@ public final class NukeEntity extends AGameEntity{
         projectile.removeObserver(this);
     }
 
+    /**
+     * @inheritdoc 
+     */
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(Commands.SHOW)) {
@@ -83,22 +91,13 @@ public final class NukeEntity extends AGameEntity{
     }
     
     /**
-     *
+     * Tells the camera to shake, removes the nuke from the world
+     *  and shows an effect.
      */
     public void impact() {
         pcs.firePropertyChange(Commands.CAMERA_SHAKE, null, null);
         hideFromWorld();
-        showEffect();
-    }
-
-    private void showEffect() {
-        for (ParticleEmitter effect : effects) {
-            if (effect != null) {
-                effect.setLocalTranslation(spatial.getWorldTranslation());
-                TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
-                effect.emitAllParticles();
-            }
-        }
+        showEffects(effects, spatial.getWorldTranslation());
     }
 
     private void updatePosition() {

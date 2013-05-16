@@ -9,7 +9,7 @@ import com.jme3.math.Vector3f;
 /**
  * Enum of the collision shapes used in Tanks.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum ECollisionShapes {
     /**

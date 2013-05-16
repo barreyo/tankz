@@ -79,8 +79,9 @@ public final class TanksFactory {
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
         physicsControl.setCcdMotionThreshold(0.1f);
-        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_10);
-        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_09);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_01
+                | PhysicsCollisionObject.COLLISION_GROUP_02
                 | PhysicsCollisionObject.COLLISION_GROUP_03
                 | PhysicsCollisionObject.COLLISION_GROUP_04
                 | PhysicsCollisionObject.COLLISION_GROUP_05) & ~senderCollisionGroupMask);
@@ -100,12 +101,12 @@ public final class TanksFactory {
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
         physicsControl.setCcdMotionThreshold(0.1f);
-        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_09);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_01
                 | PhysicsCollisionObject.COLLISION_GROUP_02
                 | PhysicsCollisionObject.COLLISION_GROUP_03
                 | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05);
+                | PhysicsCollisionObject.COLLISION_GROUP_05) & ~senderCollisionGroupMask);
 
         GhostControl aggroGhost = new GhostControl(new SphereCollisionShape(200));
         aggroGhost.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_10);
@@ -123,19 +124,19 @@ public final class TanksFactory {
         return projectileModel;
     }
     
-    private static AtomicBombModel getNewAtomicBomb() {
+    private static AtomicBombModel getNewAtomicBomb(int senderCollisionGroupMask) {
         AtomicBombModel projectileModel = new AtomicBombModel();
 
         NukeEntity projectileEntity = new NukeEntity(projectileModel);
 
-        RigidBodyControl physicsControl = new RigidBodyControl(ECollisionShapes.NUKE_PROJECTILE.createCollisionShape(), projectileModel.getMass());
+        RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
         physicsControl.setCcdMotionThreshold(0.1f);
-        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_01);
-        physicsControl.setCollideWithGroups(PhysicsCollisionObject.COLLISION_GROUP_01
+        physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_09);
+        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_01
                 | PhysicsCollisionObject.COLLISION_GROUP_02
                 | PhysicsCollisionObject.COLLISION_GROUP_03
                 | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05);
+                | PhysicsCollisionObject.COLLISION_GROUP_05) & ~senderCollisionGroupMask);
 
         LinearProjectileControl control = new LinearProjectileControl(projectileEntity, projectileModel, physicsControl);
 
@@ -168,11 +169,11 @@ public final class TanksFactory {
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < 100; i++) {
-            tmp.add(getNewPowerup(HastePowerup.class));
-            tmp.add(getNewPowerup(MissilePowerup.class));
-            tmp.add(getNewPowerup(LandminePowerup.class));
-            tmp.add(getNewBeerPowerup(players));
-            tmp.add(getNewPowerup(HealthPowerup.class));
+            //tmp.add(getNewPowerup(HastePowerup.class));
+            //tmp.add(getNewPowerup(MissilePowerup.class));
+            //tmp.add(getNewPowerup(LandminePowerup.class));
+            //tmp.add(getNewBeerPowerup(players));
+            //tmp.add(getNewPowerup(HealthPowerup.class));
             if (i > 5) {
                 tmp.add(getNewAirCallPowerup());
             }
@@ -200,11 +201,7 @@ public final class TanksFactory {
     }
     
     private static AirCallPowerup getNewAirCallPowerup() {
-        List<IExplodingProjectile> balls = new ArrayList<IExplodingProjectile>();
-        for (int i = 0; i < Constants.BOMBS_IN_AIRCALL; i++) {
-            balls.add(getNewAtomicBomb());
-         }
-        AirCallPowerup model = new AirCallPowerup(balls);
+        AirCallPowerup model = new AirCallPowerup();
         
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
@@ -309,9 +306,16 @@ public final class TanksFactory {
             for (int i = 0; i < Constants.LANDMINES_PER_PLAYER; i++) {
                 landmines.add(getNewLandmine());
             }
+            
+            List<AtomicBombModel> atomicBombs = new ArrayList<AtomicBombModel>();
+            
+            for (int i = 0; i < Constants.BOMBS_IN_AIRCALL; i++) {
+                atomicBombs.add(getNewAtomicBomb(collisionGroup));
+            }
 
             // Create one vehicleModel per player
-            IArmedVehicle vehicleModel = new TankModel(canonBalls, missiles, landmines);
+            IArmedVehicle vehicleModel = new TankModel(canonBalls, missiles, 
+                    landmines, atomicBombs);
             Player player = new Player(name, vehicleModel);
 
             // Set up vehicle
@@ -396,14 +400,15 @@ public final class TanksFactory {
         // Setting spawningpoints, different on each map
         List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(-102.4f, 2f, -22.9f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-110.9f, 2f, 138.6f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(125.2f, 2f, 152.2f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(131f, 2f, -20f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-110.0f, 2f, 111.4f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(52.9f, 2f, 108.9f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(29.5f, 2f, -22.9f)));
 
         List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(73.6f, 21, 98)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-53.3f, 2f, 54.3f)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(53.6f, 2f, 78.9f)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(91.2f, 2f, 55.5f)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-234.2f, 21.8f, 13.8f)));
 
         List<IPowerup> powerups = TanksFactory.getNewPowerups(powerupSpawningPoints, players);
 

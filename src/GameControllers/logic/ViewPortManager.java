@@ -4,6 +4,7 @@ import App.TanksAppAdapter;
 import GameView.viewPort.EViewPorts;
 import com.jme3.renderer.ViewPort;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public enum ViewPortManager {
      * @return 
      */
     public Collection<EViewPorts> getViews() {
-        return views.values();
+        return Collections.unmodifiableCollection(views.values());
     }
 
     /**
