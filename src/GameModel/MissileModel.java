@@ -60,7 +60,7 @@ public final class MissileModel extends AExplodingProjectile {
     @Override
     public void launchProjectile(Vector3f initialPos, Vector3f initialVelocity, Quaternion initialRotation, IPlayer player) {
         super.launchProjectile(initialPos, initialVelocity, initialRotation, player);
-        launchTarget = new Vector3f(initialPos).addLocal(0f, 100f, 0f);
+        launchTarget = new Vector3f(initialPos).addLocal(0f, 140f, 0f);
         launchTimerStart = System.currentTimeMillis();
         attackTarget = new Vector3f();
         hasAttackTarget = false;
@@ -76,7 +76,7 @@ public final class MissileModel extends AExplodingProjectile {
     }
 
     private void move(Vector3f target) {
-        linearVelocity = new Vector3f(target).subtractLocal(position).normalizeLocal().multLocal(20f);
+        linearVelocity = new Vector3f(target).subtractLocal(position).normalizeLocal().multLocal(40f);
     }
 
     private void turn(Vector3f target) {
