@@ -97,17 +97,7 @@ public final class NukeEntity extends AGameEntity {
     public void impact() {
         pcs.firePropertyChange(Commands.CAMERA_SHAKE, null, null);
         hideFromWorld();
-        showEffect();
-    }
-
-    private void showEffect() {
-        for (ParticleEmitter effect : effects) {
-            if (effect != null) {
-                effect.setLocalTranslation(spatial.getWorldTranslation());
-                TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
-                effect.emitAllParticles();
-            }
-        }
+        showEffects(effects, spatial.getWorldTranslation());
     }
 
     private void updatePosition() {

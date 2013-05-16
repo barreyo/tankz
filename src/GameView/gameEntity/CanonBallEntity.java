@@ -87,17 +87,7 @@ public final class CanonBallEntity extends AGameEntity{
      */
     public void impact() {
         hideFromWorld();
-        showEffect();
-    }
-
-    private void showEffect() {
-        for (ParticleEmitter effect : effects) {
-            if (effect != null) {
-                effect.setLocalTranslation(spatial.getWorldTranslation());
-                TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
-                effect.emitAllParticles();
-            }
-        }
+        showEffects(effects, spatial.getWorldTranslation());
     }
 
     private void updatePosition() {

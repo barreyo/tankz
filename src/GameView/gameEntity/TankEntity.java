@@ -170,39 +170,6 @@ public final class TankEntity extends AGameEntity {
     private void updateRotation() {
         spatial.setLocalRotation(armedVehicle.getRotation());
     }
-    
-    /**
-     * Shows the effects that this methods gets in, at the position given.
-     * 
-     * @param effects The effects that gets shown
-     * @param position The position at which the effects get shown
-     */
-    private synchronized void showEffects(Collection<ParticleEmitter> effects, Vector3f position) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    effect.setLocalTranslation(position);
-                    spatial.getParent().attachChild(effect);
-                    effect.emitAllParticles();
-                }
-            }
-        }
-    }
-    
-    /**
-     * Hides the given effects.
-     * 
-     * @param effects The effects to be hidden
-     */
-    private synchronized void hideEffects(Collection<ParticleEmitter> effects) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    spatial.getParent().detachChild(effect);
-                }
-            }
-        }
-    }
 
     /**
      * @inheritdoc

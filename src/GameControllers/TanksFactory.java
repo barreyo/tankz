@@ -399,14 +399,15 @@ public final class TanksFactory {
         // Setting spawningpoints, different on each map
         List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
         playerSpawningPoints.add(new SpawningPoint(new Vector3f(-102.4f, 2f, -22.9f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-110.9f, 2f, 138.6f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(125.2f, 2f, 152.2f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(131f, 2f, -20f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-110.0f, 2f, 111.4f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(52.9f, 2f, 108.9f)));
+        playerSpawningPoints.add(new SpawningPoint(new Vector3f(29.5f, 2f, -22.9f)));
 
         List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(73.6f, 21, 98)));
         powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-53.3f, 2f, 54.3f)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(53.6f, 2f, 78.9f)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(91.2f, 2f, 55.5f)));
+        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-234.2f, 21.8f, 13.8f)));
 
         List<IPowerup> powerups = TanksFactory.getNewPowerups(powerupSpawningPoints, players);
 

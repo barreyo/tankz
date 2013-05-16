@@ -10,6 +10,7 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -84,7 +85,7 @@ public final class MissileEntity extends AGameEntity {
                 }
             }
         } else if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
-            showEffects(flameEffects);
+            showEffects(flameEffects, spatial.getWorldTranslation());
         }
         pcs.firePropertyChange(evt);
     }
@@ -94,40 +95,8 @@ public final class MissileEntity extends AGameEntity {
      */
     public void impact() {
         hideFromWorld();
-        showEffect();
+        showEffects(effects, spatial.getWorldTranslation());
         hideEffects(flameEffects);
-    }
-
-    private void showEffect() {
-        for (ParticleEmitter effect : effects) {
-            if (effect != null) {
-                effect.setLocalTranslation(spatial.getWorldTranslation());
-                TanksAppAdapter.INSTANCE.attachChildToRootNode(effect);
-                effect.emitAllParticles();
-            }
-        }
-    }
-    
-    private synchronized void showEffects(Collection<ParticleEmitter> effects) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    effect.setLocalTranslation(spatial.getWorldTranslation());
-                    spatial.getParent().attachChild(effect);
-                    effect.emitAllParticles();
-                }
-            }
-        }
-    }
-    
-    private synchronized void hideEffects(Collection<ParticleEmitter> effects) {
-        if (spatial.getParent() != null) {
-            for (ParticleEmitter effect : effects) {
-                if (effect != null) {
-                    spatial.getParent().detachChild(effect);
-                }
-            }
-        }
     }
     
     private void updatePosition() {
