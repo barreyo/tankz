@@ -1,12 +1,8 @@
 package GameControllers.logic;
 
-import GameModel.EApplicationState;
 import App.TanksAppAdapter;
-import GameControllers.entitycontrols.PowerupControl;
-import GameControllers.entitycontrols.TanksVehicleControl;
+import GameModel.EApplicationState;
 import GameModel.IArmedVehicle;
-import GameModel.IExplodingProjectile;
-import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.ITanks;
 import GameModel.IWorldObject;
@@ -16,7 +12,6 @@ import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
@@ -25,7 +20,7 @@ import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
 /**
  * A game app state holding functionality for the game.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class GameAppState extends AbstractAppState implements PhysicsCollisionListener{
     // Input mapping command
@@ -34,21 +29,19 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
     private ITanks gameModel;
     private IGameWorld gameWorld;
     
-    // This will be our game controller, ie will get a game model and a gameworld
     /**
-     *
-     * @param game
-     * @param gameWorld
+     * Instantiate a main app state for the game itself.
+     * 
+     * @param game model for the game.
+     * @param gameWorld game world to be used.
      */
     public GameAppState(ITanks game, IGameWorld gameWorld) { 
         this.gameModel = game;
         this.gameWorld = gameWorld;
     }
     
-     /**
-     * Called when appstate is attached to statemanager.
-     * 
-     * @param stateManager The statemanager that this is attached to.
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
@@ -68,10 +61,8 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);
     }
      
-     /**
-     * Called when appstate is detached from statemanager.
-     * 
-     * @param stateManager
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void stateDetached(AppStateManager stateManager) {
@@ -82,7 +73,7 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
     }
     
     /**
-     * 
+     * {@inheritDoc}
      */
     @Override
     public void cleanup() {
@@ -93,13 +84,18 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
       GUIManager.INSTANCE.cleanup();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setEnabled(boolean enabled) {
       // Pause and unpause
       super.setEnabled(enabled);
     }
 
-    // Note that update is only called while the state is both attached and enabled.
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void update(float tpf) {
         gameModel.update(tpf);
@@ -139,8 +135,7 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
     };
 
     /**
-     *
-     * @param event
+     * {@inheritDoc}
      */
     @Override
     public void collision(PhysicsCollisionEvent event) {

@@ -2,7 +2,6 @@ package GameControllers.entitycontrols;
 
 import App.TanksAppAdapter;
 import GameModel.IArmedVehicle;
-import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
@@ -19,19 +18,22 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- *
- * @author Garpetun
+ * Control class for the powerup entity.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class PowerupControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
+    
     private PowerupEntity powerupEntity;
     private IPowerup powerupModel;
     private RigidBodyControl physicsControl;
     
     /**
-     *
-     * @param entity
-     * @param model
-     * @param physicsControl
+     * Instatiate a control for the powerup entity.
+     * 
+     * @param entity entity to be controlled.
+     * @param model model for the entity.
+     * @param physicsControl physics control.
      */
     public PowerupControl(PowerupEntity entity, IPowerup model, RigidBodyControl physicsControl) {
         powerupEntity = entity;
@@ -45,6 +47,9 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
         entity.addObserver(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void propertyChange(PropertyChangeEvent pce) {
         if (pce.getSource() == powerupModel && pce.getPropertyName().equals(Commands.SHOW)) {
@@ -52,27 +57,25 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void controlUpdate(float tpf) {
         powerupModel.update(tpf);
         spatial.rotate(tpf * 0.8f, tpf * 0.7f, tpf * 0.5f);
     }
 
-
     /**
-     *
-     * @param rm
-     * @param vp
+     * {@inheritDoc}
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
-       // Should only be used by advance users
+        // never used
     }
 
     /**
-     *
-     * @param spatial
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
@@ -80,8 +83,7 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     }
 
     /**
-     *
-     * @param event
+     * {@inheritDoc}
      */
     @Override
     public void collision(PhysicsCollisionEvent event) {

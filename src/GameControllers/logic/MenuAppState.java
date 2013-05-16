@@ -1,10 +1,9 @@
 
 package GameControllers.logic;
 
-import GameModel.EApplicationState;
 import App.TanksAppAdapter;
+import GameModel.EApplicationState;
 import GameView.Sounds.ESounds;
-import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import de.lessvoid.nifty.Nifty;
@@ -16,16 +15,16 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
-import de.lessvoid.nifty.tools.SizeValue;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * An app state representing the main menu.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class MenuAppState extends AbstractAppState implements ScreenController {
+    
     private static MenuAppState instance;
     
     private Nifty nifty;
@@ -48,8 +47,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
-     *
-     * @return
+     * Get the instance to the current singleton.
+     * 
+     * @return instance.
      */
     public static synchronized MenuAppState getInstance() {
         if (instance == null) {
@@ -59,8 +59,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
 
     /**
-     * 
-     * @param stateManager
+     * {@inheritDoc}
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
@@ -77,7 +76,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void onStartScreen() {
@@ -85,7 +84,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void onEndScreen() {
@@ -93,14 +92,14 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
 
     /**
-     *
+     * Go to the main menu.
      */
     public void goToMainMenu() {
         nifty.gotoScreen("start");
     }
     
     /**
-     * 
+     * Go to the settings menu.
      */
     public void goToSettingsScreen() {
         nifty.gotoScreen("settings");
@@ -108,27 +107,39 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
-     *
+     * Go to the player choosing menu.
      */
     public void goToMultiplayerScreen() {
        nifty.gotoScreen("multi");
     }
 
-
+    /**
+     * Toggle music on/off.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
     public void toggleMusic() {
         SoundManager.INSTANCE.toggleMusic();
         updateSettingsOptions();
     }
     
+    /**
+     * Toggle FX on/off.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
     public void toggleFX() {
         SoundManager.INSTANCE.toggleFX();
         updateSettingsOptions();
     }
     
     /**
-     *
-     * @param id
-     * @param event
+     * Hover effects for menu items.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     * 
+     * @param id nifty element id.
+     * @param event nifty mouse event.
      */
     @NiftyEventSubscriber(pattern = "main.*")
     public void onHover(String id, NiftyMouseMovedEvent event) {
@@ -154,9 +165,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
 
     /**
-     *
-     * @param nifty
-     * @param screen
+     * Bind the screen to Nifty.
+     * 
+     * @param nifty nifty instance.
+     * @param screen screen to bind.
      */
     @Override
     public void bind(Nifty nifty, Screen screen) {
@@ -164,12 +176,19 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
 
     /**
-     *
+     * Exit the game.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void exit() {
         TanksAppAdapter.INSTANCE.stop();
     }
     
+    /**
+     * Update the visual representation in the settings menu.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
     public void updateSettingsOptions() {
         if (SoundManager.INSTANCE.isMusicMuted()) {
             musicToggle.getRenderer(TextRenderer.class).setText("MUSIC OFF");
@@ -184,7 +203,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
-     *
+     * Load the game with one player.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadOnePlayerGame() {
         playerNames.add("Player1");
@@ -193,7 +214,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
-     *
+     * Load the game with two players.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadTwoPlayerGame() {
         playerNames.add("Player1");
@@ -203,7 +226,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
-     *
+     * Load the game with three players.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadThreePlayerGame() {
         playerNames.add("Player1");
@@ -214,7 +239,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
-     *
+     * Load the game with four players.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadFourPlayerGame() {
         playerNames.add("Player1");
@@ -226,8 +253,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
-     *
-     * @return
+     * Get the names of the players in the game.
+     * 
+     * @return list of player names.
      */
     public ArrayList<String> getPlayerNames() {
         return new ArrayList<String>(playerNames);

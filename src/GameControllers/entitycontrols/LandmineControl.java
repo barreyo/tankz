@@ -12,7 +12,6 @@ import GameView.gameEntity.LandmineEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
@@ -22,8 +21,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- *
- * @author perthoresson
+ * Control class for a landmine.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class LandmineControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
     
@@ -32,10 +32,11 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
     private RigidBodyControl physicsControl;
     
     /**
-     *
-     * @param model
-     * @param entity
-     * @param physicsControl
+     * Instatiate a landmine control.
+     * 
+     * @param model model.
+     * @param entity entity to be controlled.
+     * @param physicsControl physics shape.
      */
     public LandmineControl (LandmineModel model, 
             LandmineEntity entity, RigidBodyControl physicsControl ){
@@ -52,7 +53,9 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
         entity.addObserver(this);
     }
     
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void controlUpdate(float tpf) {
         if (landmineModel.isShownInWorld()) {
@@ -64,9 +67,7 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
     }
 
     /**
-     *
-     * @param rm
-     * @param vp
+     * {@inheritDoc}
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
@@ -74,9 +75,7 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
     }
 
     /**
-     *
-     * @param spatial
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Control cloneForSpatial(Spatial spatial) {
@@ -84,8 +83,7 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
     }
     
     /**
-     *
-     * @param event
+     * {@inheritDoc}
      */
     @Override
     public void collision(PhysicsCollisionEvent event) {
@@ -111,7 +109,10 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
             } 
         }
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         String command = evt.getPropertyName();

@@ -7,26 +7,28 @@ import com.jme3.audio.AudioSource;
 import java.util.EnumMap;
 
 /**
- *
- * @author Per
+ * Manager managing sounds in the game.
+ *  
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum SoundManager {
 
     /**
-     *
+     * Gain access to this singleton.
      */
     INSTANCE;
+    
     private EnumMap<ESounds, AudioNode> soundMap;
     private boolean muteSoundFX = false;
     private boolean muteMusic = false;
 
-    /**
-     *
-     */
     private SoundManager() {
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
     }
 
+    /**
+     * Load all sounds in to the buffer.
+     */
     public void load() {
         loadSound(new ESounds[]{ESounds.CLICK_SOUND,
                     ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
@@ -34,7 +36,7 @@ public enum SoundManager {
     }
 
     /**
-     *
+     * Preload sounds for instant usage.
      */
     public void preLoad() {
         loadSound(new ESounds[]{ESounds.MENU_SOUND});
@@ -56,7 +58,7 @@ public enum SoundManager {
     }
 
     /**
-     *
+     * Remove all music from the buffer.
      */
     private void removeAllMusic() {
         stopAllSounds();
@@ -64,8 +66,9 @@ public enum SoundManager {
     }
 
     /**
-     *
-     * @param sound
+     * Play a specific sound.
+     * 
+     * @param sound sound from enum.
      */
     public void play(ESounds sound) {
         if (muteMusic) {
@@ -81,10 +84,10 @@ public enum SoundManager {
         }
     }
 
-    // pause the music
     /**
-     *
-     * @param sound
+     * Pause a specific sound
+     * 
+     * @param sound sound from enum.
      */
     public void pause(ESounds sound) {
         AudioNode audio = soundMap.get(sound);
@@ -94,10 +97,11 @@ public enum SoundManager {
         }
     }
 
-    // if paused it will play, if playing it will be paused
     /**
-     *
-     * @param sound
+     * Toggle a sound between playing or pausing. If a sound is paused it will
+     * start playing and the other way around if playing.
+     * 
+     * @param sound sound to toggle.
      */
     public void togglePlayPause(ESounds sound) {
         AudioNode toToggle = soundMap.get(sound);
@@ -112,10 +116,10 @@ public enum SoundManager {
         }
     }
 
-    // tries to stop a sound, will probably only work for streaming music though
     /**
-     *
-     * @param sound
+     * Stop a sound completely. 
+     * 
+     * @param sound sound to stop.
      */
     public void stop(ESounds sound) {
         AudioNode toStop = soundMap.get(sound);
@@ -125,13 +129,16 @@ public enum SoundManager {
     }
 
     /**
-     *
+     * Clear all music from the buffer.
      */
     public void cleanup() {
         removeAllMusic();
         soundMap.clear();
     }
 
+    /**
+     * Stop all sounds on the Audio node.
+     */
     public void stopAllSounds() {
         for (AudioNode audio : soundMap.values()) {
             audio.stop();
@@ -174,12 +181,18 @@ public enum SoundManager {
         return muteMusic;
     }
     
+    /**
+     * Toggle all music playing/paused.
+     */
     public void toggleMusic() {
         muteMusic = !muteMusic;
         togglePlayPause(ESounds.MENU_SOUND);
         togglePlayPause(ESounds.GAMEMUSIC_1);
     }
     
+    /**
+     * Toggle all FX playing/paused.
+     */
     public void toggleFX() {
         muteSoundFX = !muteSoundFX;
     }

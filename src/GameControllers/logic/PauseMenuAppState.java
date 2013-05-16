@@ -1,13 +1,11 @@
 package GameControllers.logic;
 
-import GameModel.EApplicationState;
 import App.TanksAppAdapter;
+import GameModel.EApplicationState;
 import GameModel.ITanks;
-import GameUtilities.Commands;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
-import com.jme3.math.Vector2f;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import com.jme3.scene.Spatial;
 import de.lessvoid.nifty.Nifty;
@@ -19,22 +17,20 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 /**
  * An app state representing the pause menu.
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class PauseMenuAppState extends AbstractAppState implements ScreenController {
+    
     private static PauseMenuAppState instance;
     
     private Nifty nifty;
     private Element currentElement;
     private SoundHandle sound;
-    private Vector2f cursorPosition;
     private ITanks gameModel;
     
     private NiftyJmeDisplay niftyDisplay;
@@ -65,8 +61,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
-     * @param stateManager
+     * {@inheritDoc}
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
@@ -74,8 +69,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
-     * @param stateManager
+     * {@inheritDoc}
      */
     @Override
     public void stateDetached(AppStateManager stateManager) {
@@ -84,27 +78,29 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
-     * @param stateManager
-     * @param app
+     * {@inheritDoc}
      */
     @Override
     public void initialize(AppStateManager stateManager, Application app) {
         super.initialize(stateManager, app);
-
         showPauseMenu();
     }
 
+    /**
+     * {@inheritDoc}
+     */    
     @Override
     public void cleanup() {
         super.cleanup();
     }
 
-    // ==== nifty ====
     /**
-     *
-     * @param id
-     * @param event
+     * Hover event for menu items.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     * 
+     * @param id nifty element id.
+     * @param event nifty mouse event.
      */
     @NiftyEventSubscriber(pattern = "pause_.*")
     public void onHover(String id, NiftyMouseMovedEvent event) {
@@ -130,30 +126,33 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
-     * @param nifty
-     * @param screen
+     * {@inheritDoc}
      */
     @Override
     public void bind(Nifty nifty, Screen screen) {
+        // not necessary in this class.
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void onStartScreen() {
+        System.out.println("On start screen");
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void onEndScreen() {
+        System.out.println("On end screen");
     }
 
     /**
-     *
+     * Show the pause menu.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void showPauseMenu() {
         // attach the nifty display to the gui view port as a processor
@@ -163,7 +162,9 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
+     * Resume the game.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void resume() {
         EApplicationState.setGameState(EApplicationState.RUNNING);
@@ -177,7 +178,9 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
     
     /**
+     * Go to main menu.
      * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void menu() {
          EApplicationState.setGameState(EApplicationState.MAIN_MENU);
@@ -187,7 +190,9 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
+     * Restart the game.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void restart() {
         EApplicationState.setGameState(EApplicationState.RUNNING);
@@ -196,18 +201,19 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     }
 
     /**
-     *
-     */
-    public void showMainMenu() {
-    }
-
-    /**
-     * Stop this AppState.
+     * Finish the game.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void exit() {
         TanksAppAdapter.INSTANCE.stop();
     }
 
+    /**
+     * Pause the game.
+     * 
+     * @param gameModel model to pause. 
+     */
     void setGameToPause(ITanks gameModel) {
         this.gameModel = gameModel;
     }

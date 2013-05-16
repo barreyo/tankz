@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 /**
  * Main class.
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class Main {
     /**

@@ -23,207 +23,231 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Daniel
+ * Gives access to root node, gui node etc. Adapter between engine specific
+ * stuff and the game.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum TanksAppAdapter {
     /**
-     *
+     * Instance of this singleton.
      */
     INSTANCE;
     
     private final TanksApp tanksApp = new TanksApp();
     
-    private TanksAppAdapter() {}
+    private TanksAppAdapter() {} // No instatiation
     
     /**
-     *
-     * @param bool
+     * Enable or disable bullet physics app state.
+     * 
+     * @param bool true/false.
      */
     public void setBulletAppStateEnabled(boolean bool) {
         tanksApp.getBulletAppState().setEnabled(bool);
     }
     
     /**
-     *
-     * @param spatial
+     * Attach a spatial to the root node.
+     * 
+     * @param spatial spatial to attach.
      */
     public void attachChildToRootNode(Spatial spatial) {
         tanksApp.getRootNode().attachChild(spatial);
     }
 
     /**
-     *
-     * @param light
+     * Attach a light source to the root node.
+     * 
+     * @param light light to attach.
      */
     public void addLightToRootNode(Light light) {
         tanksApp.getRootNode().addLight(light);
     }
     
     /**
-     *
-     * @param light
+     * Remove a light source from the root node.
+     * 
+     * @param light light to remove.
      */
     public void removeLightFromRootNode(Light light) {
         tanksApp.getRootNode().removeLight(light);
     }
 
     /**
-     *
+     * Remove all GUI spatials from the GUI node.
      */
     public void detachAllGUIChildren() {
         tanksApp.getGuiNode().detachAllChildren();
     }
 
     /**
-     *
+     * Remove all children from the root node.
      */
     public void detachAllRootChildren() {
         tanksApp.getRootNode().detachAllChildren();
     }
 
     /**
-     *
-     * @param spatial
+     * Attach a spatial to the GUI node.
+     * 
+     * @param spatial spatial to attach.
      */
     public void attachChildToGUINode(Spatial spatial) {
         tanksApp.getGuiNode().attachChild(spatial);
     }
     
     /**
-     *
-     * @param appState
+     * Attach an appstate through the appstate manager.
+     * 
+     * @param appState appstate to attach.
      */
     public void attachAppState(AbstractAppState appState) {
         tanksApp.getStateManager().attach(appState);
     }
 
     /**
-     *
-     * @param appStaet
+     * Detach an appstate through the appstate manager.
+     * 
+     * @param appState appstate to detach.
      */
-    public void detachAppState(AbstractAppState appStaet) {
-        tanksApp.getStateManager().detach(appStaet);
+    public void detachAppState(AbstractAppState appState) {
+        tanksApp.getStateManager().detach(appState);
     }
     
     /**
-     *
-     * @return
+     * Returns the game engine Asset Manager.
+     *  
+     * @return assetManager.
      */
     public AssetManager getAssetManager() {
         return tanksApp.getAssetManager();
     }
 
     /**
-     *
-     * @param path
-     * @return
+     * Load a model into the spatial buffer.
+     * 
+     * @param path path to the spatial.
+     * @return the loaded spatial.
      */
     public Spatial loadModel(String path) {
         return tanksApp.getAssetManager().loadModel(path);
     }
 
     /**
-     *
-     * @param path
-     * @return
+     * Load a material.
+     * 
+     * @param path path to the material.
+     * @return the loaded material.
      */
     public Material loadMaterial(String path) {
         return tanksApp.getAssetManager().loadMaterial(path);
     }
     
     /**
-     *
-     * @param mapping
-     * @return
+     * Determines if an object got a input mapping loaded in the input manager.
+     * 
+     * @param mapping string map.
+     * @return true if the object got a mapping, otherwise false.
      */
     public boolean hasInputMapping(String mapping) {
         return tanksApp.getInputManager().hasMapping(mapping);
     }
 
     /**
-     *
-     * @param mapping
+     * Delete input mapping in the input manager.
+     * 
+     * @param mapping mapping to be removed.
      */
     public void deleteInputMapping(String mapping) {
         tanksApp.getInputManager().deleteMapping(mapping);
     }
 
     /**
-     *
-     * @param mapping
-     * @param triggers
+     * Add input mapping for triggers.
+     * 
+     * @param mapping mapping name.
+     * @param triggers buttons mapping to.
      */
     public void addInputMapping(String mapping, Trigger... triggers) {
         tanksApp.getInputManager().addMapping(mapping, triggers);
     }
 
     /**
-     *
-     * @param actionListener
-     * @param mappingNames
+     * Add an input listener to the input manager.
+     * 
+     * @param actionListener listener to be added.
+     * @param mappingNames mapping names.
      */
     public void addInputListener(InputListener actionListener, String... mappingNames) {
         tanksApp.getInputManager().addListener(actionListener, mappingNames);
     }
 
     /**
-     *
-     * @param actionListener
+     * Remove an input listener from the input manager.
+     * 
+     * @param actionListener listener to be removed.
      */
     public void removeInputListener(InputListener actionListener) {
         tanksApp.getInputManager().removeListener(actionListener);
     }
     
     /**
-     *
-     * @return
+     * Returns a reference to the input manager.
+     * 
+     * @return inputManager.
      */
     public InputManager getInputManager() {
         return tanksApp.getInputManager();
     }
 
     /**
-     *
-     * @param bool
+     * Hide or show the cursor.
+     * 
+     * @param bool true: show, false: hide;
      */
     public void setCursorVisible(boolean bool) {
         tanksApp.getInputManager().setCursorVisible(bool);
     }
 
     /**
-     *
-     * @return
+     * Returns the Audio Renderer.
+     * 
+     * @return audioRenderer.
      */
     public AudioRenderer getAudioRenderer() {
         return tanksApp.getAudioRenderer();
     }
 
     /**
-     *
-     * @return
+     * Returns the GUI viewport.
+     * 
+     * @return viewport.
      */
     public ViewPort getGuiViewPort() {
         return tanksApp.getGuiViewPort();
     }
 
     /**
-     *
+     * Finish the game, kills all manager processes etc.
      */
     public void stop() {
         tanksApp.stop();
     }
 
     /**
-     *
-     * @param processor
+     * Remove a GUI viewport processor.
+     * 
+     * @param processor processor to be removed.
      */
     public void removeGuiViewProcessor(SceneProcessor processor) {
         tanksApp.getGuiViewPort().removeProcessor(processor);
     }
 
     /**
-     *
+     * Add a GUI viewport processor. In this application we use Nifty GUI to 
+     * create processors.
+     * 
      * @param processor
      */
     public void addGuiViewProcessor(SceneProcessor processor) {
@@ -231,63 +255,71 @@ public enum TanksAppAdapter {
     }
     
     /**
+     * Returns the video settings.
      *
-     * @return
+     * @return vide settings.
      */
     public AppSettings getSettings() {
         return tanksApp.getSettings();
     }
 
     /**
-     *
-     * @param processor
+     * Add a viewport processor to the viewport.
+     * 
+     * @param processor processor to be added.
      */
     public void addViewPortProcessor(SceneProcessor processor) {
         tanksApp.getViewPort().addProcessor(processor);
     }
 
     /**
-     *
-     * @return
+     * Returns the render manager.
+     * 
+     * @return render manager.
      */
     public RenderManager getRenderManager() {
         return tanksApp.getRenderManager();
     }
 
     /**
-     *
-     * @param s
+     * Load a spatial into the render manager buffer.
+     * 
+     * @param s spatial to be loaded.
      */
     public void preloadSpatial(Spatial s) {
         tanksApp.getRenderManager().preloadScene(s);
     }
 
     /**
-     *
-     * @param audio
+     * Pause the audio on a AudioNode.
+     * 
+     * @param audio node to be paused.
      */
     public void pauseAudioSource(AudioNode audio) {
         tanksApp.getAudioRenderer().pauseSource(audio);
     }
 
     /**
-     *
-     * @return
+     * Returns the root node.
+     * 
+     * @return root node.
      */
     public Spatial getRootNode() {
         return tanksApp.getRootNode();
     }
 
     /**
-     *
-     * @return
+     * Returns the physics space.
+     * 
+     * @return physics space.
      */
     public PhysicsSpace getPhysicsSpace() {
         return tanksApp.getBulletAppState().getPhysicsSpace();
     }
 
     /**
-     *
+     * Add spatial to physics space.
+     * 
      * @param spatial
      */
     public void addAllToPhysicsSpace(Spatial spatial) {
@@ -295,122 +327,136 @@ public enum TanksAppAdapter {
     }
 
     /**
-     *
-     * @param spatial
+     * Detach a spatial from the root node in other words hiding it.
+     * 
+     * @param spatial spatial to be detached.
      */
     public void detachChildFromRootNode(Spatial spatial) {
         tanksApp.getRootNode().detachChild(spatial);
     }
 
     /**
-     *
-     * @param obj
+     * Add an object to the physics space.
+     * 
+     * @param obj object to be added.
      */
     public void addToPhysicsSpace(Object obj) {
         tanksApp.getBulletAppState().getPhysicsSpace().add(obj);
     }
 
     /**
-     *
-     * @param obj
+     * Remove an object from the physics space.
+     * 
+     * @param obj object to be removed.
      */
     public void removeFromPhysicsSpace(Object obj) {
         tanksApp.getBulletAppState().getPhysicsSpace().remove(obj);
     }
 
     /**
-     *
-     * @param listener
+     * Add a phyics collision listener to the physics space. 
+     * 
+     * @param listener to be added.
      */
     public void addPhysiscsCollisionListener(PhysicsCollisionListener listener) {
         tanksApp.getBulletAppState().getPhysicsSpace().addCollisionListener(listener);
     }
     
     /**
-     *
-     * @return
+     * Returns the GUI node.
+     * 
+     * @return gui node.
      */
     public Node getGUINode() {
         return tanksApp.getGuiNode();
     }
     
     /**
-     *
-     * @return
+     * Returns the current screen width. Sat through the app settings.
+     * 
+     * @return screen width.
      */
     public float getScreenWidth() {
-        return  tanksApp.getSettings().getWidth();  
+        return tanksApp.getSettings().getWidth();  
     }
     
     /**
-     *
-     * @return
+     * Returns the current screen height. Sat through the app settings.
+     * 
+     * @return screen height.
      */
     public float getScreenHeight() {
         return tanksApp.getSettings().getHeight();
     }
 
     /**
-     *
-     * @param caps
-     * @return
+     * Determine if a renderer contains the specific shader, API or feature
+     * version.
+     * 
+     * @param caps graphics properties.
+     * @return true is it contains the propertie, otherwiese false.
      */
     public boolean rendererContains(Caps caps) {
         return tanksApp.getRenderer().getCaps().contains(caps);
     }
 
     /**
-     *
-     * @return
+     * Returns the game camera.
+     * 
+     * @return camera.
      */
     public Camera getCamera() {
         return tanksApp.getCamera().clone();
     }
 
     /**
-     *
-     * @param loc
-     * @param cam
-     * @return
+     * Create the main view.
+     * 
+     * @param loc view path.
+     * @param cam camera.
+     * @return a viewport.
      */
     public ViewPort createMainView(String loc, Camera cam) {
         return tanksApp.getRenderManager().createMainView(loc, cam);
     }
 
     /**
-     *
+     * Start the application.
      */
     public void start() {
         tanksApp.start();
     }
 
     /**
-     *
-     * @param appSettings
+     * Set the application settings, like resolution, AA, BPP etc.
+     * 
+     * @param appSettings settings.
      */
     public void setSettings(AppSettings appSettings) {
         tanksApp.setSettings(appSettings);
     }
 
     /**
-     *
-     * @param listener
+     * Remove a physics collision listener.
+     * 
+     * @param listener listener.
      */
     public void removePhysiscsCollisionListener(PhysicsCollisionListener listener) {
         tanksApp.getBulletAppState().getPhysicsSpace().removeCollisionListener(listener);
     }
 
     /**
-     *
+     * Remove all physic spaces.
      */
     public void removeAllPhysics() {
         tanksApp.getBulletAppState().getPhysicsSpace().removeAll(tanksApp.getRootNode());
     }
 
     /**
-     *
-     * @param spatial
-     * @return
+     * Determine if a spatial is attached to the root node.
+     * 
+     * @param spatial spatial.
+     * @return true if attached, otherwise false.
      */
     public boolean isAttachedToRootNode(Spatial spatial) {
         return tanksApp.getRootNode().hasChild(spatial);

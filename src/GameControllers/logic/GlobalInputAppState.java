@@ -3,7 +3,6 @@ package GameControllers.logic;
 
 import App.TanksAppAdapter;
 import GameModel.EGlobalInputs;
-import GameView.Sounds.ESounds;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.controls.ActionListener;
@@ -13,7 +12,7 @@ import com.jme3.input.controls.KeyTrigger;
  * Inputs not specific to a player, listens in both menus 
  * and while playing.
  * 
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class GlobalInputAppState extends AbstractAppState implements ActionListener {
     
@@ -57,6 +56,9 @@ public final class GlobalInputAppState extends AbstractAppState implements Actio
         TanksAppAdapter.INSTANCE.removeInputListener(this);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onAction(String name, boolean isPressed, float tpf) {
         if (name.equals(musicToggle)) {
@@ -73,11 +75,17 @@ public final class GlobalInputAppState extends AbstractAppState implements Actio
         } 
     }
     
+    /**
+     * {@inheritDoc}
+     */    
     @Override
     public void stateAttached(AppStateManager stateManager) {
         addInputMappings();
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */    
     @Override
     public void stateDetached(AppStateManager stateManager){
         removeInputMappings();
