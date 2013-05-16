@@ -19,7 +19,7 @@ public final class LoadingScreenAppState extends AbstractAppState {
     private static LoadingScreenAppState instance;
     private Nifty nifty;
     private int frameCount;
-    private static final int FRAME_COUNT = 50;
+    private static final int FRAME_COUNT = 25;
 
     /**
      *
@@ -81,12 +81,22 @@ public final class LoadingScreenAppState extends AbstractAppState {
 
     @Override
     public void update(float tpf) {
-        if (frameCount == FRAME_COUNT) { //using 150 as a debug, this is where you load the game
-
+        if (frameCount == 0) {
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
-
+            System.out.println("LOADING GAME");
+        } else if (frameCount == 1) {
+            SoundManager.INSTANCE.load();
+        } else if (frameCount == 2) {
+            PhysicsManager.INSTANCE.load();
+        } else if (frameCount == 3) {
+            ViewPortManager.INSTANCE.load();
+        } else if (frameCount == 4) {
+            GraphicManager.INSTANCE.load();
+        } else if (frameCount == 5) {
+            EffectsManager.INSTANCE.load();
+        }
+        else if (frameCount == FRAME_COUNT) {
             GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
-
             //at end of loading
             TanksAppAdapter.INSTANCE.detachAppState(this);
             SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);

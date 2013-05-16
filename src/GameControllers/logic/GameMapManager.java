@@ -48,11 +48,6 @@ public enum GameMapManager {
      * @param gameMap
      */
     public void load(int gameMap) {
-        SoundManager.INSTANCE.load();
-        PhysicsManager.INSTANCE.load();
-        ViewPortManager.INSTANCE.load();
-        GraphicManager.INSTANCE.load();
-        EffectsManager.INSTANCE.load();
 
         switch (gameMap) {
             case 1:

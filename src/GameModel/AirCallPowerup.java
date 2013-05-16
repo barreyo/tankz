@@ -23,9 +23,9 @@ public class AirCallPowerup extends APowerup {
     
     private static final long END_TIME = 15000;
     private int bombCount;
-    private static final float INTERVAL = 0.6f;
+    private static final float INTERVAL = 1.2f;
     
-    private static final int DROP_HEIGHT = 20;
+    private static final int DROP_HEIGHT = 40;
     
     private float counter;
     
@@ -80,8 +80,8 @@ public class AirCallPowerup extends APowerup {
         int tmpRandomOne = (int) (Math.random() * 2);
         int tmpRandomTwo = (int) (Math.random() * 2);
         
-        float zRandom = (float) (Math.random() * 50);
-        float xRandom = (float) (Math.random() * 50);
+        float zRandom = (float) (Math.random() * 80);
+        float xRandom = (float) (Math.random() * 80);
         
         if (tmpRandomOne == 1) {
             zRandom *= -1;
