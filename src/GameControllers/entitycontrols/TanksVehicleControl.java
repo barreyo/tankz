@@ -68,7 +68,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      */
     @Override
     public void update(float tpf) {
-        if (!enabled || EApplicationState.getGameState() != EApplicationState.RUNNING) {
+        if (!enabled) {
             return;
         }
         super.update(tpf);
