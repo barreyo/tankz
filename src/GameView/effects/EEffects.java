@@ -28,7 +28,11 @@ public enum EEffects {
     /**
      * 
     */
-    FLAME(new FlameEffect());
+    FLAME(new FlameEffect()),
+    /**
+     * 
+     */
+    NUKE(new NapalmEffect());
     
     
     private IEffect effect;
