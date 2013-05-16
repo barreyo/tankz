@@ -171,8 +171,8 @@ public final class TankModel implements IArmedVehicle {
         int tmpRandomOne = rand.nextInt(3);
         int tmpRandomTwo = rand.nextInt(3);
         
-        float zRandom = rand.nextFloat() * 10;
-        float xRandom = rand.nextFloat() * 10;
+        float zRandom = rand.nextFloat() * 20;
+        float xRandom = rand.nextFloat() * 20;
         
         if (tmpRandomOne == 1) {
             zRandom *= -1;

@@ -1,11 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GameModel;
 
+import GameUtilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import java.io.IOException;
 
 /**
@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class AtomicBombModel extends AExplodingProjectile {
 
-    private static final int DAMAGE = 40;
+    private static final int DAMAGE = 20;
     private static final float MASS = 20f;
     private static final long EXPLOSION_END_TIME = 2000;
     private static final long MAX_LIFE_TIME = 5000;
@@ -36,6 +36,18 @@ public class AtomicBombModel extends AExplodingProjectile {
             if (launcherPlayer != null && damageableObject != launcherPlayer.getVehicle()) {
                 launcherPlayer.incrementKills();
             }
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(float tpf) {
+        if (isInWorld) {
+            Quaternion oldRotation = new Quaternion(rotation);
+            rotation.lookAt(position.add(linearVelocity.normalize()), Vector3f.UNIT_Y);
+            pcs.firePropertyChange(Commands.ROTATE, oldRotation, rotation);
         }
     }
 

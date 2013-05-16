@@ -16,7 +16,7 @@ public class AirCallPowerup extends APowerup {
     private long activateTimerStart;
     private boolean isActive;
     
-    private static final long END_TIME = 15000;
+    private static final long END_TIME = 8000;
     private static final float INTERVAL = 0.1f;
     
     private float counter;

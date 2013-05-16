@@ -9,6 +9,7 @@ import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;
+import com.jme3.math.Quaternion;
 import com.jme3.scene.Spatial;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -73,6 +74,8 @@ public final class NukeEntity extends AGameEntity {
             showInWorld();
             updatePosition();
             updateRotation();
+        } else if (evt.getPropertyName().equals(Commands.ROTATE)) {
+            spatial.setLocalRotation((Quaternion)evt.getNewValue());
         } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
             // Clean up
             cleanup();

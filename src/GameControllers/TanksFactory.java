@@ -180,7 +180,7 @@ public final class TanksFactory {
             //tmp.add(getNewBeerPowerup(players));
             //tmp.add(getNewPowerup(HealthPowerup.class));
             if (i > 5) {
-                tmp.add(getNewAirCallPowerup());
+                tmp.add(getNewPowerup(AirCallPowerup.class));
             }
         }
         return tmp;
@@ -188,26 +188,6 @@ public final class TanksFactory {
      
     private static BeerPowerup getNewBeerPowerup(List<IPlayer> players) {
         BeerPowerup model = new BeerPowerup(players);
-        PowerupEntity view = new PowerupEntity(model);
-        RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
-        physicsControl.setKinematic(true);
-        physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_02
-                | PhysicsCollisionObject.COLLISION_GROUP_03
-                | PhysicsCollisionObject.COLLISION_GROUP_04
-                | PhysicsCollisionObject.COLLISION_GROUP_05));
-
-        PowerupControl control = new PowerupControl(view, model, physicsControl);
-
-        TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(control);
-
-        view.addControl(control);
-        view.addControl(physicsControl);
-        return model;
-    }
-    
-    private static AirCallPowerup getNewAirCallPowerup() {
-        AirCallPowerup model = new AirCallPowerup();
-        
         PowerupEntity view = new PowerupEntity(model);
         RigidBodyControl physicsControl = new RigidBodyControl(view.getCollisionShape(), model.getMass());
         physicsControl.setKinematic(true);
