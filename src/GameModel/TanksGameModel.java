@@ -64,9 +64,7 @@ public class TanksGameModel implements ITanks {
      */
     @Override
     public Collection<IPlayer> getPlayers() {
-        List<IPlayer> pls = Collections.unmodifiableList(players);
-        // Cast OK Player implements IPlayer
-        return pls;
+        return Collections.unmodifiableList(players);
     }
 
     /**
