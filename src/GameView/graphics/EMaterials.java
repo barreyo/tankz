@@ -2,9 +2,11 @@
 package GameView.graphics;
 
 /**
- *  TODO Maybe remove this class (kan applicera material innan i scenecomposor)
+ * This is a lol-class.
  * 
- * @author Daniel
+ * SHOULD BE REMOVED
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum EMaterials {
     /**
