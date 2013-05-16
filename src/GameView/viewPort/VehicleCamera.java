@@ -14,7 +14,7 @@ import com.jme3.scene.Spatial;
  * It uses the abilities of the default chase camera but
  * calculates the horizontal direction vector of the camera diffrently.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class VehicleCamera extends ChaseCamera {
     
@@ -50,14 +50,16 @@ public class VehicleCamera extends ChaseCamera {
      * @param inputManager
      * @param target  
      */
-    public VehicleCamera(Camera cam, final Spatial target, InputManager inputManager) {
+    public VehicleCamera(Camera cam, final Spatial target,
+                                InputManager inputManager) {
         super(cam, target, inputManager);
     }
     
     private Vector3f horLookAt;
     
     /**
-     * Sets the horizontal vector that is used to specify the horizontal direction of the camera.
+     * Sets the horizontal vector that is used to specify
+     * the horizontal direction of the camera.
      * 
      * @param lo 
      */
@@ -71,8 +73,10 @@ public class VehicleCamera extends ChaseCamera {
     protected void computePosition() {
         if (horLookAt == null) 
             return;
-        float hDistance = (distance) * FastMath.sin((FastMath.PI / 2) - vRotation);
-        pos.set(-hDistance * horLookAt.x, (distance) * FastMath.sin(vRotation), -hDistance * horLookAt.z);
+        float hDistance = (distance)
+                * FastMath.sin((FastMath.PI / 2) - vRotation);
+        pos.set(-hDistance * horLookAt.x, (distance) * FastMath.sin(vRotation),
+                                                     -hDistance * horLookAt.z);
         pos.addLocal(target.getWorldTranslation());
     }
 }

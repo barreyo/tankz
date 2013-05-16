@@ -234,6 +234,7 @@ public final class TankModel implements IArmedVehicle {
                 pcs.firePropertyChange(Commands.HIDE_FLAME, null, null);
             }
         }
+        System.out.println(position);
     }
 
     /**
