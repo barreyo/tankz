@@ -36,7 +36,7 @@ import GameView.effects.AirCallIndicator;
 import GameView.gameEntity.CanonBallEntity;
 import GameView.gameEntity.LandmineEntity;
 import GameView.gameEntity.MissileEntity;
-import GameView.gameEntity.NukeEntity;
+import GameView.gameEntity.NapalmEntity;
 import GameView.gameEntity.PowerupEntity;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
@@ -123,7 +123,7 @@ public final class TanksFactory {
     private static AtomicBombModel getNewAtomicBomb(int senderCollisionGroupMask) {
         AtomicBombModel projectileModel = new AtomicBombModel();
 
-        NukeEntity projectileEntity = new NukeEntity(projectileModel);
+        NapalmEntity projectileEntity = new NapalmEntity(projectileModel);
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
         physicsControl.setCcdMotionThreshold(0.1f);
@@ -167,12 +167,12 @@ public final class TanksFactory {
         for (int i = 0; i < 100; i++) {
 //            tmp.add(getNewPowerup(HastePowerup.class));
 //            tmp.add(getNewPowerup(MissilePowerup.class));
-            tmp.add(getNewPowerup(LandminePowerup.class));
+//            tmp.add(getNewPowerup(LandminePowerup.class));
 //            tmp.add(getNewBeerPowerup(players));
 //            tmp.add(getNewPowerup(HealthPowerup.class));
-            if (i % 5 == 0) {
+            //if (i % 5 == 0) {
                 tmp.add(getNewPowerup(AirCallPowerup.class));
-            }
+            //}
         }
         return tmp;
     }

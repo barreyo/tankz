@@ -24,7 +24,7 @@ import java.util.Collection;
  *
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
-public final class NukeEntity extends AGameEntity {
+public final class NapalmEntity extends AGameEntity {
     
     private IExplodingProjectile projectile;
     private final Collection<ParticleEmitter> effects;
@@ -36,9 +36,9 @@ public final class NukeEntity extends AGameEntity {
      * 
      * @param proj The model of the object
      */
-    public NukeEntity(IExplodingProjectile proj) {
+    public NapalmEntity(IExplodingProjectile proj) {
         super(EGraphics.NUKE);
-        effects = EEffects.TANK_BLOWN_UP.getEmitters();
+        effects = EEffects.NUKE.getEmitters();
         
         spatial.setUserData("Model", proj);
         projectile = proj;
