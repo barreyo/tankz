@@ -366,6 +366,8 @@ public final class TanksFactory {
             pView.show();
             v.show();
 
+            AirCallIndicator ai = new AirCallIndicator(player);
+            
             players.add(player);
             playerNumber++;
         }
@@ -403,8 +405,6 @@ public final class TanksFactory {
         // set up timerView
         TimerView timerView = new TimerView(game);
         timerView.show();
-
-        AirCallIndicator ai = new AirCallIndicator();
         
         return new GameAppState(game, gameWorld);
     }

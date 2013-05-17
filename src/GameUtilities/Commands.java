@@ -130,4 +130,8 @@ public final class Commands {
      * Air call AoE indicator update.
      */
     public static final String AIRCALL = "AIRCALL";
-}
+    
+    public static final String SHOW_AIRCALL = "SHOW_AIRCALL";
+    
+    public static final String HIDE_AIRCALL = "HIDE_AIRCALL";
+} 

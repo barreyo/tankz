@@ -365,6 +365,7 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void setPosition(Vector3f position) {
         this.position = new Vector3f(position);
+        pcs.firePropertyChange(Commands.AIRCALL, null, null); // NEEDS TO TBE CHANGED
     }
 
     /**

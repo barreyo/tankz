@@ -103,6 +103,9 @@ public class Player implements IPlayer {
         if (this.powerup == null) {
             IPowerup oldPowerup = this.powerup;
             this.powerup = powerup;
+            if (powerup instanceof AirCallPowerup) {
+                pcs.firePropertyChange(Commands.SHOW_AIRCALL, null, null);
+            }
             pcs.firePropertyChange(Commands.POWERUP_CHANGED, oldPowerup, this.powerup);
         }
     }

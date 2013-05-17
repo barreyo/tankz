@@ -34,6 +34,7 @@ public abstract class AHudElement implements PropertyChangeListener, IHudElement
     /**
      * Make the element visible in the GUI.
      */
+    @Override
     public void show() {
         TanksAppAdapter.INSTANCE.getGUINode().attachChild(picture);
     }
@@ -41,6 +42,7 @@ public abstract class AHudElement implements PropertyChangeListener, IHudElement
     /**
      * Remove the element from the GUI.
      */
+    @Override
     public void hide() {
         TanksAppAdapter.INSTANCE.getGUINode().detachChild(picture);
     }
