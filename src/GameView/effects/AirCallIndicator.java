@@ -18,7 +18,7 @@ public class AirCallIndicator {
     private Quad quad;
     
     public AirCallIndicator() {
-        quad = new Quad(10, 10);
+        quad = new Quad(30, 30);
         Geometry g = new Geometry("quad", quad);
         g.setLocalTranslation(73.6f, 19.5f, 98);
         g.rotate(-FastMath.HALF_PI, 0, 0);
