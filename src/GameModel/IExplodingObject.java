@@ -10,13 +10,6 @@ import com.jme3.math.Vector3f;
  */
 public interface IExplodingObject extends IWorldObject {
     /**
-     * Returns the rotation.
-     * 
-     * @return rotation
-     */
-    public Quaternion getRotation();
-    
-    /**
      * Sets exploding to true, and sends event.
      */
     public void impact();

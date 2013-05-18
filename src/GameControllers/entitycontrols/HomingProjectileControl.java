@@ -6,7 +6,10 @@ import GameModel.IDamageableObject;
 import GameModel.IWorldObject;
 import GameModel.MissileModel;
 import GameUtilities.Commands;
+import GameUtilities.Constants;
 import GameView.Sounds.ESounds;
+import GameView.gameEntity.AExplodingEntity;
+import GameView.gameEntity.AGameEntity;
 import GameView.gameEntity.MissileEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -28,7 +31,7 @@ import java.beans.PropertyChangeListener;
  */
 public class HomingProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
 
-    private MissileEntity entity;
+    private AExplodingEntity entity;
     private MissileModel projectileModel;
     private RigidBodyControl physicsControl;
     private boolean hasAggro;
@@ -43,7 +46,7 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
      * @param physicsControl physics shape.
      * @param aggroControl target searching controller.
      */
-    public HomingProjectileControl(MissileEntity entity, MissileModel projModel,
+    public HomingProjectileControl(AExplodingEntity entity, MissileModel projModel,
             RigidBodyControl physicsControl, GhostControl aggroControl) {
 
         this.entity = entity;
@@ -69,8 +72,8 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {
-            IWorldObject objA = event.getNodeA().getUserData("Model");
-            IWorldObject objB = event.getNodeB().getUserData("Model");
+            IWorldObject objA = event.getNodeA().getUserData(Constants.USER_DATA_MODEL);
+            IWorldObject objB = event.getNodeB().getUserData(Constants.USER_DATA_MODEL);
             if (objA == projectileModel || objB == projectileModel) {
                 Spatial targetSpat = null;
                 if (event.getObjectA() == aggroGhost) {
@@ -145,7 +148,7 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used, should only be implemented in advance render use cases.
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
@@ -153,10 +156,14 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used since we use MVC and do not only control visual spatials.
+     * 
+     * Will throw UnsupportedOperationException.
+     * 
+     * @throws UnsupportedOperationException since this functionality is not suppoerted.
      */
     @Override
-    public Control cloneForSpatial(Spatial spatial) {
+    public Control cloneForSpatial(Spatial spatial) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not supported");
     }
 }

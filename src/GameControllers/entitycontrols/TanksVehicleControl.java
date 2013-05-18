@@ -10,6 +10,7 @@ import GameModel.IPlayer;
 import GameModel.IPowerup;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
+import GameUtilities.Constants;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -328,8 +329,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {
-            IWorldObject objA = event.getNodeA().getUserData("Model");
-            IWorldObject objB = event.getNodeB().getUserData("Model");
+            IWorldObject objA = event.getNodeA().getUserData(Constants.USER_DATA_MODEL);
+            IWorldObject objB = event.getNodeB().getUserData(Constants.USER_DATA_MODEL);
             if (objA == vehicleModel) {
                 if (objB instanceof IPowerup) {
                     player.setPowerup((IPowerup) objB);

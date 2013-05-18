@@ -86,7 +86,6 @@ public final class TankModel implements IArmedVehicle {
         position = Vector3f.ZERO;
         direction = Vector3f.ZERO;
         rotation = Quaternion.ZERO;
-        
         shootDelay = 0.5f;
     }
 
@@ -129,7 +128,7 @@ public final class TankModel implements IArmedVehicle {
             for (CanonBallModel canonBall : canonBalls) {
                 if (!canonBall.isShownInWorld()) {
                     canonBall.launchProjectile(getFirePosition(),
-                            direction.multLocal(100), rotation, player);
+                            direction.mult(100), rotation, player);
                     pcs.firePropertyChange(Commands.SHOOT, null, null);
                     return;
                 }
@@ -144,7 +143,7 @@ public final class TankModel implements IArmedVehicle {
     public synchronized void shootMissile(IPlayer player) {
         for (MissileModel missile : missiles) {
             if (!missile.isShownInWorld()) {
-                missile.launchProjectile(new Vector3f(position).addLocal(0, 4, 0),
+                missile.launchProjectile(position.add(0, 4, 0),
                         new Vector3f(0, 10, 0), rotation, player);
                 pcs.firePropertyChange(Commands.SHOOT, null, null);
                 return;
@@ -156,7 +155,7 @@ public final class TankModel implements IArmedVehicle {
     public synchronized void dropLandmine(IPlayer player) {
         for (LandmineModel landmine : landmines) {
             if (!landmine.isShownInWorld()) {
-                landmine.dropMine(new Vector3f(position).add(direction.mult(2f).negate()), player);
+                landmine.dropMine(position.add(direction.mult(2f).negate()), player);
                 return;
             }
         }
@@ -164,7 +163,7 @@ public final class TankModel implements IArmedVehicle {
     
     @Override
     public void dropBomb(IPlayer player) {
-        Vector3f launchOrigin = new Vector3f(position).add(direction.normalize().mult(50));
+        Vector3f launchOrigin = position.add(direction.normalize().mult(50));
         launchOrigin.setY(Constants.NUKE_DROP_HEIGHT);
         Random rand = new Random();
         
@@ -175,7 +174,7 @@ public final class TankModel implements IArmedVehicle {
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).isShownInWorld()) {
                 
-                bombs.get(i).launchProjectile(launchOrigin, new Vector3f(0, -1, 0).multLocal(80), Quaternion.ZERO, player);
+                bombs.get(i).launchProjectile(launchOrigin, new Vector3f(0, -80, 0), Quaternion.ZERO, player);
                 return; 
             }
         }
@@ -224,7 +223,6 @@ public final class TankModel implements IArmedVehicle {
                 pcs.firePropertyChange(Commands.HIDE_FLAME, null, null);
             }
         }
-        System.out.println(position);
     }
 
     /**
@@ -284,7 +282,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public synchronized Vector3f getFirePosition() {
-        return new Vector3f(position).addLocal(0, 1.7f, 0).addLocal(direction.multLocal(1.1f));
+        return position.add(0, 1.7f, 0).add(direction.mult(1.1f));
     }
     
     /**
@@ -292,7 +290,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public Vector3f getExhaustPosition() {
-        return new Vector3f(position).addLocal(0, 2.05f, 0).subtractLocal(direction.multLocal(1.5f));
+        return position.add(0, 2.05f, 0).subtract(direction.mult(1.5f));
     }
 
     /**
@@ -300,7 +298,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void updateDirection(Vector3f forwardVector) {
-        direction = forwardVector.clone();
+        direction = new Vector3f(forwardVector);
     }
 
     /**
@@ -308,7 +306,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public Vector3f getDirection() {
-        return direction.clone();
+        return new Vector3f(direction);
     }
 
     /**
@@ -316,7 +314,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public Quaternion getRotation() {
-        return rotation.clone();
+        return new Quaternion(rotation);
     }
 
     /**
@@ -324,7 +322,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void updateRotation(Quaternion rotation) {
-        this.rotation = rotation.clone();
+        this.rotation = new Quaternion(rotation);
     }
 
     /**

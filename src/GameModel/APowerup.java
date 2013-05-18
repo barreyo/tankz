@@ -3,6 +3,7 @@ package GameModel;
 import GameUtilities.Commands;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.util.TempVars;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -13,18 +14,20 @@ import java.beans.PropertyChangeSupport;
 public abstract class APowerup implements IPowerup {
     
     private Vector3f position;
+    private Quaternion rotation;
     private boolean isHeldByPlayer;
     private boolean isInWorld;
 
     private static final float MASS = 10f;
     
-    protected final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
      *
      */
     public APowerup(){
         position = Vector3f.ZERO;
+        rotation = Quaternion.DIRECTION_Z;
     }
     
     /**
@@ -68,7 +71,7 @@ public abstract class APowerup implements IPowerup {
      */
     @Override
     public Vector3f getPosition(){
-        return position.clone();
+        return new Vector3f(position);
     }
     
     /**
@@ -92,7 +95,7 @@ public abstract class APowerup implements IPowerup {
      */
     @Override
     public void setPosition(Vector3f position) {
-        this.position = position.clone();
+        this.position = new Vector3f(position);
     }
     
     /**
@@ -132,6 +135,7 @@ public abstract class APowerup implements IPowerup {
      */
     @Override
     public void update(float tpf) {
+       
     }      
     
     /**
@@ -140,5 +144,10 @@ public abstract class APowerup implements IPowerup {
     @Override
     public void usePowerup(IPlayer player) {
         setHeldByPlayer(false);
+    }
+    
+    @Override
+    public Quaternion getRotation() {
+        return new Quaternion(rotation);
     }
 }

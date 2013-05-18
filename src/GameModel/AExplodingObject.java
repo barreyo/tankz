@@ -61,7 +61,7 @@ public abstract class AExplodingObject implements IExplodingObject{
      */
     @Override
     public Quaternion getRotation() {
-        return rotation.clone();
+        return new Quaternion(rotation);
     }
 
     /**

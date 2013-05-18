@@ -25,7 +25,7 @@ public enum GraphicManager {
     public void load() {
         loadGraphics(new EGraphics[]{EGraphics.SHARK, EGraphics.TANK,
                     EGraphics.BOMB, EGraphics.LANDMINE, EGraphics.NUKE,
-                    EGraphics.POWERUP});
+                    EGraphics.POWERUP, EGraphics.MAP1});
     }
 
     /**

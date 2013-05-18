@@ -7,6 +7,7 @@ import GameModel.IDamageableObject;
 import GameModel.IWorldObject;
 import GameModel.LandmineModel;
 import GameUtilities.Commands;
+import GameUtilities.Constants;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.LandmineEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -67,19 +68,23 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used, should only be implemented in advance render use cases.
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
-        //throw new UnsupportedOperationException("Not supported yet.");
+        // not used
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used since we use MVC and do not only control visual spatials.
+     * 
+     * Will throw UnsupportedOperationException.
+     * 
+     * @throws UnsupportedOperationException since this functionality is not suppoerted.
      */
     @Override
-    public Control cloneForSpatial(Spatial spatial) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Control cloneForSpatial(Spatial spatial) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Not supported");
     }
     
     /**
@@ -88,8 +93,8 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {
-            IWorldObject objA = event.getNodeA().getUserData("Model");
-            IWorldObject objB = event.getNodeB().getUserData("Model");
+            IWorldObject objA = event.getNodeA().getUserData(Constants.USER_DATA_MODEL);
+            IWorldObject objB = event.getNodeB().getUserData(Constants.USER_DATA_MODEL);
             if (objA == landmineModel && objB instanceof IDamageableObject) {
                 physicsControl.setEnabled(false);
                 entity.impact();

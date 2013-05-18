@@ -35,6 +35,6 @@ public abstract class AExplodingProjectile extends AExplodingObject implements I
      */
     @Override
     public Vector3f getLinearVelocity() {
-        return this.linearVelocity.clone();
+        return new Vector3f(linearVelocity);
     }
 }

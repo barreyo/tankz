@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The main controller of the game TanksGame.
+ * The main app class of the application Tanks.
  *
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
@@ -18,7 +18,7 @@ class TanksApp extends SimpleApplication {
     private BulletAppState bulletAppState;
     
     /**
-     * Creates a new TanksGame which starts in settings window.
+     * Creates a new TanksApp which starts in settings window.
      */
     TanksApp() {
         super(new StatsAppState());
@@ -48,7 +48,7 @@ class TanksApp extends SimpleApplication {
     /**
      * Returns the bullet physics app state of the game.
      * 
-     * @return bulllet app state.
+     * @return bullet app state.
      */
     BulletAppState getBulletAppState() {
         return bulletAppState;

@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Gives access to root node, gui node etc. Adapter between engine specific
- * stuff and the game.
+ * Adapter between JMonkeyEngine and the game.
+ * Gives access to root node, gui node etc. 
  * 
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
@@ -35,8 +35,6 @@ public enum TanksAppAdapter {
     INSTANCE;
     
     private final TanksApp tanksApp = new TanksApp();
-    
-    private TanksAppAdapter() {} // No instatiation
     
     /**
      * Enable or disable bullet physics app state.

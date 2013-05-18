@@ -2,8 +2,6 @@ package GameView.gameEntity;
 
 import GameUtilities.IObservable;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.material.Material;
-import com.jme3.math.Vector3f;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
 import java.beans.PropertyChangeListener;
@@ -19,42 +17,36 @@ public interface IGameEntity extends PropertyChangeListener, IObservable {
      *
      * @return a collisionshape of this game entity
      */
-    CollisionShape getCollisionShape();
+    public CollisionShape getCollisionShape();
 
     /**
-     * Adds an material to the spatial.
-     * @param mat 
-     */
-    void setMaterial(Material mat);
-
-    /**
-     * Adds an appropriate control to the spatial.
+     * Adds an appropriate control to this view.
      * @param control 
      */
-    void addControl(Control control);
+    public void addControl(Control control);
 
     /**
      * Releases all occupied resources of this instance.
      */
-    void cleanup();
+    public void cleanup();
 
     /**
-     * TODO the goal is to remove this method, we dont want to share the spatial
-     * Returns the spatial of this game entity.
-     * 
      * @return The spatial of this game entity.
      */
-    Spatial getSpatial();
-    
-    /**
-     * Help metohd used to get the boundingbox of the spatial.
-     * @return 
-     */
-    Vector3f getExtents();
+    public Spatial getSpatial();
 
     /**
-     * 
-     * @param control 
+     * @Removes a control of this view.
      */
-    void removeControl(Control control);
+    public void removeControl(Control control);
+    
+    /**
+     * Shows the view in the world.
+     */
+    public void showInWorld();
+    
+    /**
+     * Hides the view from the world.
+     */
+    public void hideFromWorld();
 }

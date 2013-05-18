@@ -9,6 +9,11 @@ import com.jme3.math.Vector3f;
 public final class Constants {
     private Constants() {}
     
+    /**
+     * 
+     */
+    public static final String USER_DATA_MODEL = "USER_DATA_MODEL";
+    
     // This is physics-related information about the Tank
     /**
      *

@@ -1,14 +1,21 @@
 package GameView.gameEntity;
 
+import App.TanksAppAdapter;
 import GameControllers.logic.GraphicManager;
+import GameModel.IWorldObject;
+import GameUtilities.Commands;
+import GameUtilities.Constants;
 import GameView.graphics.EGraphics;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.effect.ParticleEmitter;
-import com.jme3.material.Material;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 
 /**
@@ -17,42 +24,42 @@ import java.util.Collection;
  * @author Daniel
  */
 public abstract class AGameEntity implements IGameEntity {
-    Spatial spatial;
-    //protected AnimComponent animComponent;
+    final Spatial spatial;
+    final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private final IWorldObject worldObject;
 
     /**
      * Creates a game enity with a loaded spatial.
      * 
      * @param graphic The graphical objekt to be loaded.
      */
-    AGameEntity(EGraphics graphic) {
+    AGameEntity(IWorldObject worldObject, EGraphics graphic) {
+        this.worldObject = worldObject;
+        
         spatial = GraphicManager.INSTANCE.createSpatial(graphic);
         spatial.setShadowMode(RenderQueue.ShadowMode.Cast);
+        
+        spatial.setUserData(Constants.USER_DATA_MODEL, worldObject);
+   
+        worldObject.addObserver(this);
+        hideFromWorld();
+        TanksAppAdapter.INSTANCE.attachChildToRootNode(spatial);
     }
 
     /**
-     * Adds an material to the spatial.
-     * @param mat 
-     */
-    @Override
-    public void setMaterial(Material mat) {
-        spatial.setMaterial(mat);
-    }
-
-    /**
-     * Adds an appropriate control to the spatial.
+     * Adds an appropriate control to this view.
      * @param control 
      */
     @Override
-    public void addControl(Control control) {
+    public final void addControl(Control control) {
         spatial.addControl(control);
     }
     
     /**
-     * Adds an appropriate control to the spatial.
+     * Removes a control of this view.
      */
     @Override
-    public void removeControl(Control control) {
+    public final void removeControl(Control control) {
         spatial.removeControl(control);
     }
 
@@ -62,7 +69,7 @@ public abstract class AGameEntity implements IGameEntity {
      * @return The spatial of this game entity.
      */
     @Override
-    public Spatial getSpatial() {
+    public final Spatial getSpatial() {
         return spatial;
     }
     
@@ -70,8 +77,7 @@ public abstract class AGameEntity implements IGameEntity {
      * Help metohd used to get the boundingbox of the spatial.
      * @return 
      */
-    @Override
-    public Vector3f getExtents() {
+    final Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);
     }
     
@@ -81,7 +87,7 @@ public abstract class AGameEntity implements IGameEntity {
      * @param effects The effects that gets shown
      * @param position The position at which the effects get shown
      */
-    protected synchronized void showEffects(Collection<ParticleEmitter> effects, Vector3f position) {
+    synchronized void showEffects(Collection<ParticleEmitter> effects, Vector3f position) {
         if (spatial.getParent() != null) {
             for (ParticleEmitter effect : effects) {
                 if (effect != null) {
@@ -98,7 +104,7 @@ public abstract class AGameEntity implements IGameEntity {
      * 
      * @param effects The effects to be hidden
      */
-    protected synchronized void hideEffects(Collection<ParticleEmitter> effects) {
+    synchronized void hideEffects(Collection<ParticleEmitter> effects) {
         if (spatial.getParent() != null) {
             for (ParticleEmitter effect : effects) {
                 if (effect != null) {
@@ -107,6 +113,63 @@ public abstract class AGameEntity implements IGameEntity {
             }
         }
     }
+    
+    @Override
+    public final void showInWorld() {
+        spatial.setCullHint(Spatial.CullHint.Dynamic);
+    }
+    
+    @Override
+    public final void hideFromWorld() {
+        spatial.setCullHint(Spatial.CullHint.Always);
+    }
+    
+    /**
+     * @inheritdoc 
+     */
+    @Override
+    public final void addObserver(PropertyChangeListener l) {
+        pcs.addPropertyChangeListener(l);
+    }
 
-    public abstract void impact();
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public final void removeObserver(PropertyChangeListener l) {
+        pcs.removePropertyChangeListener(l);
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    @Override
+    public void cleanup() {
+        TanksAppAdapter.INSTANCE.detachChildFromRootNode(spatial);
+        worldObject.removeObserver(this);
+    } 
+    
+    @Override
+    public synchronized void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(Commands.SHOW)) {
+            showInWorld();
+            updatePosition();
+            updateRotation();
+        } else if (evt.getPropertyName().equals(Commands.ROTATE)) {
+            spatial.setLocalRotation((Quaternion)evt.getNewValue());
+        } else if (evt.getPropertyName().equals(Commands.CLEANUP)) {
+            cleanup();
+        } else if (evt.getPropertyName().equals(Commands.HIDE)) {
+            hideFromWorld();
+        }
+        pcs.firePropertyChange(evt);
+    }
+    
+    void updatePosition() {
+        spatial.setLocalTranslation(worldObject.getPosition());
+    }
+    
+    void updateRotation() {
+        spatial.setLocalRotation(worldObject.getRotation());
+    }
 }

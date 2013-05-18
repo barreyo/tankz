@@ -2,6 +2,7 @@ package GameModel;
 
 import GameUtilities.IObservable;
 import com.jme3.export.Savable;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
 /**
@@ -59,4 +60,11 @@ public interface IWorldObject extends IObservable, Savable{
      * @param pos the position to be set
      */
     public void setPosition(Vector3f pos);
+    
+    /**
+     * Returns the rotation.
+     * 
+     * @return rotation
+     */
+    public Quaternion getRotation();
 }

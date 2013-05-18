@@ -1,16 +1,11 @@
 
 package GameModel;
 
-import GameUtilities.Commands;
-import GameUtilities.IObservable;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
 /**
- * Is broken
  * @author Per
  */
 public class HastePowerup extends APowerup {

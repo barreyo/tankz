@@ -5,6 +5,7 @@ import GameModel.IArmedVehicle;
 import GameModel.IPowerup;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
+import GameUtilities.Constants;
 import GameView.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -67,18 +68,22 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used, should only be implemented in advance render use cases.
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
-        // never used
+        // not used
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used since we use MVC and do not only control visual spatials.
+     * 
+     * Will throw UnsupportedOperationException.
+     * 
+     * @throws UnsupportedOperationException since this functionality is not suppoerted.
      */
     @Override
-    public Control cloneForSpatial(Spatial spatial) {
+    public Control cloneForSpatial(Spatial spatial) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not supported");
     }
 
@@ -88,8 +93,8 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {
-            IWorldObject objA = event.getNodeA().getUserData("Model");
-            IWorldObject objB = event.getNodeB().getUserData("Model");
+            IWorldObject objA = event.getNodeA().getUserData(Constants.USER_DATA_MODEL);
+            IWorldObject objB = event.getNodeB().getUserData(Constants.USER_DATA_MODEL);
             if (objA == powerupModel && objB instanceof IArmedVehicle
                     || objB == powerupModel && objA instanceof IArmedVehicle) {
                 physicsControl.setEnabled(false);

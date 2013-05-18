@@ -6,7 +6,9 @@ import GameModel.IDamageableObject;
 import GameModel.IExplodingProjectile;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
+import GameUtilities.Constants;
 import GameView.Sounds.ESounds;
+import GameView.gameEntity.AExplodingEntity;
 import GameView.gameEntity.AGameEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -27,7 +29,7 @@ import java.beans.PropertyChangeListener;
  */
 public class LinearProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
     
-    private AGameEntity entity;
+    private AExplodingEntity entity;
     private IExplodingProjectile projectileModel;
 
     private RigidBodyControl physicsControl;
@@ -39,7 +41,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
      * @param projModel entity model.
      * @param physicsControl physics shape.
      */
-    public LinearProjectileControl(AGameEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
+    public LinearProjectileControl(AExplodingEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
 
         this.entity = entity;
         this.projectileModel = projModel;
@@ -87,19 +89,23 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used, should only be implemented in advance render use cases.
      */
     @Override
     protected void controlRender(RenderManager rm, ViewPort vp) {
-        // not used ever
+        // not used
     }
 
     /**
-     * {@inheritDoc}
+     * This is not used since we use MVC and do not only control visual spatials.
+     * 
+     * Will throw UnsupportedOperationException.
+     * 
+     * @throws UnsupportedOperationException since this functionality is not suppoerted.
      */
     @Override
-    public Control cloneForSpatial(Spatial spatial) {
-        throw new UnsupportedOperationException("Never supported");
+    public Control cloneForSpatial(Spatial spatial) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("Not supported");
     }
 
     /**
@@ -108,8 +114,8 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
     @Override
     public void collision(PhysicsCollisionEvent event) {
         if (event.getNodeA() != null && event.getNodeB() != null) {
-            IWorldObject objA = event.getNodeA().getUserData("Model");
-            IWorldObject objB = event.getNodeB().getUserData("Model");
+            IWorldObject objA = event.getNodeA().getUserData(Constants.USER_DATA_MODEL);
+            IWorldObject objB = event.getNodeB().getUserData(Constants.USER_DATA_MODEL);
             if (objA == projectileModel || objB == projectileModel) {
                 physicsControl.setEnabled(false);
                 entity.impact();
