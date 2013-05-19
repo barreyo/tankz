@@ -1,11 +1,8 @@
 package GameControllers.logic;
 
 import App.TanksAppAdapter;
-import GameModel.ITanks;
 import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.scene.Spatial;
 import de.lessvoid.nifty.Nifty;
-import java.util.List;
 
 /**
  * Manger for all GUI elements, singleton.
@@ -20,7 +17,6 @@ public enum GUIManager {
     INSTANCE;
 
     private Nifty nifty;
-    private List<Spatial> hudElements;
     
     /**
      * A manager that controls the GUI.
@@ -58,10 +54,8 @@ public enum GUIManager {
      * 
      * @param gameModel gameModel that is in use.
      */
-    public void showPauseMenu(ITanks gameModel) {
-        PauseMenuAppState.getInstance().setGameToPause(gameModel);
-        hudElements = TanksAppAdapter.INSTANCE.getGuiChildren();
-        TanksAppAdapter.INSTANCE.detachAllGUIChildren(); // Hide all HUD components
+    void showPauseMenu(GameAppState gameApp) {
+        PauseMenuAppState.getInstance().setGameToPause(gameApp);
         TanksAppAdapter.INSTANCE.attachAppState(PauseMenuAppState.getInstance());
     }
     
@@ -79,14 +73,5 @@ public enum GUIManager {
      */
     public void cleanup() {
         TanksAppAdapter.INSTANCE.detachAllGUIChildren();
-    }
-    
-    /**
-     * Returns the HUD elements last attached to the guiNode since last paus.
-     * 
-     * @return hud elements attached to guiNode.
-     */
-    public List<Spatial> getHudElements() {
-        return hudElements;
     }
 }

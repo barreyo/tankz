@@ -67,7 +67,7 @@ public enum ViewPortManager {
     }
     
     /**
-     * Remove this later --> dont share the reference to the collection
+     * 
      * @return 
      */
     public Collection<EViewPorts> getViews() {

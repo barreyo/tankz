@@ -50,7 +50,7 @@ public enum GameMapManager {
      * 
      * @param gameMap game map number.
      */
-    public void load(int gameMap) {
+    public GameAppState load(int gameMap) {
         switch (gameMap) {
             case 1:
                 currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
@@ -58,7 +58,7 @@ public enum GameMapManager {
             default:
                 currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
         }
-        TanksAppAdapter.INSTANCE.attachAppState(currentGame);
+        return currentGame;
     }
 
     /**

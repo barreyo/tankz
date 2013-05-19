@@ -31,7 +31,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
     private Nifty nifty;
     private Element currentElement;
     private SoundHandle sound;
-    private ITanks gameModel;
+    private GameAppState gameApp;
     
     private NiftyJmeDisplay niftyDisplay;
     
@@ -168,13 +168,9 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      */
     public void resume() {
         EApplicationState.setGameState(EApplicationState.RUNNING);
-        gameModel.resumeGame();
+        gameApp.resumeGame();
         TanksAppAdapter.INSTANCE.setCursorVisible(false);
         TanksAppAdapter.INSTANCE.detachAppState(this);
-        List<Spatial> hudElements = GUIManager.INSTANCE.getHudElements();
-        for (Spatial spatial : hudElements) {
-            TanksAppAdapter.INSTANCE.attachChildToGUINode(spatial);
-        }
     }
     
     /**
@@ -214,7 +210,7 @@ public class PauseMenuAppState extends AbstractAppState implements ScreenControl
      * 
      * @param gameModel model to pause. 
      */
-    void setGameToPause(ITanks gameModel) {
-        this.gameModel = gameModel;
+    void setGameToPause(GameAppState gameApp) {
+        this.gameApp = gameApp;
     }
 }

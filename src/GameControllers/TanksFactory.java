@@ -31,6 +31,7 @@ import GameModel.TanksGameModel;
 import GameUtilities.Constants;
 import GameUtilities.Util;
 import GameView.GUI.HealthView;
+import GameView.GUI.IHudElement;
 import GameView.GUI.PowerupSlotView;
 import GameView.GUI.ScoreboardView;
 import GameView.GUI.TimerView;
@@ -258,6 +259,8 @@ public final class TanksFactory {
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
+        
+        List<IHudElement> gui = new ArrayList<IHudElement>();
 
         int playerNumber = 1;
         // Create one player for each name
@@ -364,11 +367,10 @@ public final class TanksFactory {
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,
                     ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
+            gui.add(pView);
             HealthView v = new HealthView(vehicleModel,
                     ViewPortManager.INSTANCE.getViewportForPlayer(player.getName()), numberOfPlayers);
-            pView.show();
-            v.show();
-
+            gui.add(v);
             AirCallIndicator ai = new AirCallIndicator(player);
             
             players.add(player);
@@ -378,7 +380,7 @@ public final class TanksFactory {
         // this can't be done in the loop above since the players list need to be fully filled.
         for (IPlayer p : players) {
             // set up scoreboard for each player
-            new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players, p);
+           new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players, p);
         }
 
         // Setting spawningpoints, different on each map
@@ -404,11 +406,13 @@ public final class TanksFactory {
         } catch (Exception ex) {
             Logger.getLogger(TanksFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        gameWorld.load();
 
         // set up timerView
         TimerView timerView = new TimerView(game);
-        timerView.show();
+        gui.add(timerView);
         
-        return new GameAppState(game, gameWorld);
+        return new GameAppState(game, gameWorld, gui);
     }
 }

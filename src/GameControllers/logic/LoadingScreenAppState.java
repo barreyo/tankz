@@ -18,7 +18,8 @@ public final class LoadingScreenAppState extends AbstractAppState {
     private static LoadingScreenAppState instance;
     private Nifty nifty;
     private int frameCount;
-    private static final int FRAME_COUNT = 20;
+    private static final int FRAME_COUNT = 50;
+    private GameAppState gameApp;
 
     private LoadingScreenAppState() {
         // Nifty GUI processor.
@@ -80,20 +81,21 @@ public final class LoadingScreenAppState extends AbstractAppState {
         if (frameCount == 0) {
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
             System.out.println("LOADING GAME");
-        } else if (frameCount == 5) {
+        } else if (frameCount == 20) {
             SoundManager.INSTANCE.load();
-        } else if (frameCount == 8) {
+        } else if (frameCount == 21) {
             PhysicsManager.INSTANCE.load();
-        } else if (frameCount == 13) {
+        } else if (frameCount == 22) {
             ViewPortManager.INSTANCE.load();
-        } else if (frameCount == 14) {
+        } else if (frameCount == 23) {
             GraphicManager.INSTANCE.load();
-        } else if (frameCount == 17) {
+        } else if (frameCount == 24) {
             EffectsManager.INSTANCE.load();
-        }
-        else if (frameCount == FRAME_COUNT) {
-            GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
+        } else if (frameCount == 25) {
+            gameApp = GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
+        } else if (frameCount == FRAME_COUNT) {
             //at end of loading
+            TanksAppAdapter.INSTANCE.attachAppState(gameApp);
             TanksAppAdapter.INSTANCE.detachAppState(this);
             SoundManager.INSTANCE.stop(ESounds.MENU_SOUND);
 
