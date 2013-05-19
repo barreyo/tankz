@@ -1,12 +1,12 @@
 package GameControllers.entitycontrols;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameControllers.gameManagers.SoundManager;
-import GameModel.IDamageableObject;
-import GameModel.IExplodingProjectile;
-import GameModel.IWorldObject;
-import GameUtilities.Commands;
-import GameUtilities.Constants;
+import model.IDamageableObject;
+import model.IExplodingProjectile;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.AExplodingEntity;
 import GameView.gameEntity.AGameEntity;

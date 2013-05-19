@@ -1,12 +1,12 @@
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
-import GameModel.EApplicationState;
-import GameModel.IArmedVehicle;
-import GameModel.IPowerup;
-import GameModel.ITanks;
-import GameModel.IWorldObject;
-import GameUtilities.Constants;
+import application.TanksAppAdapter;
+import model.EApplicationState;
+import model.IArmedVehicle;
+import model.IPowerup;
+import model.ITanks;
+import model.IWorldObject;
+import utilities.Constants;
 import GameView.GUI.IHudElement;
 import GameView.Map.IGameWorld;
 import GameView.Sounds.ESounds;

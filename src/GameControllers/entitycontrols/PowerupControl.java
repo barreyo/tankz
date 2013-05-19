@@ -1,11 +1,11 @@
 package GameControllers.entitycontrols;
 
-import App.TanksAppAdapter;
-import GameModel.IArmedVehicle;
-import GameModel.IPowerup;
-import GameModel.IWorldObject;
-import GameUtilities.Commands;
-import GameUtilities.Constants;
+import application.TanksAppAdapter;
+import model.IArmedVehicle;
+import model.IPowerup;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
 import GameView.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;

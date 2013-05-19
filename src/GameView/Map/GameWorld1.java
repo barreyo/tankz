@@ -1,8 +1,8 @@
 package GameView.Map;
 
 import GameControllers.gameManagers.GraphicManager;
-import App.TanksAppAdapter;
-import GameModel.ITanks;
+import application.TanksAppAdapter;
+import model.ITanks;
 import GameView.graphics.EGraphics;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.DirectionalLight;

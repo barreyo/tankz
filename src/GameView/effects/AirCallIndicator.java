@@ -4,10 +4,10 @@
  */
 package GameView.effects;
 
-import App.TanksAppAdapter;
-import GameModel.IArmedVehicle;
-import GameModel.IPlayer;
-import GameUtilities.Commands;
+import application.TanksAppAdapter;
+import model.IArmedVehicle;
+import model.IPlayer;
+import utilities.Commands;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import java.beans.PropertyChangeEvent;

@@ -1,6 +1,6 @@
 package GameView.gameEntity;
 
-import GameUtilities.IObservable;
+import utilities.IObservable;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;

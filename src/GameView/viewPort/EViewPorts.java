@@ -1,6 +1,6 @@
 package GameView.viewPort;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.post.FilterPostProcessor;

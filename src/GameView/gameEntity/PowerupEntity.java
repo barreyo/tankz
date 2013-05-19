@@ -1,7 +1,7 @@
 
 package GameView.gameEntity;
 
-import GameModel.IPowerup;
+import model.IPowerup;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;

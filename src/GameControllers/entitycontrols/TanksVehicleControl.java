@@ -1,16 +1,16 @@
 
 package GameControllers.entitycontrols;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameControllers.TanksFactory;
-import GameModel.EApplicationState;
-import GameModel.EPlayerInputs;
-import GameModel.IArmedVehicle;
-import GameModel.IPlayer;
-import GameModel.IPowerup;
-import GameModel.IWorldObject;
-import GameUtilities.Commands;
-import GameUtilities.Constants;
+import model.EApplicationState;
+import model.EPlayerInputs;
+import model.IArmedVehicle;
+import model.IPlayer;
+import model.IPowerup;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
 import GameView.gameEntity.TankEntity;
 import GameView.viewPort.VehicleCamera;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;

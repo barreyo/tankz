@@ -1,8 +1,8 @@
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
-import GameModel.EApplicationState;
-import GameModel.ITanks;
+import application.TanksAppAdapter;
+import model.EApplicationState;
+import model.ITanks;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;

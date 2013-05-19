@@ -1,8 +1,8 @@
 
 package GameView.gameEntity;
 
-import GameModel.IExplodingProjectile;
-import GameUtilities.Commands;
+import model.IExplodingProjectile;
+import utilities.Commands;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;

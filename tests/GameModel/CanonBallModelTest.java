@@ -4,6 +4,7 @@
  */
 package GameModel;
 
+import model.CanonBallModel;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import org.junit.After;

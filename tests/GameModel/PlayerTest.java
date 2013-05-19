@@ -4,6 +4,10 @@
  */
 package GameModel;
 
+import model.Player;
+import model.HastePowerup;
+import model.MissilePowerup;
+import model.IPowerup;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;

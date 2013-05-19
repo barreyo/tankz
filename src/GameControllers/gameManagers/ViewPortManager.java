@@ -1,6 +1,6 @@
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameView.viewPort.EViewPorts;
 import com.jme3.renderer.ViewPort;
 import java.util.Collection;

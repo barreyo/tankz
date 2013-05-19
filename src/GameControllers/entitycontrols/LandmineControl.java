@@ -1,13 +1,13 @@
 
 package GameControllers.entitycontrols;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameControllers.gameManagers.SoundManager;
-import GameModel.IDamageableObject;
-import GameModel.IWorldObject;
-import GameModel.LandmineModel;
-import GameUtilities.Commands;
-import GameUtilities.Constants;
+import model.IDamageableObject;
+import model.IWorldObject;
+import model.LandmineModel;
+import utilities.Commands;
+import utilities.Constants;
 import GameView.Sounds.ESounds;
 import GameView.gameEntity.LandmineEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;

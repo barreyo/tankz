@@ -1,7 +1,7 @@
 
 package GameView.GUI;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Node;
 import com.jme3.ui.Picture;

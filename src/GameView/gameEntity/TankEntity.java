@@ -1,7 +1,7 @@
 package GameView.gameEntity;
 
-import GameModel.IArmedVehicle;
-import GameUtilities.Commands;
+import model.IArmedVehicle;
+import utilities.Commands;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import GameView.physics.ECollisionShapes;

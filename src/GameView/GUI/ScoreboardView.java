@@ -1,12 +1,12 @@
 
 package GameView.GUI;
 
-import App.TanksAppAdapter;
-import GameModel.IArmedVehicle;
-import GameModel.IArmedVehicle.VehicleState;
-import GameModel.IPlayer;
-import GameModel.PlayerComparator;
-import GameUtilities.Commands;
+import application.TanksAppAdapter;
+import model.IArmedVehicle;
+import model.IArmedVehicle.VehicleState;
+import model.IPlayer;
+import model.PlayerComparator;
+import utilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.renderer.ViewPort;

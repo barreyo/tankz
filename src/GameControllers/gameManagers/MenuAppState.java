@@ -1,8 +1,8 @@
 
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
-import GameModel.EApplicationState;
+import application.TanksAppAdapter;
+import model.EApplicationState;
 import GameView.Sounds.ESounds;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;

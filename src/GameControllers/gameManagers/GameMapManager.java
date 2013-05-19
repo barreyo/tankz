@@ -1,6 +1,6 @@
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameControllers.TanksFactory;
 import GameView.Map.GameWorld1;
 

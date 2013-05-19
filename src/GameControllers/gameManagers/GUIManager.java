@@ -1,6 +1,6 @@
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import com.jme3.niftygui.NiftyJmeDisplay;
 import de.lessvoid.nifty.Nifty;
 

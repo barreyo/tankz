@@ -1,15 +1,15 @@
 
 package GameView.GUI;
 
-import GameModel.AirCallPowerup;
-import GameModel.BeerPowerup;
-import GameModel.HastePowerup;
-import GameModel.HealthPowerup;
-import GameModel.IPlayer;
-import GameModel.IPowerup;
-import GameModel.LandminePowerup;
-import GameModel.MissilePowerup;
-import GameUtilities.Commands;
+import model.AirCallPowerup;
+import model.BeerPowerup;
+import model.HastePowerup;
+import model.HealthPowerup;
+import model.IPlayer;
+import model.IPowerup;
+import model.LandminePowerup;
+import model.MissilePowerup;
+import utilities.Commands;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;

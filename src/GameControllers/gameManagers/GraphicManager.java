@@ -1,6 +1,6 @@
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameView.graphics.EGraphics;
 import com.jme3.scene.Spatial;
 import java.util.EnumMap;

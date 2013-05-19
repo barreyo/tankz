@@ -1,7 +1,7 @@
 
 package GameView.gameEntity;
 
-import GameModel.LandmineModel;
+import model.LandmineModel;
 import GameView.effects.EEffects;
 import GameView.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;

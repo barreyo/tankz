@@ -1,10 +1,10 @@
 package GameView.gameEntity;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameControllers.gameManagers.GraphicManager;
-import GameModel.IWorldObject;
-import GameUtilities.Commands;
-import GameUtilities.Constants;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
 import GameView.graphics.EGraphics;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.effect.ParticleEmitter;

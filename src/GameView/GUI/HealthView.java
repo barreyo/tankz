@@ -1,9 +1,9 @@
 
 package GameView.GUI;
 
-import App.TanksAppAdapter;
-import GameModel.IArmedVehicle;
-import GameUtilities.Commands;
+import application.TanksAppAdapter;
+import model.IArmedVehicle;
+import utilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;

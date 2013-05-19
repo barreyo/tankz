@@ -1,6 +1,6 @@
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import GameView.Sounds.ESounds;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioSource;

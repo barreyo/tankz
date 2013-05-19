@@ -1,8 +1,8 @@
 
 package GameControllers.gameManagers;
 
-import App.TanksAppAdapter;
-import GameModel.EGlobalInputs;
+import application.TanksAppAdapter;
+import model.EGlobalInputs;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.controls.ActionListener;

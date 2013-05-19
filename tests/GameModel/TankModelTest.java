@@ -4,7 +4,9 @@
  */
 package GameModel;
 
-import GameModel.IArmedVehicle.VehicleState;
+import model.IExplodingProjectile;
+import model.TankModel;
+import model.IArmedVehicle.VehicleState;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;

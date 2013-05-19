@@ -1,6 +1,6 @@
 package GameView.effects;
 
-import App.TanksAppAdapter;
+import application.TanksAppAdapter;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
 import com.jme3.effect.shapes.EmitterSphereShape;
