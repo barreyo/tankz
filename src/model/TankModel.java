@@ -201,7 +201,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void update(float tpf) {
-        if (!paused) {
+        if (isInWorld) {
             float oldAcceleration = accelerationValue;
             float maxSpeed = (acceleration >= 0 ? this.currentMaxSpeed : -backMaxSpeed);
             float speedFactor = (maxSpeed - currentVehicleSpeedKmHour) / maxSpeed;

@@ -12,7 +12,7 @@
         width="38%"/>
     </style>
     
-    <screen id="start" controller="GameControllers.logic.MenuAppState">
+    <screen id="start" controller="controller.gameManagers.MenuAppState">
         <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >
@@ -37,7 +37,7 @@
         </layer>
     </screen>
     
-    <screen id="multi" controller="GameControllers.logic.MenuAppState">
+    <screen id="multi" controller="controller.gameManagers.MenuAppState">
         <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >
@@ -74,7 +74,7 @@
         </layer>
     </screen>
 
-    <screen id="settings" controller="GameControllers.logic.MenuAppState">
+    <screen id="settings" controller="controller.gameManagers.MenuAppState">
         <layer id="background" backgroundImage="Interface/MainScreen.jpg" childLayout="center">
         </layer>
         <layer id="menu_layer" childLayout="center" >
@@ -99,7 +99,7 @@
         </layer>
     </screen>
     
-    <screen id="loadingScreen" controller = "GameControllers.logic.LoadingScreenAppState">
+    <screen id="loadingScreen" controller = "controller.gameManagers.LoadingAppState">
         <layer id="loadinglayer" childLayout="center" backgroundImage="Interface/loadingscreen-bg.jpg">
             
             <panel id="loadingpanel" childLayout="vertical" align="center" valign="center" height="73px" width="70%">

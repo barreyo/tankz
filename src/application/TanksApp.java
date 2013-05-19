@@ -1,11 +1,11 @@
 package application;
 
-import GameControllers.gameManagers.GUIManager;
-import GameControllers.gameManagers.SoundManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.system.AppSettings;
+import controller.gameManagers.GUIManager;
+import controller.gameManagers.SoundManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
