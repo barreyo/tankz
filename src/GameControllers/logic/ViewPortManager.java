@@ -33,7 +33,7 @@ public enum ViewPortManager {
                 views.put(playerNames.get(1), EViewPorts.BOTTOM);
                 break;
             case 3:
-                views.put(playerNames.get(0),EViewPorts.TOP_LEFT);
+                views.put(playerNames.get(0), EViewPorts.TOP_LEFT);
                 views.put(playerNames.get(1), EViewPorts.TOP_RIGHT);
                 views.put(playerNames.get(2), EViewPorts.BOTTOM);
                 break;
@@ -81,6 +81,7 @@ public enum ViewPortManager {
         for (EViewPorts view : views.values()) {
             view.getViewPort().detachScene(TanksAppAdapter.INSTANCE.getRootNode());
             view.getViewPort().setEnabled(false);
+            view.cleanup();
         }
         views.clear();
     }
