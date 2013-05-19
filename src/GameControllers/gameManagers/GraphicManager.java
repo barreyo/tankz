@@ -1,4 +1,4 @@
-package GameControllers.logic;
+package GameControllers.gameManagers;
 
 import App.TanksAppAdapter;
 import GameView.graphics.EGraphics;

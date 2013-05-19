@@ -1,4 +1,4 @@
-package GameControllers.logic;
+package GameControllers.gameManagers;
 
 import GameView.effects.EEffects;
 import GameView.viewPort.EViewPorts;

@@ -1,7 +1,7 @@
 package App;
 
-import GameControllers.logic.GUIManager;
-import GameControllers.logic.SoundManager;
+import GameControllers.gameManagers.GUIManager;
+import GameControllers.gameManagers.SoundManager;
 import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;

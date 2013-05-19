@@ -1,7 +1,7 @@
 package GameView.gameEntity;
 
 import App.TanksAppAdapter;
-import GameControllers.logic.GraphicManager;
+import GameControllers.gameManagers.GraphicManager;
 import GameModel.IWorldObject;
 import GameUtilities.Commands;
 import GameUtilities.Constants;

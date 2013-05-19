@@ -1,6 +1,6 @@
 package GameView.Map;
 
-import GameControllers.logic.GraphicManager;
+import GameControllers.gameManagers.GraphicManager;
 import App.TanksAppAdapter;
 import GameModel.ITanks;
 import GameView.graphics.EGraphics;
