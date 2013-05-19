@@ -1,4 +1,4 @@
-package GameView.gameEntity;
+            package GameView.gameEntity;
 
 import GameModel.IExplodingObject;
 import GameUtilities.Commands;
