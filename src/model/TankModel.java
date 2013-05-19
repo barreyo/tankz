@@ -155,7 +155,7 @@ public final class TankModel implements IArmedVehicle {
     public synchronized void dropLandmine(IPlayer player) {
         for (LandmineModel landmine : landmines) {
             if (!landmine.isShownInWorld()) {
-                landmine.dropMine(position.add(direction.mult(3f).negate().add(0, 1, 0)), player);
+                landmine.dropMine(position.add(direction.mult(3f).negate().add(rotation.mult(Vector3f.UNIT_Y))), player);
                 return;
             }
         }
@@ -282,7 +282,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public synchronized Vector3f getFirePosition() {
-        return position.add(0, 1.7f, 0).add(direction.mult(1.1f));
+        return position.add(rotation.mult(new Vector3f(0, 1.7f, 0))).add(direction.mult(1.1f));
     }
     
     /**
@@ -290,7 +290,9 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public Vector3f getExhaustPosition() {
-        return position.add(0, 2.05f, 0).subtract(direction.mult(1.5f));
+        Vector3f up = rotation.mult(new Vector3f(0, 2.05f, 0));
+        Vector3f left = up.cross(direction).mult(0.3f);
+        return position.add(up).add(left).subtract(direction.mult(1.5f));
     }
 
     /**
