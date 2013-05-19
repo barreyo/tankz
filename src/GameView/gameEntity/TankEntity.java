@@ -66,7 +66,7 @@ public final class TankEntity extends AGameEntity {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(Commands.SHOOT)) {
-            showEffects(shootEffects, armedVehicle.getFirePosition());
+            showEffects(shootEffects, armedVehicle.getFirePosition().add(armedVehicle.getDirection().mult(1.5f)));
         } else if (evt.getPropertyName().equals(Commands.HIDE)) {
             // Remove tank from world
             this.showEffects(blownUpEffects, armedVehicle.getFirePosition());
