@@ -4,6 +4,15 @@
  */
 package GameModel;
 
+import model.Player;
+import model.HastePowerup;
+import model.GameSettings;
+import model.IPlayer;
+import model.TanksGameModel;
+import model.ISpawningPoint;
+import model.IPowerup;
+import model.SpawningPoint;
+import model.TankModel;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;

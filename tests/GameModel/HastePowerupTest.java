@@ -4,6 +4,11 @@
  */
 package GameModel;
 
+import model.HastePowerup;
+import model.Player;
+import model.IArmedVehicle;
+import model.IPlayer;
+import model.TankModel;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
