@@ -79,7 +79,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         mapNode.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         TanksAppAdapter.INSTANCE.attachChildToRootNode(mapNode);
         TanksAppAdapter.INSTANCE.addAllToPhysicsSpace(mapNode);
-//        TanksAppAdapter.INSTANCE.getPhysicsSpace().enableDebug(TanksAppAdapter.INSTANCE.getAssetManager());
+        //TanksAppAdapter.INSTANCE.enableDebug();
     }
 
     /**

@@ -468,4 +468,8 @@ public enum TanksAppAdapter {
     public List<Spatial> getGuiChildren() {
         return new ArrayList<Spatial>(tanksApp.getGuiNode().getChildren());
     }
+
+    public void enableDebug() {
+        tanksApp.getBulletAppState().setDebugEnabled(true);
+    }
 }

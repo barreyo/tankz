@@ -155,7 +155,7 @@ public final class TankModel implements IArmedVehicle {
     public synchronized void dropLandmine(IPlayer player) {
         for (LandmineModel landmine : landmines) {
             if (!landmine.isShownInWorld()) {
-                landmine.dropMine(position.add(direction.mult(2f).negate()), player);
+                landmine.dropMine(position.add(direction.mult(3f).negate().add(0, 1, 0)), player);
                 return;
             }
         }
