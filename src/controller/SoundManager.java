@@ -1,4 +1,4 @@
-package controller.gameManagers;
+package controller;
 
 import application.TanksAppAdapter;
 import view.sound.ESounds;

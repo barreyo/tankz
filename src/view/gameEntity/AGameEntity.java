@@ -1,11 +1,9 @@
 package view.gameEntity;
 
 import application.TanksAppAdapter;
-import controller.gameManagers.GraphicManager;
 import model.IWorldObject;
 import utilities.Commands;
 import utilities.Constants;
-import view.graphics.EGraphics;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.Quaternion;

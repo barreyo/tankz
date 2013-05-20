@@ -1,5 +1,5 @@
 
-package controller.gameManagers;
+package view;
 
 import application.TanksAppAdapter;
 import com.jme3.effect.ParticleEmitter;

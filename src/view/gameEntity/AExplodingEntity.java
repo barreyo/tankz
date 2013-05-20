@@ -2,7 +2,6 @@ package view.gameEntity;
 
 import model.IExplodingObject;
 import utilities.Commands;
-import view.graphics.EGraphics;
 import com.jme3.effect.ParticleEmitter;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;

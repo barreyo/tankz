@@ -3,7 +3,6 @@ package view.gameEntity;
 
 import model.IExplodingProjectile;
 import view.effects.EEffects;
-import view.graphics.EGraphics;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 

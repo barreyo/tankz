@@ -1,4 +1,4 @@
-package view.graphics;
+package view.gameEntity;
 
 /**
  * Enum holding relative paths to models.

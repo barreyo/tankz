@@ -1,4 +1,4 @@
-package controller.gameManagers;
+package controller;
 
 import view.physics.ECollisionShapes;
 import com.jme3.bullet.collision.shapes.CollisionShape;

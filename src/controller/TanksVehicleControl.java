@@ -1,5 +1,5 @@
 
-package controller.entitycontrols;
+package controller;
 
 import model.EApplicationState;
 import model.EPlayerInputs;

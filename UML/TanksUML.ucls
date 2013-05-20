@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true">  
-  <package id="1" language="java" name="GameModel" project="Tanks" file="/Tanks/src/GameModel" binary="false" 
+  <package id="1" language="java" name="GameModel" project="Tanks" file="/Tanks/tests/GameModel" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="99" y="48"/>    
     <display autosize="true" stereotype="true" accessors="true"/>  
   </package>  
-  <class id="2" language="java" name="GameModel.AExplodingProjectile" project="Tanks" 
-    file="/Tanks/src/GameModel/AExplodingProjectile.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="209" y="379"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
-  <class id="3" language="java" name="GameModel.AirCallPowerup" project="Tanks" 
-    file="/Tanks/src/GameModel/AirCallPowerup.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="571" y="319"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true"/>      
-      <operations public="true" package="true" protected="true" private="true"/>    
-    </display>  
-  </class>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true"/>    

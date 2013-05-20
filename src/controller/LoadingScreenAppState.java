@@ -1,5 +1,7 @@
-package controller.gameManagers;
+package controller;
 
+import view.effects.EffectsManager;
+import view.gameEntity.GraphicManager;
 import application.TanksAppAdapter;
 import model.EApplicationState;
 import view.sound.ESounds;

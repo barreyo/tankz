@@ -3,7 +3,6 @@ package view.gameEntity;
 import model.IArmedVehicle;
 import utilities.Commands;
 import view.effects.EEffects;
-import view.graphics.EGraphics;
 import view.physics.ECollisionShapes;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;

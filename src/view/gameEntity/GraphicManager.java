@@ -1,9 +1,11 @@
-package controller.gameManagers;
+package view.gameEntity;
 
+import view.PreloadManager;
 import application.TanksAppAdapter;
-import view.graphics.EGraphics;
+import view.gameEntity.EGraphics;
 import com.jme3.scene.Spatial;
 import java.util.EnumMap;
+import view.gameEntity.EGraphics;
 
 /**
  * Manager managing graphic relate operations and instances.

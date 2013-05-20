@@ -2,7 +2,7 @@ package view.maps;
 
 import application.TanksAppAdapter;
 import model.ITanks;
-import view.graphics.EGraphics;
+import view.gameEntity.EGraphics;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
@@ -12,7 +12,7 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
-import controller.gameManagers.GraphicManager;
+import view.gameEntity.GraphicManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

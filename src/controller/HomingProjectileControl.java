@@ -1,4 +1,4 @@
-package controller.entitycontrols;
+package controller;
 
 import application.TanksAppAdapter;
 import model.IDamageableObject;
@@ -18,7 +18,6 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
-import controller.gameManagers.SoundManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

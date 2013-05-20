@@ -1,4 +1,4 @@
-package controller.gameManagers;
+package controller;
 
 import application.TanksAppAdapter;
 import com.jme3.niftygui.NiftyJmeDisplay;

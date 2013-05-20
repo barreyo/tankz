@@ -1,5 +1,5 @@
 
-package controller.gameManagers;
+package controller;
 
 import application.TanksAppAdapter;
 import model.EApplicationState;

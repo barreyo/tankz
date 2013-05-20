@@ -1,10 +1,13 @@
-package controller.gameManagers;
+package view.effects;
 
 import view.effects.EEffects;
 import view.viewPort.EViewPorts;
 import com.jme3.effect.ParticleEmitter;
+import controller.ViewPortManager;
+import controller.ViewPortManager;
 import java.util.Collection;
 import java.util.EnumMap;
+import view.PreloadManager;
 
 /**
  * Manager for the in game effects, singleton.

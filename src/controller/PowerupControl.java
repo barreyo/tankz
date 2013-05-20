@@ -1,12 +1,6 @@
-package controller.entitycontrols;
+package controller;
 
 import application.TanksAppAdapter;
-import model.IArmedVehicle;
-import model.IPowerup;
-import model.IWorldObject;
-import utilities.Commands;
-import utilities.Constants;
-import view.gameEntity.PowerupEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -17,6 +11,12 @@ import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import model.IArmedVehicle;
+import model.IPowerup;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
+import view.gameEntity.PowerupEntity;
 
 /**
  * Control class for the powerup entity.
