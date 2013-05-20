@@ -16,7 +16,7 @@ import model.IPowerup;
 import model.IWorldObject;
 import utilities.Commands;
 import utilities.Constants;
-import view.gameEntity.PowerupEntity;
+import view.PowerupEntity;
 
 /**
  * Control class for the powerup entity.

@@ -1,10 +1,11 @@
 package controller;
 
-import view.effects.EffectsManager;
-import view.gameEntity.GraphicManager;
+import view.ViewPortManager;
+import view.EffectsManager;
+import view.GraphicManager;
 import application.TanksAppAdapter;
 import model.EApplicationState;
-import view.sound.ESounds;
+import view.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;

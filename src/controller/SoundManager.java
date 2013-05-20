@@ -1,7 +1,7 @@
 package controller;
 
 import application.TanksAppAdapter;
-import view.sound.ESounds;
+import view.ESounds;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioSource;
 import java.util.EnumMap;

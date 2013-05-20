@@ -1,9 +1,10 @@
 package controller;
 
-import view.effects.EffectsManager;
-import view.gameEntity.GraphicManager;
+import view.ViewPortManager;
+import view.EffectsManager;
+import view.GraphicManager;
 import application.TanksAppAdapter;
-import view.maps.GameWorld1;
+import view.GameWorld1;
 import controller.TanksFactory;
 
 

@@ -3,7 +3,7 @@ package controller;
 
 import application.TanksAppAdapter;
 import model.EApplicationState;
-import view.sound.ESounds;
+import view.ESounds;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import de.lessvoid.nifty.Nifty;

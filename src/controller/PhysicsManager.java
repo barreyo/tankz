@@ -1,6 +1,6 @@
 package controller;
 
-import view.physics.ECollisionShapes;
+import view.ECollisionShapes;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.PhysicsControl;
 import com.jme3.bullet.control.RigidBodyControl;
