@@ -1,10 +1,10 @@
 package controller;
 
-import controller.managers.LinearProjectileControl;
-import controller.managers.LandmineControl;
-import controller.managers.PowerupControl;
-import controller.managers.TanksVehicleControl;
-import controller.managers.HomingProjectileControl;
+import controller.entityControls.LinearProjectileControl;
+import controller.entityControls.LandmineControl;
+import controller.entityControls.PowerupControl;
+import controller.entityControls.TanksVehicleControl;
+import controller.entityControls.HomingProjectileControl;
 import controller.managers.GameAppState;
 import view.viewport.ViewPortManager;
 import application.TanksAppAdapter;

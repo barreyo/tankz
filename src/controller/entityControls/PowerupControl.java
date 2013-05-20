@@ -1,4 +1,4 @@
-package controller.managers;
+package controller.entityControls;
 
 import application.TanksAppAdapter;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;

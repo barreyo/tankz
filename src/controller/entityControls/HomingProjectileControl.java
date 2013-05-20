@@ -1,4 +1,4 @@
-package controller.managers;
+package controller.entityControls;
 
 import controller.managers.SoundManager;
 import application.TanksAppAdapter;
@@ -19,6 +19,7 @@ import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
+import controller.managers.SoundManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 

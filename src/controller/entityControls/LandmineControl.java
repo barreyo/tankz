@@ -1,49 +1,50 @@
-package controller.managers;
+
+package controller.entityControls;
 
 import controller.managers.SoundManager;
 import application.TanksAppAdapter;
 import model.IDamageableObject;
-import model.IExplodingProjectile;
 import model.IWorldObject;
+import model.LandmineModel;
 import utilities.Commands;
 import utilities.Constants;
 import view.sounds.ESounds;
-import view.entity.AExplodingEntity;
+import view.entity.LandmineEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
+import controller.managers.SoundManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * Control class for linear projectiles.
+ * Control class for a landmine.
  * 
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
-public class LinearProjectileControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
+public class LandmineControl extends AbstractControl implements PhysicsCollisionListener, PropertyChangeListener {
     
-    private AExplodingEntity entity;
-    private IExplodingProjectile projectileModel;
-
+    private LandmineModel landmineModel;
+    private LandmineEntity entity;
     private RigidBodyControl physicsControl;
     
     /**
-     * Creates a linear projectile control.
+     * Instatiate a landmine control.
      * 
+     * @param model model.
      * @param entity entity to be controlled.
-     * @param projModel entity model.
      * @param physicsControl physics shape.
      */
-    public LinearProjectileControl(AExplodingEntity entity, IExplodingProjectile projModel, RigidBodyControl physicsControl) {
-
+    public LandmineControl (LandmineModel model, 
+            LandmineEntity entity, RigidBodyControl physicsControl ){
+        
+        this.landmineModel = model;
         this.entity = entity;
-        this.projectileModel = projModel;
         this.physicsControl = physicsControl;
         
         entity.addControl(physicsControl);
@@ -58,31 +59,11 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
      * {@inheritDoc}
      */
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        String command = evt.getPropertyName();
-        Object source = evt.getSource();
-        if (source == projectileModel) {
-            if (command.equals(Commands.SHOW)) {
-                physicsControl.setEnabled(true);
-                physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
-            } else if (command.equals(Commands.HIDE)) {
-                physicsControl.setEnabled(false);
-            }
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     protected void controlUpdate(float tpf) {
-        if (projectileModel.isShownInWorld()) {
-            projectileModel.update(tpf);
+        if (landmineModel.isShownInWorld()) {
+            landmineModel.update(tpf);
             if (spatial != null) {
-                projectileModel.setPosition((spatial.getWorldTranslation()));
-            }
-            if (physicsControl.isEnabled()) {
-                physicsControl.setLinearVelocity((projectileModel.getLinearVelocity()));
+                landmineModel.setPosition((spatial.getWorldTranslation()));
             }
         }
     }
@@ -106,7 +87,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
     public Control cloneForSpatial(Spatial spatial) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("Not supported");
     }
-
+    
     /**
      * {@inheritDoc}
      */
@@ -115,19 +96,40 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
         if (event.getNodeA() != null && event.getNodeB() != null) {
             IWorldObject objA = event.getNodeA().getUserData(Constants.USER_DATA_MODEL);
             IWorldObject objB = event.getNodeB().getUserData(Constants.USER_DATA_MODEL);
-            if (objA == projectileModel || objB == projectileModel) {
+            if (objA == landmineModel && objB instanceof IDamageableObject) {
                 physicsControl.setEnabled(false);
                 entity.impact();
-                projectileModel.impact();
+                landmineModel.impact();
                 if (!SoundManager.INSTANCE.isSoundFXMuted()) {
                     SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
                 }
-                if (objA instanceof IDamageableObject) {
-                    projectileModel.doDamageOn((IDamageableObject)objA);
-                } else if (objB instanceof IDamageableObject) {
-                    projectileModel.doDamageOn((IDamageableObject)objB);
+                landmineModel.doDamageOn((IDamageableObject)objB);
+            } else if (objB == landmineModel && objA instanceof IDamageableObject) {
+                physicsControl.setEnabled(false);
+                entity.impact();
+                landmineModel.impact();
+                if (!SoundManager.INSTANCE.isSoundFXMuted()) {
+                    SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
                 }
+                landmineModel.doDamageOn((IDamageableObject)objA);
+            } 
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        String command = evt.getPropertyName();
+        Object source = evt.getSource();
+        if (source == landmineModel) {
+            if (command.equals(Commands.SHOW)) {
+                physicsControl.setEnabled(true);
+            } else if (command.equals(Commands.HIDE)) {
+                physicsControl.setEnabled(false);
             }
         }
     }
+    
 }
