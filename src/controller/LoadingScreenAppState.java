@@ -89,7 +89,7 @@ public final class LoadingScreenAppState extends AbstractAppState {
         } else if (frameCount == 21) {
             PhysicsManager.INSTANCE.load();
         } else if (frameCount == 22) {
-            ViewPortManager.INSTANCE.load();
+            ViewPortManager.INSTANCE.load(MenuAppState.getInstance().getPlayerNames());
         } else if (frameCount == 23) {
             GraphicManager.INSTANCE.load();
         } else if (frameCount == 24) {

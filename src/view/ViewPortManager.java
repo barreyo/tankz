@@ -1,9 +1,7 @@
 package view;
 
 import application.TanksAppAdapter;
-import view.EViewPorts;
 import com.jme3.renderer.ViewPort;
-import controller.MenuAppState;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,8 +20,8 @@ public enum ViewPortManager {
     
     private HashMap<String, EViewPorts> views = new HashMap<String, EViewPorts>();
 
-    private void initViews() {
-        List<String> playerNames = MenuAppState.getInstance().getPlayerNames();
+    private void initViews(List<String> names) {
+        List<String> playerNames = names;
         switch(playerNames.size()) {
             case 0:   
             case 1:
@@ -50,8 +48,8 @@ public enum ViewPortManager {
     /**
      * Loads the right viewports determined by number of players.
      */
-    public void load() {
-        initViews();
+    public void load(List<String> playerNames) {
+        initViews(playerNames);
         for (EViewPorts view : views.values()) {
             view.getViewPort().attachScene(TanksAppAdapter.INSTANCE.getRootNode());
         }
