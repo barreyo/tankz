@@ -249,7 +249,7 @@ public final class TanksFactory {
 
     /**
      * Set up a new Tanks game.
-     * 
+     *  
      * @param worldMapClass the visual world map to be instansiated and used as map for the game.
      * @param playerNames the names of the players to be created.
      */

@@ -23,7 +23,7 @@ public class Main {
         // load the application settings
         AppSettings appSettings = new AppSettings(true);
         appSettings.setVSync(true);
-        appSettings.setTitle("Tanks!");
+        appSettings.setTitle("Tankz");
         appSettings.setFullscreen(true);
 
         try {
