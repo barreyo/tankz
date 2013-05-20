@@ -4,8 +4,8 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.system.AppSettings;
-import controller.GUIManager;
-import controller.SoundManager;
+import controller.managers.GUIManager;
+import controller.managers.SoundManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
