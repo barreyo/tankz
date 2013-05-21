@@ -27,7 +27,7 @@ public class AirCallIndicator implements PropertyChangeListener {
     public AirCallIndicator(IPlayer player) {
         this.vehicle = player.getVehicle();
         this.player = player;
-        circle = new Circle3D(18f);
+        circle = new Circle3D(14f);
         g = new Geometry("quad", circle);
         //g.rotate(-FastMath.HALF_PI, 0, 0);
         g.setMaterial(TanksAppAdapter.INSTANCE.getAssetManager().loadMaterial("Common/Materials/RedColor.j3m"));

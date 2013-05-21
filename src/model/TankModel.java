@@ -167,8 +167,8 @@ public final class TankModel implements IArmedVehicle {
         launchOrigin.setY(Constants.NUKE_DROP_HEIGHT);
         Random rand = new Random();
         
-        float zRandom = (rand.nextFloat() * 30) - 15;
-        float xRandom = (rand.nextFloat() * 30) - 15;
+        float zRandom = (rand.nextFloat() * 24) - 12;
+        float xRandom = (rand.nextFloat() * 24) - 12;
         
         launchOrigin.addLocal(xRandom, 0, zRandom);
         for (int i = 0; i < bombs.size(); i++) {
@@ -178,10 +178,6 @@ public final class TankModel implements IArmedVehicle {
                 break; 
             }
         }
-    }
-    
-    public void hideAirCallRing() {
-        pcs.firePropertyChange(Commands.HIDE_AIRCALL, null, null);
     }
     
     /**
@@ -474,4 +470,10 @@ public final class TankModel implements IArmedVehicle {
             pcs.firePropertyChange(Commands.HEALTH, oldHP, health);
         }
     }
+
+    @Override
+    public void hideAirCallRing() {
+        pcs.firePropertyChange(Commands.HIDE_AIRCALL, null, null);
+    }
+
 }

@@ -45,7 +45,7 @@ public enum ECollisionShapes {
                 collisionShape = new BoxCollisionShape(new Vector3f(0.5f, 0.5f, 0.5f));
                 break;
             case NUKE_PROJECTILE:
-                collisionShape = new BoxCollisionShape(new Vector3f(20f, -0.2f, 20f));
+                collisionShape = new BoxCollisionShape(new Vector3f(5f, -0.1f, 5f));
                 break;
             default:
                 collisionShape = new BoxCollisionShape(new Vector3f(1, 1, 1));
