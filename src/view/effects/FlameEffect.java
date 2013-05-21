@@ -22,12 +22,10 @@ import java.util.List;
  *
  * @author Garpetun
  */
-public class FlameEffect implements IEffect {
-
-    private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
+public class FlameEffect extends AEffect implements IEffect {
     
     FlameEffect() {
-        AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+        super();
         createFlame(assetManager);
     }
     
@@ -50,14 +48,5 @@ public class FlameEffect implements IEffect {
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/flame.png"));
         flame.setMaterial(mat);
         emitters.add(flame);
-    }
-
-    @Override
-    public Collection<ParticleEmitter> getParticleEmitters() {
-        List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();
-        for (ParticleEmitter emitter : emitters) {
-            emit.add(emitter.clone());
-        }
-        return emit;
     }
 }

@@ -17,12 +17,11 @@ import java.util.List;
  *
  * @author Daniel
  */
-final class ExplosionEffect implements IEffect {
+final class ExplosionEffect extends AEffect implements IEffect {
 
-    private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
     
     ExplosionEffect() {
-        AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+        super();
         createFlame(assetManager);
         createFlash(assetManager);
         createSpark(assetManager);
@@ -186,14 +185,5 @@ final class ExplosionEffect implements IEffect {
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/shockwave.png"));
         shockwave.setMaterial(mat);
         emitters.add(shockwave);
-    }
-
-    @Override
-    public Collection<ParticleEmitter> getParticleEmitters() {
-        List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();
-        for (ParticleEmitter emitter : emitters) {
-            emit.add(emitter.clone());
-        }
-        return emit;
     }
 }

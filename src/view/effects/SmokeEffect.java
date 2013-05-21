@@ -16,12 +16,12 @@ import java.util.List;
  *
  * @author Garpetun
  */
-public class SmokeEffect implements IEffect {
+public class SmokeEffect extends AEffect implements IEffect {
     
-    private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
+    
     
     SmokeEffect() {
-        AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+        super();
         createSmokeTrail(assetManager);
     }
     
@@ -44,18 +44,5 @@ public class SmokeEffect implements IEffect {
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/flame.png"));
         smoketrail.setMaterial(mat);
         emitters.add(smoketrail);
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Collection<ParticleEmitter> getParticleEmitters() {
-        List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();
-        for (ParticleEmitter emitter : emitters) {
-            emit.add(emitter.clone());
-        }
-        return emit;
     }
 }
