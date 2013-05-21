@@ -1,6 +1,6 @@
-package view.gui;
+package view.effects;
 
-import view.gui.EEffects;
+import view.effects.EEffects;
 import com.jme3.effect.ParticleEmitter;
 import java.util.Collection;
 import java.util.EnumMap;

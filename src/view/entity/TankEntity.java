@@ -2,7 +2,7 @@ package view.entity;
 
 import model.IArmedVehicle;
 import utilities.Commands;
-import view.gui.EEffects;
+import view.effects.EEffects;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;
 import java.beans.PropertyChangeEvent;

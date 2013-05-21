@@ -4,7 +4,7 @@
  */
 package view.entity;
 
-import view.gui.IEffect;
+import view.effects.IEffect;
 import application.TanksAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;

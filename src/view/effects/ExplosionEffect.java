@@ -1,4 +1,4 @@
-package view.gui;
+package view.effects;
 
 import application.TanksAppAdapter;
 import com.jme3.asset.AssetManager;

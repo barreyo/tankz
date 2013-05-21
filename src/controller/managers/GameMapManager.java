@@ -1,7 +1,7 @@
 package controller.managers;
 
 import view.viewport.ViewPortManager;
-import view.gui.EffectsManager;
+import view.effects.EffectsManager;
 import view.entity.GraphicManager;
 import application.TanksAppAdapter;
 import view.maps.GameWorld1;

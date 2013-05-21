@@ -36,7 +36,7 @@ import view.gui.PowerupSlotView;
 import view.gui.ScoreboardView;
 import view.gui.TimerView;
 import view.maps.IGameWorld;
-import view.gui.AirCallIndicator;
+import view.effects.AirCallIndicator;
 import view.entity.CanonBallEntity;
 import view.entity.LandmineEntity;
 import view.entity.MissileEntity;

@@ -2,7 +2,7 @@
 package view.entity;
 
 import model.IExplodingProjectile;
-import view.gui.EEffects;
+import view.effects.EEffects;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 
