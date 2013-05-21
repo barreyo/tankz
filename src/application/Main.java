@@ -27,7 +27,7 @@ public class Main {
         appSettings.setFullscreen(true);
 
         try {
-            appSettings.setIcons(new BufferedImage[]{ImageIO.read(new File("assets/Interface/icon.jpeg"))});
+            appSettings.setIcons(new BufferedImage[]{ImageIO.read(new File("assets/Interface/icon.png"))});
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Icon missing.", ex);
         }

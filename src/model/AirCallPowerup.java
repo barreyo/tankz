@@ -42,8 +42,6 @@ public class AirCallPowerup extends APowerup {
             
             if (counter >= INTERVAL) {
                 player.getVehicle().dropBomb(player);
-                player.getVehicle().dropBomb(player);
-                player.getVehicle().dropBomb(player);
                 counter = 0;
             }
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {

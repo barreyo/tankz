@@ -4,9 +4,10 @@ import java.beans.PropertyChangeListener;
 /**
  * Interface allowing registering listeners for changes in state.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public interface IObservable {
+    
 	/**
 	 * Add a PropertyChangeListener to the listener list. The listener is registered for all properties. 
 	 * 

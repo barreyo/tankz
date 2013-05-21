@@ -1,8 +1,9 @@
 package utilities;
 
 /**
- *
- * @author Daniel
+ * Useful commands, such as propertyChange strings etc.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class Commands {
     private Commands() {}
@@ -131,7 +132,13 @@ public final class Commands {
      */
     public static final String AIRCALL = "AIRCALL";
     
+    /**
+     * Show air call AoE indicator.
+     */
     public static final String SHOW_AIRCALL = "SHOW_AIRCALL";
     
+    /**
+     * Hide air call AoE indicator.
+     */
     public static final String HIDE_AIRCALL = "HIDE_AIRCALL";
 } 

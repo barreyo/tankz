@@ -5,15 +5,18 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 
 /**
- * TODO make package private
- * @author Daniel
+ * Utility methods.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class Util {
+    
     /**
-     *
-     * @param spatial
-     * @param name
-     * @return
+     * Find a geometry with a specific name in a spatial.
+     * 
+     * @param spatial to search in.
+     * @param name geo to find.
+     * @return the geometry, if not found return null.
      */
     public static Geometry findGeom(Spatial spatial, String name) {
         if (spatial instanceof Node) {

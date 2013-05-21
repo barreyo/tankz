@@ -10,7 +10,7 @@ public final class Constants {
     private Constants() {}
     
     /**
-     * 
+     * User data model constant.
      */
     public static final String USER_DATA_MODEL = "USER_DATA_MODEL";
     
