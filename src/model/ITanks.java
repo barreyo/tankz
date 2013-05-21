@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * Interface of the tanks game.
  * 
- * @author perthoresson
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface ITanks extends IObservable {
     

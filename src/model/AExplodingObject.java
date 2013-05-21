@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Bex
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public abstract class AExplodingObject implements IExplodingObject{
     

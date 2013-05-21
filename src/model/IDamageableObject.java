@@ -3,7 +3,7 @@ package model;
 
 /**
  *
- * @author Bex
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface IDamageableObject extends IWorldObject{
     /**

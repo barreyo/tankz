@@ -6,7 +6,7 @@ import com.jme3.export.JmeImporter;
 import java.io.IOException;
 
 /**
- * @author Per
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class HastePowerup extends APowerup {
     private float maxSpeed;
@@ -18,6 +18,10 @@ public class HastePowerup extends APowerup {
     
     private IPlayer player;
 
+    /**
+     * {@inheritDoc}
+     * @param player 
+     */
     @Override
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);

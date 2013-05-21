@@ -1,9 +1,6 @@
 package view.entity;
 
 import application.TanksAppAdapter;
-import model.IWorldObject;
-import utilities.Commands;
-import utilities.Constants;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.Quaternion;
@@ -15,6 +12,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
 
 /**
  * An abstract game entity.

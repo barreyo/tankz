@@ -1,13 +1,13 @@
 package view.entity;
 
-import model.IExplodingProjectile;
-import utilities.Commands;
-import view.effects.EEffects;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
+import model.IExplodingProjectile;
+import utilities.Commands;
+import view.effects.EEffects;
 
 /**
  * The graphical representation of the Missile powerups projectile, when it is shot.

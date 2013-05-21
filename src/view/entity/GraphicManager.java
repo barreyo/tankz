@@ -1,10 +1,9 @@
 package view.entity;
 
-import controller.managers.PreloadManager;
 import application.TanksAppAdapter;
 import com.jme3.scene.Spatial;
-import java.util.EnumMap;
 import controller.managers.PreloadManager;
+import java.util.EnumMap;
 
 /**
  * Manager managing graphic relate operations and instances.
@@ -25,7 +24,7 @@ public enum GraphicManager {
      */
     public void load() {
         loadGraphics(new EGraphics[]{EGraphics.SHARK, EGraphics.TANK,
-                    EGraphics.BOMB, EGraphics.LANDMINE, EGraphics.NUKE,
+                    EGraphics.BOMB, EGraphics.LANDMINE, EGraphics.NAPALM,
                     EGraphics.POWERUP, EGraphics.MAP1});
     }
 

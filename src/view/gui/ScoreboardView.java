@@ -2,11 +2,6 @@
 package view.gui;
 
 import application.TanksAppAdapter;
-import model.IArmedVehicle;
-import model.IArmedVehicle.VehicleState;
-import model.IPlayer;
-import model.PlayerComparator;
-import utilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.renderer.ViewPort;
@@ -15,6 +10,11 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import model.IArmedVehicle;
+import model.IArmedVehicle.VehicleState;
+import model.IPlayer;
+import model.PlayerComparator;
+import utilities.Commands;
 
 /**
  * The graphical summary of all the players kills and deaths in the game. All 

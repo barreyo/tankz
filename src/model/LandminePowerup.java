@@ -7,11 +7,13 @@ import java.io.IOException;
 
 /**
  *
- * @author perthoresson
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class LandminePowerup extends APowerup{
     
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         
@@ -20,8 +22,7 @@ public class LandminePowerup extends APowerup{
 
     /**
      *
-     * @param ex
-     * @throws IOException
+     * {@inheritDoc}
      */
     @Override
     public void write(JmeExporter ex) throws IOException {
@@ -29,9 +30,7 @@ public class LandminePowerup extends APowerup{
     }
 
     /**
-     *
-     * @param im
-     * @throws IOException
+     *{@inheritDoc}
      */
     @Override
     public void read(JmeImporter im) throws IOException {

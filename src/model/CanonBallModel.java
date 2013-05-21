@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Models a basic projectile that can damage at impact.
  * 
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public final class CanonBallModel extends AExplodingProjectile {
     

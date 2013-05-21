@@ -4,7 +4,7 @@ package model;
 /**
  * Enum representing the game state.
  * 
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public enum EApplicationState {
     /**

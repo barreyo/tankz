@@ -1,10 +1,10 @@
 
 package view.entity;
 
-import model.LandmineModel;
-import view.effects.EEffects;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import model.LandmineModel;
+import view.effects.EEffects;
 
 /**
  * The graphical representation of the Landmine powerups projectile, when it is laid.

@@ -12,8 +12,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
- * @author Daniel
+ * The flashing effect that appears when a tank shoots.
+ * Could of course be used elsewhere.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 final class ShootEffect extends AEffect implements IEffect{
     

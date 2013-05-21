@@ -1,6 +1,9 @@
 
 package view.gui;
 
+import com.jme3.renderer.ViewPort;
+import com.jme3.ui.Picture;
+import java.beans.PropertyChangeEvent;
 import model.AirCallPowerup;
 import model.BeerPowerup;
 import model.HastePowerup;
@@ -10,9 +13,6 @@ import model.IPowerup;
 import model.LandminePowerup;
 import model.MissilePowerup;
 import utilities.Commands;
-import com.jme3.renderer.ViewPort;
-import com.jme3.ui.Picture;
-import java.beans.PropertyChangeEvent;
 
 /**
  * The graphical represenation of a Powerup. Each powerup is displayed

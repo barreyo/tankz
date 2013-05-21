@@ -1,10 +1,10 @@
 
 package view.entity;
 
-import model.IExplodingProjectile;
-import view.effects.EEffects;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import model.IExplodingProjectile;
+import view.effects.EEffects;
 
 /**
  * A missile projectiles visual representation.

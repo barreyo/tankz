@@ -7,7 +7,7 @@ import java.util.Comparator;
  * Comparator for comparing Players, compars scores first, if score is equal
  * compare deaths.
  * 
- * @author Johan Backman
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class PlayerComparator implements Comparator {
 

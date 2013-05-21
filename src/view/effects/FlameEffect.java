@@ -4,26 +4,25 @@
  */
 package view.effects;
 
-import application.TanksAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
-import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
- *
- * @author Garpetun
+ * The fiery effect that appears behind a tank when it uses haste powerup.
+ * Could of course be used elsewhere.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class FlameEffect extends AEffect implements IEffect {
     
+    /**
+     * Instantiates the object.
+     * Creates the flame
+     */
     FlameEffect() {
         super();
         createFlame(assetManager);

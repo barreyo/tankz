@@ -15,7 +15,7 @@ import java.util.Random;
 /**
  * Model for a tank vehicle.
  * 
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public final class TankModel implements IArmedVehicle {
     
@@ -58,9 +58,11 @@ public final class TankModel implements IArmedVehicle {
     private final List<AtomicBombModel> bombs;
     
     /**
-     *
-     * @param canonBalls
-     * @param missiles
+     * Constructor for TankModel
+     * @param canonBalls List of cannon balls
+     * @param missiles List of missiles
+     * @param landmines List of landmines
+     * @param bombs Lines of bombs
      */
     public TankModel(List<CanonBallModel> canonBalls, 
             List<MissileModel> missiles, List<LandmineModel> landmines, 

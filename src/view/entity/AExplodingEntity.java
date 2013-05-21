@@ -1,10 +1,10 @@
 package view.entity;
 
-import model.IExplodingObject;
-import utilities.Commands;
 import com.jme3.effect.ParticleEmitter;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
+import model.IExplodingObject;
+import utilities.Commands;
 
 /**
  * Abstraction of an exploding entity.

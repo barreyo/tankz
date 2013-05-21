@@ -8,7 +8,7 @@ import java.beans.PropertyChangeSupport;
 /**
  * Representation of the rules.
  * 
- * @author perthoresson
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class GameSettings implements IObservable {
     
