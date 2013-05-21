@@ -1,10 +1,10 @@
 package view.entity;
 
-import utilities.IObservable;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
 import java.beans.PropertyChangeListener;
+import utilities.IObservable;
 
 /**
  * Interface containing all the methods a game entity has.

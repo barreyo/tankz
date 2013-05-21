@@ -1,9 +1,9 @@
 
 package view.entity;
 
-import model.IPowerup;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import model.IPowerup;
 
 /**
  * The graphical representation of the powerups, when out in the world.

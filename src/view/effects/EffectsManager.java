@@ -1,12 +1,10 @@
 package view.effects;
 
-import view.effects.EEffects;
 import com.jme3.effect.ParticleEmitter;
+import controller.managers.PreloadManager;
 import java.util.Collection;
 import java.util.EnumMap;
 import view.viewport.EViewPorts;
-import controller.managers.PreloadManager;
-import controller.managers.PreloadManager;
 import view.viewport.ViewPortManager;
 
 /**

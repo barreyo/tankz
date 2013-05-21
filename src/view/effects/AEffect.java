@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.effects;
 
 import application.TanksAppAdapter;
@@ -12,18 +8,32 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
- * @author perthoresson
+ * Abstraction of all effects.
+ * Contains a list of particle emitters and an asset manager
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class AEffect {
-        protected List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
-        protected AssetManager assetManager;
-        
-        AEffect(){
-            assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
-        }
+    /**
+     * A list of particle emitters.
+     */
+    protected List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
     
-        public Collection<ParticleEmitter> getParticleEmitters() {
+    /**
+     * The asset manager.
+     */
+    protected AssetManager assetManager;
+
+    AEffect(){
+        assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+    }
+
+    /**
+     * Returns the particle emitter.
+     * 
+     * @return The particle emitter
+     */
+    public Collection<ParticleEmitter> getParticleEmitters() {
         List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();
         for (ParticleEmitter emitter : emitters) {
             emit.add(emitter.clone());

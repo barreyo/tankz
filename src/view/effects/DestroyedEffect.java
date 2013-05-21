@@ -1,14 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.effects;
 
-import view.effects.IEffect;
 import application.TanksAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;
-import com.jme3.effect.ParticleMesh;
 import com.jme3.effect.ParticleMesh.Type;
 import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
@@ -20,15 +14,18 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- *
- * @author Per
+ * The exploding effect that appears when a tank dies.
+ * Could of course be used elsewhere.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class DestroyedEffect implements IEffect {
 
     private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
     
     /**
-     *
+     * Instantiates the object.
+     * Creates the effect to be shown when an ingame object is destroyed
      */
     public DestroyedEffect(){
         AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.effects;
 
 import com.jme3.math.FastMath;
@@ -13,7 +9,7 @@ import java.nio.FloatBuffer;
 
 /**
  *
- * @author backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class Circle3D extends Mesh {
 
@@ -21,10 +17,12 @@ public final class Circle3D extends Mesh {
      * The center.
      */
     private Vector3f center;
+    
     /**
      * The radius.
      */
     private float radius;
+    
     /**
      * The samples.
      */
@@ -66,6 +64,9 @@ public final class Circle3D extends Mesh {
         updateGeometry();
     }
 
+    /**
+     * Updates position of the geometry that is the 3D circle.
+     */
     protected void updateGeometry() {
         FloatBuffer positions = BufferUtils.createFloatBuffer(samples * 3);
         FloatBuffer normals = BufferUtils.createFloatBuffer(samples * 3);

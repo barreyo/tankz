@@ -37,7 +37,7 @@ public enum EGraphics {
     /**
      * Model used for AirCall powerup.
      */
-    NUKE("Models/nuclear/nuclear.j3o");
+    NAPALM("Models/nuclear/nuclear.j3o");
     
     private String fileLocation;
 

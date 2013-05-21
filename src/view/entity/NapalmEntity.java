@@ -1,11 +1,11 @@
 
 package view.entity;
 
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import model.IExplodingProjectile;
 import utilities.Commands;
 import view.effects.EEffects;
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
-import com.jme3.bullet.collision.shapes.CollisionShape;
 
 /**
  * The graphical representation of the Nuke powerups projectile, when it is shot.
@@ -23,7 +23,7 @@ public final class NapalmEntity extends AExplodingEntity {
      * @param proj The model of the object
      */
     public NapalmEntity(IExplodingProjectile proj) {
-        super(proj, EGraphics.NUKE, EEffects.NUKE.getEmitters());
+        super(proj, EGraphics.NAPALM, EEffects.NAPALM.getEmitters());
     }
     
     /**

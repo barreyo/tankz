@@ -1,21 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.effects;
 
 import application.TanksAppAdapter;
-import model.IArmedVehicle;
-import model.IPlayer;
-import utilities.Commands;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import model.IArmedVehicle;
+import model.IPlayer;
+import utilities.Commands;
 
 /**
- *
- * @author backman
+ * The ring that appears in front of a player when they get the AirStrikePowerup.
+ * Uses Circle3D to paint the ring
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class AirCallIndicator implements PropertyChangeListener {
     
@@ -24,6 +22,12 @@ public class AirCallIndicator implements PropertyChangeListener {
     private IArmedVehicle vehicle;
     private IPlayer player;
     
+    /**
+     * Instantiates the object.
+     * Creates the ring in front of the player
+     * 
+     * @param player The player that uses the powerup
+     */
     public AirCallIndicator(IPlayer player) {
         this.vehicle = player.getVehicle();
         this.player = player;
@@ -43,6 +47,9 @@ public class AirCallIndicator implements PropertyChangeListener {
         TanksAppAdapter.INSTANCE.detachChildFromRootNode(g);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getSource() instanceof IArmedVehicle || pce.getSource() instanceof IPlayer) {

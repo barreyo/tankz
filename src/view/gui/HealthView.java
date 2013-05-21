@@ -1,15 +1,14 @@
 
 package view.gui;
 
-import application.TanksAppAdapter;
-import model.IArmedVehicle;
-import utilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.ViewPort;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
+import model.IArmedVehicle;
+import utilities.Commands;
 
 /**
  * The graphical representation of vehicle health.
