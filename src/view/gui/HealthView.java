@@ -14,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 /**
  * The graphical representation of vehicle health.
  * 
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class HealthView extends AHudElement {
 

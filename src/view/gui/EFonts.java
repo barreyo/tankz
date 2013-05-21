@@ -4,7 +4,7 @@ package view.gui;
 /**
  * Paths to the fonts used in the game.
  * 
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum EFonts {
     

@@ -18,7 +18,7 @@ import java.beans.PropertyChangeEvent;
  * The graphical represenation of a Powerup. Each powerup is displayed
  * with a small icon in each viewport, this includes empty powerup.
  * 
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class PowerupSlotView extends AHudElement {
     

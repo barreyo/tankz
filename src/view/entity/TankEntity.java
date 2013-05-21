@@ -39,7 +39,7 @@ public final class TankEntity extends AGameEntity {
     }
 
     /**
-     *  @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public CollisionShape getCollisionShape() {
@@ -47,7 +47,7 @@ public final class TankEntity extends AGameEntity {
     }
 
     /**
-     *  @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public void cleanup() {
@@ -59,7 +59,7 @@ public final class TankEntity extends AGameEntity {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

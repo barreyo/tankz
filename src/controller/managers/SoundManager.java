@@ -31,7 +31,7 @@ public enum SoundManager {
      */
     public void load() {
         loadSound(new ESounds[]{ESounds.CLICK_SOUND,
-                    ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILI_COLLISION_SOUND,
+                    ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILE_COLLISION_SOUND,
                     ESounds.GAMEMUSIC_1});
     }
 

@@ -19,7 +19,7 @@ import java.util.Collection;
 /**
  * An abstract game entity.
  * 
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public abstract class AGameEntity implements IGameEntity {
     final Spatial spatial;
@@ -45,8 +45,7 @@ public abstract class AGameEntity implements IGameEntity {
     }
 
     /**
-     * Adds an appropriate control to this view.
-     * @param control 
+     * {@inheritDoc}
      */
     @Override
     public final void addControl(Control control) {
@@ -54,7 +53,7 @@ public abstract class AGameEntity implements IGameEntity {
     }
     
     /**
-     * Removes a control of this view.
+     * {@inheritDoc}
      */
     @Override
     public final void removeControl(Control control) {
@@ -62,9 +61,7 @@ public abstract class AGameEntity implements IGameEntity {
     }
 
     /**
-     * Returns the spatial of this game entity.
-     * 
-     * @return The spatial of this game entity.
+     * {@inheritDoc}
      */
     @Override
     public final Spatial getSpatial() {
@@ -112,19 +109,24 @@ public abstract class AGameEntity implements IGameEntity {
             }
         }
     }
-    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showInWorld() {
         spatial.setCullHint(Spatial.CullHint.Dynamic);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void hideFromWorld() {
         spatial.setCullHint(Spatial.CullHint.Always);
     }
     
     /**
-     * @inheritdoc 
+     ** {@inheritDoc} 
      */
     @Override
     public final void addObserver(PropertyChangeListener l) {
@@ -132,7 +134,7 @@ public abstract class AGameEntity implements IGameEntity {
     }
 
     /**
-     * @inheritdoc
+     ** {@inheritDoc}
      */
     @Override
     public final void removeObserver(PropertyChangeListener l) {
@@ -140,7 +142,7 @@ public abstract class AGameEntity implements IGameEntity {
     }
     
     /**
-     * @inheritdoc
+     ** {@inheritDoc}
      */
     @Override
     public void cleanup() {
@@ -148,6 +150,9 @@ public abstract class AGameEntity implements IGameEntity {
         worldObject.removeObserver(this);
     } 
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(Commands.SHOW)) {
@@ -164,10 +169,16 @@ public abstract class AGameEntity implements IGameEntity {
         pcs.firePropertyChange(evt);
     }
     
+    /**
+     * Updates the position of the game entity.
+     */
     void updatePosition() {
         spatial.setLocalTranslation(worldObject.getPosition());
     }
     
+    /**
+     * Updates the rotation of the game entity.
+     */
     void updateRotation() {
         spatial.setLocalRotation(worldObject.getRotation());
     }

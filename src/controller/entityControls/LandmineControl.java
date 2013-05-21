@@ -101,7 +101,7 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
                 entity.impact();
                 landmineModel.impact();
                 if (!SoundManager.INSTANCE.isSoundFXMuted()) {
-                    SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                    SoundManager.INSTANCE.play(ESounds.MISSILE_COLLISION_SOUND);
                 }
                 landmineModel.doDamageOn((IDamageableObject)objB);
             } else if (objB == landmineModel && objA instanceof IDamageableObject) {
@@ -109,7 +109,7 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
                 entity.impact();
                 landmineModel.impact();
                 if (!SoundManager.INSTANCE.isSoundFXMuted()) {
-                    SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                    SoundManager.INSTANCE.play(ESounds.MISSILE_COLLISION_SOUND);
                 }
                 landmineModel.doDamageOn((IDamageableObject)objA);
             } 

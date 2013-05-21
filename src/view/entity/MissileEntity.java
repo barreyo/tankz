@@ -10,15 +10,20 @@ import java.beans.PropertyChangeEvent;
 import java.util.Collection;
 
 /**
- *
- * @author Daniel
+ * The graphical representation of the Missile powerups projectile, when it is shot.
+ * 
+ * Connects the visual representation with its effects as well handling
+ *  collision shapes.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class MissileEntity extends AExplodingEntity {
     private final Collection<ParticleEmitter> flameEffects;
 
     /**
-     *
-     * @param proj
+     * Instantiates the object. Creating a missile
+     * 
+     * @param proj The projectile being shot
      */
     public MissileEntity(IExplodingProjectile proj) {
         super(proj, EGraphics.SHARK, EEffects.EXPLOSION.getEmitters());
@@ -26,7 +31,7 @@ public final class MissileEntity extends AExplodingEntity {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public CollisionShape getCollisionShape() {
@@ -34,7 +39,7 @@ public final class MissileEntity extends AExplodingEntity {
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public void cleanup() {
@@ -42,6 +47,9 @@ public final class MissileEntity extends AExplodingEntity {
         flameEffects.clear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(Commands.SHOW_FLAME)) {
@@ -51,7 +59,7 @@ public final class MissileEntity extends AExplodingEntity {
     }
 
     /**
-     *
+     * {@inheritDoc}
      */
     @Override
     public void impact() {

@@ -3,7 +3,7 @@ package view.maps;
 /**
  * A game map.
  * 
- * @author Daniel
+* @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public interface IGameWorld {
     

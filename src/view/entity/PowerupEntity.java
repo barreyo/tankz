@@ -23,8 +23,7 @@ public final class PowerupEntity extends AGameEntity {
         super(pow, EGraphics.POWERUP);
     }
     
-    /**
-     * @inheritdoc
+    /**{@inheritDoc}
      */
     @Override
     public CollisionShape getCollisionShape() {

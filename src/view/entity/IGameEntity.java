@@ -7,8 +7,9 @@ import com.jme3.scene.control.Control;
 import java.beans.PropertyChangeListener;
 
 /**
- *
- * @author Daniel
+ * Interface containing all the methods a game entity has.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public interface IGameEntity extends PropertyChangeListener, IObservable {
     

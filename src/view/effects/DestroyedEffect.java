@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.entity;
+package view.effects;
 
 import view.effects.IEffect;
 import application.TanksAppAdapter;

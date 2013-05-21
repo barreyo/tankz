@@ -27,7 +27,7 @@ public final class NapalmEntity extends AExplodingEntity {
     }
     
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public CollisionShape getCollisionShape() {

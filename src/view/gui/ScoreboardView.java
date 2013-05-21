@@ -20,7 +20,7 @@ import java.util.List;
  * The graphical summary of all the players kills and deaths in the game. All 
  * players can display this summary in each player's viewport.
  * 
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class ScoreboardView extends AHudElement {
     

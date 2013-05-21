@@ -2,7 +2,6 @@ package view.effects;
 
 import com.jme3.effect.ParticleEmitter;
 import java.util.Collection;
-import view.entity.DestroyedEffect;
 
 
 /**

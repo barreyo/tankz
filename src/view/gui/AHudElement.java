@@ -15,25 +15,27 @@ import java.beans.PropertyChangeListener;
  * PropertyChangeListener and IHudElement which contains the show() and hide()
  * methods.
  * 
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public abstract class AHudElement implements PropertyChangeListener, IHudElement {
 
     /**
-     *
+     * The picture which is the background image of the element.
      */
     protected Picture picture;
+    
     /**
-     *
+     * Manages assets.
      */
     protected AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+    
     /**
-     *
+     * This is the node where all the gui is attatched.
      */
     protected Node guiNode = TanksAppAdapter.INSTANCE.getGUINode();
     
     /**
-     * Make the element visible in the GUI.
+     * Makes the element visible in the GUI.
      */
     @Override
     public void show() {
@@ -41,7 +43,7 @@ public abstract class AHudElement implements PropertyChangeListener, IHudElement
     }
     
     /**
-     * Remove the element from the GUI.
+     * Removes the element from the GUI.
      */
     @Override
     public void hide() {

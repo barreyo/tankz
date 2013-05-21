@@ -121,7 +121,7 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
                 entity.impact();
                 projectileModel.impact();
                 if (!SoundManager.INSTANCE.isSoundFXMuted()) {
-                    SoundManager.INSTANCE.play(ESounds.MISSILI_COLLISION_SOUND);
+                    SoundManager.INSTANCE.play(ESounds.MISSILE_COLLISION_SOUND);
                 }
                 if (objA instanceof IDamageableObject) {
                     projectileModel.doDamageOn((IDamageableObject)objA);

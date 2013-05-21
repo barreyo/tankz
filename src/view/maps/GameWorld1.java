@@ -1,8 +1,6 @@
 package view.maps;
 
 import application.TanksAppAdapter;
-import model.ITanks;
-import view.entity.EGraphics;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.ColorRGBA;
@@ -12,16 +10,16 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
-import view.entity.GraphicManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import model.ITanks;
 import view.entity.EGraphics;
 import view.entity.GraphicManager;
 
 /**
- * First developed game map for tha game Tanks.
+ * First developed game map for the game Tanks.
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     
@@ -34,15 +32,17 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     private static final Vector3f LIGHT_DIR = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
     
     /**
-     * Creates a game map.
-     * @param game 
+     * Instantiates the object.
+     * Creates a game map
+     * 
+     * @param game The game to be created
      */
     public GameWorld1(ITanks game) {
         this.game = game;
     }
 
     /**
-     * @inheritdoc
+     ** {@inheritDoc}
      */
     @Override
     public void load() {
@@ -85,7 +85,7 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     }
 
     /**
-     * @inheritdoc
+     ** {@inheritDoc}
      */
     @Override
     public void cleanup() {
@@ -93,6 +93,9 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
         TanksAppAdapter.INSTANCE.removeLightFromRootNode(sun);
     }
 
+    /**
+     ** {@inheritDoc} 
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         throw new UnsupportedOperationException("Not supported yet.");

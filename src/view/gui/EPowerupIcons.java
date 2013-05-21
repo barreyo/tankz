@@ -4,7 +4,7 @@ package view.gui;
 /**
  * Paths to the graphical representation of powerups.
  * 
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum EPowerupIcons {
     

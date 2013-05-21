@@ -7,22 +7,24 @@ import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 
 /**
- * A missile projectile.
+ * A missile projectiles visual representation.
+ * Also contains the collisionshape
  *
- * @author Daniel
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class CanonBallEntity extends AExplodingEntity {
 
     /**
-     *
-     * @param proj
+     * Instantiates the object.
+     * 
+     * @param proj The projectile that is the cannonball
      */
     public CanonBallEntity(IExplodingProjectile proj) {
         super(proj, EGraphics.BOMB, EEffects.EXPLOSION.getEmitters());
     }
     
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     @Override
     public CollisionShape getCollisionShape() {

@@ -12,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 /**
  * Graphical representation of the in game timer.
  *
- * @author Johan Backman
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class TimerView extends AHudElement {
     
