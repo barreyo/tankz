@@ -114,6 +114,11 @@ public interface IArmedVehicle extends IDamageableObject {
     public void shoot(IPlayer player);
     
     /**
+     * 
+     */
+    public void hideAirCallRing();
+    
+    /**
      *
      */
     public void resetSpeedValues();

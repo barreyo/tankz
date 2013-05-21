@@ -30,7 +30,6 @@ public class FlameEffect extends AEffect implements IEffect {
     }
     
     private void createFlame(AssetManager assetManager) {
-        
         ParticleEmitter flame = new ParticleEmitter("Flame", ParticleMesh.Type.Triangle, 30);
         flame.setNumParticles(80);
         flame.setParticlesPerSec(10);
