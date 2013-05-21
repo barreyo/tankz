@@ -46,6 +46,7 @@ public class AirCallPowerup extends APowerup {
                 counter = 0;
             }
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
+                player.getVehicle().hideAirCallRing();
                 isActive = false;
             }
         }

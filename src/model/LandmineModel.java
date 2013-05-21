@@ -11,7 +11,7 @@ public class LandmineModel extends AExplodingObject {
     private static final int DAMAGE = 30;
     private static final float MASS = 500f;
     private static final long EXPLOSION_END_TIME = 2000;
-    private static final long MAX_LIFE_TIME = 30000;
+    private static final long MAX_LIFE_TIME = 300000;
     
     /**
      * {@inheritDoc}

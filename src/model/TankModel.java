@@ -175,9 +175,13 @@ public final class TankModel implements IArmedVehicle {
             if (!bombs.get(i).isShownInWorld()) {
                 
                 bombs.get(i).launchProjectile(launchOrigin, new Vector3f(0, -80, 0), Quaternion.ZERO, player);
-                return; 
+                break; 
             }
         }
+    }
+    
+    public void hideAirCallRing() {
+        pcs.firePropertyChange(Commands.HIDE_AIRCALL, null, null);
     }
     
     /**
