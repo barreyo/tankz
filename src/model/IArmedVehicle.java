@@ -8,7 +8,7 @@ import com.jme3.math.Vector3f;
 
 /**
  *
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface IArmedVehicle extends IDamageableObject {
     

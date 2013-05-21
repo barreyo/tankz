@@ -6,7 +6,7 @@ import com.jme3.input.KeyInput;
 /**
  * Enum defining the global inputs of the game.
  * 
- * @author Johan Backman
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public enum EGlobalInputs {
     

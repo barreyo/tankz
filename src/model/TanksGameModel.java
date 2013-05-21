@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * The model for the game state.
  *
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class TanksGameModel implements ITanks {
 
@@ -160,6 +160,9 @@ public class TanksGameModel implements ITanks {
         }
     }
 
+    /**
+     * Spawn powerups at random powerup-spawningpoints that isnt occupied
+     */
     private void spawnPowerups() {
         Collections.shuffle(powerups);
         for (ISpawningPoint spawn : powerupSpawningPoints) {
@@ -190,6 +193,9 @@ public class TanksGameModel implements ITanks {
         }
     }
 
+    /**
+     * Spawns all the players at different random locations.
+     */
     private void spawnAllPlayers() {
         Collections.shuffle(playerSpawningPoints);
         int i = 0;
@@ -215,6 +221,10 @@ public class TanksGameModel implements ITanks {
         }
     }
 
+    /**
+     * Respawns the player at a random spawningpoint.
+     * @param player 
+     */
     private void respawnPlayer(IPlayer player) {
         Collections.shuffle(playerSpawningPoints);
         IArmedVehicle vehicle = player.getVehicle();

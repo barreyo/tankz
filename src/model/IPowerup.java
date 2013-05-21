@@ -6,7 +6,7 @@ import com.jme3.math.Vector3f;
 /**
  * A interface for a powerup.
  * 
- * @author Per
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface IPowerup extends IWorldObject {
     

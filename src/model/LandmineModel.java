@@ -5,7 +5,7 @@ import com.jme3.math.Vector3f;
 
 /**
  *
- * @author perthoresson
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class LandmineModel extends AExplodingObject {
     private static final int DAMAGE = 30;

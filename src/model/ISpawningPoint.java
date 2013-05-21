@@ -6,7 +6,7 @@ import com.jme3.math.Vector3f;
 /**
  * Interface for modelling all the spawning points in the game.
  * 
- * @author perthoresson
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface ISpawningPoint {
     

@@ -6,7 +6,7 @@ import com.jme3.math.Vector3f;
 /**
  * An IPowerups spawning point.
  * 
- * @author perthoresson
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class SpawningPoint implements ISpawningPoint {
     private boolean isOccupied;

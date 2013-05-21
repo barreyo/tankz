@@ -7,10 +7,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * A representation of a player.
- * 
- * @author Albin
- * @author Daniel
+ * A representation of a player
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class Player implements IPlayer {
     private String name;

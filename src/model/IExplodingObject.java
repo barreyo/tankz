@@ -6,7 +6,7 @@ import com.jme3.math.Vector3f;
 
 /**
  *
- * @author Bex
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface IExplodingObject extends IWorldObject {
     /**

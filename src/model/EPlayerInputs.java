@@ -5,7 +5,7 @@ import com.jme3.input.KeyInput;
 /**
  * Enum defining the different set of keyboard inputs used in Tanks.
  *
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public enum EPlayerInputs {
     
