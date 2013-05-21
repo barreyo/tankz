@@ -15,9 +15,8 @@ import java.util.List;
  *
  * @author Daniel
  */
-final class ShootEffect implements IEffect{
+final class ShootEffect extends AEffect implements IEffect{
     
-    private Collection<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
 
     ShootEffect() {
         createSpark();

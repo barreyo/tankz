@@ -20,12 +20,11 @@ import java.util.List;
  *
  * @author perthoresson
  */
-public class NapalmEffect implements IEffect {
+public class NapalmEffect extends AEffect implements IEffect {
     
-    private List<ParticleEmitter> emitters = new ArrayList<ParticleEmitter>();
     
     NapalmEffect (){
-        AssetManager assetManager = TanksAppAdapter.INSTANCE.getAssetManager();
+        super();
         createShockwave(assetManager);
         createFlame(assetManager);
         createSpark(assetManager);
@@ -96,13 +95,4 @@ public class NapalmEffect implements IEffect {
         spark.setMaterial(mat);
         emitters.add(spark);
     }
-    
-    public Collection<ParticleEmitter> getParticleEmitters() {
-        List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();
-        for (ParticleEmitter emitter : emitters) {
-            emit.add(emitter.clone());
-        }
-        return emit;
-    }
-    
 }
