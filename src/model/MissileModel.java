@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public final class MissileModel extends AExplodingProjectile {
     private static final int DAMAGE = 20;

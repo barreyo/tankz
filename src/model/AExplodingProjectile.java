@@ -5,7 +5,7 @@ import com.jme3.math.Vector3f;
 
 /**
  *
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public abstract class AExplodingProjectile extends AExplodingObject implements IExplodingProjectile {
     

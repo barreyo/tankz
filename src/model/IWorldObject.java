@@ -8,7 +8,7 @@ import com.jme3.math.Vector3f;
 /**
  * A interface for a world object that can be hidden and shown.
  * 
- * @author Daniel
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface IWorldObject extends IObservable, Savable{
     /**

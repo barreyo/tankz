@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * 
- * @author backman
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class AtomicBombModel extends AExplodingProjectile {
 

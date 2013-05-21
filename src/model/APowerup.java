@@ -9,7 +9,7 @@ import java.beans.PropertyChangeSupport;
 
 /**
  *
- * @author Per
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public abstract class APowerup implements IPowerup {
     

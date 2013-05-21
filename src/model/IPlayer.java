@@ -6,7 +6,7 @@ import utilities.IObservable;
 /**
  * A representation of a player.
  *
- * @author perthoresson
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public interface IPlayer extends IObservable {
     

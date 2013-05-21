@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author Garpetun
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class BeerPowerup extends APowerup {
     
@@ -31,11 +31,19 @@ public class BeerPowerup extends APowerup {
     private List<IPlayer> players;
     private List<IPlayer> targets;
 
+    /**
+     * Constructor for BeerPowerup
+     * @param players 
+     */
     public BeerPowerup(List<IPlayer> players) {
         super();
         this.players = players;
     }
 
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
@@ -129,11 +137,18 @@ public class BeerPowerup extends APowerup {
         }
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     */
     @Override
     public void write(JmeExporter ex) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
