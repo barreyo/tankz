@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * A beer powerup slows the opponents down or if you are in single player mode,
+ * yourself.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class BeerPowerup extends APowerup {
@@ -24,7 +26,8 @@ public class BeerPowerup extends APowerup {
 
     /**
      * Constructor for BeerPowerup
-     * @param players 
+     * 
+     * @param players the players of the game.
      */
     public BeerPowerup(List<IPlayer> players) {
         super();
@@ -32,7 +35,6 @@ public class BeerPowerup extends APowerup {
     }
 
     /**
-     * 
      * {@inheritDoc}
      */
     @Override

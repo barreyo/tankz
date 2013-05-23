@@ -19,7 +19,7 @@ import com.jme3.scene.Spatial;
 public class VehicleCamera extends ChaseCamera {
     
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      * @param cam 
      * @param target 
      */
@@ -28,7 +28,7 @@ public class VehicleCamera extends ChaseCamera {
     }
 
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      * @param cam 
      */
     public VehicleCamera(Camera cam) {
@@ -36,7 +36,7 @@ public class VehicleCamera extends ChaseCamera {
     }
 
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      * @param cam 
      * @param inputManager 
      */
@@ -45,7 +45,7 @@ public class VehicleCamera extends ChaseCamera {
     }
 
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      * @param cam 
      * @param inputManager
      * @param target  
@@ -68,7 +68,7 @@ public class VehicleCamera extends ChaseCamera {
     }
    
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      */
     protected void computePosition() {
         if (horLookAt == null) 

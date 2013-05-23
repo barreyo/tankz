@@ -1,8 +1,8 @@
 
 package model;
 
-import utilities.IObservable;
 import java.util.Collection;
+import utilities.IObservable;
 
 /**
  * Interface of the tanks game.

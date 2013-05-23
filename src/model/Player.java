@@ -1,13 +1,14 @@
 
 package model;
 
-import model.IArmedVehicle.VehicleState;
-import utilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import model.IArmedVehicle.VehicleState;
+import utilities.Commands;
 
 /**
- * A representation of a player
+ * A representation of a player.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class Player implements IPlayer {
@@ -34,7 +35,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public String getName() {
@@ -42,7 +43,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public IArmedVehicle getVehicle() {
@@ -50,7 +51,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public int getKills() {
@@ -58,7 +59,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      */
     @Override
     public void incrementKills() {
@@ -67,7 +68,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      */
     @Override
     public int getDeaths() {
@@ -75,7 +76,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void incrementDeaths() {
@@ -84,7 +85,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void resetStats() {
@@ -94,7 +95,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public synchronized void setPowerup(IPowerup powerup) {
@@ -109,7 +110,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void addObserver(PropertyChangeListener l) {
@@ -125,6 +126,7 @@ public class Player implements IPlayer {
     }
     
     /**
+     * {@inheritDoc}
      * 
      * @return name, vehicle, kills, deaths and isActive in the format:
      * Player{name=xxx, vehicle=xxx, kills=xxx, deaths=xxx, isActive=xxxx
@@ -136,6 +138,7 @@ public class Player implements IPlayer {
     } 
 
     /**
+     * {@inheritDoc}
      * 
      * @return hashCode based on the name. 
      */
@@ -146,7 +149,7 @@ public class Player implements IPlayer {
         return hash;
     }
     
-     /**
+    /**
      * Equals method that compares the name of the Player.
      *
      * @param obj the reference object with which to compare.
@@ -222,7 +225,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void showScoreboard() {
@@ -231,7 +234,7 @@ public class Player implements IPlayer {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void hideScoreboard() {

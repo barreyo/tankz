@@ -82,7 +82,7 @@ public enum EPlayerInputs {
         return up;
     }
 
-        /**
+    /**
      * Returns an integer representing the left steering key.
      * 
      * @return an integer representing the left steering key
@@ -91,7 +91,7 @@ public enum EPlayerInputs {
         return down;
     }
 
-        /**
+    /**
      * Returns an integer representing the left steering key.
      * 
      * @return an integer representing the left steering key
@@ -100,7 +100,7 @@ public enum EPlayerInputs {
         return reset;
     }
     
-        /**
+    /**
      * Returns an integer representing the left steering key.
      * 
      * @return an integer representing the left steering key

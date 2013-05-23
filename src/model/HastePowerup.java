@@ -2,6 +2,9 @@
 package model;
 
 /**
+ * The player who uses a haste powerup gain a speed increase for a short
+ * period of time.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class HastePowerup extends APowerup {
@@ -15,7 +18,6 @@ public class HastePowerup extends APowerup {
 
     /**
      * {@inheritDoc}
-     * @param player 
      */
     @Override
     public void usePowerup(IPlayer player) {

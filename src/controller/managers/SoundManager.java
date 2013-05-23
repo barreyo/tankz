@@ -1,10 +1,10 @@
 package controller.managers;
 
 import application.TanksAppAdapter;
-import view.sounds.ESounds;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioSource;
 import java.util.EnumMap;
+import view.sounds.ESounds;
 
 /**
  * Manager managing sounds in the game.

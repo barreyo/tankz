@@ -1,7 +1,6 @@
 
 package model;
 
-import utilities.Commands;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
@@ -9,18 +8,41 @@ import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import utilities.Commands;
 
 /**
- *
+ * The fundamentals of an exploding projectile. Hold position, damange, mass
+ * etc. Implements IExplodingObject.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public abstract class AExplodingObject implements IExplodingObject{
     
+    /**
+     * Starting position of the object.
+     */
     Vector3f initialPos;
+    
+    /**
+     * Position of the object.
+     */
     Vector3f position;
+    
+    /**
+     * The rotation of the object.
+     */
     Quaternion rotation;
+    
+    /**
+     * True if the object is currently displayed in the world.
+     */
     boolean isInWorld;
+    
+    /**
+     * Is the object currently exploding.
+     */
     boolean exploding;
+    
     private boolean hasDoneDamage;
     private final float mass;
     private final int damage;
@@ -31,12 +53,16 @@ public abstract class AExplodingObject implements IExplodingObject{
     
     private long explodingTimerStart;
     
+    /**
+     * The player launching or placing the object, ie the player who will get a
+     * kill if somebody dies from this object. 
+     */
     IPlayer launcherPlayer;
     
     final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     
     /**
-     * Constructor for LandmineModel
+     * Create an exploding object.
      */
     public AExplodingObject(float mass, int damage, int explosionEndMS, int lifeTimeMS){
         this.mass = mass;
@@ -180,6 +206,9 @@ public abstract class AExplodingObject implements IExplodingObject{
         hideFromWorld();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void doDamageOn(IDamageableObject damageableObject) {
         if (!hasDoneDamage) {
