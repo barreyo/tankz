@@ -1,5 +1,6 @@
 package view.entity;
 
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;

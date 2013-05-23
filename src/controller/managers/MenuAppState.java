@@ -28,8 +28,11 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     private static MenuAppState instance;
     
     private Nifty nifty;
-    private Element currentElement, musicToggle, fxToggle;
+    private Element currentElement, musicToggle, fxToggle, killsToWinElement, 
+            gameTimeElement, powerupRespawnElement;
     private SoundHandle sound;
+    
+    private int killsToWin, gameTimeMinutes, powerupRespawnSeconds;
     
     private final List<String> playerNames = new ArrayList<String>();
 
@@ -44,6 +47,10 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
 
         sound = nifty.getSoundSystem().getSound("hooverSound");
         sound.setVolume(1.0f);
+        
+        killsToWin = 0;
+        gameTimeMinutes = 5;
+        powerupRespawnSeconds = 10;
     }
     
     /**
@@ -73,6 +80,9 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         }
         musicToggle = nifty.getScreen("settings").findElementByName("main_music_toggle");
         fxToggle = nifty.getScreen("settings").findElementByName("main_fx_toggle");
+        killsToWinElement = nifty.getScreen("gameSettings").findElementByName("main_killsToWin");
+        gameTimeElement = nifty.getScreen("gameSettings").findElementByName("main_time");
+        powerupRespawnElement = nifty.getScreen("gameSettings").findElementByName("main_powerupRespawn");
     }
 
     /**
@@ -113,6 +123,16 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
        nifty.gotoScreen("multi");
     }
 
+    /**
+     * Go to the game settings menu.
+     */
+    public void goToGameSettingsMenu() {
+        nifty.gotoScreen("gameSettings");
+        gameTimeElement.getRenderer(TextRenderer.class).setText("GAMETIME: " + gameTimeMinutes + " MIN");
+        setKillsText();
+        powerupRespawnElement.getRenderer(TextRenderer.class).setText("POWERUP RESPAWN TIME: " + powerupRespawnSeconds + " SEC");
+    }
+    
     /**
      * Toggle music on/off.
      * 
@@ -203,6 +223,53 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
+     * Update the visual representation in the game settings menu.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
+    public void incrementGameTime() {
+        gameTimeMinutes += 5;
+        if (gameTimeMinutes % 25 == 0) {
+            gameTimeMinutes = 5;
+        }
+        gameTimeElement.getRenderer(TextRenderer.class).setText("GAMETIME: " + gameTimeMinutes + " MIN");
+    }
+    
+    /**
+     * Update the visual representation in the game settings menu.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
+    public void incrementKillsToWin() {
+        killsToWin += 5;
+        if (killsToWin % 25 == 0) {
+            killsToWin = 0;
+        }
+        setKillsText();
+    }
+    
+    private void setKillsText() {
+        if (killsToWin == 0) {
+            killsToWinElement.getRenderer(TextRenderer.class).setText("KILLS TO WIN: INFINITY");
+        } else {
+            killsToWinElement.getRenderer(TextRenderer.class).setText("KILLS TO WIN: " + killsToWin + " MIN");
+        }
+    }
+    
+    /**
+     * Update the visual representation in the game settings menu.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
+    public void incrementPowerupSpawnTime() {
+        powerupRespawnSeconds += 10;
+        if (powerupRespawnSeconds % 70 == 0) {
+            powerupRespawnSeconds = 10;
+        }
+        powerupRespawnElement.getRenderer(TextRenderer.class).setText("POWERUP RESPAWN TIME: " + powerupRespawnSeconds + " SEC");
+    }
+    
+    /**
      * Load the game with one player.
      * 
      * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
@@ -259,5 +326,29 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     public ArrayList<String> getPlayerNames() {
         return new ArrayList<String>(playerNames);
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public int getGameTimeInMS() {
+        return gameTimeMinutes * 60000;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public int getPowerupRespawnTimeMS() {
+        return powerupRespawnSeconds * 1000;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public int getKillsToWin() {
+        return killsToWin;
     }
 }

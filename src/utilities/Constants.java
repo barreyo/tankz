@@ -10,22 +10,13 @@ public final class Constants {
     private Constants() {}
     
     /**
-     * How long the game lasts in ms.
-     * 
-     * Should in a later patch 
-     */
-    public final static long GAME_TIME_MS = 300000;
-    public final static int KILLS_TO_WIN = 10;
-    public final static long POWERUP_SPAWNING_INTERVAL_MS = 20000;
-    
-    /**
      * User data model constant.
      */
     public static final String USER_DATA_MODEL = "USER_DATA_MODEL";
     
     // This is physics-related information about the Tank
     /**
-     *
+     * 
      */
     public static final float TANK_STIFFNESS = 100.0f;//200=f1 car
     /**
