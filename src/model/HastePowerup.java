@@ -10,7 +10,6 @@ import java.io.IOException;
  */
 public class HastePowerup extends APowerup {
     private float maxSpeed;
-    private float accForce;
     private long activateTimerStart;
     private boolean isActive;
     
@@ -47,6 +46,7 @@ public class HastePowerup extends APowerup {
                 vehicle.toggleFlame(false);
                 vehicle.resetSpeedValues();
                 player = null;
+                isHeldByPlayer = false;
             }
         }
     }

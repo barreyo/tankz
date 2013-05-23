@@ -21,6 +21,7 @@ public class HealthPowerup extends APowerup{
         super.usePowerup(player);
         
         player.getVehicle().heal(HEAL);
+        isHeldByPlayer = false;
     }
 
     /**

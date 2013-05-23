@@ -18,6 +18,7 @@ public class MissilePowerup extends APowerup {
         super.usePowerup(player);
         
         player.getVehicle().shootMissile(player);
+        isHeldByPlayer = false;
     }
 
     /**

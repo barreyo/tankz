@@ -60,11 +60,11 @@ public class BeerPowerup extends APowerup {
         if (!targets.isEmpty()) {
             for (IPlayer p : targets) {
                 IArmedVehicle temp = p.getVehicle();
-                temp.setMaxSpeed(temp.getDefaultMaxSpeed() / 2f);
+                temp.setMaxSpeed(temp.getDefaultMaxSpeed() / 3f);
             }
         } else {
             maxSpeed = vehicle.getDefaultMaxSpeed();
-            vehicle.setMaxSpeed(maxSpeed / 2f);
+            vehicle.setMaxSpeed(maxSpeed / 3f);
         }
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
@@ -87,6 +87,7 @@ public class BeerPowerup extends APowerup {
                     targets = null;
                     players = null;
                     player = null;
+                    isHeldByPlayer = false;
                 }
             } else {
                 speedChangeCounter = speedChangeCounter + tpf;
@@ -94,9 +95,9 @@ public class BeerPowerup extends APowerup {
                     changeSpeed = !changeSpeed;
                     speedChangeCounter = 0;
                     if (changeSpeed) {
-                        vehicle.setMaxSpeed(maxSpeed * 2f);
+                        vehicle.setMaxSpeed(maxSpeed * 3f);
                     } else {
-                        vehicle.setMaxSpeed(maxSpeed / 2f);
+                        vehicle.setMaxSpeed(maxSpeed / 3f);
                     }
                 }
 /*
@@ -132,6 +133,7 @@ public class BeerPowerup extends APowerup {
                     isActive = false;
                     vehicle.resetSpeedValues();
                     player = null;
+                    isHeldByPlayer = false;
                 }
             }
         }

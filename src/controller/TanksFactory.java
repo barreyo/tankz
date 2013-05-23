@@ -78,7 +78,7 @@ public final class TanksFactory {
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
-        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCcdMotionThreshold(Constants.CCD_MOTION_THRESHOLD);
         physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_09);
         physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_01
                 | PhysicsCollisionObject.COLLISION_GROUP_02
@@ -100,7 +100,7 @@ public final class TanksFactory {
         MissileEntity projectileEntity = new MissileEntity(projectileModel);
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
-        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCcdMotionThreshold(Constants.CCD_MOTION_THRESHOLD);
         physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_09);
         physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_01
                 | PhysicsCollisionObject.COLLISION_GROUP_02
@@ -130,7 +130,7 @@ public final class TanksFactory {
         NapalmEntity projectileEntity = new NapalmEntity(projectileModel);
 
         RigidBodyControl physicsControl = new RigidBodyControl(projectileEntity.getCollisionShape(), projectileModel.getMass());
-        physicsControl.setCcdMotionThreshold(0.1f);
+        physicsControl.setCcdMotionThreshold(Constants.CCD_MOTION_THRESHOLD);
         physicsControl.setCollisionGroup(PhysicsCollisionObject.COLLISION_GROUP_09);
         physicsControl.setCollideWithGroups((PhysicsCollisionObject.COLLISION_GROUP_01
                 | PhysicsCollisionObject.COLLISION_GROUP_02
@@ -168,13 +168,13 @@ public final class TanksFactory {
 
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < Constants.NUMBER_OF_EACH_POWERUP; i++) {
             tmp.add(getNewPowerup(HastePowerup.class));
             tmp.add(getNewPowerup(MissilePowerup.class));
             tmp.add(getNewPowerup(LandminePowerup.class));
             tmp.add(getNewBeerPowerup(players));
             tmp.add(getNewPowerup(HealthPowerup.class));
-            if (i % 5 == 0) {
+            if (i % 2 == 0) {
                 tmp.add(getNewPowerup(AirCallPowerup.class));
             }
         }
@@ -255,7 +255,7 @@ public final class TanksFactory {
      */
     public static GameAppState getNewGame(Class<? extends IGameWorld> worldMapClass, Collection<String> playerNames) {
 
-        GameSettings settings = new GameSettings(500000, 15, 10000);
+        GameSettings settings = new GameSettings(Constants.GAME_TIME_MS, Constants.KILLS_TO_WIN, Constants.POWERUP_SPAWNING_INTERVAL_MS);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();
