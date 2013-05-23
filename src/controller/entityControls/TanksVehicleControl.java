@@ -1,16 +1,6 @@
 
 package controller.entityControls;
 
-import model.EApplicationState;
-import model.EPlayerInputs;
-import model.IArmedVehicle;
-import model.IPlayer;
-import model.IPowerup;
-import model.IWorldObject;
-import utilities.Commands;
-import utilities.Constants;
-import view.entity.TankEntity;
-import view.viewport.VehicleCamera;
 import application.TanksAppAdapter;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
@@ -21,6 +11,16 @@ import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import model.EApplicationState;
+import model.EPlayerInputs;
+import model.IArmedVehicle;
+import model.IPlayer;
+import model.IPowerup;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
+import view.entity.TankEntity;
+import view.viewport.VehicleCamera;
 
 /**
  * A control of a tank vehicle.

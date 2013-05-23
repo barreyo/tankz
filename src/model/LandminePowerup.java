@@ -2,10 +2,12 @@
 package model;
 
 /**
- *
+ * Landmine powerup drops a landmine behind the players vehicle.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class LandminePowerup extends APowerup{
+    
     /**
      * {@inheritDoc}
      */

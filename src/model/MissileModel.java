@@ -1,12 +1,13 @@
 package model;
 
-import utilities.Commands;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import utilities.Commands;
 import utilities.Constants;
 
 /**
- *
+ * Model for the homing missile.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public final class MissileModel extends AExplodingProjectile { 
@@ -17,6 +18,9 @@ public final class MissileModel extends AExplodingProjectile {
     private long launchTimerStart;
     private static final long LAUNCH_END_TIME = 1000;
     
+    /**
+     * Instantiate a basic homing missile model with values from constants class.
+     */
     public MissileModel() {
         super(Constants.MISSILE_MASS, Constants.MISSILE_DAMAGE, 
                 Constants.MISSILE_EXPLOSION_END_TIME, Constants.MISSILE_LIFE_TIME);
@@ -57,8 +61,9 @@ public final class MissileModel extends AExplodingProjectile {
     }
 
     /**
-     *
-     * @param target
+     * Set which target to follow.
+     * 
+     * @param target target to follow.
      */
     public void setAttackTarget(Vector3f target) {
         hasAttackTarget = true;

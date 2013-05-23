@@ -1,8 +1,6 @@
 
 package model;
 
-import com.jme3.math.Vector3f;
-
 /**
  * A interface for a powerup.
  * 
@@ -16,22 +14,23 @@ public interface IPowerup extends IWorldObject {
     public void powerupWasPickedUp();
     
     /**
-     * 
      * Activates the powerup.
      * 
-     * @param player 
+     * @param player the player who uses it.
      */
     public void usePowerup(IPlayer player);
     
     /**
-     *  
-     * @param held
+     * Indicate that a player is holding this powerup.
+     * 
+     * @param held if held: true, otherwise false.
      */
     public void setHeldByPlayer(boolean held);
     
     /**
+     * Determine if a player is holding this powerup.
      * 
-     * @return 
+     * @return if held: true, otherwise false.
      */
     public boolean isHeldByPlayer();
 }

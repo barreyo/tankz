@@ -1,14 +1,6 @@
 package controller.entityControls;
 
-import controller.managers.SoundManager;
 import application.TanksAppAdapter;
-import model.IDamageableObject;
-import model.IExplodingProjectile;
-import model.IWorldObject;
-import utilities.Commands;
-import utilities.Constants;
-import view.sounds.ESounds;
-import view.entity.AExplodingEntity;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -21,6 +13,13 @@ import com.jme3.scene.control.Control;
 import controller.managers.SoundManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import model.IDamageableObject;
+import model.IExplodingProjectile;
+import model.IWorldObject;
+import utilities.Commands;
+import utilities.Constants;
+import view.entity.AExplodingEntity;
+import view.sounds.ESounds;
 
 /**
  * Control class for linear projectiles.

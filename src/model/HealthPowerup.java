@@ -1,7 +1,8 @@
 package model;
 
 /**
- *
+ * A health power heals the player who uses it.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class HealthPowerup extends APowerup {

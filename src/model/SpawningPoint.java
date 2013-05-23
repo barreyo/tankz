@@ -9,6 +9,7 @@ import com.jme3.math.Vector3f;
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class SpawningPoint implements ISpawningPoint {
+    
     private boolean isOccupied;
     private IWorldObject occupier;
     private Vector3f position;
@@ -32,7 +33,7 @@ public class SpawningPoint implements ISpawningPoint {
     }
     
     /**
-     * {@inheritdoc} 
+     * {@inheritDoc} 
      */
     @Override
     public void setOccupied(boolean inUse){
@@ -40,7 +41,7 @@ public class SpawningPoint implements ISpawningPoint {
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritDoc}}
      */
     @Override
     public Vector3f getPosition() {
@@ -51,7 +52,7 @@ public class SpawningPoint implements ISpawningPoint {
      * Returns a string representation of the object, based on position and inUse.
      * 
      * @return inUse and position in the format: PlayerSpawningPoint{inUse=xxxx,
-     *  position=xxxf}
+     *      position=xxx}
      */
     @Override
     public String toString() {

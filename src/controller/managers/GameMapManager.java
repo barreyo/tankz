@@ -1,11 +1,11 @@
 package controller.managers;
 
-import view.viewport.ViewPortManager;
+import application.TanksAppAdapter;
+import controller.TanksFactory;
 import view.effects.EffectsManager;
 import view.entity.GraphicManager;
-import application.TanksAppAdapter;
 import view.maps.GameWorld1;
-import controller.TanksFactory;
+import view.viewport.ViewPortManager;
 
 
 /**

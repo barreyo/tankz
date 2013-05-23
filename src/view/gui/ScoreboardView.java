@@ -124,7 +124,7 @@ public class ScoreboardView extends AHudElement {
     }
     
     /**
-     * {@inheritdoc} 
+     * {@inheritDoc} 
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
@@ -149,7 +149,7 @@ public class ScoreboardView extends AHudElement {
     }
         
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void hide() {
@@ -172,7 +172,7 @@ public class ScoreboardView extends AHudElement {
     }
     
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      */
     @Override
     public void show() {

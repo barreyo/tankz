@@ -68,7 +68,7 @@ public class HealthView extends AHudElement {
     }
     
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      * @param pce 
      */
     @Override
@@ -81,7 +81,7 @@ public class HealthView extends AHudElement {
     }
     
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      */
     @Override
     public void show() {
@@ -91,7 +91,7 @@ public class HealthView extends AHudElement {
     }
     
     /**
-     * {@inheritdoc}
+     * {{@inheritDoc}}
      */
     @Override
     public void hide() {

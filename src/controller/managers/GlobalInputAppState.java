@@ -2,11 +2,11 @@
 package controller.managers;
 
 import application.TanksAppAdapter;
-import model.EGlobalInputs;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
+import model.EGlobalInputs;
 
 /**
  * Inputs not specific to a player, listens in both menus 

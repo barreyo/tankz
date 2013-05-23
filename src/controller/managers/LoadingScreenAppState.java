@@ -1,15 +1,15 @@
 package controller.managers;
 
-import view.viewport.ViewPortManager;
-import view.effects.EffectsManager;
-import view.entity.GraphicManager;
 import application.TanksAppAdapter;
-import model.EApplicationState;
-import view.sounds.ESounds;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import de.lessvoid.nifty.Nifty;
+import model.EApplicationState;
+import view.effects.EffectsManager;
+import view.entity.GraphicManager;
+import view.sounds.ESounds;
+import view.viewport.ViewPortManager;
 
 /**
  * Loading screen app state, singleton.

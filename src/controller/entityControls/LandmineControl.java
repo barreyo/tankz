@@ -1,7 +1,6 @@
 
 package controller.entityControls;
 
-import controller.managers.SoundManager;
 import application.TanksAppAdapter;
 import model.IDamageableObject;
 import model.IWorldObject;

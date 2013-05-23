@@ -1,12 +1,12 @@
 
 package model;
 
-import utilities.IObservable;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import utilities.IObservable;
 
 /**
- * Representation of the rules.
+ * Representation of the game rules.
  * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
@@ -21,9 +21,9 @@ public class GameSettings implements IObservable {
     /**
      * Basic constructor.
      * 
-     * @param gameEndTimeMS
-     * @param killsToWin
-     * @param powerupSpawningIntervallMS  
+     * @param gameEndTimeMS how long the game should last.
+     * @param killsToWin how many kills a player needs to finish the game.
+     * @param powerupSpawningIntervallMS how frequent powerups should spawn.
      */
     public GameSettings (long gameEndTimeMS, int killsToWin, long powerupSpawningIntervallMS){
         this.gameEndTimeMS = gameEndTimeMS;
@@ -50,15 +50,16 @@ public class GameSettings implements IObservable {
     }
     
     /**
+     * Get the powerup spawning interval in milliseconds.
      * 
-     * @return the powe
+     * @return powerup spawning interval in millisecs.
      */
     public long getPowerupSpawningIntervallMS() {
         return powerupSpawningIntervallMS;
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritDoc}
      */
     @Override
     public void addObserver(PropertyChangeListener l) {
@@ -66,7 +67,7 @@ public class GameSettings implements IObservable {
     }
 
     /**
-     * {@inheritdoc} 
+     * {@inheritDoc}
      */
     @Override
     public void removeObserver(PropertyChangeListener l) {

@@ -11,26 +11,32 @@ public enum EApplicationState {
      * Main menu state.
      */
     MAIN_MENU,
+    
     /**
      * Pause menu state.
      */
     PAUSED,
+    
     /**
      * Running state.
      */
     RUNNING,
+    
     /**
      * Loading screen state.
      */
     LOADING,
+    
     /**
      * No state.
      */
     NONE,
+    
     /**
      * Multiplayer choosing menu state.
      */
     MULTI_MENU,
+    
     /**
      * Loading map state.
      */
@@ -50,6 +56,7 @@ public enum EApplicationState {
 
     /**
      * Sets the current EGameState.
+     * 
      * @param currentGameState the EGameState to set.
      */
     public static void setGameState(EApplicationState currentGameState) {
@@ -61,6 +68,7 @@ public enum EApplicationState {
 
     /**
      * Returns the previous EGameState.
+     * 
      * @return the previous EGameState.
      */
     public static EApplicationState getPreviousGameState() {

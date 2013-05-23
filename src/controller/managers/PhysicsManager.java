@@ -1,10 +1,10 @@
 package controller.managers;
 
-import view.entity.ECollisionShapes;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.control.PhysicsControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import java.util.EnumMap;
+import view.entity.ECollisionShapes;
 
 /**
  * Manager managing the physics in the game, loading and processing.
