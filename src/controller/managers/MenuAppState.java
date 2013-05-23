@@ -130,7 +130,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         nifty.gotoScreen("gameSettings");
         gameTimeElement.getRenderer(TextRenderer.class).setText("GAMETIME: " + gameTimeMinutes + " MIN");
         setKillsText();
-        powerupRespawnElement.getRenderer(TextRenderer.class).setText("GAMETIME: " + powerupRespawnSeconds + " MIN");
+        powerupRespawnElement.getRenderer(TextRenderer.class).setText("POWERUP RESPAWN TIME: " + powerupRespawnSeconds + " SEC");
     }
     
     /**
@@ -266,7 +266,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         if (powerupRespawnSeconds % 70 == 0) {
             powerupRespawnSeconds = 10;
         }
-        powerupRespawnElement.getRenderer(TextRenderer.class).setText("POWERUP RESPAWN: " + powerupRespawnSeconds + " SEC");
+        powerupRespawnElement.getRenderer(TextRenderer.class).setText("POWERUP RESPAWN TIME: " + powerupRespawnSeconds + " SEC");
     }
     
     /**
