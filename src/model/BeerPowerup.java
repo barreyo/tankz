@@ -11,20 +11,14 @@ import java.util.List;
 public class BeerPowerup extends APowerup {
     
     private float speedChangeCounter;
-/*    private float turningLeftCounter;
-    private float turningRightCounter;
-    private float shootingCounter;
-*/    private boolean changeSpeed;
-/*    private boolean turnLeft;
-    private boolean turnRight;
-*/    private float maxSpeed;
+    private boolean changeSpeed;
+    private float maxSpeed;
     private long activateTimerStart;
     private boolean isActive;
     
     private static final long END_TIME = 10000;
     
     private IPlayer player;
-//    private IArmedVehicle vehicle;
     private List<IPlayer> players;
     private List<IPlayer> targets;
 
@@ -86,6 +80,8 @@ public class BeerPowerup extends APowerup {
                     player = null;
                     isHeldByPlayer = false;
                 }
+                
+            // Only gets here if it is single-player
             } else {
                 speedChangeCounter = speedChangeCounter + tpf;
                 if (speedChangeCounter >= 0.6f) {
@@ -97,35 +93,6 @@ public class BeerPowerup extends APowerup {
                         vehicle.setMaxSpeed(maxSpeed / 3f);
                     }
                 }
-/*
-                turningLeftCounter = turningLeftCounter + tpf;
-                if (turningLeftCounter >= 1.8f) {
-                    turnLeft = !turnLeft;
-                    turningLeftCounter = 0;
-                    if (turnLeft) {
-                        vehicle.steerLeft();
-                    } else {
-                        vehicle.steerRight();
-                    }
-                }
-
-                turningRightCounter = turningRightCounter + tpf;
-                if (turningRightCounter >= 0.9f) {
-                    turnRight = !turnRight;
-                    turningRightCounter = 0;
-                    if (turnRight) {
-                        vehicle.steerRight();
-                    } else {
-                        vehicle.steerLeft();
-                    }
-                }
-
-                shootingCounter = shootingCounter + tpf;
-                if (shootingCounter >= 2.5) {
-                    shootingCounter = 0;
-                    vehicle.shoot(player);
-                }
-*/
                 if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
                     isActive = false;
                     vehicle.resetSpeedValues();
