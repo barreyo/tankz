@@ -6,7 +6,6 @@ import view.entity.GraphicManager;
 import application.TanksAppAdapter;
 import view.maps.GameWorld1;
 import controller.TanksFactory;
-import controller.TanksFactory;
 
 
 /**

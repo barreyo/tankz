@@ -234,7 +234,7 @@ public final class TanksFactory {
      * @param spatial spatial to follow.
      * @return finshed chase camera.
      */
-    public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
+    private static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
         chaseCam.setMaxDistance(Constants.CAM_MAX_DISTANCE);
         chaseCam.setMinDistance(Constants.CAM_MIN_DISTANCE);
@@ -304,8 +304,14 @@ public final class TanksFactory {
             TankEntity entity = new TankEntity(vehicleModel);
 
             Node carNode = (Node) entity.getSpatial();
+            
+            // Get the right viewport for the player and enable it
+            ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player.getName());
+            viewPort.setEnabled(true);
+            // Give the tank a refernce to the camera of the viewport
+            VehicleCamera cam = getVehicleChaseCamera(viewPort.getCamera(), carNode);
 
-            TanksVehicleControl vehicle = new TanksVehicleControl(entity, player);
+            TanksVehicleControl vehicle = new TanksVehicleControl(entity, player, cam);
             vehicle.setSuspensionCompression(Constants.TANK_COMP_VALUE * 2.0f
                     * FastMath.sqrt(Constants.TANK_STIFFNESS));
             vehicle.setSuspensionDamping(Constants.TANK_DAMP_VALUE * 2.0f
@@ -356,13 +362,6 @@ public final class TanksFactory {
             TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
 
             entity.addControl(vehicle);
-
-            // Get the right viewport for the player and enable it
-            ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player.getName());
-            viewPort.setEnabled(true);
-            // Give the tank a refernce to the camera of the viewport
-            vehicle.setCamera(viewPort.getCamera());
-
 
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,
