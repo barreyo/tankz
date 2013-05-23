@@ -85,16 +85,14 @@ public final class LoadingScreenAppState extends AbstractAppState {
             TanksAppAdapter.INSTANCE.setCursorVisible(false);
             System.out.println("LOADING GAME");
         } else if (frameCount == 20) {
-            SoundManager.INSTANCE.load();
-        } else if (frameCount == 21) {
             PhysicsManager.INSTANCE.load();
-        } else if (frameCount == 22) {
+        } else if (frameCount == 21) {
             ViewPortManager.INSTANCE.load(MenuAppState.getInstance().getPlayerNames());
-        } else if (frameCount == 23) {
+        } else if (frameCount == 22) {
             GraphicManager.INSTANCE.load();
-        } else if (frameCount == 24) {
+        } else if (frameCount == 23) {
             EffectsManager.INSTANCE.load();
-        } else if (frameCount == 25) {
+        } else if (frameCount == 24) {
             gameApp = GameMapManager.INSTANCE.load(GameMapManager.INSTANCE.getCurrentIntMap());
         } else if (frameCount == FRAME_COUNT) {
             //at end of loading

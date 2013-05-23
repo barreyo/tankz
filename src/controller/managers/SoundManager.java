@@ -26,24 +26,10 @@ public enum SoundManager {
         soundMap = new EnumMap<ESounds, AudioNode>(ESounds.class);
     }
 
-    /**
-     * Load all sounds in to the buffer.
-     */
-    public void load() {
-        loadSound(new ESounds[]{ESounds.CLICK_SOUND,
-                    ESounds.MISSILE_LAUNCH_SOUND, ESounds.MISSILE_COLLISION_SOUND,
-                    ESounds.GAMEMUSIC_1});
-    }
-
-    /**
-     * Preload sounds for instant usage.
-     */
-    public void preLoad() {
-        loadSound(new ESounds[]{ESounds.MENU_SOUND});
-    }
 
     // loads all sound effects which will be needed for that map
-    private void loadSound(ESounds[] sounds) {
+    public void loadSound() {
+        ESounds[] sounds = ESounds.values();
         for (ESounds s : sounds) {
             AudioNode soundNode;
             if (s.isMusic()) {

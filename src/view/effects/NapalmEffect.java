@@ -22,7 +22,9 @@ import java.util.List;
  */
 public class NapalmEffect extends AEffect implements IEffect {
     
-    
+    /**
+     * Package private constructor for NapalmEffect
+     */
     NapalmEffect (){
         super();
         createShockwave(assetManager);
@@ -31,6 +33,10 @@ public class NapalmEffect extends AEffect implements IEffect {
         //createSmoke(assetManager);
     }
     
+    /**
+     * 
+     * @param assetManager 
+     */
     private void createShockwave(AssetManager assetManager){
         ParticleEmitter shockwave = new ParticleEmitter("Shockwave", ParticleMesh.Type.Triangle, 1);
         shockwave.setFaceNormal(Vector3f.UNIT_Y);
@@ -53,7 +59,7 @@ public class NapalmEffect extends AEffect implements IEffect {
     }
     
     private void createFlame(AssetManager assetManager) {
-        ParticleEmitter flame = new ParticleEmitter("Flame", ParticleMesh.Type.Point, 64);
+        ParticleEmitter flame = new ParticleEmitter("Flame", ParticleMesh.Type.Point, 32);
         flame.setSelectRandomImage(true);
         flame.setStartColor(new ColorRGBA(1f, 0.4f, 0.05f, 1f));
         flame.setEndColor(new ColorRGBA(.4f, .22f, .12f, 0f));
@@ -76,7 +82,7 @@ public class NapalmEffect extends AEffect implements IEffect {
     }
     
     private void createSpark(AssetManager assetManager) {
-        ParticleEmitter spark = new ParticleEmitter("Spark", ParticleMesh.Type.Triangle, 100);
+        ParticleEmitter spark = new ParticleEmitter("Spark", ParticleMesh.Type.Triangle, 32);
         spark.setStartColor(new ColorRGBA(1f, 0.8f, 0.36f, 1f));
         spark.setEndColor(new ColorRGBA(1f, 0.8f, 0.36f, 0f));
         spark.setStartSize(.5f);

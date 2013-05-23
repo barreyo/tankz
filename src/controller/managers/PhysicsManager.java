@@ -19,15 +19,10 @@ public enum PhysicsManager {
     
     private EnumMap<ECollisionShapes, CollisionShape> collisionShapeMap = new EnumMap<ECollisionShapes, CollisionShape>(ECollisionShapes.class);
     
-    /**
-     * Load all collision shapes.
-     */
-    public void load() {
-            loadCollisionShapes(new ECollisionShapes[]{ECollisionShapes.VEHICLE,
-                ECollisionShapes.MISSILE_PROJECTILE, ECollisionShapes.NUKE_PROJECTILE});
-    }
+
     
-    private void loadCollisionShapes(ECollisionShapes[] tanksCollisionShapes) {
+    public void load() {
+        ECollisionShapes[] tanksCollisionShapes = ECollisionShapes.values();
         for (ECollisionShapes tanksCollisionShape : tanksCollisionShapes) {
             collisionShapeMap.put(tanksCollisionShape, tanksCollisionShape.createCollisionShape());
         }
