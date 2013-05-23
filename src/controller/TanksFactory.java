@@ -169,11 +169,11 @@ public final class TanksFactory {
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < Constants.NUMBER_OF_EACH_POWERUP; i++) {
-//            tmp.add(getNewPowerup(HastePowerup.class));
-//            tmp.add(getNewPowerup(MissilePowerup.class));
-//            tmp.add(getNewPowerup(LandminePowerup.class));
-//            tmp.add(getNewBeerPowerup(players));
-//            tmp.add(getNewPowerup(HealthPowerup.class));
+            tmp.add(getNewPowerup(HastePowerup.class));
+            tmp.add(getNewPowerup(MissilePowerup.class));
+            tmp.add(getNewPowerup(LandminePowerup.class));
+            tmp.add(getNewBeerPowerup(players));
+            tmp.add(getNewPowerup(HealthPowerup.class));
             if (i % 2 == 0) {
                 tmp.add(getNewPowerup(AirCallPowerup.class));
             }
