@@ -18,10 +18,9 @@ public final class GlobalInputAppState extends AbstractAppState implements Actio
     
     private static GlobalInputAppState instance;
     
-    private String musicToggle;
-    private String fxToggle;
+    private String musicToggle, fxToggle, changeMap;
     
-    private EGlobalInputs soundInputs;
+    private EGlobalInputs globalInputs;
    
     /**
      * Instance of GlobalInputAppState.
@@ -36,23 +35,28 @@ public final class GlobalInputAppState extends AbstractAppState implements Actio
     }
     
     private void addInputMappings() {
-        soundInputs = EGlobalInputs.SoundInput;
+        globalInputs = EGlobalInputs.GlobalInput;
         
-        int musicToggleInt = soundInputs.getToggleMusicButton();
-        int fxToggleInt = soundInputs.getToggleFXButton();
+        int musicToggleInt = globalInputs.getToggleMusicButton();
+        int fxToggleInt = globalInputs.getToggleFXButton();
+        int changeMapInt = globalInputs.getChangeMapButton();
         
         musicToggle = "" + musicToggleInt;
         fxToggle = "" + fxToggleInt;
+        changeMap = "" + changeMapInt;
+        
         
         TanksAppAdapter.INSTANCE.addInputMapping(musicToggle, new KeyTrigger(musicToggleInt));
         TanksAppAdapter.INSTANCE.addInputMapping(fxToggle, new KeyTrigger(fxToggleInt));
+        TanksAppAdapter.INSTANCE.addInputMapping(changeMap, new KeyTrigger(changeMapInt));
         
-        TanksAppAdapter.INSTANCE.addInputListener(this, musicToggle, fxToggle);
+        TanksAppAdapter.INSTANCE.addInputListener(this, musicToggle, fxToggle, changeMap);
     }
     
     private void removeInputMappings() {
         TanksAppAdapter.INSTANCE.deleteInputMapping(fxToggle);
         TanksAppAdapter.INSTANCE.deleteInputMapping(musicToggle);
+        TanksAppAdapter.INSTANCE.deleteInputMapping(changeMap);
         TanksAppAdapter.INSTANCE.removeInputListener(this);
     }
     
@@ -72,7 +76,12 @@ public final class GlobalInputAppState extends AbstractAppState implements Actio
                 SoundManager.INSTANCE.toggleFX();
                 MenuAppState.getInstance().updateSettingsOptions();
             }
-        } 
+        }
+        if (name.equals(changeMap)){
+            if(isPressed){
+                GameMapManager.INSTANCE.loadNextMap();
+            }
+        }
     }
     
     /**

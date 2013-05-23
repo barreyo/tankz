@@ -5,6 +5,9 @@ import controller.TanksFactory;
 import view.effects.EffectsManager;
 import view.entity.GraphicManager;
 import view.maps.GameWorld1;
+import controller.TanksFactory;
+import controller.TanksFactory;
+import view.maps.GameWorld2;
 import view.viewport.ViewPortManager;
 
 
@@ -21,7 +24,7 @@ public enum GameMapManager {
     
     private GameAppState currentGame;
     private int currentIntGameMap;
-    private static final int NUMBER_OF_MAPS = 1; 
+    private static final int NUMBER_OF_MAPS = 2; 
 
     /**
      * Creates a manager for game maps.
@@ -57,6 +60,9 @@ public enum GameMapManager {
         switch (gameMap) {
             case 1:
                 currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());
+                break;
+            case 2:
+                currentGame = TanksFactory.getNewGame(GameWorld2.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());
                 break;
             default:
                 currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());

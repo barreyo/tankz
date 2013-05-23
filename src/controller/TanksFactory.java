@@ -29,13 +29,17 @@ import model.AtomicBombModel;
 import model.BeerPowerup;
 import model.CanonBallModel;
 import model.GameSettings;
+import model.HastePowerup;
+import model.HealthPowerup;
 import model.IArmedVehicle;
 import model.IPlayer;
 import model.IPowerup;
 import model.ISpawningPoint;
 import model.ITanks;
 import model.LandmineModel;
+import model.LandminePowerup;
 import model.MissileModel;
+import model.MissilePowerup;
 import model.Player;
 import model.SpawningPoint;
 import model.TankModel;
@@ -165,11 +169,11 @@ public final class TanksFactory {
     private static List<IPowerup> getNewPowerups(List<ISpawningPoint> spawns, List<IPlayer> players) {
         List<IPowerup> tmp = new ArrayList<IPowerup>();
         for (int i = 0; i < Constants.NUMBER_OF_EACH_POWERUP; i++) {
-//            tmp.add(getNewPowerup(HastePowerup.class));
-//            tmp.add(getNewPowerup(MissilePowerup.class));
-//            tmp.add(getNewPowerup(LandminePowerup.class));
-//            tmp.add(getNewBeerPowerup(players));
-//            tmp.add(getNewPowerup(HealthPowerup.class));
+            tmp.add(getNewPowerup(HastePowerup.class));
+            tmp.add(getNewPowerup(MissilePowerup.class));
+            tmp.add(getNewPowerup(LandminePowerup.class));
+            tmp.add(getNewBeerPowerup(players));
+            tmp.add(getNewPowerup(HealthPowerup.class));
             if (i % 2 == 0) {
                 tmp.add(getNewPowerup(AirCallPowerup.class));
             }

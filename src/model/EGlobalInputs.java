@@ -11,15 +11,17 @@ import com.jme3.input.KeyInput;
 public enum EGlobalInputs {
     
     /**
-     * Sound inputs.
+     * Global inputs.
      */
-    SoundInput(KeyInput.KEY_8, KeyInput.KEY_9);
+    GlobalInput(KeyInput.KEY_8, KeyInput.KEY_9, KeyInput.KEY_5);
+  
     
-    private final int toggleMusic, toggleFX;
+    private final int toggleMusic, toggleFX, changeMap;
     
-    private EGlobalInputs(int music, int fx) {
+    private EGlobalInputs(int music, int fx, int changeMap) {
         toggleMusic = music;
         toggleFX = fx;
+        this.changeMap = changeMap;
     }
     
     /**
@@ -38,5 +40,13 @@ public enum EGlobalInputs {
      */
     public int getToggleFXButton() {
         return toggleFX;
+    }
+    
+    /**
+     * 
+     * @return change map key. 
+     */
+    public int getChangeMapButton(){
+        return changeMap;
     }
 }
