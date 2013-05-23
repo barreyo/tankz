@@ -6,6 +6,7 @@ package model;
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public final class CanonBallModel extends AExplodingProjectile { 
+    
     /**
      * Creates a cannonball.
      */

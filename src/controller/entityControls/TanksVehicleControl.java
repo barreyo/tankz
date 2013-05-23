@@ -1,6 +1,16 @@
 
 package controller.entityControls;
 
+import application.TanksAppAdapter;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
+import com.jme3.bullet.control.VehicleControl;
+import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.KeyTrigger;
+import com.jme3.math.Matrix3f;
+import com.jme3.math.Vector3f;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import model.EApplicationState;
 import model.EPlayerInputs;
 import model.IArmedVehicle;
@@ -11,19 +21,6 @@ import utilities.Commands;
 import utilities.Constants;
 import view.entity.TankEntity;
 import view.viewport.VehicleCamera;
-import application.TanksAppAdapter;
-import com.jme3.bullet.collision.PhysicsCollisionEvent;
-import com.jme3.bullet.collision.PhysicsCollisionListener;
-import com.jme3.bullet.control.VehicleControl;
-import com.jme3.input.controls.ActionListener;
-import com.jme3.input.controls.KeyTrigger;
-import com.jme3.math.Matrix3f;
-import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
-import controller.TanksFactory;
-import controller.TanksFactory;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  * A control of a tank vehicle.
@@ -40,7 +37,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
     private TankEntity tankEntity;
     // The player controlling
     private IPlayer player;
-    
     // Cam to be set up behind Vehicle
     private VehicleCamera chaseCam;
  
@@ -50,12 +46,13 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      * @param entity entity to be controlled and listen to.
      * @param player player model.
      */
-    public TanksVehicleControl(TankEntity entity, IPlayer player) {  
+    public TanksVehicleControl(TankEntity entity, IPlayer player, VehicleCamera cam) {  
         super(entity.getCollisionShape(), player.getVehicle().getMass());
         // Save references to model, view and player
         this.tankEntity = entity;
         this.vehicleModel = player.getVehicle();
         this.player = player;
+        this.chaseCam = cam;
         // Register input mappings
         addInputMappings();
         
@@ -84,24 +81,6 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         if (chaseCam != null) {
             chaseCam.setHorizonalLookAt(vehicleModel.getDirection().multLocal(new Vector3f(1, 0, 1)));
         }
-    }
-
-    /**
-     * Sets the camera that will be used to follow the tank.
-     * 
-     * @param cam the camera that will follow the tank
-     */
-    public void setCamera(Camera cam) {
-        setUpCam(cam);
-    }
-    
-    /**
-     * Initiates the third person camera that follows the vehicle.
-     *
-     * @param spatial The spatial to be followed by the camera.
-     */
-    private void setUpCam(Camera cam) {
-        chaseCam = TanksFactory.getVehicleChaseCamera(cam, spatial);
     }
 
     /**

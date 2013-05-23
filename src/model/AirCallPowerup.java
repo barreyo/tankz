@@ -2,7 +2,8 @@
 package model;
 
 /**
- *
+ * An air call powerup calls down a massive amount of missiles in a specfic zone.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class AirCallPowerup extends APowerup {
@@ -16,11 +17,14 @@ public class AirCallPowerup extends APowerup {
     
     private IPlayer player;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         this.player = player;
-        
+        player.getVehicle().hideAirCallRing();
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
     }
@@ -39,11 +43,9 @@ public class AirCallPowerup extends APowerup {
                 counter = 0;
             }
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
-                player.getVehicle().hideAirCallRing();
                 isActive = false;
                 isHeldByPlayer = false;
             }
         }
-
     }
 }

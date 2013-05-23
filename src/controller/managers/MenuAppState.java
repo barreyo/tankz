@@ -2,8 +2,6 @@
 package controller.managers;
 
 import application.TanksAppAdapter;
-import model.EApplicationState;
-import view.sounds.ESounds;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import de.lessvoid.nifty.Nifty;
@@ -17,6 +15,8 @@ import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
 import java.util.ArrayList;
 import java.util.List;
+import model.EApplicationState;
+import view.sounds.ESounds;
 
 /**
  * An app state representing the main menu.
@@ -70,6 +70,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
+        SoundManager.INSTANCE.loadSound();
         TanksAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EApplicationState.setGameState(EApplicationState.MAIN_MENU);
@@ -329,24 +330,27 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
+     * Get the game time from the menu, inputted by a player.
      * 
-     * @return 
+     * @return game time in millisec.
      */
     public int getGameTimeInMS() {
         return gameTimeMinutes * 60000;
     }
     
     /**
+     * Get the powerup respawn time from the menu, inputted by a player.
      * 
-     * @return 
+     * @return powerup respawn time in millisec.
      */
     public int getPowerupRespawnTimeMS() {
         return powerupRespawnSeconds * 1000;
     }
     
     /**
+     * Get the kills to win from the menu, inputted by a player.
      * 
-     * @return 
+     * @return kills to win.
      */
     public int getKillsToWin() {
         return killsToWin;

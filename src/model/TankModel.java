@@ -1,7 +1,5 @@
 package model;
 
-import utilities.Commands;
-import utilities.Constants;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
@@ -11,35 +9,33 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import utilities.Commands;
+import utilities.Constants;
 
 /**
  * Model for a tank vehicle.
- * 
+ *
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public final class TankModel implements IArmedVehicle {
-    
+
     private boolean flameIsShowing;
     private boolean firstFlameDisabling;
     private boolean smokeIsShowing;
     private boolean firstSmokeDisabling;
     private boolean paused;
-    
     private int health;
     private final int maxHealth;
     private IArmedVehicle.VehicleState vehicleState;
     private Vector3f position;
     private Vector3f direction;
     private Quaternion rotation;
-    
     private boolean isInWorld;
-   
     private float steeringValue;
     private float accelerationValue;
     private float steeringChangeValue;
     private float acceleration;
     private float currentVehicleSpeedKmHour;
-   
     private final float mass;
     private float currentMaxSpeed;
     private float currentAccelerationForce;
@@ -47,25 +43,23 @@ public final class TankModel implements IArmedVehicle {
     private final float defaultAccelerationForce;
     private final float frictionForce;
     private final float backMaxSpeed;
-    
     private float shootDelay;
-    
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    
     private final List<CanonBallModel> canonBalls;
     private final List<MissileModel> missiles;
     private final List<LandmineModel> landmines;
     private final List<AtomicBombModel> bombs;
-    
+
     /**
      * Constructor for TankModel
-     * @param canonBalls List of cannon balls
-     * @param missiles List of missiles
-     * @param landmines List of landmines
-     * @param bombs Lines of bombs
+     *
+     * @param canonBalls list of cannon balls.
+     * @param missiles list of missiles.
+     * @param landmines list of landmines.
+     * @param bombs lines of bombs.
      */
-    public TankModel(List<CanonBallModel> canonBalls, 
-            List<MissileModel> missiles, List<LandmineModel> landmines, 
+    public TankModel(List<CanonBallModel> canonBalls,
+            List<MissileModel> missiles, List<LandmineModel> landmines,
             List<AtomicBombModel> bombs) {
         paused = false;
         firstFlameDisabling = false;
@@ -98,7 +92,7 @@ public final class TankModel implements IArmedVehicle {
     public IArmedVehicle.VehicleState getVehicleState() {
         return vehicleState;
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -124,7 +118,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public synchronized void shoot(IPlayer player) {
-        if(shootDelay<=0){
+        if (shootDelay <= 0) {
             //Can only shoot once every half second
             shootDelay = 0.5f;
             for (CanonBallModel canonBall : canonBalls) {
@@ -137,7 +131,7 @@ public final class TankModel implements IArmedVehicle {
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -152,7 +146,10 @@ public final class TankModel implements IArmedVehicle {
             }
         }
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void dropLandmine(IPlayer player) {
         for (LandmineModel landmine : landmines) {
@@ -162,26 +159,26 @@ public final class TankModel implements IArmedVehicle {
             }
         }
     }
-    
+
     @Override
     public void dropBomb(IPlayer player) {
         Vector3f launchOrigin = position.add(direction.normalize().mult(50));
         launchOrigin.setY(Constants.NUKE_DROP_HEIGHT);
         Random rand = new Random();
-        
+
         float zRandom = (rand.nextFloat() * 24) - 12;
         float xRandom = (rand.nextFloat() * 24) - 12;
-        
+
         launchOrigin.addLocal(xRandom, 0, zRandom);
         for (int i = 0; i < bombs.size(); i++) {
             if (!bombs.get(i).isShownInWorld()) {
-                
+
                 bombs.get(i).launchProjectile(launchOrigin, new Vector3f(0, -80, 0), Quaternion.ZERO, player);
-                break; 
+                break;
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -189,7 +186,7 @@ public final class TankModel implements IArmedVehicle {
     public void addObserver(PropertyChangeListener l) {
         pcs.addPropertyChangeListener(l);
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -213,7 +210,7 @@ public final class TankModel implements IArmedVehicle {
 
             if (smokeIsShowing) {
                 pcs.firePropertyChange(Commands.SHOW_SMOKE, null, null);
-            } else if(!smokeIsShowing && firstSmokeDisabling) {
+            } else if (!smokeIsShowing && firstSmokeDisabling) {
                 firstSmokeDisabling = false;
                 pcs.firePropertyChange(Commands.HIDE_SMOKE, null, null);
             }
@@ -240,7 +237,7 @@ public final class TankModel implements IArmedVehicle {
      */
     @Override
     public void accelerateBack() {
-       this.acceleration -= currentAccelerationForce;
+        this.acceleration -= currentAccelerationForce;
     }
 
     /**
@@ -286,7 +283,7 @@ public final class TankModel implements IArmedVehicle {
     public synchronized Vector3f getFirePosition() {
         return position.add(rotation.mult(new Vector3f(0, 1.7f, 0))).add(direction.mult(1.1f));
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -349,7 +346,7 @@ public final class TankModel implements IArmedVehicle {
      * {@inheritDoc}
      */
     @Override
-    public float getDefaultMaxSpeed(){
+    public float getDefaultMaxSpeed() {
         return defaultMaxSpeed;
     }
 
@@ -442,7 +439,10 @@ public final class TankModel implements IArmedVehicle {
     public void read(JmeImporter im) throws IOException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void toggleFlame(boolean state) {
         if (state) {
@@ -450,7 +450,10 @@ public final class TankModel implements IArmedVehicle {
         }
         flameIsShowing = state;
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void toggleSmoke(boolean state) {
         if (state) {
@@ -459,6 +462,9 @@ public final class TankModel implements IArmedVehicle {
         smokeIsShowing = state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void heal(int heal) {
         int oldHP = health;
@@ -473,9 +479,11 @@ public final class TankModel implements IArmedVehicle {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */    
     @Override
     public void hideAirCallRing() {
         pcs.firePropertyChange(Commands.HIDE_AIRCALL, null, null);
     }
-
 }

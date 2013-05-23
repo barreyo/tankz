@@ -5,7 +5,6 @@ import com.jme3.app.StatsAppState;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.system.AppSettings;
 import controller.managers.GUIManager;
-import controller.managers.SoundManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,9 +31,7 @@ class TanksApp extends SimpleApplication {
         // Creating and attaching an appstate needed to handle physics
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
-   
-        //Loads the sounds needed before game start.
-        SoundManager.INSTANCE.loadSound();
+        
         // Show the main menu
         GUIManager.INSTANCE.showMainMenu();
         // Detach the settings window.

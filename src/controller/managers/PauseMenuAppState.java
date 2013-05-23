@@ -1,13 +1,10 @@
 package controller.managers;
 
 import application.TanksAppAdapter;
-import model.EApplicationState;
-import model.ITanks;
 import com.jme3.app.Application;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.niftygui.NiftyJmeDisplay;
-import com.jme3.scene.Spatial;
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.NiftyEventSubscriber;
 import de.lessvoid.nifty.elements.Element;
@@ -17,7 +14,7 @@ import de.lessvoid.nifty.screen.Screen;
 import de.lessvoid.nifty.screen.ScreenController;
 import de.lessvoid.nifty.spi.sound.SoundHandle;
 import de.lessvoid.nifty.tools.Color;
-import java.util.List;
+import model.EApplicationState;
 
 /**
  * An app state representing the pause menu.

@@ -2,10 +2,12 @@
 package model;
 
 /**
- *
+ * Missile powerup fires a homing missile, that searches 
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class MissilePowerup extends APowerup {
+    
     /**
      * {@inheritDoc}
      */

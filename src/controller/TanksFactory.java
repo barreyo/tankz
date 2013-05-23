@@ -1,13 +1,29 @@
 package controller;
 
-import controller.entityControls.LinearProjectileControl;
+import application.TanksAppAdapter;
+import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
+import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.control.GhostControl;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.FastMath;
+import com.jme3.math.Vector3f;
+import com.jme3.renderer.Camera;
+import com.jme3.renderer.ViewPort;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
+import controller.entityControls.HomingProjectileControl;
 import controller.entityControls.LandmineControl;
+import controller.entityControls.LinearProjectileControl;
 import controller.entityControls.PowerupControl;
 import controller.entityControls.TanksVehicleControl;
-import controller.entityControls.HomingProjectileControl;
 import controller.managers.GameAppState;
-import view.viewport.ViewPortManager;
-import application.TanksAppAdapter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.AirCallPowerup;
 import model.AtomicBombModel;
 import model.BeerPowerup;
@@ -30,12 +46,6 @@ import model.TankModel;
 import model.TanksGameModel;
 import utilities.Constants;
 import utilities.Util;
-import view.gui.HealthView;
-import view.gui.IHudElement;
-import view.gui.PowerupSlotView;
-import view.gui.ScoreboardView;
-import view.gui.TimerView;
-import view.maps.IGameWorld;
 import view.effects.AirCallIndicator;
 import view.entity.CanonBallEntity;
 import view.entity.LandmineEntity;
@@ -43,24 +53,14 @@ import view.entity.MissileEntity;
 import view.entity.NapalmEntity;
 import view.entity.PowerupEntity;
 import view.entity.TankEntity;
+import view.gui.HealthView;
+import view.gui.IHudElement;
+import view.gui.PowerupSlotView;
+import view.gui.ScoreboardView;
+import view.gui.TimerView;
+import view.maps.IGameWorld;
 import view.viewport.VehicleCamera;
-import com.jme3.bounding.BoundingBox;
-import com.jme3.bullet.collision.PhysicsCollisionObject;
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
-import com.jme3.bullet.control.GhostControl;
-import com.jme3.bullet.control.RigidBodyControl;
-import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
-import com.jme3.renderer.Camera;
-import com.jme3.renderer.ViewPort;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import view.viewport.ViewPortManager;
 
 /**
  * Factory used for creating a new tanks game and tanks game related objects.
@@ -234,7 +234,7 @@ public final class TanksFactory {
      * @param spatial spatial to follow.
      * @return finshed chase camera.
      */
-    public static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
+    private static VehicleCamera getVehicleChaseCamera(Camera cam, Spatial spatial) {
         VehicleCamera chaseCam = new VehicleCamera(cam, spatial, TanksAppAdapter.INSTANCE.getInputManager());
         chaseCam.setMaxDistance(Constants.CAM_MAX_DISTANCE);
         chaseCam.setMinDistance(Constants.CAM_MIN_DISTANCE);
@@ -304,8 +304,14 @@ public final class TanksFactory {
             TankEntity entity = new TankEntity(vehicleModel);
 
             Node carNode = (Node) entity.getSpatial();
+            
+            // Get the right viewport for the player and enable it
+            ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player.getName());
+            viewPort.setEnabled(true);
+            // Give the tank a refernce to the camera of the viewport
+            VehicleCamera cam = getVehicleChaseCamera(viewPort.getCamera(), carNode);
 
-            TanksVehicleControl vehicle = new TanksVehicleControl(entity, player);
+            TanksVehicleControl vehicle = new TanksVehicleControl(entity, player, cam);
             vehicle.setSuspensionCompression(Constants.TANK_COMP_VALUE * 2.0f
                     * FastMath.sqrt(Constants.TANK_STIFFNESS));
             vehicle.setSuspensionDamping(Constants.TANK_DAMP_VALUE * 2.0f
@@ -356,13 +362,6 @@ public final class TanksFactory {
             TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(vehicle);
 
             entity.addControl(vehicle);
-
-            // Get the right viewport for the player and enable it
-            ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player.getName());
-            viewPort.setEnabled(true);
-            // Give the tank a refernce to the camera of the viewport
-            vehicle.setCamera(viewPort.getCamera());
-
 
             // set up gui for each player
             PowerupSlotView pView = new PowerupSlotView(player,

@@ -1,6 +1,6 @@
 package view.entity;
 
-import com.jme3.bullet.collision.shapes.CollisionShape;
+    import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;

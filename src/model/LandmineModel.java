@@ -5,10 +5,12 @@ import com.jme3.math.Vector3f;
 import utilities.Constants;
 
 /**
- *
+ * Model for the landmine powerup.
+ * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class LandmineModel extends AExplodingObject {
+   
     /**
      * Creates a new lanmine model.
      */
@@ -18,9 +20,10 @@ public class LandmineModel extends AExplodingObject {
     }
 
     /**
+     * Place a landmine at the players' position.
      * 
-     * @param initialPos
-     * @param player 
+     * @param initialPos start pos.
+     * @param player player who drops the landmine.
      */
     public void dropMine(Vector3f initialPos, IPlayer player) {
         this.initialPos = new Vector3f(initialPos);

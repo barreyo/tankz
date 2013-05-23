@@ -1,9 +1,9 @@
 package model;
 
-import utilities.IObservable;
 import com.jme3.export.Savable;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import utilities.IObservable;
 
 /**
  * A interface for a world object that can be hidden and shown.
@@ -31,7 +31,7 @@ public interface IWorldObject extends IObservable, Savable{
     /**
      * Allows the world object to update its state.
      * 
-     * @param tpf
+     * @param tpf time per frame.
      */
     public void update(float tpf);
     

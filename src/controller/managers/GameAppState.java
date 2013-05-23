@@ -1,15 +1,6 @@
 package controller.managers;
 
 import application.TanksAppAdapter;
-import model.EApplicationState;
-import model.IArmedVehicle;
-import model.IPowerup;
-import model.ITanks;
-import model.IWorldObject;
-import utilities.Constants;
-import view.gui.IHudElement;
-import view.maps.IGameWorld;
-import view.sounds.ESounds;
 import com.jme3.app.state.AbstractAppState;
 import com.jme3.app.state.AppStateManager;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
@@ -19,6 +10,15 @@ import com.jme3.input.controls.ActionListener;
 import com.jme3.input.controls.KeyTrigger;
 import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
 import java.util.Collection;
+import model.EApplicationState;
+import model.IArmedVehicle;
+import model.IPowerup;
+import model.ITanks;
+import model.IWorldObject;
+import utilities.Constants;
+import view.gui.IHudElement;
+import view.maps.IGameWorld;
+import view.sounds.ESounds;
 
 /**
  * A game app state holding functionality for the game.

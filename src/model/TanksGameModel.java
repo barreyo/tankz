@@ -1,11 +1,11 @@
 package model;
 
-import utilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import utilities.Commands;
 
 /**
  * The model for the game state.
@@ -32,12 +32,12 @@ public class TanksGameModel implements ITanks {
     /**
      * Instantiates the TanksGameModel.
      *
-     * @param players list of all the IPlayers in the game
-     * @param powerups list of all th IPowerups in the game
+     * @param players list of all the IPlayers in the game.
+     * @param powerups list of all th IPowerups in the game.
      * @param powerupSpawningPoints list of all the powerupspawningpoints in
-     * game
+     * game.
      * @param playerSpawningPoints list of all the playerspawningpoints in game
-     * @param settings the game settings for the game
+     * @param settings the game settings for the game.
      */
     public TanksGameModel(List<IPlayer> players, List<IPowerup> powerups,
             List<ISpawningPoint> powerupSpawningPoints, List<ISpawningPoint> playerSpawningPoints,
@@ -55,7 +55,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public Collection<IPlayer> getPlayers() {
@@ -63,7 +63,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void startGame() {
@@ -74,7 +74,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void endGame() {
@@ -86,7 +86,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void pauseGame() {
@@ -94,7 +94,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void resumeGame() {
@@ -106,7 +106,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void addObserver(PropertyChangeListener l) {
@@ -114,7 +114,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void removeObserver(PropertyChangeListener l) {
@@ -122,7 +122,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void update(float tpf) {
@@ -156,7 +156,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * Spawn powerups at random powerup-spawningpoints that isnt occupied
+     * Spawn powerups at random powerup-spawningpoints that isnt occupied.
      */
     private void spawnPowerups() {
         Collections.shuffle(powerups);
@@ -176,7 +176,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void cleanup() {
@@ -204,7 +204,7 @@ public class TanksGameModel implements ITanks {
     }
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     @Override
     public void powerupPickedUp(IPowerup powerup) {
