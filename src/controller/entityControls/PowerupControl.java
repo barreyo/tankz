@@ -99,7 +99,7 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
                     || objB == powerupModel && objA instanceof IArmedVehicle) {
                 physicsControl.setEnabled(false);
                 powerupModel.powerupWasPickedUp();
-                powerupEntity.hideFromWorld();
+                powerupModel.hideFromWorld();
             }
         }
     }

@@ -87,6 +87,7 @@ public class BeerPowerup extends APowerup {
                     targets = null;
                     players = null;
                     player = null;
+                    isHeldByPlayer = false;
                 }
             } else {
                 speedChangeCounter = speedChangeCounter + tpf;
@@ -132,6 +133,7 @@ public class BeerPowerup extends APowerup {
                     isActive = false;
                     vehicle.resetSpeedValues();
                     player = null;
+                    isHeldByPlayer = false;
                 }
             }
         }

@@ -15,7 +15,7 @@ public abstract class APowerup implements IPowerup {
     
     private Vector3f position;
     private Quaternion rotation;
-    private boolean isHeldByPlayer;
+    boolean isHeldByPlayer;
     private boolean isInWorld;
 
     private static final float MASS = 10f;

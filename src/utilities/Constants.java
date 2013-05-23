@@ -10,6 +10,15 @@ public final class Constants {
     private Constants() {}
     
     /**
+     * How long the game lasts in ms.
+     * 
+     * Should in a later patch 
+     */
+    public final static long GAME_TIME_MS = 300000;
+    public final static int KILLS_TO_WIN = 10;
+    public final static long POWERUP_SPAWNING_INTERVAL_MS = 20000;
+    
+    /**
      * User data model constant.
      */
     public static final String USER_DATA_MODEL = "USER_DATA_MODEL";
@@ -64,6 +73,8 @@ public final class Constants {
      */
     public static final float TANK_WHEEL_Z_OFF = 0.7f;
     
+    public static final float CCD_MOTION_THRESHOLD = 0.1f;
+    public static final int NUMBER_OF_EACH_POWERUP = 20;
     public static final int LANDMINES_PER_PLAYER = 10;
     public static final int MISSILES_PER_PLAYER = 5;
     public static final int CANNONBALLS_PER_PLAYER = 10;

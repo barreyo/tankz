@@ -130,7 +130,7 @@ public final class TankModel implements IArmedVehicle {
             for (CanonBallModel canonBall : canonBalls) {
                 if (!canonBall.isShownInWorld()) {
                     canonBall.launchProjectile(getFirePosition(),
-                            direction.mult(100), rotation, player);
+                            direction.mult(200), rotation, player);
                     pcs.firePropertyChange(Commands.SHOOT, null, null);
                     return;
                 }
