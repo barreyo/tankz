@@ -91,17 +91,8 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
      * 
      * @param cam the camera that will follow the tank
      */
-    public void setCamera(Camera cam) {
-        setUpCam(cam);
-    }
-    
-    /**
-     * Initiates the third person camera that follows the vehicle.
-     *
-     * @param spatial The spatial to be followed by the camera.
-     */
-    private void setUpCam(Camera cam) {
-        chaseCam = TanksFactory.getVehicleChaseCamera(cam, spatial);
+    public void setCamera(VehicleCamera cam) {
+        chaseCam = cam;
     }
 
     /**

@@ -361,7 +361,7 @@ public final class TanksFactory {
             ViewPort viewPort = ViewPortManager.INSTANCE.getViewportForPlayer(player.getName());
             viewPort.setEnabled(true);
             // Give the tank a refernce to the camera of the viewport
-            vehicle.setCamera(viewPort.getCamera());
+            vehicle.setCamera(getVehicleChaseCamera(viewPort.getCamera(), carNode));
 
 
             // set up gui for each player
