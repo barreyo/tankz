@@ -32,9 +32,7 @@ class TanksApp extends SimpleApplication {
         // Creating and attaching an appstate needed to handle physics
         bulletAppState = new BulletAppState();
         stateManager.attach(bulletAppState);
-   
-        //Loads the sounds needed before game start.
-        SoundManager.INSTANCE.loadSound();
+        
         // Show the main menu
         GUIManager.INSTANCE.showMainMenu();
         // Detach the settings window.

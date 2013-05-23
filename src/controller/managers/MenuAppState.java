@@ -70,6 +70,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      */
     @Override
     public void stateAttached(AppStateManager stateManager) {
+        SoundManager.INSTANCE.loadSound();
         TanksAppAdapter.INSTANCE.setCursorVisible(true);
         goToMainMenu();
         EApplicationState.setGameState(EApplicationState.MAIN_MENU);

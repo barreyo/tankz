@@ -44,14 +44,6 @@ public enum SoundManager {
     }
 
     /**
-     * Remove all music from the buffer.
-     */
-    private void removeAllMusic() {
-        stopAllSounds();
-        soundMap.clear();
-    }
-
-    /**
      * Play a specific sound.
      * 
      * @param sound sound from enum.
@@ -118,7 +110,7 @@ public enum SoundManager {
      * Clear all music from the buffer.
      */
     public void cleanup() {
-        removeAllMusic();
+        stopAllSounds();
         soundMap.clear();
     }
 
