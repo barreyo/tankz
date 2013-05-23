@@ -16,10 +16,7 @@ public enum EGraphics {
      * Model used for missile projectiles.
      */
     SHARK("Models/shark/shark.j3o"),
-    /**
-     * The default map.
-     */
-    MAP1("Scenes/Map2/Map2_treeslol.j3o"),
+
     /**
      * Model used for powerup boxes.
      */
@@ -37,7 +34,17 @@ public enum EGraphics {
     /**
      * Model used for AirCall powerup.
      */
-    NAPALM("Models/nuclear/nuclear.j3o");
+    NAPALM("Models/nuclear/nuclear.j3o"),
+    
+    /** 
+     * The default map.
+     */
+    MAP1("Scenes/Map2/Map2_treeslol.j3o"),
+    
+    /**
+     * Demo map.
+     */
+    MAP2("Scenes/Map3/Map3.j3o");
     
     private String fileLocation;
 

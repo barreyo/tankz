@@ -21,7 +21,7 @@ import view.entity.GraphicManager;
  *
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
-public class GameWorld1 implements IGameWorld, PropertyChangeListener {
+public class GameWorld1 implements IGameWorld{
     
     private ITanks game;
     
@@ -91,13 +91,5 @@ public class GameWorld1 implements IGameWorld, PropertyChangeListener {
     public void cleanup() {
         TanksAppAdapter.INSTANCE.detachAllRootChildren();
         TanksAppAdapter.INSTANCE.removeLightFromRootNode(sun);
-    }
-
-    /**
-     ** {@inheritDoc} 
-     */
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
