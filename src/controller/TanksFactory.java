@@ -253,9 +253,9 @@ public final class TanksFactory {
      * @param worldMapClass the visual world map to be instansiated and used as map for the game.
      * @param playerNames the names of the players to be created.
      */
-    public static GameAppState getNewGame(Class<? extends IGameWorld> worldMapClass, Collection<String> playerNames) {
+    public static GameAppState getNewGame(Class<? extends IGameWorld> worldMapClass, Collection<String> playerNames, int gameTime, int killsToWin, int powerupSpawningTime) {
 
-        GameSettings settings = new GameSettings(Constants.GAME_TIME_MS, Constants.KILLS_TO_WIN, Constants.POWERUP_SPAWNING_INTERVAL_MS);
+        GameSettings settings = new GameSettings(gameTime, killsToWin, powerupSpawningTime);
 
         int numberOfPlayers = playerNames.size();
         List<IPlayer> players = new ArrayList<IPlayer>();

@@ -57,10 +57,10 @@ public enum GameMapManager {
     public GameAppState load(int gameMap) {
         switch (gameMap) {
             case 1:
-                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());
                 break;
             default:
-                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames());
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());
         }
         return currentGame;
     }
