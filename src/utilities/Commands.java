@@ -102,15 +102,11 @@ public final class Commands {
      * Timer update command.
      */
     public static final String TIMER = "TIMER";
+    
     /**
      * Score update command.
      */
     public static final String SCORE_UPDATE = "SCORE_UPDATE";
-    
-    /**
-     * Shake camera command.
-     */
-    public static final String CAMERA_SHAKE = "CAMERA_SHAKE";
     
     /**
      * Show scoreboard command.
