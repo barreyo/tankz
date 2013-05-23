@@ -16,7 +16,7 @@ public final class Constants {
     
     // This is physics-related information about the Tank
     /**
-     *
+     * 
      */
     public static final float TANK_STIFFNESS = 100.0f;//200=f1 car
     /**
@@ -76,6 +76,26 @@ public final class Constants {
     public static final float CAM_DEFAULT_DISTANCE = 24f;
     public static final float CAM_CHASING_SENSITIVITY = 50f;
     public static final float CAM_DEFAULT_VERTICAL_ROTATION = 0.3f;
+    
+    public static final float ATOMIC_BOMB_MASS = 20f;
+    public static final int ATOMIC_BOMB_DAMAGE = 20;
+    public static final int ATOMIC_BOMB_EXPLOSION_END_TIME = 2000;
+    public static final int ATOMIC_BOMB_LIFE_TIME = 5000;
+    
+    public static final float CANNON_BALL_MASS = 0.1f;
+    public static final int CANNON_BALL_DAMAGE = 10;
+    public static final int CANNON_BALL_EXPLOSION_END_TIME = 2000;
+    public static final int CANNON_BALL_LIFE_TIME = 5000;
+    
+    public static final float LANDMINE_MASS = 500f;
+    public static final int LANDMINE_DAMAGE = 30;
+    public static final int LANDMINE_EXPLOSION_END_TIME = 2000;
+    public static final int LANDMINE_LIFE_TIME = 300000;
+    
+    public static final float MISSILE_MASS = 0.1f;
+    public static final int MISSILE_DAMAGE = 20;
+    public static final int MISSILE_EXPLOSION_END_TIME = 2000;
+    public static final int MISSILE_LIFE_TIME = 10000;
     
     
     public static final String RIGHT_FRONT_WHEEL_MODEL_NAME = "WheelFrontRight";

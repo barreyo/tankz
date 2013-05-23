@@ -1,12 +1,6 @@
 
 package model;
 
-import utilities.Commands;
-import com.jme3.export.JmeExporter;
-import com.jme3.export.JmeImporter;
-import com.jme3.math.Quaternion;
-import java.io.IOException;
-
 /**
  *
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
@@ -51,15 +45,5 @@ public class AirCallPowerup extends APowerup {
             }
         }
 
-    }
-    
-    @Override
-    public void write(JmeExporter ex) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public void read(JmeImporter im) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

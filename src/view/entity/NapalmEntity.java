@@ -11,7 +11,7 @@ import view.effects.EEffects;
  * The graphical representation of the Nuke powerups projectile, when it is shot.
  * 
  * Connects the visual representation with its effects as well handling
- *  collision shapes.
+ * collision shapes.
  *
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
@@ -27,12 +27,10 @@ public final class NapalmEntity extends AExplodingEntity {
     }
     
     /**
-     * Tells the camera to shake, removes the nuke from the world
-     *  and shows an effect.
+     * {@inheritDoc}
      */
     @Override
-    public void impact() {
-        pcs.firePropertyChange(Commands.CAMERA_SHAKE, null, null);
-        super.impact();
+    public CollisionShape getCollisionShape() {
+        return new BoxCollisionShape(getExtents());
     }
 }

@@ -1,35 +1,25 @@
 package model;
 
 import utilities.Commands;
-import com.jme3.export.JmeExporter;
-import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import java.io.IOException;
+import utilities.Constants;
 
 /**
  *
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
-public final class MissileModel extends AExplodingProjectile {
-    private static final int DAMAGE = 20;
-    private static final float MASS = 0.1f;
-    private static final long EXPLOSION_END_TIME = 2000;
-    private static final long MAX_LIFE_TIME = 10000;
-        
+public final class MissileModel extends AExplodingProjectile { 
     private boolean hasAttackTarget;
     private Vector3f attackTarget = new Vector3f();
     private Vector3f launchTarget = new Vector3f();
     
     private long launchTimerStart;
     private static final long LAUNCH_END_TIME = 1000;
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public float getMass() {
-        return MASS;
+    
+    public MissileModel() {
+        super(Constants.MISSILE_MASS, Constants.MISSILE_DAMAGE, 
+                Constants.MISSILE_EXPLOSION_END_TIME, Constants.MISSILE_LIFE_TIME);
     }
 
     /**
@@ -84,49 +74,5 @@ public final class MissileModel extends AExplodingProjectile {
         Quaternion oldRotation = new Quaternion(rotation);
         rotation.lookAt(targetVec, Vector3f.UNIT_Y);
         pcs.firePropertyChange(Commands.ROTATE, oldRotation, rotation);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void doDamageOn(IDamageableObject damageableObject) {
-        if (damageableObject.applyDamageToKill(DAMAGE)) {
-            if (launcherPlayer != null && damageableObject != launcherPlayer.getVehicle()) {
-                launcherPlayer.incrementKills();
-            }
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void write(JmeExporter ex) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void read(JmeImporter im) throws IOException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public long getExplosionEndTime() {
-        return EXPLOSION_END_TIME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public long getLifeTime() {
-        return MAX_LIFE_TIME;
     }
 }

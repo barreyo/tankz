@@ -26,8 +26,4 @@ public interface IExplodingObject extends IWorldObject {
      * @param damageableObject 
      */
     public void doDamageOn(IDamageableObject damageableObject);
-    
-    public long getExplosionEndTime();
-    
-    public long getLifeTime();
 }

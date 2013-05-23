@@ -1,11 +1,13 @@
 package model;
 
+import com.jme3.export.JmeExporter;
+import com.jme3.export.JmeImporter;
 import utilities.Commands;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.util.TempVars;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
 
 /**
  *
@@ -149,5 +151,15 @@ public abstract class APowerup implements IPowerup {
     @Override
     public Quaternion getRotation() {
         return new Quaternion(rotation);
+    }
+    
+     @Override
+    public void write(JmeExporter ex) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void read(JmeImporter im) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

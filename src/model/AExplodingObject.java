@@ -21,8 +21,14 @@ public abstract class AExplodingObject implements IExplodingObject{
     Quaternion rotation;
     boolean isInWorld;
     boolean exploding;
+    private boolean hasDoneDamage;
+    private final float mass;
+    private final int damage;
+    private final int explosionEndMS;
+    private final int lifeTimeMS;
     
     private long lifeTimerStart;
+    
     private long explodingTimerStart;
     
     IPlayer launcherPlayer;
@@ -32,7 +38,11 @@ public abstract class AExplodingObject implements IExplodingObject{
     /**
      * Constructor for LandmineModel
      */
-    public AExplodingObject(){
+    public AExplodingObject(float mass, int damage, int explosionEndMS, int lifeTimeMS){
+        this.mass = mass;
+        this.damage = damage;
+        this.explosionEndMS = explosionEndMS;
+        this.lifeTimeMS = lifeTimeMS;
         this.initialPos = Vector3f.ZERO;
         this.position = Vector3f.ZERO;
         this.rotation = Quaternion.ZERO;
@@ -71,6 +81,7 @@ public abstract class AExplodingObject implements IExplodingObject{
     public void showInWorld() {
         exploding = false;
         isInWorld = true;
+        hasDoneDamage = false;
         lifeTimerStart = System.currentTimeMillis();
         pcs.firePropertyChange(Commands.SHOW, null, null);
     }
@@ -99,12 +110,12 @@ public abstract class AExplodingObject implements IExplodingObject{
     public void update(float tpf) {
         if (isInWorld) {
             if (exploding) {
-                if (System.currentTimeMillis() - explodingTimerStart >= this.getExplosionEndTime()) {
+                if (System.currentTimeMillis() - explodingTimerStart >= explosionEndMS) {
                     exploding = false;
                     pcs.firePropertyChange(Commands.EXPLOSION_FINISHED, null, null);
                 }
             } else {
-                if (System.currentTimeMillis() - lifeTimerStart >= this.getLifeTime()) {
+                if (System.currentTimeMillis() - lifeTimerStart >= lifeTimeMS) {
                     hideFromWorld();
                 }
             }
@@ -167,5 +178,25 @@ public abstract class AExplodingObject implements IExplodingObject{
         exploding = true;
         explodingTimerStart = System.currentTimeMillis();
         hideFromWorld();
+    }
+    
+    @Override
+    public void doDamageOn(IDamageableObject damageableObject) {
+        if (!hasDoneDamage) {
+            if (damageableObject.applyDamageToKill(damage)) {
+                if (launcherPlayer != null && damageableObject != launcherPlayer.getVehicle()) {
+                    launcherPlayer.incrementKills();
+                }
+            }
+            hasDoneDamage = true;
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public float getMass() {
+        return mass;
     }
 }
