@@ -1,8 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package GameModel;
+
+package model;
 
 import model.Player;
 import model.HastePowerup;
@@ -35,6 +32,7 @@ public class TanksGameModelTest {
     private static List<IPowerup> powerups;
     private static List<ISpawningPoint> playerSpawning, puSpawning;
     private static TanksGameModel instance;
+    private static GameSettings gameSettings;
     
     @BeforeClass
     public static void setUpClass() {
@@ -42,6 +40,7 @@ public class TanksGameModelTest {
         powerups = new ArrayList<IPowerup>();
         playerSpawning = new ArrayList<ISpawningPoint>();
         puSpawning = new ArrayList<ISpawningPoint>();
+        gameSettings = new GameSettings(300000, 5, 20000);
     }
     
     @AfterClass
@@ -57,14 +56,14 @@ public class TanksGameModelTest {
         puSpawning.clear();
         
         for (int i = 0; i < 4; i++) {
-            players.add(new Player("Pelle " + i, new TankModel(null, null)));
+            players.add(new Player("Pelle " + i, null));
             powerups.add(new HastePowerup());
             playerSpawning.add(new SpawningPoint(Vector3f.ZERO));
             puSpawning.add(new SpawningPoint(Vector3f.ZERO));
             puSpawning.get(i).setOccupier(new HastePowerup());
             puSpawning.get(i).setOccupied(true);
         }
-        instance = new TanksGameModel(players, powerups, puSpawning, playerSpawning, new GameSettings(20f, 2));
+        instance = new TanksGameModel(players, powerups, puSpawning, playerSpawning, gameSettings);
     }
     
     @After
@@ -97,31 +96,6 @@ public class TanksGameModelTest {
     }
 
     /**
-     * Test of getPowerups method, of class TanksGameModel.
-     */
-    @Test
-    public void testGetPowerups() {
-        System.out.println("getPowerups");
-        boolean allHaste = true;
-        for (IPowerup powerup : instance.getPowerups()) {
-            if (!(powerup instanceof HastePowerup)) {
-                allHaste = false;
-            }
-        }
-        assertTrue(instance.getPowerups().size() == 4);
-        assertTrue(allHaste);
-    }
-
-    /**
-     * Test of getSpawningPoints method, of class TanksGameModel.
-     */
-    @Test
-    public void testGetSpawningPoints() {
-        System.out.println("getSpawningPoints");
-        assertTrue(instance.getSpawningPoints().size() == 4);
-    }
-
-    /**
      * Test of cleanup method, of class TanksGameModel.
      */
     @Test
@@ -149,14 +123,5 @@ public class TanksGameModelTest {
             }
         }
         assertTrue(allEmpty);
-    }
-
-    /**
-     * Test of getGameEndTimeMS method, of class TanksGameModel.
-     */
-    @Test
-    public void testGetGameTime() {
-        System.out.println("getGameTime");
-        assertTrue(instance.getGameTimeLeft() == 20f);
     }
 }

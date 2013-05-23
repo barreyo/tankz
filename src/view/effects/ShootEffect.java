@@ -19,11 +19,16 @@ import java.util.List;
  */
 final class ShootEffect extends AEffect implements IEffect{
     
-
+    /**
+     * Create a shooting effect.
+     */
     ShootEffect() {
         createSpark();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Collection<ParticleEmitter> getParticleEmitters() {
         List<ParticleEmitter> emit = new ArrayList<ParticleEmitter>();

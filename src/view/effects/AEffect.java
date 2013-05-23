@@ -14,6 +14,7 @@ import java.util.List;
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class AEffect {
+    
     /**
      * A list of particle emitters.
      */

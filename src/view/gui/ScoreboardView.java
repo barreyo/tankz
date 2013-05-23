@@ -172,7 +172,7 @@ public class ScoreboardView extends AHudElement {
     }
     
     /**
-     * {{@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void show() {

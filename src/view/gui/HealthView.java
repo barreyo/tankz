@@ -68,8 +68,7 @@ public class HealthView extends AHudElement {
     }
     
     /**
-     * {{@inheritDoc}}
-     * @param pce 
+     * {@inheritDoc}
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
@@ -81,7 +80,7 @@ public class HealthView extends AHudElement {
     }
     
     /**
-     * {{@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void show() {
@@ -91,7 +90,7 @@ public class HealthView extends AHudElement {
     }
     
     /**
-     * {{@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void hide() {

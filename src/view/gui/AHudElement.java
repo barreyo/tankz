@@ -1,7 +1,6 @@
 
 package view.gui;
 
-import view.gui.IHudElement;
 import application.TanksAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.scene.Node;
@@ -35,7 +34,7 @@ public abstract class AHudElement implements PropertyChangeListener, IHudElement
     protected Node guiNode = TanksAppAdapter.INSTANCE.getGUINode();
     
     /**
-     * Makes the element visible in the GUI.
+     * {@inheritDoc}
      */
     @Override
     public void show() {
@@ -43,7 +42,7 @@ public abstract class AHudElement implements PropertyChangeListener, IHudElement
     }
     
     /**
-     * Removes the element from the GUI.
+     * {@inheritDoc}
      */
     @Override
     public void hide() {

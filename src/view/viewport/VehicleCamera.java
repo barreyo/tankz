@@ -17,38 +17,13 @@ import com.jme3.scene.Spatial;
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class VehicleCamera extends ChaseCamera {
-    
-    /**
-     * {{@inheritDoc}}
-     * @param cam 
-     * @param target 
-     */
-    public VehicleCamera(Camera cam, final Spatial target) {
-        super(cam, target);
-    }
 
     /**
-     * {{@inheritDoc}}
-     * @param cam 
-     */
-    public VehicleCamera(Camera cam) {
-        super(cam);
-    }
-
-    /**
-     * {{@inheritDoc}}
-     * @param cam 
-     * @param inputManager 
-     */
-    public VehicleCamera(Camera cam, InputManager inputManager) {
-        super(cam, inputManager);
-    }
-
-    /**
-     * {{@inheritDoc}}
-     * @param cam 
-     * @param inputManager
-     * @param target  
+     * Instatiate a vehicle chase camera.
+     * 
+     * @param cam viewport camera.
+     * @param inputManager inputmanager of the game.
+     * @param target spatial to follow.
      */
     public VehicleCamera(Camera cam, final Spatial target,
                                 InputManager inputManager) {
@@ -61,15 +36,16 @@ public class VehicleCamera extends ChaseCamera {
      * Sets the horizontal vector that is used to specify
      * the horizontal direction of the camera.
      * 
-     * @param lo 
+     * @param lo direction to look at.
      */
     public void setHorizonalLookAt(Vector3f lo) {
         horLookAt = lo.normalizeLocal();
     }
    
     /**
-     * {{@inheritDoc}}
+     * {@inheritDoc}
      */
+    @Override
     protected void computePosition() {
         if (horLookAt == null) 
             return;

@@ -3,8 +3,9 @@ package utilities;
 import com.jme3.math.Vector3f;
 
 /**
- *
- * @author Daniel
+ * Useful constants for the Tankz game.
+ * 
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public final class Constants {
     private Constants() {}

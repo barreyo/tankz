@@ -2,12 +2,12 @@
 package view.gui;
 
 import application.TanksAppAdapter;
-import model.ITanks;
-import utilities.Commands;
 import com.jme3.font.BitmapFont;
 import com.jme3.font.BitmapText;
 import com.jme3.ui.Picture;
 import java.beans.PropertyChangeEvent;
+import model.ITanks;
+import utilities.Commands;
 
 /**
  * Graphical representation of the in game timer.
@@ -17,7 +17,6 @@ import java.beans.PropertyChangeEvent;
 public class TimerView extends AHudElement {
     
     private BitmapText bitmapText;
-    private ITanks gameModel;
     
     /**
      * Instatiates a view component of the in game timer. Needs a gameModel to
@@ -26,8 +25,6 @@ public class TimerView extends AHudElement {
      * @param gameModel the GameModel this view will listen to.
      */
     public TimerView(ITanks gameModel) {
-        this.gameModel = gameModel;
-        
         float screenWidth = TanksAppAdapter.INSTANCE.getScreenWidth();
         float screenHeight = TanksAppAdapter.INSTANCE.getScreenHeight();
         
@@ -58,8 +55,7 @@ public class TimerView extends AHudElement {
     }
 
     /**
-     * {{@inheritDoc}}
-     * @param pce 
+     * {@inheritDoc}
      */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
@@ -88,7 +84,7 @@ public class TimerView extends AHudElement {
     }
     
     /**
-     * {{@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void show() {
@@ -97,7 +93,7 @@ public class TimerView extends AHudElement {
     }
     
     /**
-     * {{@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void hide() {

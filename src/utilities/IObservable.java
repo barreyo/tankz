@@ -1,6 +1,7 @@
 package utilities;
 
 import java.beans.PropertyChangeListener;
+
 /**
  * Interface allowing registering listeners for changes in state.
  * 

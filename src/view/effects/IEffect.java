@@ -11,9 +11,9 @@ import java.util.Collection;
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public interface IEffect {
+    
     /**
-     *
-     * @return
+     * @return the particel emitters for the effect.
      */
     public Collection<ParticleEmitter> getParticleEmitters();
 }

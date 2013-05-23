@@ -1,7 +1,5 @@
 package view.entity;
 
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
-import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
@@ -13,7 +11,7 @@ import view.effects.EEffects;
  * The graphical representation of the Missile powerups projectile, when it is shot.
  * 
  * Connects the visual representation with its effects as well handling
- *  collision shapes.
+ * collision shapes.
  * 
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */

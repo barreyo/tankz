@@ -1,6 +1,5 @@
 package view.entity;
 
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.control.Control;
@@ -23,7 +22,8 @@ public interface IGameEntity extends PropertyChangeListener, IObservable {
 
     /**
      * Adds an appropriate control to this view.
-     * @param control 
+     * 
+     * @param control control to be added.
      */
     public void addControl(Control control);
 

@@ -40,8 +40,7 @@ public class DestroyedEffect implements IEffect {
     }
     
     /**
-     *
-     * @return
+     * {@inheritDoc}
      */
     @Override
     public Collection<ParticleEmitter> getParticleEmitters() {

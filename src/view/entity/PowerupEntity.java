@@ -1,8 +1,6 @@
 
 package view.entity;
 
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
-import com.jme3.bullet.collision.shapes.CollisionShape;
 import model.IPowerup;
 
 /**

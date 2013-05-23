@@ -13,6 +13,7 @@ import java.util.List;
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum ViewPortManager {
+    
     /**
      * Gain access to this manager.
      */
@@ -58,16 +59,17 @@ public enum ViewPortManager {
     /**
      * Returns the viewport for the specified player.
      * 
-     * @param name 
-     * @return the viewport for the specified player
+     * @param name player name.
+     * @return the viewport for the specified player.
      */
     public ViewPort getViewportForPlayer(String name) {
         return views.get(name).getViewPort();
     }
     
     /**
+     * Get all viewports.
      * 
-     * @return 
+     * @return list of viewports.
      */
     public Collection<EViewPorts> getViews() {
         return Collections.unmodifiableCollection(views.values());

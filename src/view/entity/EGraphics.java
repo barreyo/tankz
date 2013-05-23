@@ -16,14 +16,17 @@ public enum EGraphics {
      * Model used for missile projectiles.
      */
     SHARK("Models/shark/shark.j3o"),
+    
     /**
      * The default map.
      */
     MAP1("Scenes/Map2/Map2_treeslol.j3o"),
+    
     /**
      * Model used for powerup boxes.
      */
     POWERUP("Models/PUBox/PUBox.j3o"),
+    
     /**
      * Model used for bomb.
      */

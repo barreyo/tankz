@@ -16,7 +16,6 @@ import com.jme3.math.Vector3f;
  */
 public class SmokeEffect extends AEffect implements IEffect {
     
-    
     /**
      * Instantiates the object.
      * Creates the smoke

@@ -1,8 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package GameModel;
+
+package model;
 
 import model.IExplodingProjectile;
 import model.TankModel;

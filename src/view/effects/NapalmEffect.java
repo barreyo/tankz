@@ -1,10 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view.effects;
 
-import application.TanksAppAdapter;
 import com.jme3.asset.AssetManager;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.ParticleMesh;
@@ -12,18 +8,16 @@ import com.jme3.effect.shapes.EmitterSphereShape;
 import com.jme3.material.Material;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
- *
- * @author perthoresson
+ * Big fire effect for air call powerup missiles.
+ *  
+ * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public class NapalmEffect extends AEffect implements IEffect {
     
     /**
-     * Package private constructor for NapalmEffect
+     * Create a napalm effect.
      */
     NapalmEffect (){
         super();
@@ -33,10 +27,6 @@ public class NapalmEffect extends AEffect implements IEffect {
         //createSmoke(assetManager);
     }
     
-    /**
-     * 
-     * @param assetManager 
-     */
     private void createShockwave(AssetManager assetManager){
         ParticleEmitter shockwave = new ParticleEmitter("Shockwave", ParticleMesh.Type.Triangle, 1);
         shockwave.setFaceNormal(Vector3f.UNIT_Y);

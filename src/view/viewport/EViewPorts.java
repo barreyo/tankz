@@ -9,9 +9,7 @@ import com.jme3.renderer.Camera;
 import com.jme3.renderer.Caps;
 import com.jme3.renderer.ViewPort;
 import com.jme3.renderer.queue.RenderQueue.ShadowMode;
-import com.jme3.scene.Node;
 import com.jme3.shadow.DirectionalLightShadowRenderer;
-import java.util.concurrent.Callable;
 
 /**
  * Enum holding the different kind of viewports used in Tanks.
@@ -80,38 +78,24 @@ public enum EViewPorts {
             view = TanksAppAdapter.INSTANCE.createMainView(loc, cam);
             view.setClearFlags(true, true, true);
             view.setEnabled(false);
-
+            
+            // Reset shadow mode for all root node instances.
             TanksAppAdapter.INSTANCE.getRootNode().setShadowMode(ShadowMode.Off);
 
             FilterPostProcessor fpp = new FilterPostProcessor(TanksAppAdapter.INSTANCE.getAssetManager());
 
+            // Used for shadow direction, should maybe use the sun object in map.
             DirectionalLight light = new DirectionalLight();
             light.setDirection(new Vector3f(-.5f, -.5f, -.5f).normalizeLocal());
-
-            // These are different kind of shadowings, one will be chosen depending
-            // on what looks best and has best performance.
-
-//        DirectionalLightShadowFilter dlsf = new DirectionalLightShadowFilter
-//                        (TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 4);
-//        dlsf.setLight(light);
-//        dlsf.setLambda(0.55f);
-//        dlsf.setShadowIntensity(0.6f);        
-//        dlsf.setEdgeFilteringMode(EdgeFilteringMode.Nearest);
-//        
-//        fpp.addFilter(dlsf);
             
+            // Create real time shadows.
             DirectionalLightShadowRenderer dlsr = new DirectionalLightShadowRenderer(TanksAppAdapter.INSTANCE.getAssetManager(), 1024, 4);
             dlsr.setLight(light);
             dlsr.setLambda(0.9f);
             dlsr.setShadowIntensity(0.35f);
             view.addProcessor(dlsr);
 
-            /*DepthOfFieldFilter dof = new DepthOfFieldFilter();
-             dof.setFocusDistance(0);
-             dof.setFocusRange(100);
-             fpp.addFilter(dof);*/
-
-            // uncomment this for cartoon, trees gets fucked up though
+            // Toon edges for all world objects.
             if (TanksAppAdapter.INSTANCE.rendererContains(Caps.GLSL100)) {
                 CartoonEdgeFilter cartoonFilter = new CartoonEdgeFilter();
                 cartoonFilter.setEdgeWidth(0.6f);

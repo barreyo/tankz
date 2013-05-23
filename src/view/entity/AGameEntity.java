@@ -72,7 +72,8 @@ public abstract class AGameEntity implements IGameEntity {
     
     /**
      * Help metohd used to get the boundingbox of the spatial.
-     * @return 
+     * 
+     * @return bounds of object.
      */
     final Vector3f getExtents() {
         return ((BoundingBox) spatial.getWorldBound()).getExtent(null);

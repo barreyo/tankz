@@ -10,6 +10,7 @@ import java.util.Collection;
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum EEffects {
+    
     /**
      * The explosion effect.
      */
