@@ -29,15 +29,7 @@ public final class MissileEntity extends AExplodingEntity {
         super(proj, EGraphics.SHARK, EEffects.EXPLOSION.getEmitters());
         flameEffects = EEffects.FLAME.getEmitters();
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CollisionShape getCollisionShape() {
-        return new BoxCollisionShape(getExtents());
-    }
-
+    
     /**
      * {@inheritDoc}
      */

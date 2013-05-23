@@ -27,14 +27,6 @@ public final class NapalmEntity extends AExplodingEntity {
     }
     
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CollisionShape getCollisionShape() {
-        return new BoxCollisionShape(getExtents());
-    }
-    
-    /**
      * Tells the camera to shake, removes the nuke from the world
      *  and shows an effect.
      */

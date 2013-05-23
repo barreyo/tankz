@@ -22,12 +22,4 @@ public final class CanonBallEntity extends AExplodingEntity {
     public CanonBallEntity(IExplodingProjectile proj) {
         super(proj, EGraphics.BOMB, EEffects.EXPLOSION.getEmitters());
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CollisionShape getCollisionShape() {
-        return new BoxCollisionShape(getExtents());
-    }
 }

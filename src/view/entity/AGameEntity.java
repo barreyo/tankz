@@ -2,6 +2,8 @@ package view.entity;
 
 import application.TanksAppAdapter;
 import com.jme3.bounding.BoundingBox;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -181,5 +183,13 @@ public abstract class AGameEntity implements IGameEntity {
      */
     void updateRotation() {
         spatial.setLocalRotation(worldObject.getRotation());
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CollisionShape getCollisionShape() {
+        return new BoxCollisionShape(getExtents());
     }
 }
