@@ -138,7 +138,7 @@ public class TanksGameModel implements ITanks {
                 secondTimerStart = currTime;
             }
             for (IPlayer player : players) {
-                if (player.getKills() >= settings.getKillsToWin() && settings.getKillsToWin() <= 0) {
+                if (player.getKills() >= settings.getKillsToWin() && settings.getKillsToWin() > 0) {
                     endGame();
                     return;
                 }
