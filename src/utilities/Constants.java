@@ -66,7 +66,7 @@ public final class Constants {
     
     public static final float CCD_MOTION_THRESHOLD = 0.1f;
     public static final int NUMBER_OF_EACH_POWERUP = 20;
-    public static final int LANDMINES_PER_PLAYER = 10;
+    public static final int LANDMINES_PER_PLAYER = 30;
     public static final int MISSILES_PER_PLAYER = 5;
     public static final int CANNONBALLS_PER_PLAYER = 10;
     public static final int BOMBS_IN_AIRCALL = 20;
