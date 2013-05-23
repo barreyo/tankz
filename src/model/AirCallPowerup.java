@@ -20,7 +20,7 @@ public class AirCallPowerup extends APowerup {
     public void usePowerup(IPlayer player) {
         super.usePowerup(player);
         this.player = player;
-        
+        player.getVehicle().hideAirCallRing();
         activateTimerStart = System.currentTimeMillis();
         isActive = true;
     }
@@ -39,7 +39,6 @@ public class AirCallPowerup extends APowerup {
                 counter = 0;
             }
             if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
-                player.getVehicle().hideAirCallRing();
                 isActive = false;
                 isHeldByPlayer = false;
             }
