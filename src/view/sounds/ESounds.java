@@ -8,7 +8,7 @@ package view.sounds;
 public enum ESounds {
     
     /**
-     * Sound played when an element in the menus is hovered with the mouse.
+     * The sound played when an element in the menus is hovered with the mouse.
      */
     CLICK_SOUND("click.ogg", false, 0.5f),
     
@@ -16,6 +16,11 @@ public enum ESounds {
      * The sound played when a shot is launched.
      */
     MISSILE_LAUNCH_SOUND("Explosion.ogg", false, 0.1f),
+    
+    /**
+     * The sound played when the powerup napalm is activated
+     */
+    NAPALM_EXPLOSION_SOUND("napalmExplosion2.ogg", false, 0.2f),
     
     /**
      * The sound played when a shot hits something in the world.

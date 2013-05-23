@@ -21,22 +21,14 @@ public enum EffectsManager {
     private EnumMap<EEffects, Collection<ParticleEmitter>> effectsMap = new EnumMap<EEffects, Collection<ParticleEmitter>>(EEffects.class);
 
     /**
-     * Load all effects.
-     */
-    public void load() {
-        // Call this after loading viewports
-        Collection<EViewPorts> views = ViewPortManager.INSTANCE.getViews();
-        loadGraphics(new EEffects[]{EEffects.EXPLOSION, EEffects.FLAME, EEffects.SHOOT,
-                    EEffects.SMOKE, EEffects.TANK_BLOWN_UP}, views);
-    }
-
-    /**
      * Load graphics for effects.
      * 
      * @param effects effects to add graphics tp.
      * @param views viewports.
      */
-    private void loadGraphics(EEffects[] effects, Collection<EViewPorts> views) {
+    public void load() {
+        Collection<EViewPorts> views = ViewPortManager.INSTANCE.getViews();
+        EEffects[] effects = EEffects.values();
         for (EViewPorts view : views) {
             for (EEffects effect : effects) {
                 for (ParticleEmitter emitter : effect.getEmitters()) {

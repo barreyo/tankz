@@ -34,7 +34,7 @@ class TanksApp extends SimpleApplication {
         stateManager.attach(bulletAppState);
    
         //Loads the sounds needed before game start.
-        SoundManager.INSTANCE.preLoad();
+        SoundManager.INSTANCE.loadSound();
         // Show the main menu
         GUIManager.INSTANCE.showMainMenu();
         // Detach the settings window.
