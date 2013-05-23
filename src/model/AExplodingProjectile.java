@@ -10,13 +10,11 @@ import com.jme3.math.Vector3f;
 public abstract class AExplodingProjectile extends AExplodingObject implements IExplodingProjectile {
     
     Vector3f linearVelocity;
-
-    /**
-     *
-     */
-    public AExplodingProjectile() {
-        this.linearVelocity = Vector3f.ZERO;
-    }
+    
+     AExplodingProjectile(float mass, int damage, int explosionEndMS, int lifeTimeMS) {
+         super(mass, damage, explosionEndMS, lifeTimeMS);
+         this.linearVelocity = Vector3f.ZERO;
+     }
     
     /**
      * {@inheritDoc}

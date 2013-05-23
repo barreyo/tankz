@@ -1,13 +1,11 @@
 package model;
 
-import model.IArmedVehicle.VehicleState;
 import utilities.Commands;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * The model for the game state.
@@ -25,14 +23,10 @@ public class TanksGameModel implements ITanks {
     private final long gameEndTime;
     private long gameTimerStart;
     private long gameTimeLeft;
-    
     private long powerupSpawningTimerStart;
     private final long powerupSpawningIntervall;
-    
     private long secondTimerStart;
-    
     private long pauseTimeStart;
-    
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     /**
@@ -40,7 +34,8 @@ public class TanksGameModel implements ITanks {
      *
      * @param players list of all the IPlayers in the game
      * @param powerups list of all th IPowerups in the game
-     * @param powerupSpawningPoints list of all the powerupspawningpoints in game
+     * @param powerupSpawningPoints list of all the powerupspawningpoints in
+     * game
      * @param playerSpawningPoints list of all the playerspawningpoints in game
      * @param settings the game settings for the game
      */
@@ -97,7 +92,7 @@ public class TanksGameModel implements ITanks {
     public void pauseGame() {
         pauseTimeStart = System.currentTimeMillis();
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -138,12 +133,12 @@ public class TanksGameModel implements ITanks {
                 return;
             }
             if (currTime - secondTimerStart >= 1000) {
-                gameTimeLeft = (gameEndTime - (System.currentTimeMillis() - gameTimerStart))/1000;
+                gameTimeLeft = (gameEndTime - (System.currentTimeMillis() - gameTimerStart)) / 1000;
                 pcs.firePropertyChange(Commands.TIMER, null, gameTimeLeft);
                 secondTimerStart = currTime;
             }
             for (IPlayer player : players) {
-                if (player.getKills() >= settings.getKillsToWin()) {
+                if (player.getKills() >= settings.getKillsToWin() && settings.getKillsToWin() <= 0) {
                     endGame();
                     return;
                 }
@@ -223,7 +218,8 @@ public class TanksGameModel implements ITanks {
 
     /**
      * Respawns the player at a random spawningpoint.
-     * @param player 
+     *
+     * @param player
      */
     private void respawnPlayer(IPlayer player) {
         Collections.shuffle(playerSpawningPoints);
