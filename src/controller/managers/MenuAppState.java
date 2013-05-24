@@ -272,7 +272,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         if (killsToWin == 0) {
             killsToWinElement.getRenderer(TextRenderer.class).setText("KILLS TO WIN: INFINITY");
         } else {
-            killsToWinElement.getRenderer(TextRenderer.class).setText("KILLS TO WIN: " + killsToWin + " MIN");
+            killsToWinElement.getRenderer(TextRenderer.class).setText("KILLS TO WIN: " + killsToWin);
         }
     }
     
