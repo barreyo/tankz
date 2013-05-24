@@ -1,22 +1,9 @@
 
 package model;
 
-import model.Player;
-import model.HastePowerup;
-import model.GameSettings;
-import model.IPlayer;
-import model.TanksGameModel;
-import model.ISpawningPoint;
-import model.IPowerup;
-import model.SpawningPoint;
-import model.TankModel;
 import com.jme3.math.Vector3f;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -24,7 +11,7 @@ import org.junit.Test;
 
 /**
  *
- * @author backman
+ * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
 public class TanksGameModelTest {
     
@@ -41,10 +28,6 @@ public class TanksGameModelTest {
         playerSpawning = new ArrayList<ISpawningPoint>();
         puSpawning = new ArrayList<ISpawningPoint>();
         gameSettings = new GameSettings(300000, 5, 20000);
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
     }
     
     @Before
@@ -66,10 +49,6 @@ public class TanksGameModelTest {
         instance = new TanksGameModel(players, powerups, puSpawning, playerSpawning, gameSettings);
     }
     
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of getPlayers method, of class TanksGameModel.
      */
@@ -93,18 +72,6 @@ public class TanksGameModelTest {
         assertTrue(allPlayer);
         assertTrue(instance.getPlayers().size() == 4);
         assertTrue(namesRight);
-    }
-
-    /**
-     * Test of cleanup method, of class TanksGameModel.
-     */
-    @Test
-    public void testCleanup() {
-        System.out.println("cleanup");
-        instance.cleanup();
-        
-        assertTrue(players.isEmpty());
-        assertTrue(powerups.isEmpty());
     }
 
     /**
