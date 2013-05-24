@@ -25,7 +25,7 @@
                     <interact onClick="" />
               </control>
                 <control id="main_menu" name ="label"  style="main" text="NEW GAME">
-                    <interact onClick="goToGameSettingsMenu()" />
+                    <interact onClick="goToMultiplayerScreen()" />
                 </control>
                 <control id="main_settings" name ="label"  style="main" text="SETTINGS">
                     <interact onClick="goToSettingsScreen()" />
@@ -55,8 +55,8 @@
                 <control id="spacer" name ="label"  style="main" text="                 ">
                     <interact onClick="" />
                 </control>
-                <control id="main_continue" name ="label"  style="main" text="CONTINUE">
-                    <interact onClick="goToMultiplayerScreen()" />
+                <control id="main_continue" name ="label"  style="main" text="START GAME">
+                    <interact onClick="startGame()" />
                 </control>
                 <control id="main_time" name ="label"  style="main" text="GAMETIME: 5 MIN">
                     <interact onClick="incrementGameTime()" />
@@ -68,7 +68,7 @@
                     <interact onClick="incrementPowerupSpawnTime()" />
                 </control>
                 <control id="main_back" name ="label"  style="main" text="BACK">
-                    <interact onClick="goToMainMenu()" />
+                    <interact onClick="goToMultiplayerScreen()" />
                 </control>
             </panel>
         </layer>
@@ -105,7 +105,7 @@
                     <interact onClick="loadFourPlayerGame()" />
                 </control>
                 <control id="main_back" name ="label"  style="main" text="BACK">
-                    <interact onClick="goToGameSettingsMenu()" />
+                    <interact onClick="goToMainMenu()" />
                 </control>
             </panel>
         </layer>

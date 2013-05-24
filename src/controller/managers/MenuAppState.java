@@ -32,7 +32,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
             gameTimeElement, powerupRespawnElement;
     private SoundHandle sound;
     
-    private int killsToWin, gameTimeMinutes, powerupRespawnSeconds;
+    private int killsToWin, gameTimeMinutes, powerupRespawnSeconds, playerCount;
     
     private final List<String> playerNames = new ArrayList<String>();
 
@@ -276,9 +276,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadOnePlayerGame() {
-        playerNames.add("Player1");
-        GUIManager.INSTANCE.showLoadingScreen();
-        TanksAppAdapter.INSTANCE.detachAppState(this);
+        playerCount = 1;
+        goToGameSettingsMenu();
     }
     
     /**
@@ -287,10 +286,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadTwoPlayerGame() {
-        playerNames.add("Player1");
-        playerNames.add("Player2");
-        GUIManager.INSTANCE.showLoadingScreen();
-        TanksAppAdapter.INSTANCE.detachAppState(this);
+        playerCount = 2;
+        goToGameSettingsMenu();
     }
     
     /**
@@ -299,11 +296,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadThreePlayerGame() {
-        playerNames.add("Player1");
-        playerNames.add("Player2");
-        playerNames.add("Player3");
-        GUIManager.INSTANCE.showLoadingScreen();
-        TanksAppAdapter.INSTANCE.detachAppState(this);
+        playerCount = 3;
+        goToGameSettingsMenu();
     }
     
     /**
@@ -312,10 +306,14 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
      * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
      */
     public void loadFourPlayerGame() {
-        playerNames.add("Player1");
-        playerNames.add("Player2");
-        playerNames.add("Player3");
-        playerNames.add("Player4");
+        playerCount = 4;
+        goToGameSettingsMenu();
+    }
+    
+    public void startGame() {
+        for (int i = 0; i < playerCount; i++) {
+            playerNames.add("Player " + i);
+        }
         GUIManager.INSTANCE.showLoadingScreen();
         TanksAppAdapter.INSTANCE.detachAppState(this);
     }
