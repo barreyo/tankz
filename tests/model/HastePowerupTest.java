@@ -14,7 +14,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Haste powerup test.
+ * 
  * @author Garpetun
  */
 public class HastePowerupTest {

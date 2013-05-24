@@ -11,7 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- *
+ * Abstract powerup test.
+ * 
  * @author Garpetun
  */
 public class APowerupTest {
