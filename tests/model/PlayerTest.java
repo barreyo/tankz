@@ -1,13 +1,11 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model;
 
-import model.Player;
-import model.HastePowerup;
-import model.MissilePowerup;
-import model.IPowerup;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,53 +18,18 @@ import static org.junit.Assert.*;
  * @author perthoresson
  */
 public class PlayerTest {
-    Player player;
     
+    Player instance;
     
     public PlayerTest() {
     }
     
-    @BeforeClass
-    public static void setUpClass() {
-    }
     
-    @AfterClass
-    public static void tearDownClass() {
-    }
-/*    
     @Before
     public void setUp() {
-        player = new Player("Spelare 1", new TankModel
-                (new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>()));
-    }
- */   
-    @After
-    public void tearDown() {
-    }
-
-    /**
-     * Test of getName method, of class Player.
-     */
-    @Test
-    public void testGetName() {
-        System.out.println("getName");
-        String expResult = "Spelare 1";
-        String result = player.getName();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * WTF!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     */
-    @Test
-    public void testGetVehicle() {
-        /*System.out.println("getVehicle");
-        Player instance = null;
-        IArmedVehicle expResult = null;
-        IArmedVehicle result = instance.getVehicle();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");*/
+        instance = new Player("test player", new TankModel(
+            new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>(),
+            new ArrayList<LandmineModel>(),new ArrayList<AtomicBombModel>()));
     }
 
     /**
@@ -76,7 +39,7 @@ public class PlayerTest {
     public void testGetKills() {
         System.out.println("getKills");
         int expResult = 0;
-        int result = player.getKills();
+        int result = instance.getKills();
         assertEquals(expResult, result);
     }
 
@@ -86,10 +49,10 @@ public class PlayerTest {
     @Test
     public void testIncrementKills() {
         System.out.println("incrementKills");
-        player.incrementKills();
+        instance.incrementKills();
         int expResult = 1;
-        int result = player.getKills();
-        assertEquals(result, expResult);
+        int result = instance.getKills();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -99,7 +62,7 @@ public class PlayerTest {
     public void testGetDeaths() {
         System.out.println("getDeaths");
         int expResult = 0;
-        int result = player.getDeaths();
+        int result = instance.getDeaths();
         assertEquals(expResult, result);
     }
 
@@ -109,10 +72,10 @@ public class PlayerTest {
     @Test
     public void testIncrementDeaths() {
         System.out.println("incrementDeaths");
-        player.incrementDeaths();
+        instance.incrementDeaths();
         int expResult = 1;
-        int result = player.getDeaths();
-        assertEquals(result, expResult);
+        int result = instance.getDeaths();
+        assertEquals(expResult, result);
     }
 
     /**
@@ -121,83 +84,50 @@ public class PlayerTest {
     @Test
     public void testResetStats() {
         System.out.println("resetStats");
-        player.resetStats();
+        instance.resetStats();
+        int expDeaths = instance.getDeaths();
+        int expKills = instance.getKills();
         int expResult = 0;
-        int resultDeaths = player.getDeaths();
-        int resultKills = player.getKills();
-        assertEquals(resultDeaths, resultKills, expResult);
+        assertEquals(expDeaths, expKills, expResult);
     }
 
-    /**
-     * Test of isActive method, of class Player.
-     */
-    @Test
-    public void testIsActive() {
-        System.out.println("isActive");
-        boolean expResult = false;
-        boolean result = player.isActive();
-        assertEquals(expResult, result);
-    }
+
 
     /**
-     * Test of activatePlayer method, of class Player.
+     * Test of equals method, of class Player.
      */
     @Test
-    public void testActivatePlayer() {
-        System.out.println("activatePlayer");
-        player.activatePlayer();
+    public void testEqualsAndHashCode() {
+        System.out.println("equals");
+        Player temp = new Player("test player", new TankModel(
+                new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>(),
+                new ArrayList<LandmineModel>(),new ArrayList<AtomicBombModel>()));
         boolean expResult = true;
-        boolean result = player.isActive();
-        assertEquals(result, expResult);
-    }
-
-    /**
-     * Test of deactivatePlayer method, of class Player.
-     */
-    @Test
-    public void testDeactivatePlayer() {
-        System.out.println("deactivatePlayer");
-        player.deactivatePlayer();
-        boolean expResult = false;
-        boolean result = player.isActive();
-        assertEquals(result, expResult);
-    }
-
-    /**
-     * Test of getPowerup method, of class Player.
-     */
-    @Test
-    public void testGetPowerup() {
-        System.out.println("getPowerup");
-        IPowerup expResult = new HastePowerup();
-        player.setPowerup(expResult);
-        IPowerup result = player.getPowerup();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of setPowerup method, of class Player.
-     */
-    @Test
-    public void testSetPowerup() {
-        System.out.println("setPowerup");
-        IPowerup expResult = new MissilePowerup();
-        player.setPowerup(expResult);
-        IPowerup result = player.getPowerup();
+        boolean result = instance.equals(temp);
         assertEquals(expResult, result);
         
+        //If two object is equal, hashcode should be equal
+        int tempHashCode = temp.hashCode();
+        int instanceHashCode = instance.hashCode();
+        assertEquals(tempHashCode, instanceHashCode);
+        
+        
+        Player temp2 = new Player("not equal", new TankModel(
+                new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>(),
+                new ArrayList<LandmineModel>(),new ArrayList<AtomicBombModel>()));
+        boolean expResult2 = false;
+        boolean result2 = instance.equals(temp2);
+        assertEquals(result2, expResult2);
     }
 
     /**
-     * Test of usePowerup method, of class Player.
+     * Test of update method, of class Player.
      */
     @Test
-    public void testUsePowerup() {
-        System.out.println("usePowerup");
-        player.setPowerup(new HastePowerup());
-        player.usePowerup();
-        IPowerup expResult = null;
-        IPowerup result = player.getPowerup();
-        assertEquals(expResult, result);
+    public void testUpdate() {
+        System.out.println("update");
+        float tpf = 0.0F;
+        instance.update(tpf);
+        fail("Dont know how to test this, any idea?");
     }
 }
