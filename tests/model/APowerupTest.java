@@ -4,13 +4,8 @@
  */
 package model;
 
-import model.APowerup;
-import model.IPlayer;
-import com.jme3.export.JmeExporter;
-import com.jme3.export.JmeImporter;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -135,7 +130,7 @@ public class APowerupTest {
         
         assertTrue(instance.isHeldByPlayer() == expResult);
     }
-
+    
     /**
      * Test of usePowerup method, of class APowerup.
      */
@@ -147,17 +142,16 @@ public class APowerupTest {
         
         assertTrue(instance.isHeldByPlayer() == false);
     }
-
-    public class APowerupImpl extends APowerup {
-
-        @Override
-        public void write(JmeExporter ex) throws IOException {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-
-        @Override
-        public void read(JmeImporter im) throws IOException {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
+    
+    /**
+     * Test of getMass method, of class APowerup.
+     */
+    @Test
+    public void testGetRotation() {
+        System.out.println("getRotation");
+        assertTrue(instance.getRotation().equals(Quaternion.DIRECTION_Z));
+    }
+    
+    public class APowerupImpl extends APowerup {   
     }
 }

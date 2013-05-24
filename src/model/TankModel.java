@@ -341,6 +341,14 @@ public final class TankModel implements IArmedVehicle {
     public void setMaxSpeed(float maxSpeed) {
         this.currentMaxSpeed = maxSpeed;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public float getMaxSpeed() {
+        return currentMaxSpeed;
+    }
 
     /**
      * {@inheritDoc}
