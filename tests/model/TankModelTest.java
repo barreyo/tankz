@@ -1,16 +1,16 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model;
 
-import model.IExplodingProjectile;
-import model.TankModel;
-import model.IArmedVehicle.VehicleState;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.List;
+import model.IArmedVehicle.VehicleState;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,40 +20,30 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Per
+ * @author perthoresson
  */
 public class TankModelTest {
-    TankModel instance;
     
     public TankModelTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        TankModel tank = new TankModel(new ArrayList<CanonBallModel>(),
+                new ArrayList<MissileModel>(), new ArrayList<LandmineModel>(),
+                new ArrayList<AtomicBombModel>());
     }
     
     @AfterClass
     public static void tearDownClass() {
     }
-/*    
+    
     @Before
     public void setUp() {
-        instance = new TankModel(new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>());
     }
-*/    
+    
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of getHealth method, of class TankModel.
-     */
-    @Test
-    public void testGetHealth() {
-        System.out.println("getHealth");
-        int expResult = 100;
-        int result = instance.getHealth();
-        assertEquals(expResult, result);
     }
 
     /**
@@ -71,70 +61,16 @@ public class TankModelTest {
     }
 
     /**
-     * Test of getAccelerationForce method, of class TankModel.
-     */
-    @Test
-    public void testGetAccelerationForce() {
-        System.out.println("getAccelerationForce");
-        TankModel instance = null;
-        float expResult = 0.0F;
-        float result = instance.getDefaultAccelerationForce();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getBrakeForce method, of class TankModel.
-     */
-    @Test
-    public void testGetBrakeForce() {
-        System.out.println("getBrakeForce");
-        TankModel instance = null;
-        float expResult = 0.0F;
-        float result = instance.getBrakeForce();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getSteeringValue method, of class TankModel.
-     */
-    @Test
-    public void testGetSteeringValue() {
-        System.out.println("getSteeringValue");
-        TankModel instance = null;
-        float expResult = 0.0F;
-        float result = instance.getSteeringValue();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getAccelerationValue method, of class TankModel.
-     */
-    @Test
-    public void testGetAccelerationValue() {
-        System.out.println("getAccelerationValue");
-        TankModel instance = null;
-        float expResult = 0.0F;
-        float result = instance.getAccelerationValue();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of applyDamageToKill method, of class TankModel.
      */
     @Test
-    public void testDecrementHealth() {
-        System.out.println("decrementHealth");
+    public void testApplyDamageToKill() {
+        System.out.println("applyDamageToKill");
         int hp = 0;
         TankModel instance = null;
-        instance.applyDamageToKill(hp);
+        boolean expResult = false;
+        boolean result = instance.applyDamageToKill(hp);
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -145,8 +81,9 @@ public class TankModelTest {
     @Test
     public void testShoot() {
         System.out.println("shoot");
+        IPlayer player = null;
         TankModel instance = null;
-        instance.shoot();
+        instance.shoot(player);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -157,8 +94,35 @@ public class TankModelTest {
     @Test
     public void testShootMissile() {
         System.out.println("shootMissile");
+        IPlayer player = null;
         TankModel instance = null;
-        instance.shootMissile();
+        instance.shootMissile(player);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of dropLandmine method, of class TankModel.
+     */
+    @Test
+    public void testDropLandmine() {
+        System.out.println("dropLandmine");
+        IPlayer player = null;
+        TankModel instance = null;
+        instance.dropLandmine(player);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of dropBomb method, of class TankModel.
+     */
+    @Test
+    public void testDropBomb() {
+        System.out.println("dropBomb");
+        IPlayer player = null;
+        TankModel instance = null;
+        instance.dropBomb(player);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -251,20 +215,6 @@ public class TankModelTest {
     }
 
     /**
-     * Test of getFrictionForce method, of class TankModel.
-     */
-    @Test
-    public void testGetFrictionForce() {
-        System.out.println("getFrictionForce");
-        TankModel instance = null;
-        float expResult = 0.0F;
-        float result = instance.getFrictionForce();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of updateCurrentVehicleSpeedKmHour method, of class TankModel.
      */
     @Test
@@ -278,58 +228,17 @@ public class TankModelTest {
     }
 
     /**
-     * Test of getMass method, of class TankModel.
-     */
-    @Test
-    public void testGetMass() {
-        System.out.println("getMass");
-        TankModel instance = null;
-        float expResult = 0.0F;
-        float result = instance.getMass();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of updatePosition method, of class TankModel.
-     */
-    @Test
-    public void testUpdatePosition() {
-        System.out.println("updatePosition");
-        Vector3f pos = null;
-        TankModel instance = null;
-        instance.updatePosition(pos);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getFirePosition method, of class TankModel.
-     */
-    @Test
-    public void testGetFirePosition() {
-        System.out.println("getFirePosition");
-        TankModel instance = null;
-        Vector3f expResult = null;
-        Vector3f result = instance.getFirePosition();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getExhaustPosition method, of class TankModel.
      */
     @Test
-    public void testGetSmokePosition() {
-        System.out.println("getSmokePosition");
+    public void testGetExhaustPosition() {
+        System.out.println("getExhaustPosition");
         TankModel instance = null;
         Vector3f expResult = null;
         Vector3f result = instance.getExhaustPosition();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //Dont know how to test this yet.
+        fail("Not implemented yet, dunno how");
     }
 
     /**
@@ -412,41 +321,15 @@ public class TankModelTest {
     }
 
     /**
-     * Test of setAccelerationForce method, of class TankModel.
+     * Test of getDefaultMaxSpeed method, of class TankModel.
      */
     @Test
-    public void testSetAccelerationForce() {
-        System.out.println("setAccelerationForce");
-        float accelerationForce = 0.0F;
-        TankModel instance = null;
-        instance.setAccelerationForce(accelerationForce);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getMaxSpeed method, of class TankModel.
-     */
-    @Test
-    public void testGetMaxSpeed() {
-        System.out.println("getMaxSpeed");
+    public void testGetDefaultMaxSpeed() {
+        System.out.println("getDefaultMaxSpeed");
         TankModel instance = null;
         float expResult = 0.0F;
         float result = instance.getDefaultMaxSpeed();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of gotHitBy method, of class TankModel.
-     */
-    @Test
-    public void testGotHitBy() {
-        System.out.println("gotHitBy");
-        IExplodingProjectile projectile = null;
-        TankModel instance = null;
-        instance.gotHitBy(projectile);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -518,8 +401,8 @@ public class TankModelTest {
      * Test of isShownInWorld method, of class TankModel.
      */
     @Test
-    public void testIsInWorld() {
-        System.out.println("isInWorld");
+    public void testIsShownInWorld() {
+        System.out.println("isShownInWorld");
         TankModel instance = null;
         boolean expResult = false;
         boolean result = instance.isShownInWorld();
@@ -562,6 +445,57 @@ public class TankModelTest {
         JmeImporter im = null;
         TankModel instance = null;
         instance.read(im);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toggleFlame method, of class TankModel.
+     */
+    @Test
+    public void testToggleFlame() {
+        System.out.println("toggleFlame");
+        boolean state = false;
+        TankModel instance = null;
+        instance.toggleFlame(state);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of toggleSmoke method, of class TankModel.
+     */
+    @Test
+    public void testToggleSmoke() {
+        System.out.println("toggleSmoke");
+        boolean state = false;
+        TankModel instance = null;
+        instance.toggleSmoke(state);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of heal method, of class TankModel.
+     */
+    @Test
+    public void testHeal() {
+        System.out.println("heal");
+        int heal = 0;
+        TankModel instance = null;
+        instance.heal(heal);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of hideAirCallRing method, of class TankModel.
+     */
+    @Test
+    public void testHideAirCallRing() {
+        System.out.println("hideAirCallRing");
+        TankModel instance = null;
+        instance.hideAirCallRing();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
