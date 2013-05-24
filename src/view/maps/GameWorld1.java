@@ -10,9 +10,6 @@ import com.jme3.scene.Node;
 import com.jme3.scene.Spatial;
 import com.jme3.texture.Texture;
 import com.jme3.util.SkyFactory;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import model.ITanks;
 import view.entity.EGraphics;
 import view.entity.GraphicManager;
 
@@ -23,23 +20,11 @@ import view.entity.GraphicManager;
  */
 public class GameWorld1 implements IGameWorld{
     
-    private ITanks game;
-    
     private Node mapNode;
     private Node mainScene;
     private DirectionalLight sun;
     
     private static final Vector3f LIGHT_DIR = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
-    
-    /**
-     * Instantiates the object.
-     * Creates a game map
-     * 
-     * @param game The game to be created
-     */
-    public GameWorld1(ITanks game) {
-        this.game = game;
-    }
 
     /**
      ** {@inheritDoc}
@@ -91,5 +76,10 @@ public class GameWorld1 implements IGameWorld{
     public void cleanup() {
         TanksAppAdapter.INSTANCE.detachAllRootChildren();
         TanksAppAdapter.INSTANCE.removeLightFromRootNode(sun);
+    }
+
+    @Override
+    public Node getMapNode() {
+        return mapNode;
     }
 }

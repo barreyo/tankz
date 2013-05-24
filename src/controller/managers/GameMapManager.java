@@ -10,21 +10,20 @@ import controller.TanksFactory;
 import view.maps.GameWorld2;
 import view.viewport.ViewPortManager;
 
-
 /**
  * A manager that manages the different maps of the game, singleton.
  *
  * @author Johan Backman, Daniel Bäckström, Albin Garpetun, Per Thoresson
  */
 public enum GameMapManager {
+
     /**
      * Access to an instance of this singleton.
      */
     INSTANCE;
-    
     private GameAppState currentGame;
     private int currentIntGameMap;
-    private static final int NUMBER_OF_MAPS = 2; 
+    private static final int NUMBER_OF_MAPS = 2;
 
     /**
      * Creates a manager for game maps.
@@ -35,7 +34,7 @@ public enum GameMapManager {
 
     /**
      * Returns the current map.
-     * 
+     *
      * @return current map.
      */
     public int getCurrentIntMap() {
@@ -44,7 +43,7 @@ public enum GameMapManager {
 
     /**
      * Set the current map.
-     * 
+     *
      * @param gameMap map number.
      */
     public void setCurrentIntGameMap(int gameMap) {
@@ -53,19 +52,25 @@ public enum GameMapManager {
 
     /**
      * Load a game map.
-     * 
+     *
      * @param gameMap game map number.
      */
     public GameAppState load(int gameMap) {
         switch (gameMap) {
             case 1:
-                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), 
+                        MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), 
+                        MenuAppState.getInstance().getPowerupRespawnTimeMS());
                 break;
             case 2:
-                currentGame = TanksFactory.getNewGame(GameWorld2.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());
+                currentGame = TanksFactory.getNewGame(GameWorld2.class, MenuAppState.getInstance().getPlayerNames(), 
+                        MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), 
+                        MenuAppState.getInstance().getPowerupRespawnTimeMS());
                 break;
             default:
-                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), MenuAppState.getInstance().getPowerupRespawnTimeMS());
+                currentGame = TanksFactory.getNewGame(GameWorld1.class, MenuAppState.getInstance().getPlayerNames(), 
+                        MenuAppState.getInstance().getGameTimeInMS(), MenuAppState.getInstance().getKillsToWin(), 
+                        MenuAppState.getInstance().getPowerupRespawnTimeMS());
         }
         return currentGame;
     }

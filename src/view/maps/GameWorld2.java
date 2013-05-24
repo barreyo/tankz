@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view.maps;
 
 import application.TanksAppAdapter;
@@ -11,10 +8,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Node;
-import com.jme3.scene.Spatial;
-import com.jme3.texture.Texture;
-import com.jme3.util.SkyFactory;
-import java.beans.PropertyChangeListener;
 import model.ITanks;
 import view.entity.EGraphics;
 import view.entity.GraphicManager;
@@ -25,24 +18,11 @@ import view.entity.GraphicManager;
  */
 public class GameWorld2 implements IGameWorld{
     
-        
-    private ITanks game;
-    
     private Node mapNode;
     private Node mainScene;
     private DirectionalLight sun;
     
     private static final Vector3f LIGHT_DIR = new Vector3f(-4.9236743f, -1.27054665f, 5.896916f);
-    
-    /**
-     * Instantiates the object.
-     * Creates a game map
-     * 
-     * @param game The game to be created
-     */
-    public GameWorld2(ITanks game) {
-        this.game = game;
-    }
 
     /**
      ** {@inheritDoc}
@@ -82,7 +62,9 @@ public class GameWorld2 implements IGameWorld{
         TanksAppAdapter.INSTANCE.detachAllRootChildren();
         TanksAppAdapter.INSTANCE.removeLightFromRootNode(sun);
     }
-    
-    
-    
+
+    @Override
+    public Node getMapNode() {
+        return mapNode;
+    }
 }

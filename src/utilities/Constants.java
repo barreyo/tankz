@@ -15,6 +15,9 @@ public final class Constants {
      */
     public static final String USER_DATA_MODEL = "USER_DATA_MODEL";
     
+    public static final String MAP_POWERUP_SPAWN_GEOM_NAME = "PowerupSpawn";
+    public static final String MAP_PLAYER_SPAWN_GEOM_NAME = "PlayerSpawn";
+    
     // This is physics-related information about the Tank
     /**
      * 

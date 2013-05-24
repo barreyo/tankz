@@ -382,31 +382,31 @@ public final class TanksFactory {
            new ScoreboardView(ViewPortManager.INSTANCE.getViewportForPlayer(p.getName()), players, p);
         }
 
-        // Setting spawningpoints, different on each map
-        List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-102.4f, 2f, -22.9f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(-110.0f, 2f, 111.4f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(52.9f, 2f, 108.9f)));
-        playerSpawningPoints.add(new SpawningPoint(new Vector3f(29.5f, 2f, -22.9f)));
-
-        List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(73.6f, 21, 98)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-53.3f, 2f, 54.3f)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(91.2f, 2f, 55.5f)));
-        powerupSpawningPoints.add(new SpawningPoint(new Vector3f(-234.2f, 21.8f, 13.8f)));
-
-        List<IPowerup> powerups = TanksFactory.getNewPowerups(powerupSpawningPoints, players);
-
         // Creating model and view of the game, view depending on which map it is
-        ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
         IGameWorld gameWorld = null;
         try {
-            gameWorld = worldMapClass.getDeclaredConstructor(ITanks.class).newInstance(game);
+            gameWorld = worldMapClass.newInstance();
         } catch (Exception ex) {
             Logger.getLogger(TanksFactory.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         gameWorld.load();
+        
+        // Setting spawningpoints, different on each map
+        List<ISpawningPoint> playerSpawningPoints = new ArrayList<ISpawningPoint>();
+        List<Geometry> playerPoints = Util.findGeomsThatStartWith(gameWorld.getMapNode(), Constants.MAP_PLAYER_SPAWN_GEOM_NAME);
+        for (Geometry point : playerPoints) {
+            playerSpawningPoints.add(new SpawningPoint(point.getWorldTranslation()));
+        }
+        
+        List<ISpawningPoint> powerupSpawningPoints = new ArrayList<ISpawningPoint>();
+        List<Geometry> points = Util.findGeomsThatStartWith(gameWorld.getMapNode(), Constants.MAP_POWERUP_SPAWN_GEOM_NAME);
+        for (Geometry point : points) {
+            powerupSpawningPoints.add(new SpawningPoint(point.getWorldTranslation()));
+        }
+            
+        List<IPowerup> powerups = TanksFactory.getNewPowerups(powerupSpawningPoints, players);
+        
+        ITanks game = new TanksGameModel(players, powerups, powerupSpawningPoints, playerSpawningPoints, settings);
 
         // set up timerView
         TimerView timerView = new TimerView(game);
