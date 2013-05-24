@@ -28,7 +28,7 @@ public class PlayerTest {
     @Before
     public void setUp() {
         instance = new Player("test player", new TankModel(
-            new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>(),
+            new ArrayList<CannonBallModel>(), new ArrayList<MissileModel>(),
             new ArrayList<LandmineModel>(),new ArrayList<AtomicBombModel>()));
     }
 
@@ -100,7 +100,7 @@ public class PlayerTest {
     public void testEqualsAndHashCode() {
         System.out.println("equals");
         Player temp = new Player("test player", new TankModel(
-                new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>(),
+                new ArrayList<CannonBallModel>(), new ArrayList<MissileModel>(),
                 new ArrayList<LandmineModel>(),new ArrayList<AtomicBombModel>()));
         boolean expResult = true;
         boolean result = instance.equals(temp);
@@ -113,7 +113,7 @@ public class PlayerTest {
         
         
         Player temp2 = new Player("not equal", new TankModel(
-                new ArrayList<CanonBallModel>(), new ArrayList<MissileModel>(),
+                new ArrayList<CannonBallModel>(), new ArrayList<MissileModel>(),
                 new ArrayList<LandmineModel>(),new ArrayList<AtomicBombModel>()));
         boolean expResult2 = false;
         boolean result2 = instance.equals(temp2);
