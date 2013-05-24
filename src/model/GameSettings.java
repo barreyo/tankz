@@ -29,6 +29,15 @@ public class GameSettings implements IObservable {
         this.gameEndTimeMS = gameEndTimeMS;
         this.killsToWin = killsToWin;
         this.powerupSpawningIntervallMS = powerupSpawningIntervallMS;
+        if (this.gameEndTimeMS < 0) {
+            this.gameEndTimeMS *= -1;
+        }
+        if (this.killsToWin < 0) {
+            this.killsToWin *= -1;
+        }
+        if (this.powerupSpawningIntervallMS < 0) {
+            this.powerupSpawningIntervallMS *= -1;
+        }
     }
     
     /**

@@ -14,7 +14,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Haste powerup test.
+ * 
  * @author Garpetun
  */
 public class HastePowerupTest {
@@ -22,16 +23,14 @@ public class HastePowerupTest {
     private IPlayer player;
     private IArmedVehicle vehicle;
     private HastePowerup instance;
-    private float tmpSpeed;
     private float tmpForce;
 
     @Before
     public void setUp() {
-        player = new Player("TestName", new TankModel(null,null));
+        player = new Player("TestName", new TankModel(null,null, null, null));
         vehicle = player.getVehicle();
         instance = new HastePowerup();
-        tmpSpeed = player.getVehicle().getDefaultMaxSpeed();
-        tmpForce = player.getVehicle().getDefaultAccelerationForce();
+        System.out.println(System.currentTimeMillis());
     }
     
     /**
@@ -41,13 +40,12 @@ public class HastePowerupTest {
     public void testUsePowerup() {
         System.out.println("usePowerup");
         instance.usePowerup(player);
-        
-        assertTrue(vehicle.getDefaultMaxSpeed() == tmpSpeed * 3f);
-        assertTrue(vehicle.getDefaultAccelerationForce() == tmpForce * 10f);
+        assertTrue(vehicle.getDefaultMaxSpeed() * 3f == vehicle.getMaxSpeed());
     }
 
     /**
      * Test of update method, of class HastePowerup.
+     * This test is not complete
      */
     @Test
     public void testUpdate() {
@@ -58,8 +56,9 @@ public class HastePowerupTest {
         for (int i = 0; i < 5; i++) {
             instance.update(tpf);
         }
-        
-        assertTrue(vehicle.getDefaultMaxSpeed() == tmpSpeed);
-        assertTrue(vehicle.getDefaultAccelerationForce() == tmpForce);
+        System.out.println(System.currentTimeMillis());
+        System.out.println(vehicle.getMaxSpeed());
+        System.out.println(vehicle.getDefaultMaxSpeed());
+        assertTrue(vehicle.getDefaultMaxSpeed() == vehicle.getMaxSpeed());
     }
 }

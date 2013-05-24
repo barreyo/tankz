@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 import model.AirCallPowerup;
 import model.AtomicBombModel;
 import model.BeerPowerup;
-import model.CanonBallModel;
+import model.CannonBallModel;
 import model.GameSettings;
 import model.HastePowerup;
 import model.HealthPowerup;
@@ -72,8 +72,8 @@ public final class TanksFactory {
     private TanksFactory() {
     }
 
-    private static CanonBallModel getNewCanonBall(int senderCollisionGroupMask) {
-        CanonBallModel projectileModel = new CanonBallModel();
+    private static CannonBallModel getNewCanonBall(int senderCollisionGroupMask) {
+        CannonBallModel projectileModel = new CannonBallModel();
 
         CanonBallEntity projectileEntity = new CanonBallEntity(projectileModel);
 
@@ -271,7 +271,7 @@ public final class TanksFactory {
                     : playerNumber == 3 ? PhysicsCollisionObject.COLLISION_GROUP_04
                     : PhysicsCollisionObject.COLLISION_GROUP_05);
 
-            List<CanonBallModel> canonBalls = new ArrayList<CanonBallModel>();
+            List<CannonBallModel> canonBalls = new ArrayList<CannonBallModel>();
 
             for (int i = 0; i < Constants.CANNONBALLS_PER_PLAYER; i++) {
                 canonBalls.add(getNewCanonBall(collisionGroup));

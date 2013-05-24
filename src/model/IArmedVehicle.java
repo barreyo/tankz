@@ -93,6 +93,14 @@ public interface IArmedVehicle extends IDamageableObject {
     public void setMaxSpeed(float maxSpeed);
     
     /**
+     * Returns the current max speed of the vehicle.
+     * Currently only used for testing
+     * 
+     * @return The max speed
+     */
+    public float getMaxSpeed();
+    
+    /**
      * Get the default speed of the vehicle.
      * 
      * @return speed.
