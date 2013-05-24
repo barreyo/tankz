@@ -29,7 +29,7 @@ public class TankModelTest {
     
     @BeforeClass
     public static void setUpClass() {
-        TankModel tank = new TankModel(new ArrayList<CanonBallModel>(),
+        TankModel tank = new TankModel(new ArrayList<CannonBallModel>(),
                 new ArrayList<MissileModel>(), new ArrayList<LandmineModel>(),
                 new ArrayList<AtomicBombModel>());
     }
