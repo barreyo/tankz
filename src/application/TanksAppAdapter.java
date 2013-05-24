@@ -468,8 +468,24 @@ public enum TanksAppAdapter {
     public List<Spatial> getGuiChildren() {
         return new ArrayList<Spatial>(tanksApp.getGuiNode().getChildren());
     }
-
+    
+    /**
+     * Toggle Tankz game in or out of fullscreen mode.
+     */
+    public void toggleFullscreen(boolean bool) {
+        tanksApp.toggleFullscreen(bool);
+    }
+    
     public void enableDebug() {
         tanksApp.getBulletAppState().setDebugEnabled(true);
+    }
+
+    /**
+     * Return if the game is in fullscreen or not.
+     * 
+     * @return if in fullscreen true, otherwise false.
+     */
+    public boolean isFullscreen() {
+        return tanksApp.getSettings().isFullscreen();
     }
 }

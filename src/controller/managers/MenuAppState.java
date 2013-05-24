@@ -29,10 +29,11 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     
     private Nifty nifty;
     private Element currentElement, musicToggle, fxToggle, killsToWinElement, 
-            gameTimeElement, powerupRespawnElement;
+            gameTimeElement, powerupRespawnElement, fullscreenToggle;
     private SoundHandle sound;
     
     private int killsToWin, gameTimeMinutes, powerupRespawnSeconds, playerCount;
+    private boolean fullscreen;
     
     private final List<String> playerNames = new ArrayList<String>();
 
@@ -47,6 +48,8 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
 
         sound = nifty.getSoundSystem().getSound("hooverSound");
         sound.setVolume(1.0f);
+        
+        fullscreen = TanksAppAdapter.INSTANCE.isFullscreen();
         
         killsToWin = 0;
         gameTimeMinutes = 5;
@@ -84,6 +87,7 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         killsToWinElement = nifty.getScreen("gameSettings").findElementByName("main_killsToWin");
         gameTimeElement = nifty.getScreen("gameSettings").findElementByName("main_time");
         powerupRespawnElement = nifty.getScreen("gameSettings").findElementByName("main_powerupRespawn");
+        fullscreenToggle = nifty.getScreen("settings").findElementByName("main_fullscreen_toggle");
     }
 
     /**
@@ -155,6 +159,16 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
     }
     
     /**
+     * Toggle fullscreen on/off.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
+    public void fullscreenToggle() {
+        TanksAppAdapter.INSTANCE.toggleFullscreen(fullscreen);
+        updateSettingsOptions();
+    }
+    
+    /**
      * Hover effects for menu items.
      * 
      * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
@@ -220,6 +234,11 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
             fxToggle.getRenderer(TextRenderer.class).setText("SOUND EFFECTS OFF");
         } else {
             fxToggle.getRenderer(TextRenderer.class).setText("SOUND EFFECTS ON");
+        }
+        if (fullscreen) {
+            fullscreenToggle.getRenderer(TextRenderer.class).setText("FULLSCREEN ON");
+        } else {
+            fullscreenToggle.getRenderer(TextRenderer.class).setText("FULLSCREEN OFF");
         }
     }
     
@@ -310,8 +329,13 @@ public class MenuAppState extends AbstractAppState implements ScreenController {
         goToGameSettingsMenu();
     }
     
+    /**
+     * Start the game with menu settings.
+     * 
+     * NOTE: Used by the Nifty screen. Shouldn't be used anywhere else.
+     */
     public void startGame() {
-        for (int i = 0; i < playerCount; i++) {
+        for (int i = 1; i <= playerCount; i++) {
             playerNames.add("Player " + i);
         }
         GUIManager.INSTANCE.showLoadingScreen();

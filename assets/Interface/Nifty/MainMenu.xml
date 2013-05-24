@@ -123,11 +123,17 @@
                 <control id="spacer" name ="label"  style="main" text="                 ">
                     <interact onClick="" />
               </control>
+                <control id="spacer" name ="label"  style="main" text="                 ">
+                    <interact onClick="" />
+              </control>
                 <control id="main_music_toggle" name ="label"  style="main" text="MUSIC ON">
                     <interact onClick="toggleMusic()" />
                 </control>
                 <control id="main_fx_toggle" name ="label"  style="main" text="SOUND EFFECTS ON">
                     <interact onClick="toggleFX()" />
+                </control>
+                <control id="main_fullscreen_toggle" name ="label"  style="main" text="FULLSCREEN OFF">
+                    <interact onClick="fullscreenToggle()" />
                 </control>
                 <control id="main_settings_back" name ="label" style="main" text="BACK">
                     <interact onClick="goToMainMenu()"/>
