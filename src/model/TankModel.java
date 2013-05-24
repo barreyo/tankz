@@ -45,7 +45,7 @@ public final class TankModel implements IArmedVehicle {
     private final float backMaxSpeed;
     private float shootDelay;
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
-    private final List<CanonBallModel> canonBalls;
+    private final List<CannonBallModel> canonBalls;
     private final List<MissileModel> missiles;
     private final List<LandmineModel> landmines;
     private final List<AtomicBombModel> bombs;
@@ -58,7 +58,7 @@ public final class TankModel implements IArmedVehicle {
      * @param landmines list of landmines.
      * @param bombs lines of bombs.
      */
-    public TankModel(List<CanonBallModel> canonBalls,
+    public TankModel(List<CannonBallModel> canonBalls,
             List<MissileModel> missiles, List<LandmineModel> landmines,
             List<AtomicBombModel> bombs) {
         paused = false;
@@ -121,7 +121,7 @@ public final class TankModel implements IArmedVehicle {
         if (shootDelay <= 0) {
             //Can only shoot once every half second
             shootDelay = 0.5f;
-            for (CanonBallModel canonBall : canonBalls) {
+            for (CannonBallModel canonBall : canonBalls) {
                 if (!canonBall.isShownInWorld()) {
                     canonBall.launchProjectile(getFirePosition(),
                             direction.mult(200), rotation, player);

@@ -5,12 +5,12 @@ package model;
  * 
  * @author Albin Garpetun, Daniel Bäckström, Johan Backman, Per Thoresson
  */
-public final class CanonBallModel extends AExplodingProjectile { 
+public final class CannonBallModel extends AExplodingProjectile { 
     
     /**
      * Creates a cannonball.
      */
-    public CanonBallModel() {
+    public CannonBallModel() {
         super(0.1f, 10, 2000, 5000);
     }
 }
