@@ -2,7 +2,6 @@ package view.entity;
 
 import application.TanksAppAdapter;
 import com.jme3.scene.Spatial;
-import controller.managers.PreloadManager;
 import java.util.EnumMap;
 
 /**
@@ -36,7 +35,7 @@ public enum GraphicManager {
     private void loadGraphics(EGraphics[] graphics) {
         for (EGraphics graphic : graphics) {
             Spatial s = createSpatial(graphic);
-            PreloadManager.INSTANCE.preload(s);
+            TanksAppAdapter.INSTANCE.preloadSpatial(s);
             graphicMap.put(graphic, s);
         }
     }

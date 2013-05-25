@@ -1,7 +1,7 @@
 package view.effects;
 
+import application.TanksAppAdapter;
 import com.jme3.effect.ParticleEmitter;
-import controller.managers.PreloadManager;
 import java.util.Collection;
 import java.util.EnumMap;
 import view.viewport.EViewPorts;
@@ -32,7 +32,7 @@ public enum EffectsManager {
         for (EViewPorts view : views) {
             for (EEffects effect : effects) {
                 for (ParticleEmitter emitter : effect.getEmitters()) {
-                    PreloadManager.INSTANCE.preload(emitter, view.getViewPort());
+                    emitter.preload(TanksAppAdapter.INSTANCE.getRenderManager(), view.getViewPort());
                 }
                 effectsMap.put(effect, effect.getEmitters());
             }
