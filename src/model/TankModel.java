@@ -23,7 +23,7 @@ public final class TankModel implements IArmedVehicle {
     private boolean firstFlameDisabling;
     private boolean smokeIsShowing;
     private boolean firstSmokeDisabling;
-    private boolean paused;
+    private boolean enabled;
     private int health;
     private final int maxHealth;
     private IArmedVehicle.VehicleState vehicleState;
@@ -61,7 +61,7 @@ public final class TankModel implements IArmedVehicle {
     public TankModel(List<CannonBallModel> canonBalls,
             List<MissileModel> missiles, List<LandmineModel> landmines,
             List<AtomicBombModel> bombs) {
-        paused = false;
+        enabled = false;
         firstFlameDisabling = false;
         firstSmokeDisabling = true;
         this.smokeIsShowing = true;
@@ -401,6 +401,7 @@ public final class TankModel implements IArmedVehicle {
         vehicleState = VehicleState.ALIVE;
         boolean wasInWorld = isInWorld;
         isInWorld = true;
+        enabled = true;
         pcs.firePropertyChange(Commands.SHOW, wasInWorld, isInWorld);
     }
 
@@ -508,5 +509,20 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void hideAirCallRing() {
         pcs.firePropertyChange(Commands.HIDE_AIRCALL, null, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */    
+    @Override
+    public void setEnabled(boolean bool) {
+        boolean oldValue = enabled;
+        enabled = bool;
+        pcs.firePropertyChange(Commands.ENABLE, oldValue, enabled);
+        steeringValue = 0;
+        pcs.firePropertyChange(Commands.STEER, null, steeringValue);
+        accelerationValue = 0;
+        pcs.firePropertyChange(Commands.ACCELERATE, null, accelerationValue);
+        acceleration = 0;
     }
 }

@@ -167,6 +167,13 @@ public interface IArmedVehicle extends IDamageableObject {
     public void dropBomb(IPlayer player);
 
     /**
+     * Sets enabling of the vehicle.
+     * 
+     * @param bool a boolean enabling.
+     */
+    public void setEnabled(boolean bool);
+
+    /**
      * Enum representing different states of the vehicle.
      */
     public enum VehicleState {
