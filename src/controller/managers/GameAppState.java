@@ -61,9 +61,9 @@ public class GameAppState extends AbstractAppState implements PhysicsCollisionLi
             SoundManager.INSTANCE.play(ESounds.GAMEMUSIC_1);
         }
   
-        for (IHudElement element : gui) {
+        /*for (IHudElement element : gui) {
             element.show();
-        }
+        }*/
 
         gameModel.startGame();
         TanksAppAdapter.INSTANCE.addPhysiscsCollisionListener(this);

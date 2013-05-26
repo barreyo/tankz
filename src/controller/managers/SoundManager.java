@@ -4,6 +4,7 @@ import application.TanksAppAdapter;
 import com.jme3.audio.AudioNode;
 import com.jme3.audio.AudioSource;
 import java.util.EnumMap;
+import model.EApplicationState;
 import view.sounds.ESounds;
 
 /**
@@ -164,8 +165,12 @@ public enum SoundManager {
      */
     public void toggleMusic() {
         muteMusic = !muteMusic;
-        togglePlayPause(ESounds.MENU_SOUND);
-        togglePlayPause(ESounds.GAMEMUSIC_1);
+        if (EApplicationState.getGameState() == EApplicationState.MAIN_MENU) {
+            togglePlayPause(ESounds.MENU_SOUND);
+        }
+        if (EApplicationState.getGameState() == EApplicationState.RUNNING) {
+            togglePlayPause(ESounds.GAMEMUSIC_1);
+        }
     }
     
     /**

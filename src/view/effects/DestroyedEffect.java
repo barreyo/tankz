@@ -139,7 +139,6 @@ public class DestroyedEffect implements IEffect {
         mat.setTexture("Texture", assetManager.loadTexture("Effects/Explosion/spark.png"));
         spark.setMaterial(mat);
         emitters.add(spark);
-        
     }
     
     private void createSmokeTrail(AssetManager assetManager) {
