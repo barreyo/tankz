@@ -137,4 +137,9 @@ public final class Commands {
      * Hide air call AoE indicator.
      */
     public static final String HIDE_AIRCALL = "HIDE_AIRCALL";
+    
+    /**
+     * Used to enable/disable tank when pausing.
+     */
+    public static final String ENABLE = "ENABLE";
 } 

@@ -91,6 +91,9 @@ public class TanksGameModel implements ITanks {
     @Override
     public void pauseGame() {
         pauseTimeStart = System.currentTimeMillis();
+        for (IPlayer player : players) {
+            player.getVehicle().setEnabled(false);
+        }
     }
 
     /**
@@ -103,6 +106,9 @@ public class TanksGameModel implements ITanks {
         gameTimerStart += pausedTime;
         secondTimerStart += pausedTime;
         powerupSpawningTimerStart += pausedTime;
+        for (IPlayer player : players) {
+            player.getVehicle().setEnabled(true);
+        }
     }
 
     /**
