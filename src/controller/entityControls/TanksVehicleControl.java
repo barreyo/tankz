@@ -297,7 +297,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
             } else if (command.equals(Commands.CLEANUP)) {
                 this.cleanup();
             } else if (command.equals(Commands.ENABLE)) {
-                if (!(boolean)evt.getNewValue()) {
+                if (!(Boolean)evt.getNewValue()) {
                     isFirstLeftKeyPressDone = false;
                     isFirstRightKeyPressDone = false;
                     isFirstUpKeyPressDone = false;
