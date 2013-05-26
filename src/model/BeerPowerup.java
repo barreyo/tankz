@@ -77,9 +77,6 @@ public class BeerPowerup extends APowerup {
                     for (IPlayer p : targets) {
                         p.getVehicle().resetSpeedValues();
                     }
-                    targets = null;
-                    players = null;
-                    player = null;
                     isHeldByPlayer = false;
                 }
                 
@@ -98,7 +95,6 @@ public class BeerPowerup extends APowerup {
                 if (System.currentTimeMillis() - activateTimerStart >= END_TIME) {
                     isActive = false;
                     vehicle.resetSpeedValues();
-                    player = null;
                     isHeldByPlayer = false;
                 }
             }
