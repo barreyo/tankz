@@ -167,7 +167,9 @@ public interface IArmedVehicle extends IDamageableObject {
     public void dropBomb(IPlayer player);
 
     /**
-     * Disables the vehicle.
+     * Sets enabling of the vehicle.
+     * 
+     * @param bool a boolean enabling.
      */
     public void setEnabled(boolean bool);
 

@@ -511,6 +511,9 @@ public final class TankModel implements IArmedVehicle {
         pcs.firePropertyChange(Commands.HIDE_AIRCALL, null, null);
     }
 
+    /**
+     * {@inheritDoc}
+     */    
     @Override
     public void setEnabled(boolean bool) {
         boolean oldValue = enabled;
