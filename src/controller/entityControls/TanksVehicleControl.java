@@ -83,10 +83,7 @@ public class TanksVehicleControl extends VehicleControl implements ActionListene
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void cleanup() {
+    private void cleanup() {
         // Remove this as a control and remove inputs
         tankEntity.removeControl(this);
         tankEntity.removeObserver(this);

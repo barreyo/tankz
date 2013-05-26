@@ -122,8 +122,18 @@ public class HomingProjectileControl extends AbstractControl implements PhysicsC
             } else if (command.equals(Commands.HIDE)) {
                 physicsControl.setEnabled(false);
                 aggroGhost.setEnabled(false);
+            } else if (command.equals(Commands.CLEANUP)) {
+                cleanup();
             }
         }
+    }
+    
+    private void cleanup() {
+        // Remove this as a control
+        entity.removeControl(physicsControl);
+        entity.removeControl(this);
+        entity.removeControl(aggroGhost);
+        entity.removeObserver(this);
     }
 
     /**

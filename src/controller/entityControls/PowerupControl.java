@@ -55,7 +55,16 @@ public class PowerupControl extends AbstractControl implements PhysicsCollisionL
     public synchronized void propertyChange(PropertyChangeEvent pce) {
         if (pce.getSource() == powerupModel && pce.getPropertyName().equals(Commands.SHOW)) {
             physicsControl.setEnabled(true);
+        } else if (pce.getSource() == powerupModel && pce.getPropertyName().equals(Commands.CLEANUP)) {
+            cleanup();
         }
+    }
+    
+    private void cleanup() {
+        // Remove this as a control
+        powerupEntity.removeControl(this);
+        powerupEntity.removeControl(physicsControl);
+        powerupEntity.removeObserver(this);
     }
 
     /**

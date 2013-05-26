@@ -160,6 +160,9 @@ public final class TankModel implements IArmedVehicle {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dropBomb(IPlayer player) {
         Vector3f launchOrigin = position.add(direction.normalize().mult(50));
@@ -364,6 +367,18 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void cleanup() {
         pcs.firePropertyChange(Commands.CLEANUP, null, null);
+        for(CannonBallModel ball : canonBalls)  {
+            ball.cleanup();
+        }
+        for(LandmineModel mine : landmines)  {
+            mine.cleanup();
+        }
+        for(AtomicBombModel bomb : bombs)  {
+            bomb.cleanup();
+        }
+        for(MissileModel missile : missiles) {
+            missile.cleanup();
+        }
     }
 
     /**
@@ -372,7 +387,7 @@ public final class TankModel implements IArmedVehicle {
     @Override
     public void setPosition(Vector3f position) {
         this.position = new Vector3f(position);
-        pcs.firePropertyChange(Commands.AIRCALL, null, null); // NEEDS TO TBE CHANGED
+        pcs.firePropertyChange(Commands.AIRCALL, null, null); // NEEDS TO TBE CHANGED?????
     }
 
     /**

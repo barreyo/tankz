@@ -127,8 +127,17 @@ public class LandmineControl extends AbstractControl implements PhysicsCollision
                 physicsControl.setEnabled(true);
             } else if (command.equals(Commands.HIDE)) {
                 physicsControl.setEnabled(false);
+            } else if (command.equals(Commands.CLEANUP)) {
+                cleanup();
             }
         }
+    }
+    
+     private void cleanup() {
+        // Remove this as a control
+        entity.removeControl(this);
+        entity.removeControl(physicsControl);
+        entity.removeObserver(this);
     }
     
 }

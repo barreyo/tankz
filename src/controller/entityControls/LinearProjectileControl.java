@@ -67,8 +67,17 @@ public class LinearProjectileControl extends AbstractControl implements PhysicsC
                 physicsControl.setLinearVelocity(new Vector3f(projectileModel.getLinearVelocity()));
             } else if (command.equals(Commands.HIDE)) {
                 physicsControl.setEnabled(false);
+            } else if (command.equals(Commands.CLEANUP)) {
+                cleanup();
             }
         }
+    }
+    
+    private void cleanup() {
+        // Remove this as a control
+        entity.removeControl(this);
+        entity.removeControl(physicsControl);
+        entity.removeObserver(this);
     }
 
     /**
