@@ -35,9 +35,8 @@ public enum ESounds {
     /**
      * The music played ingame.
      * 
-     * Song number one
      */
-    GAMEMUSIC_1("ItsLikeThat.ogg", true, 0.4f);
+    GAMEMUSIC_1("BackgroundMusic.ogg", true, 0.4f);
     
     private final String path;
     private final boolean music;
