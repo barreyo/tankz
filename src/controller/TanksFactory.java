@@ -174,9 +174,7 @@ public final class TanksFactory {
             tmp.add(getNewPowerup(LandminePowerup.class));
             tmp.add(getNewBeerPowerup(players));
             tmp.add(getNewPowerup(HealthPowerup.class));
-            if (i % 2 == 0) {
-                tmp.add(getNewPowerup(AirCallPowerup.class));
-            }
+            tmp.add(getNewPowerup(AirCallPowerup.class));
         }
         return tmp;
     }
